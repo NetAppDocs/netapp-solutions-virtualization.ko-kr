@@ -1,0 +1,446 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-nfs-otv10.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
+summary:  
+---
+= ONTAP tools for VMware vSphere 사용하여 vSphere 8에 대한 NFS 데이터 저장소 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP tools for VMware vSphere 배포하여 vSphere 8 환경에서 NFS 데이터 저장소를 구성합니다.  이 절차에는 NFS 트래픽을 위한 SVM 및 LIF 생성, ESXi 호스트 네트워킹 설정, vSphere 클러스터에 ONTAP 도구 등록이 포함됩니다.
+
+ONTAP tools for VMware vSphere VASA 공급자(iSCSI 및 NFS vVols 지원)에 대한 기본적인 고가용성 및 확장성을 구현하는 차세대 아키텍처를 갖추고 있습니다.  이를 통해 여러 VMware vCenter 서버와 ONTAP 클러스터의 관리가 간소화됩니다.
+
+이 시나리오에서는 ONTAP tools for VMware vSphere 배포하고 사용하는 방법과 vSphere 8에 NFS 데이터스토어를 구성하는 방법을 보여드리겠습니다.
+
+
+
+== 솔루션 개요
+
+이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
+
+* NFS 트래픽을 위한 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 만듭니다.
+* vSphere 8 클러스터에서 NFS 네트워크에 대한 분산 포트 그룹을 만듭니다.
+* vSphere 8 클러스터의 ESXi 호스트에서 NFS용 vmkernel 어댑터를 생성합니다.
+* ONTAP 도구 10을 배포하고 vSphere 8 클러스터에 등록합니다.
+* vSphere 8 클러스터에 새로운 NFS 데이터스토어를 만듭니다.
+
+
+
+
+== 아키텍처
+
+다음 다이어그램은 ONTAP tools for VMware vSphere 의 아키텍처 구성 요소를 보여줍니다.
+
+image:vmware-nfs-otv10-029.png["otv10 아키텍처"]
+
+
+
+== 필수 조건
+
+이 솔루션에는 다음과 같은 구성 요소와 구성이 필요합니다.
+
+* 스토리지 트래픽에 전용된 이더넷 스위치의 물리적 데이터 포트를 갖춘 ONTAP AFF 스토리지 시스템입니다.
+* vSphere 8 클러스터 배포가 완료되었으며 vSphere 클라이언트에 액세스할 수 있습니다.
+* ONTAP tools for VMware vSphere NetApp 지원 사이트에서 다운로드되었습니다.
+
+
+NetApp 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 내결함성을 제공하는 NFS에 대한 중복 네트워크 설계를 권장합니다.  아키텍처 요구 사항에 따라 단일 서브넷이나 여러 서브넷으로 NFS를 배포하는 것이 일반적입니다.
+
+참조하다 https://www.vmware.com/docs/vmw-best-practices-running-nfs-vmware-vsphere["VMware vSphere를 사용하여 NFS를 실행하기 위한 모범 사례"] VMware vSphere에 대한 자세한 정보는 다음을 참조하세요.
+
+VMware vSphere와 함께 ONTAP 사용하는 것에 대한 네트워크 지침은 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-network.html#nfs["네트워크 구성 - NFS"] NetApp 엔터프라이즈 애플리케이션 설명서의 섹션입니다.
+
+포괄적인 ONTAP 도구 10가지 리소스를 찾을 수 있습니다. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/index.html["ONTAP tools for VMware vSphere 문서 리소스"] .
+
+
+
+== 배포 단계
+
+ONTAP 도구 10을 배포하고 이를 사용하여 VCF 관리 도메인에 NFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
+
+
+
+=== ONTAP 스토리지 시스템에 SVM 및 LIF 생성
+
+다음 단계는 ONTAP 시스템 관리자에서 수행됩니다.
+
+.스토리지 VM 및 LIF 생성
+[%collapsible%open]
+====
+NFS 트래픽을 위한 여러 LIF와 함께 SVM을 생성하려면 다음 단계를 완료하세요.
+
+. ONTAP System Manager에서 왼쪽 메뉴의 *Storage VMs*로 이동한 다음 *+ 추가*를 클릭하여 시작합니다.
++
+image:vmware-vcf-asa-001.png["SVM 생성을 시작하려면 +추가를 클릭하세요."]
+
++
+{nbsp}
+
+. *스토리지 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *SMB/CIFS, NFS, S3* 탭을 클릭하고 *NFS 사용* 확인란을 선택합니다.
++
+image:vmware-vcf-aff-035.png["스토리지 VM 마법사 추가 - NFS 활성화"]
+
++
+
+TIP: 여기에서는 *NFS 클라이언트 액세스 허용* 버튼을 선택할 필요가 없습니다. VMware vSphere용 Ontap 도구를 사용하여 데이터 저장소 배포 프로세스를 자동화합니다.  여기에는 ESXi 호스트에 대한 클라이언트 액세스를 제공하는 것이 포함됩니다.  &#160;
+
+. *네트워크 인터페이스* 섹션에 첫 번째 LIF에 대한 *IP 주소*, *서브넷 마스크*, *브로드캐스트 도메인 및 포트*를 입력합니다.  이후 LIF의 경우 확인란을 활성화하여 나머지 모든 LIF에서 공통 설정을 사용하거나 별도의 설정을 사용할 수 있습니다.
++
+image:vmware-vcf-aff-036.png["LIF에 대한 네트워크 정보를 작성하세요"]
+
++
+{nbsp}
+
+. 스토리지 VM 관리 계정(멀티 테넌시 환경의 경우)을 활성화할지 여부를 선택하고 *저장*을 클릭하여 SVM을 생성합니다.
++
+image:vmware-vcf-asa-004.png["SVM 계정 활성화 및 완료"]
+
+
+
+====
+
+
+=== ESXi 호스트에서 NFS에 대한 네트워킹 설정
+
+다음 단계는 vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터에서 수행됩니다.  이 경우 vCenter Single Sign-On이 사용되므로 vSphere 클라이언트는 관리 및 워크로드 도메인에서 공통적입니다.
+
+.NFS 트래픽을 위한 분산 포트 그룹 생성
+[%collapsible%open]
+====
+네트워크에서 NFS 트래픽을 전송할 새로운 분산 포트 그룹을 만들려면 다음을 완료하세요.
+
+. vSphere 클라이언트에서 워크로드 도메인에 대한 *인벤토리 > 네트워킹*으로 이동합니다.  기존 분산 스위치로 이동하여 *새 분산 포트 그룹...*을 만드는 작업을 선택합니다.
++
+image:vmware-nfs-otv10-001.png["새 포트 그룹을 생성하도록 선택하세요"]
+
++
+{nbsp}
+
+. *새 분산 포트 그룹* 마법사에서 새 포트 그룹의 이름을 입력하고 *다음*을 클릭하여 계속합니다.
+. *설정 구성* 페이지에서 모든 설정을 작성하세요.  VLAN을 사용하는 경우 올바른 VLAN ID를 제공해야 합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-vcf-asa-023.png["VLAN ID를 작성하세요"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 변경 사항을 검토하고 *마침*을 클릭하여 새 분산 포트 그룹을 만듭니다.
+. 포트 그룹이 생성되면 포트 그룹으로 이동하여 *설정 편집...* 작업을 선택합니다.
++
+image:vmware-vcf-aff-037.png["DPG - 설정 편집"]
+
++
+{nbsp}
+
+. *분산 포트 그룹 - 설정 편집* 페이지에서 왼쪽 메뉴의 *팀 구성 및 장애 조치*로 이동합니다.  NFS 트래픽에 사용할 업링크의 티밍을 활성화하려면 *활성 업링크* 영역에 함께 있어야 합니다.  사용하지 않는 업링크를 *사용하지 않는 업링크*로 옮깁니다.
++
+image:vmware-nfs-otv10-002.png["DPG - 팀 업링크"]
+
++
+{nbsp}
+
+. 클러스터의 각 ESXi 호스트에 대해 이 프로세스를 반복합니다.
+
+
+====
+.각 ESXi 호스트에 VMkernel 어댑터를 만듭니다.
+[%collapsible%open]
+====
+워크로드 도메인의 각 ESXi 호스트에서 이 프로세스를 반복합니다.
+
+. vSphere 클라이언트에서 워크로드 도메인 인벤토리의 ESXi 호스트 중 하나로 이동합니다.  *구성* 탭에서 *VMkernel 어댑터*를 선택하고 *네트워킹 추가...*를 클릭하여 시작합니다.
++
+image:vmware-nfs-otv10-003.png["네트워킹 추가 마법사 시작"]
+
++
+{nbsp}
+
+. *연결 유형 선택* 창에서 *VMkernel 네트워크 어댑터*를 선택하고 *다음*을 클릭하여 계속합니다.
++
+image:vmware-vcf-asa-008.png["VMkernel 네트워크 어댑터 선택"]
+
++
+{nbsp}
+
+. *대상 장치 선택* 페이지에서 이전에 생성한 NFS용 분산 포트 그룹 중 하나를 선택합니다.
++
+image:vmware-nfs-otv10-004.png["대상 포트 그룹을 선택하세요"]
+
++
+{nbsp}
+
+. *포트 속성* 페이지에서 기본값(활성화된 서비스 없음)을 유지하고 *다음*을 클릭하여 계속합니다.
+. *IPv4 설정* 페이지에서 *IP 주소*, *서브넷 마스크*를 입력하고 새로운 게이트웨이 IP 주소를 입력합니다(필요한 경우에만). 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-otv10-005.png["VMkernel IPv4 설정"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 선택 사항을 검토하고 *마침*을 클릭하여 VMkernel 어댑터를 만듭니다.
++
+image:vmware-nfs-otv10-006.png["VMkernel 선택 검토"]
+
+
+
+====
+
+
+=== ONTAP 도구 10을 배포하고 사용하여 스토리지를 구성합니다.
+
+다음 단계는 vSphere 클라이언트를 사용하여 vSphere 8 클러스터에서 수행되며 여기에는 OTV 배포, ONTAP 도구 관리자 구성, vVols NFS 데이터스토어 생성이 포함됩니다.
+
+ONTAP tools for VMware vSphere 배포 및 사용에 대한 전체 설명서는 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["ONTAP tools for VMware vSphere 배포"] .
+
+.ONTAP tools for VMware vSphere 배포
+[%collapsible%open]
+====
+ONTAP tools for VMware vSphere VM 어플라이언스로 배포되며 ONTAP 스토리지를 관리하기 위한 통합 vCenter UI를 제공합니다.  ONTAP 도구 10은 여러 vCenter 서버와 ONTAP 스토리지 백엔드에 대한 연결을 관리하기 위한 새로운 글로벌 관리 포털을 제공합니다.
+
+
+NOTE: HA가 아닌 배포 시나리오에서는 사용 가능한 IP 주소가 3개 필요합니다.  한 IP 주소는 로드 밸런서에 할당되고, 다른 하나는 Kubernetes 제어 평면에 할당되며, 나머지 하나는 노드에 할당됩니다.  HA 배포에서는 처음 세 개 외에 두 번째와 세 번째 노드에 두 개의 추가 IP 주소가 필요합니다.  할당하기 전에 호스트 이름을 DNS의 IP 주소와 연결해야 합니다.  배포를 위해 선택된 동일한 VLAN에 5개의 IP 주소가 모두 있는 것이 중요합니다.
+
+ONTAP tools for VMware vSphere 배포하려면 다음을 완료하세요.
+
+. ONTAP 도구 OVA 이미지를 가져옵니다.link:https://mysupport.netapp.com/site/products/all/details/otv10/downloads-tab["NetApp 지원 사이트"] 로컬 폴더로 다운로드합니다.
+. vSphere 8 클러스터의 vCenter 어플라이언스에 로그인합니다.
+. vCenter 어플라이언스 인터페이스에서 관리 클러스터를 마우스 오른쪽 버튼으로 클릭하고 *OVF 템플릿 배포…*를 선택합니다.
++
+image:vmware-nfs-otv10-007.png["OVF 템플릿 배포..."]
+
++
+{nbsp}
+
+. *OVF 템플릿 배포* 마법사에서 *로컬 파일* 라디오 버튼을 클릭하고 이전 단계에서 다운로드한 ONTAP 도구 OVA 파일을 선택합니다.
++
+image:vmware-vcf-aff-022.png["OVA 파일 선택"]
+
++
+{nbsp}
+
+. 마법사의 2~5단계에서는 VM의 이름과 폴더를 선택하고, 컴퓨팅 리소스를 선택하고, 세부 정보를 검토한 다음 라이선스 계약에 동의합니다.
+. 구성 및 디스크 파일의 저장 위치로 로컬 데이터 저장소나 vSAN 데이터 저장소를 선택하세요.
++
+image:vmware-nfs-otv10-008.png["OVA 파일 선택"]
+
++
+{nbsp}
+
+. 네트워크 선택 페이지에서 관리 트래픽에 사용되는 네트워크를 선택합니다.
++
+image:vmware-nfs-otv10-009.png["네트워크 선택"]
+
++
+{nbsp}
+
+. 구성 페이지에서 사용할 배포 구성을 선택합니다.  이 시나리오에서는 간편한 배포 방법이 사용됩니다.
++
+
+NOTE: ONTAP Tools 10은 여러 노드를 사용한 고가용성 배포를 포함한 다양한 배포 구성을 제공합니다.  모든 배포 구성 및 필수 구성 요소에 대한 설명서는 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/prerequisites.html["ONTAP tools for VMware vSphere 배포를 위한 필수 구성 요소"] .
+
++
+image:vmware-nfs-otv10-010.png["네트워크 선택"]
+
++
+{nbsp}
+
+. 사용자 정의 템플릿 페이지에서 필요한 모든 정보를 입력하세요.
++
+** vCenter Server에서 VASA 공급자와 SRA를 등록하는 데 사용되는 애플리케이션 사용자 이름입니다.
+** 자동화된 지원을 위해 ASUP를 활성화하세요.
+** 필요한 경우 ASUP 프록시 URL입니다.
+** 관리자 사용자 이름과 비밀번호.
+** NTP 서버.
+** 콘솔에서 관리 기능에 액세스하기 위한 유지 관리 사용자 비밀번호입니다.
+** 로드 밸런서 IP.
+** K8s 제어 평면을 위한 가상 IP.
+** 기본 VM을 선택하면 현재 VM을 기본 VM으로 선택합니다(HA 구성의 경우).
+** VM의 호스트 이름
+** 필수 네트워크 속성 필드를 제공하세요.
++
+계속하려면 *다음*을 클릭하세요.
+
++
+image:vmware-nfs-otv10-011.png["OTV 템플릿 사용자 정의 1"]
+
++
+image:vmware-nfs-otv10-012.png["OTV 템플릿 사용자 정의 2"]
+
++
+{nbsp}
+
+
+
+. 완료 준비 페이지에서 모든 정보를 검토하고 마침을 클릭하여 ONTAP 도구 어플라이언스 배포를 시작합니다.
+
+
+====
+.ONTAP 도구 10에 스토리지 백엔드와 vCenter Server 연결
+[%collapsible%open]
+====
+ONTAP 도구 관리자는 ONTAP 도구 10에 대한 글로벌 설정을 구성하는 데 사용됩니다.
+
+. ONTAP 도구 관리자에 액세스하려면 다음을 탐색하세요. `https://<loadBalanceIP>:8443/virtualization/ui/` 웹 브라우저에서 로그인하고 배포 중에 제공된 관리 자격 증명을 사용하여 로그인합니다.
++
+image:vmware-nfs-otv10-013.png["ONTAP 도구 관리자"]
+
++
+{nbsp}
+
+. *시작하기* 페이지에서 *스토리지 백엔드로 이동*을 클릭합니다.
++
+image:vmware-nfs-otv10-014.png["시작하기"]
+
++
+{nbsp}
+
+. *스토리지 백엔드* 페이지에서 *추가*를 클릭하여 ONTAP 도구 10에 등록할 ONTAP 스토리지 시스템의 자격 증명을 입력합니다.
++
+image:vmware-nfs-otv10-015.png["스토리지 백엔드 추가"]
+
++
+{nbsp}
+
+. *스토리지 백엔드 추가* 상자에서 ONTAP 스토리지 시스템의 자격 증명을 입력합니다.
++
+image:vmware-nfs-otv10-016.png["스토리지 백엔드 추가"]
+
++
+{nbsp}
+
+. 왼쪽 메뉴에서 *vCenters*를 클릭한 다음 *ADD*를 클릭하여 ONTAP 도구 10에 등록할 vCenter 서버의 자격 증명을 입력합니다.
++
+image:vmware-nfs-otv10-017.png["vCenter 서버 추가"]
+
++
+{nbsp}
+
+. *vCenter 추가* 상자에서 ONTAP 스토리지 시스템의 자격 증명을 입력합니다.
++
+image:vmware-nfs-otv10-018.png["저장소 저장소 자격 증명 추가"]
+
++
+{nbsp}
+
+. 새로 검색된 vCenter 서버의 세로 3개 점 메뉴에서 *스토리지 백엔드 연결*을 선택합니다.
++
+image:vmware-nfs-otv10-019.png["스토리지 백엔드 연결"]
+
++
+{nbsp}
+
+. *스토리지 백엔드 연결* 상자에서 vCenter 서버와 연결할 ONTAP 스토리지 시스템을 선택하고 *연결*을 클릭하여 작업을 완료합니다.
++
+image:vmware-nfs-otv10-020.png["연결할 스토리지 시스템을 선택하세요"]
+
++
+{nbsp}
+
+. 설치를 확인하려면 vSphere 클라이언트에 로그인하고 왼쪽 메뉴에서 * NetApp ONTAP 도구*를 선택하세요.
++
+image:vmware-nfs-otv10-021.png["ONTAP 도구 플러그인에 접속하세요"]
+
++
+{nbsp}
+
+. ONTAP 도구 대시보드에서 스토리지 백엔드가 vCenter Server와 연결되어 있음을 확인할 수 있습니다.
++
+image:vmware-nfs-otv10-022.png["ONTAP 도구 대시보드"]
+
++
+{nbsp}
+
+
+
+====
+.ONTAP 도구 10을 사용하여 NFS 데이터 저장소 만들기
+[%collapsible%open]
+====
+ONTAP 도구 10을 사용하여 NFS에서 실행되는 ONTAP 데이터 저장소를 배포하려면 다음 단계를 완료하세요.
+
+. vSphere 클라이언트에서 스토리지 인벤토리로 이동합니다.  *작업* 메뉴에서 * NetApp ONTAP 도구 > 데이터 저장소 만들기*를 선택합니다.
++
+image:vmware-nfs-otv10-023.png["ONTAP 도구 - 데이터 저장소 생성"]
+
++
+{nbsp}
+
+. 데이터 저장소 생성 마법사의 *유형* 페이지에서 NFS 라디오 버튼을 클릭한 후 *다음*을 클릭하여 계속합니다.
++
+image:vmware-nfs-otv10-024.png["데이터 저장소 유형 선택"]
+
++
+{nbsp}
+
+. *이름 및 프로토콜* 페이지에서 데이터 저장소의 이름, 크기 및 프로토콜을 입력합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-otv10-025.png["데이터 저장소 유형 선택"]
+
++
+{nbsp}
+
+. *저장소* 페이지에서 플랫폼(유형별로 저장 시스템 필터링)과 볼륨에 대한 저장 VM을 선택합니다.  선택적으로 사용자 지정 내보내기 정책을 선택합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-otv10-026.png["저장 페이지"]
+
++
+{nbsp}
+
+. *저장소 속성* 페이지에서 사용할 저장소 집계를 선택하고, 선택적으로 공간 예약 및 서비스 품질과 같은 고급 옵션을 선택합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-otv10-027.png["저장소 속성 페이지"]
+
++
+{nbsp}
+
+. 마지막으로 *요약*을 검토하고 마침을 클릭하여 NFS 데이터 저장소 생성을 시작합니다.
++
+image:vmware-nfs-otv10-028.png["리뷰 요약 및 마무리"]
+
+
+
+====
+.ONTAP 도구 10을 사용하여 NFS 데이터 저장소 크기 조정
+[%collapsible%open]
+====
+ONTAP 도구 10을 사용하여 기존 NFS 데이터 저장소의 크기를 조정하려면 다음 단계를 완료하세요.
+
+. vSphere 클라이언트에서 스토리지 인벤토리로 이동합니다.  *작업* 메뉴에서 * NetApp ONTAP 도구 > 데이터 저장소 크기 조정*을 선택합니다.
++
+image:vmware-nfs-otv10-030.png["데이터 저장소 크기 조정을 선택하세요"]
+
++
+{nbsp}
+
+. *데이터 저장소 크기 조정* 마법사에서 데이터 저장소의 새 크기를 GB 단위로 입력하고 계속하려면 *크기 조정*을 클릭합니다.
++
+image:vmware-nfs-otv10-031.png["데이터 저장소 크기 조정 마법사"]
+
++
+{nbsp}
+
+. *최근 작업* 창에서 크기 조정 작업의 진행 상황을 모니터링합니다.
++
+image:vmware-nfs-otv10-032.png["최근 작업 창"]
+
++
+{nbsp}
+
+
+
+====
+
+
+== 추가 정보
+
+ONTAP tools for VMware vSphere 의 전체 목록은 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/index.html["ONTAP tools for VMware vSphere 문서 리소스"] .
+
+ONTAP 스토리지 시스템 구성에 대한 자세한 내용은 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/["ONTAP 10 문서"] 센터.

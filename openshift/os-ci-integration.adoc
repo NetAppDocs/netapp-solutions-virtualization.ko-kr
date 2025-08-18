@@ -1,0 +1,24 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-ci-integration.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization, cloud Insights 
+summary: Red Hat OpenShift Virtualization에서 Cloud Insights 사용하여 VM 모니터링 
+---
+= Red Hat OpenShift Virtualization에서 VM 데이터를 수집하기 위해 Data Infrastructure Insights 통합합니다.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+OpenShift Virtualization에서 VM에 대한 데이터 수집을 시작하려면 Kubernetes 모니터링 운영자, Kubernetes용 데이터 수집기, VM 디스크를 지원하는 ONTAP 스토리지에서 데이터를 수집하는 수집 장치 등 여러 구성 요소를 설치해야 합니다.
+
+. Kubernetes 모니터링 운영자 및 Kubernetes 데이터 수집기 전체 지침은 다음을 참조하세요.link:https://docs.netapp.com/us-en/cloudinsights/task_config_telegraf_agent_k8s.html["선적 서류 비치"] .
+. VM 디스크에 대한 영구 저장소를 제공하는 ONTAP 저장소에서 데이터를 수집하는 수집 장치 전체 지침은 다음을 참조하십시오.link:https://docs.netapp.com/us-en/cloudinsights/task_getting_started_with_cloud_insights.html["선적 서류 비치"] .
+. ONTAP 용 데이터 수집기 전체 지침은 다음을 참조하세요.link:https://docs.netapp.com/us-en/cloudinsights/task_getting_started_with_cloud_insights.html#configure-the-data-collector-infrastructure["선적 서류 비치"]
+
+
+또한, VM 백업에 StorageGrid를 사용하는 경우 StorageGRID 용 데이터 수집기도 필요합니다.

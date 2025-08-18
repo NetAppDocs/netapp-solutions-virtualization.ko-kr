@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-deployment.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화 
+---
+= ONTAP 사용하여 Red Hat OpenShift Virtualization 배포
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Red Hat OpenShift 베어 메탈 클러스터에 OpenShift Virtualization을 설치합니다.  이 절차에는 클러스터 관리자 액세스 권한으로 로그인하고, OperatorHub로 이동하고, OpenShift Virtualization 운영자를 설치하는 작업이 포함됩니다.
+
+. 클러스터 관리자 액세스 권한으로 Red Hat OpenShift 베어 메탈 클러스터에 로그인합니다.
+. Perspective 드롭다운에서 Administrator를 선택하세요.
+. Operators > OperatorHub로 이동하여 OpenShift Virtualization을 검색합니다.
++
+image:redhat-openshift-045.png["OpenShift 운영자 허브"]
+
+. OpenShift Virtualization 타일을 선택하고 설치를 클릭합니다.
++
+image:redhat-openshift-046.png["OpenShift 가상화 운영자 타일"]
+
+. 설치 운영자 화면에서 모든 기본 매개변수를 그대로 두고 설치를 클릭합니다.
++
+image:redhat-openshift-047.png["OpenShift 가상화 운영자 세부 정보"]
+
+. 운영자 설치가 완료될 때까지 기다리세요.
++
+image:redhat-openshift-048.png["OpenShift Virtualization Operator 설치"]
+
+. 운영자를 설치한 후 HyperConverged 만들기를 클릭합니다.
++
+image:redhat-openshift-049.png["OpenShift Virtualization Operator - 하이퍼컨버지드 생성"]
+
+. HyperConverged 생성 화면에서 생성을 클릭하고 모든 기본 매개변수를 수락합니다.  이 단계에서는 OpenShift Virtualization 설치가 시작됩니다.
++
+image:redhat-openshift-050.png["OpenShift 가상화 운영자 - 하이퍼컨버지드 세부 정보"]
+
+. 모든 포드가 openshift-cnv 네임스페이스에서 실행 상태로 이동하고 OpenShift Virtualization 연산자가 성공 상태가 되면 연산자를 사용할 준비가 됩니다.  이제 OpenShift 클러스터에서 VM을 생성할 수 있습니다.
++
+image:redhat-openshift-051.png["OpenShift Virtualization Operator 설치 완료"]
+
+

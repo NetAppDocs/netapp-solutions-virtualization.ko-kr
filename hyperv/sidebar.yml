@@ -1,0 +1,26 @@
+---
+section: hyperv
+title: Hyper-V 가상화
+url: "/hyperv/index.html"
+entries:
+- title: NetApp 스토리지에 Hyper-V 배포
+  pdf-filename: NetApp 스토리지에 Hyper-V 배포
+  entries:
+  - title: ONTAP 사용한 Hyper-V 배포에 관하여
+    url: "/hyperv/hyperv-deploy.html"
+  - title: 배치 준비
+    url: "/hyperv/hyperv-deploy-prereqs.html"
+  - title: 배포 지침
+    url: "/hyperv/hyperv-deploy-considerations.html"
+  - title: Hyper-V 배포
+    url: "/hyperv/hyperv-deploy-data-protection.html"
+  - title: 요약
+    url: "/hyperv/hyperv-deploy-conclusion.html"
+  - title: VM을 Hyper-V로 마이그레이션
+    url: "/hyperv/hyperv-deploy-script.html"
+- title: SnapMirror Active Sync를 사용하여 복제 설정
+  pdf-filename: SnapMirror Active Sync를 사용하여 복제 설정
+  url: "/hyperv/hyperv-smas.html"
+- title: Hyper-V에 SMI-S 공급자 사용
+  pdf-filename: Microsoft Hyper-V에 SMI-S 공급자 사용
+  url: "/hyperv/hyperv-smis.html"

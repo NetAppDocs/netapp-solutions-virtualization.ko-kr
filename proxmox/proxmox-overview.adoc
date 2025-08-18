@@ -1,0 +1,133 @@
+---
+sidebar: sidebar 
+permalink: proxmox/proxmox-overview.html 
+keywords: proxmox ve, kvm, qemu, lxc, vm 
+summary:  
+---
+= Proxmox 가상 환경에 대해 알아보세요
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Proxmox 가상 환경(VE)은 Debian Linux를 기반으로 하는 오픈 소스 Type-1 하이퍼바이저로, VM과 Linux 컨테이너(LXC)를 모두 호스팅할 수 있습니다.  Proxmox VE에 대해 알아보세요. 여기에는 전체 VM 및 컨테이너 기반 가상화, 클러스터 관리, 컴퓨팅 및 스토리지 옵션, 네트워킹 기능, 모니터링 도구, 데이터 보호 전략에 대한 지원이 포함됩니다.
+
+
+
+== 개요
+
+Proxmox 가상 환경(VE)은 동일한 호스트에서 전체 VM 가상화와 컨테이너 기반 가상화를 모두 지원합니다.  전체 VM 가상화에는 커널 기반 가상 머신(KVM)과 빠른 에뮬레이터(QEMU)가 활용됩니다.  QEMU는 오픈소스 머신 에뮬레이터이자 가상화 프로그램으로, KVM 커널 모듈을 사용하여 호스트 CPU에서 직접 게스트 코드를 실행합니다.  Linux 컨테이너(LXC)를 사용하면 재부팅 후에도 데이터가 지속되도록 컨테이너를 VM처럼 관리할 수 있습니다.
+
+image:proxmox-overview-001.png["Proxmox 호스트의 VM 및 LXC"]
+
+자동화 작업에 RESTful API를 사용할 수 있습니다.  API 호출에 대한 정보는 다음을 확인하세요.link:https://pve.proxmox.com/pve-docs/api-viewer/index.html["Proxmox VE API 뷰어"]
+
+
+
+== 클러스터 관리
+
+웹 기반 관리 포털은 Proxmox VE 노드의 포트 8006에서 사용할 수 있습니다.  여러 노드를 연결하여 클러스터를 형성할 수 있습니다.  Proxmox VE 구성, `/etc/pve` , 클러스터의 모든 노드에서 공유됩니다.  Proxmox VE 사용link:https://pve.proxmox.com/wiki/Cluster_Manager["Corosync 클러스터 엔진"] 클러스터를 관리합니다.  관리 포털은 클러스터의 모든 노드에서 액세스할 수 있습니다.
+
+image:proxmox-overview-002.png["관리 인터페이스"]
+
+클러스터를 사용하면 호스팅 노드에 장애가 발생하면 다른 노드에서 VM과 컨테이너를 모니터링하고 다시 시작할 수 있습니다.  VM과 컨테이너는 고가용성(HA)을 위해 구성되어야 합니다.  그룹을 생성하면 VM과 컨테이너를 특정 호스트 하위 집합에 호스팅할 수 있습니다.  VM 또는 컨테이너는 가장 높은 우선순위를 가진 호스트에 호스팅됩니다.  자세한 내용은 다음을 확인하세요.link:https://pve.proxmox.com/wiki/High_Availability["HA 관리자"]
+
+image:proxmox-overview-003.png["HA 그룹 우선 순위"]
+
+인증 옵션에는 Linux PAM, Proxmox VE PAM, LDAP, Microsoft AD 또는 OpenID가 포함됩니다.  권한은 역할과 리소스 모음인 리소스 풀을 사용하여 할당할 수 있습니다.  추가 세부 사항은 다음을 확인하세요.link:https://pve.proxmox.com/pve-docs/chapter-pveum.html["Proxmox 사용자 관리"]
+
+
+TIP: LDAP/Microsoft AD의 연결 자격 증명은 일반 텍스트로 저장될 수 있으며, 호스트 파일 시스템에서 보호해야 하는 파일에 저장될 수도 있습니다.
+
+
+
+== 컴퓨팅
+
+VM의 CPU 옵션에는 CPU 코어 및 소켓 수(vCPU 수 지정), NUMA 선택 옵션, 친화성 정의, 제한 설정 및 CPU 유형이 포함됩니다.
+
+image:proxmox-overview-011.png["VM CPU 옵션"]
+
+CPU 유형 및 라이브 마이그레이션에 미치는 영향에 대한 지침을 보려면 다음을 확인하세요.link:https://pve.proxmox.com/pve-docs/chapter-qm.html#qm_cpu["Proxmox VE 설명서의 QEMU/KVM 가상 머신 섹션"]
+
+LXC 컨테이너 이미지의 CPU 옵션은 다음 스크린샷에 나와 있습니다.
+
+image:proxmox-overview-012.png["LXC CPU 옵션"]
+
+VM과 LXC는 메모리 크기를 지정할 수 있습니다.  VM의 경우 Linux VM에서 풍선 확장 기능을 사용할 수 있습니다.  자세한 내용은 다음을 참조하세요.link:https://pve.proxmox.com/pve-docs/chapter-qm.html#qm_memory["Proxmox VE 설명서의 QEMU/KVM 가상 머신 섹션"]
+
+
+
+== 스토리지
+
+가상 머신은 구성 파일로 구성됩니다. `/etc/pve/qemu-server/<vm id>.conf` 및 가상 디스크 구성 요소.  지원되는 가상 디스크 형식은 raw, qcow2 및 VMDK입니다.  QCOW2는 다양한 스토리지 유형에서 씬 프로비저닝 및 스냅샷 기능을 제공할 수 있습니다.
+
+image:proxmox-overview-004.png["VM 디스크 형식"]
+
+iSCSI LUN을 원시 장치로 VM에 표시하는 옵션이 있습니다.
+
+LXC에도 자체 구성 파일이 있습니다. `/etc/pve/lxc/<container id>.conf` 및 컨테이너 디스크 구성 요소.  지원되는 저장 유형에서 데이터 볼륨을 마운트할 수 있습니다.
+
+image:proxmox-overview-005.png["컨테이너 추가 마운트"]
+
+지원되는 스토리지 유형에는 로컬 디스크, NAS(SMB 및 NFS), SAN(FC, iSCSI, NVMe-oF 등)이 있습니다.  자세한 내용은 다음을 참조하세요.link:https://pve.proxmox.com/pve-docs/chapter-pvesm.html["Proxmox VE 스토리지"]
+
+모든 저장 볼륨은 허용된 콘텐츠 유형으로 구성됩니다.  NAS 볼륨은 모든 콘텐츠 유형을 지원하는 반면, SAN 지원은 VM 및 컨테이너 이미지로 제한됩니다.
+
+
+NOTE: 디렉토리 저장 유형은 모든 콘텐츠 유형도 지원합니다.  SMB 연결 자격 증명은 일반 텍스트로 저장되며 루트만 접근할 수 있습니다.
+
+image:proxmox-overview-006.png["NAS를 사용한 콘텐츠 유형"]
+
+image:proxmox-overview-007.png["SAN을 사용한 콘텐츠 유형"]
+
+Broadcom vSphere 환경에서 VM을 가져오려면 vSphere 호스트를 스토리지 장치로 포함할 수도 있습니다.
+
+
+
+== 회로망
+
+Proxmox VE는 Linux 브리지나 Open vSwitch와 같은 기본 Linux 네트워킹 기능을 지원하여 소프트웨어 정의 네트워킹(SDN)을 구현합니다.  호스트의 이더넷 인터페이스를 결합하여 중복성과 높은 가용성을 제공할 수 있습니다.  다른 옵션은 다음을 참조하세요.link:https://pve.proxmox.com/pve-docs/chapter-sysadmin.html#_choosing_a_network_configuration["Proxmox VE 문서"]
+
+image:proxmox-overview-008.png["보세망"]
+
+게스트 네트워크는 클러스터 수준에서 구성될 수 있으며, 변경 사항은 멤버 호스트에 푸시됩니다.  분리는 Zones, VNets, Subnets을 통해 관리됩니다. link:https://pve.proxmox.com/pve-docs/chapter-pvesdn.html["존"] 단순, VLAN, VLAN 스태킹, VXLAN, EVPN 등의 네트워크 유형을 정의합니다.
+
+네트워크는 존의 유형에 따라 다르게 동작하며 특정 기능, 장점, 제한 사항을 제공합니다.
+
+SDN의 사용 사례는 각 개별 노드의 격리된 개인 네트워크부터 서로 다른 위치에 있는 여러 PVE 클러스터에 걸친 복잡한 오버레이 네트워크까지 다양합니다.
+
+클러스터 전체 데이터 센터 SDN 관리 인터페이스에서 VNet을 구성하면 각 노드에서 로컬로 공통 Linux 브리지로 사용할 수 있어 VM과 컨테이너에 할당할 수 있습니다.
+
+VM이 생성되면 사용자는 연결할 Linux 브리지를 선택할 수 있습니다.  VM을 만든 후에 추가 인터페이스를 포함할 수 있습니다.
+
+image:proxmox-overview-013.png["VM 네트워크 선택"]
+
+데이터 센터 수준의 VNet 정보는 다음과 같습니다.
+
+image:proxmox-overview-014.png["데이터 센터의 VNet 정보"]
+
+
+
+== 모니터링
+
+데이터 센터, 호스트, VM, 컨테이너, 스토리지 등 대부분 개체에 대한 요약 페이지에는 세부 정보가 제공되며 일부 성능 측정 항목이 포함되어 있습니다.  다음 스크린샷은 호스트의 요약 페이지를 보여주며, 설치된 패키지에 대한 정보가 포함되어 있습니다.
+
+image:proxmox-overview-009.png["호스트 패키지 보기"]
+
+호스트, 게스트, 스토리지 등에 대한 통계는 외부 Graphite 또는 Influxdb 데이터베이스로 푸시될 수 있습니다.  자세한 내용은 다음을 참조하세요.link:https://pve.proxmox.com/pve-docs/chapter-sysadmin.html#external_metric_server["Proxmox VE 문서"] .
+
+
+
+== 데이터 보호
+
+Proxmox VE에는 백업 콘텐츠용으로 구성된 스토리지에 VM과 컨테이너를 백업하고 복원하는 옵션이 포함되어 있습니다.  백업은 vzdump 도구를 사용하여 UI 또는 CLI에서 시작할 수 있으며, 예약할 수도 있습니다. 자세한 내용은 다음을 참조하세요.link:https://pve.proxmox.com/pve-docs/chapter-vzdump.html["Proxmox VE 문서의 백업 및 복원 섹션"] .
+
+image:proxmox-overview-010.png["Proxmox VE 백업 스토리지 콘텐츠"]
+
+백업 콘텐츠는 소스 사이트에서 발생하는 재해로부터 보호하기 위해 외부에 저장해야 합니다.
+
+Veeam은 버전 12.2에서 Proxmox VE에 대한 지원을 추가했습니다.  이를 통해 vSphere에서 Proxmox VE 호스트로 VM 백업을 복원할 수 있습니다.

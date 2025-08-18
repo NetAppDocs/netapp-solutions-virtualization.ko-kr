@@ -1,0 +1,112 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-nfs-arp.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, ransomware 
+summary:  
+---
+= NFS 스토리지를 위한 자율형 랜섬웨어 보호
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+랜섬웨어를 가능한 한 일찍 감지하는 것은 확산을 막고 비용이 많이 드는 가동 중지 시간을 피하는 데 매우 중요합니다.  효과적인 랜섬웨어 탐지 전략에는 ESXi 호스트 및 게스트 VM 수준에서 여러 계층의 보호가 통합되어야 합니다.  랜섬웨어 공격에 대한 포괄적인 방어를 구축하기 위해 여러 가지 보안 조치가 구현되어 있지만, ONTAP 사용하면 전반적인 방어 방식에 더 많은 보호 계층을 추가할 수 있습니다.  몇 가지 기능을 꼽자면 스냅샷, 자율 랜섬웨어 보호, 변조 방지 스냅샷 등이 있습니다.
+
+위에서 언급한 기능이 VMware와 함께 작동하여 랜섬웨어로부터 데이터를 보호하고 복구하는 방법을 살펴보겠습니다.  vSphere와 게스트 VM을 공격으로부터 보호하려면 세분화, 엔드포인트에 EDR/XDR/SIEM 활용, 보안 업데이트 설치, 적절한 강화 지침 준수 등 여러 가지 조치를 취하는 것이 필수적입니다.  데이터 저장소에 있는 각 가상 머신은 표준 운영 체제도 호스팅합니다.  다중 계층 랜섬웨어 보호 전략의 필수 구성 요소인 기업용 서버용 맬웨어 방지 제품군을 설치하고 정기적으로 업데이트하세요.  이와 함께 데이터 저장소에 전원을 공급하는 NFS 볼륨에서 ARP(자율 랜섬웨어 보호)를 활성화합니다.  ARP는 볼륨 워크로드 활동과 데이터 엔트로피를 살펴보는 내장된 온박스 ML을 활용하여 랜섬웨어를 자동으로 감지합니다.  ARP는 ONTAP 내장 관리 인터페이스나 시스템 관리자를 통해 구성할 수 있으며 볼륨별로 활성화됩니다.
+
+image:nfs-arp-001.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+NOTE: 현재 기술 미리보기 단계에 있는 새로운 NetApp ARP/AI를 사용하면 학습 모드가 필요하지 않습니다.  대신 AI 기반 랜섬웨어 감지 기능으로 바로 활성 모드로 전환할 수 있습니다.
+
+
+NOTE: ONTAP One을 사용하면 이러한 모든 기능 세트가 완전히 무료입니다.  라이선스 장벽에 대한 걱정 없이 NetApp의 강력한 데이터 보호, 보안 및 ONTAP 제공하는 모든 기능을 이용하세요.
+
+활성 모드가 되면 랜섬웨어일 가능성이 있는 비정상적인 볼륨 활동을 찾기 시작합니다.  비정상적인 활동이 감지되면 자동으로 스냅샷 복사본이 즉시 생성되어 파일 감염 시점에 최대한 가까운 복원 지점을 제공합니다.  ARP는 암호화된 볼륨에 새로운 확장자가 추가되거나 파일 확장자가 수정될 때 VM 외부에 있는 NFS 볼륨에서 VM 특정 파일 확장자의 변경 사항을 감지할 수 있습니다.
+
+image:nfs-arp-002.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+랜섬웨어 공격이 가상 머신(VM)을 표적으로 삼아 VM 외부의 파일을 변경하지 않고 VM 내부의 파일을 변경하는 경우에도 고급 랜섬웨어 보호(ARP)는 VM의 기본 엔트로피가 낮으면(예: .txt, .docx 또는 .mp4 파일) 위협을 감지합니다.  이 시나리오에서 ARP가 보호 스냅샷을 생성하더라도 VM 외부의 파일 확장자가 변조되지 않았기 때문에 위협 경고는 생성되지 않습니다.  이러한 시나리오에서 초기 방어 계층은 이상을 식별하지만 ARP는 엔트로피를 기반으로 스냅샷을 만드는 데 도움이 됩니다.
+
+자세한 내용은 "ARP 및 가상 머신" 섹션을 참조하세요.link:https://docs.netapp.com/us-en/ontap/anti-ransomware/use-cases-restrictions-concept.html#supported-configurations["ARP 사용 사례 및 고려 사항"] .
+
+파일에서 백업 데이터로 이동하는 랜섬웨어 공격은 이제 파일 암호화를 시작하기 전에 백업 및 스냅샷 복구 지점을 삭제하려고 시도하여 이를 표적으로 삼는 경우가 늘고 있습니다.  그러나 ONTAP 사용하면 기본 또는 보조 시스템에서 변조 방지 스냅샷을 생성하여 이를 방지할 수 있습니다.link:https://docs.netapp.com/us-en/ontap/snaplock/snapshot-lock-concept.html["NetApp 스냅샷 복사 잠금"] .
+
+image:nfs-arp-003.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+이러한 스냅샷 사본은 랜섬웨어 공격자나 사기성 관리자가 삭제하거나 변경할 수 없으므로 공격을 받은 후에도 사용할 수 있습니다.  데이터 저장소나 특정 가상 머신이 영향을 받는 경우 SnapCenter 몇 초 만에 가상 머신 데이터를 복구하여 조직의 가동 중지 시간을 최소화할 수 있습니다.
+
+image:nfs-arp-004.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+위의 내용은 ONTAP 스토리지가 기존 기술에 추가적인 계층을 추가하여 환경의 미래지향성을 강화하는 방식을 보여줍니다.
+
+추가 정보는 다음 지침을 참조하세요.link:https://www.netapp.com/media/7334-tr4572.pdf["랜섬웨어에 대한 NetApp 솔루션"] .
+
+이제 이 모든 것을 SIEM 도구로 조율하고 통합해야 하는 경우 BlueXP ransomware protection 와 같은 오프탭 서비스를 사용할 수 있습니다.  랜섬웨어로부터 데이터를 보호하도록 설계된 서비스입니다.  이 서비스는 온프레미스 NFS 스토리지의 Oracle, MySQL, VM 데이터 저장소, 파일 공유 등의 애플리케이션 기반 워크로드에 대한 보호 기능을 제공합니다.
+
+이 예에서 NFS 데이터 저장소 "Src_NFS_DS04"는 BlueXP ransomware protection 사용하여 보호됩니다.
+
+image:nfs-arp-005.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+image:nfs-arp-006.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+BlueXP ransomware protection 구성에 대한 자세한 내용은 다음을 참조하세요.link:https://docs.netapp.com/us-en/bluexp-ransomware-protection/rp-start-setup.html["BlueXP ransomware protection 설정"] 그리고link:https://docs.netapp.com/us-en/bluexp-ransomware-protection/rp-use-settings.html#add-amazon-web-services-as-a-backup-destination["BlueXP ransomware protection 설정 구성"] .
+
+이제 예를 들어 이를 살펴보겠습니다.  이 연습에서는 데이터 저장소 "Src_NFS_DS04"가 영향을 받습니다.
+
+image:nfs-arp-007.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+ARP는 감지되자마자 볼륨에 대한 스냅샷을 즉시 트리거했습니다.
+
+image:nfs-arp-008.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+image:nfs-arp-009.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+포렌식 분석이 완료되면 SnapCenter 또는 BlueXP ransomware protection 사용하여 신속하고 원활하게 복원할 수 있습니다.  SnapCenter 사용하여 영향을 받은 가상 머신으로 이동하여 복원할 적절한 스냅샷을 선택합니다.
+
+image:nfs-arp-010.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+이 섹션에서는 BlueXP ransomware protection VM 파일이 암호화된 랜섬웨어 사고로부터 복구를 어떻게 조율하는지 살펴봅니다.
+
+
+NOTE: VM이 SnapCenter 에서 관리되는 경우 BlueXP ransomware protection VM 일관성 프로세스를 사용하여 VM을 이전 상태로 복원합니다.
+
+. BlueXP ransomware protection 에 액세스하면 BlueXP ransomware protection 보드에 알림이 나타납니다.
+. 생성된 경고에 대한 특정 볼륨의 인시던트를 검토하려면 경고를 클릭하세요.
++
+image:nfs-arp-011.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+. "복원 필요 표시"를 선택하여 랜섬웨어 사고를 복구 준비로 표시합니다(사고가 중화되면).
++
+image:nfs-arp-012.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
++
+
+NOTE: 사건이 거짓 양성으로 판명되면 경고를 해제할 수 있습니다.
+
+. 복구 탭으로 이동하여 복구 페이지에서 작업 부하 정보를 검토하고 "복원 필요" 상태에 있는 데이터 저장소 볼륨을 선택하고 복원을 선택합니다.
++
+image:nfs-arp-013.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+. 이 경우 복원 범위는 "VM별"입니다(VM용 SnapCenter 의 경우 복원 범위는 "VM별"입니다).
++
+image:nfs-arp-014.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+. 데이터를 복원하는 데 사용할 복원 지점을 선택하고 대상을 선택한 후 복원을 클릭합니다.
++
+image:nfs-arp-015.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+. 상단 메뉴에서 복구를 선택하면 복구 페이지에서 작업 부하를 검토할 수 있습니다. 복구 페이지에서는 작업 상태가 여러 상태로 이동합니다.  복원이 완료되면 VM 파일이 아래와 같이 복원됩니다.
++
+image:nfs-arp-016.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+
+NOTE: 복구는 애플리케이션에 따라 VMware용 SnapCenter 또는 SnapCenter 플러그인에서 수행할 수 있습니다.
+
+NetApp 솔루션은 가시성, 탐지 및 치료를 위한 다양하고 효과적인 도구를 제공하여 랜섬웨어를 조기에 발견하고 확산을 방지하며 필요한 경우 신속하게 복구하여 비용이 많이 드는 가동 중지 시간을 피할 수 있도록 지원합니다.  기존의 계층적 방어 솔루션이 여전히 널리 사용되고 있으며, 가시성과 감지를 위해 타사 및 파트너 솔루션도 많이 사용됩니다.  효과적인 복구는 모든 위협에 대응하는 데 있어 여전히 중요한 부분입니다.

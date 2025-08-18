@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vsphere8.html 
+keywords: netapp, vmware, getting, started 
+summary:  
+---
+= VMware vSphere 8에 대한 NetApp 지원에 대해 알아보세요
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp 과 VMware의 파트너십은 단일 스토리지 시스템으로 VMware가 정의한 모든 주요 사용 사례를 처리할 수 있는 유일한 파트너십입니다.
+
+
+
+== vSphere 8을 위한 최신 클라우드 연결 올플래시
+
+ONTAP 구현은 NetApp 엔지니어링 어플라이언스, 상용 하드웨어 및 퍼블릭 클라우드를 포함한 다양한 플랫폼에서 실행됩니다.  ONTAP SAN 또는 NAS 프로토콜을 통해 액세스하는지 여부와 고속 플래시에서 저비용 미디어, 클라우드 기반 스토리지에 이르기까지 다양한 구성으로 통합 스토리지를 제공합니다.  NetApp 또한 사일로를 만들지 않고도 스토리지 요구 사항을 단순화하고 세분화할 수 있는 특수 목적의 플래시 플랫폼을 제공합니다.  더욱이 NetApp 온프레미스와 클라우드 간에 데이터를 쉽게 이동할 수 있는 소프트웨어를 제공합니다.  마지막으로 NetApp BlueXP 이러한 모든 관계와 스토리지 공간을 관리하기 위한 단일 대시보드를 제공합니다.
+
+* link:https://docs.netapp.com/us-en/ontap-systems-family/intro-family.html["NetApp 플랫폼"^]
+

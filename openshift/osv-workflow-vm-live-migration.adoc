@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-workflow-vm-live-migration.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화 
+---
+= Red Hat OpenShift 클러스터의 두 노드 간에 VM 마이그레이션
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+가동 중지 시간 없이 클러스터의 두 노드 간에 OpenShift Virtualization에서 VM을 마이그레이션합니다.  이 절차에는 디스크가 RWX 호환 스토리지 클래스를 사용하는지 확인하고, 마이그레이션을 시작하고, 진행 상황을 모니터링하는 작업이 포함됩니다.
+
+
+
+== VM 라이브 마이그레이션
+
+라이브 마이그레이션은 OpenShift 클러스터에서 가동 중지 시간 없이 VM 인스턴스를 한 노드에서 다른 노드로 마이그레이션하는 프로세스입니다.  OpenShift 클러스터에서 라이브 마이그레이션이 작동하려면 VM이 공유 ReadWriteMany 액세스 모드를 사용하여 PVC에 바인딩되어야 합니다.  ontap-nas 드라이버를 사용하여 구성된 Trident 백엔드는 파일 시스템 프로토콜 nfs 및 smb에 대한 RWX 액세스 모드를 지원합니다.  문서를 참조하세요link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html["여기"] .  ontap-san 드라이버를 사용하여 구성된 Trident 백엔드는 iSCSI 및 NVMe/TCP 프로토콜의 블록 볼륨 모드에 대한 RWX 액세스 모드를 지원합니다.  문서를 참조하세요link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san.html["여기"] .
+
+따라서 라이브 마이그레이션이 성공하려면 VM에 ontap-nas 또는 ontap-san(volumeMode: Block) 스토리지 클래스를 사용하여 PVC가 있는 디스크(부팅 디스크 및 추가 핫 플러그 디스크)를 프로비저닝해야 합니다.  PVC가 생성되면 Trident NFS 또는 iSCSI가 활성화된 SVM에 ONTAP 볼륨을 생성합니다.
+
+image:redhat-openshift-055.png["VM 라이브 마이그레이션 아키텍처"]
+
+이전에 생성되어 실행 중인 VM의 라이브 마이그레이션을 수행하려면 다음 단계를 수행하세요.
+
+. 라이브 마이그레이션할 VM을 선택하세요.
+. *구성* 탭을 클릭합니다.
+. 모든 VM 디스크가 RWX 액세스 모드를 지원할 수 있는 스토리지 클래스를 사용하여 생성되었는지 확인하세요.
+. 오른쪽 모서리에 있는 *작업*을 클릭한 다음 *마이그레이션*을 선택합니다.
+. 마이그레이션 진행 상황을 보려면 왼쪽 메뉴에서 가상화 > 개요로 이동한 다음 *마이그레이션* 탭을 클릭하세요.  VM 마이그레이션은 *보류*에서 *예약*으로, *성공*으로 전환됩니다.
+
+
+
+NOTE: evictionStrategy가 LiveMigrate로 설정된 경우, 원래 노드가 유지 관리 모드로 전환되면 OpenShift 클러스터의 VM 인스턴스가 자동으로 다른 노드로 마이그레이션됩니다.
+
+image:rh-os-n-use-case-vm-live-migrate-001.png["VM Live Migrate 시작"]
+
+image:rh-os-n-use-case-vm-live-migrate-002.png["VM 라이브 마이그레이션이 성공했습니다."]

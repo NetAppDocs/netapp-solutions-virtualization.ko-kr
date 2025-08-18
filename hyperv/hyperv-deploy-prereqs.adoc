@@ -1,0 +1,230 @@
+---
+sidebar: sidebar 
+permalink: hyperv/hyperv-deploy-prereqs.html 
+keywords: hyperv, hyper-v, deploy, netapp, virtualization, prereqs, pre-requisites 
+summary: 이 솔루션은 NetApp 스토리지에 Hyper-V를 배포하는 데 필요한 단계를 제공합니다. 
+---
+= ONTAP 스토리지 시스템을 활용하여 Microsoft Hyper-V 배포 준비
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP 스토리지 시스템을 사용하여 Microsoft Hyper-V 클러스터를 배포할 환경을 준비합니다.  이 절차에는 Windows Server 기능 설치, Hyper-V 트래픽을 위한 네트워크 인터페이스 구성, 적절한 스토리지 설계 결정, iSCSI 호스트 유틸리티 설치, Windows iSCSI 초기자 구성 및 장애 조치 클러스터 생성이 포함됩니다.
+
+
+
+== 배포 절차를 위한 전제 조건
+
+* 모든 하드웨어는 실행 중인 Windows Server 버전에 대해 인증을 받아야 하며 전체 장애 조치 클러스터 솔루션은 구성 검증 마법사의 모든 테스트를 통과해야 합니다.
+* 도메인 컨트롤러에 연결된 Hyper-V 노드(권장)와 서로 간의 적절한 연결.
+* 모든 Hyper-V 노드는 동일하게 구성되어야 합니다.
+* 관리, iSCSI, SMB, 라이브 마이그레이션을 위한 분리된 트래픽을 위해 각 Hyper-V 서버에 구성된 네트워크 어댑터와 지정된 가상 스위치입니다.
+* 각 Hyper-V 서버에서 장애 조치(failover) 클러스터 기능이 활성화됩니다.
+* SMB 공유 또는 CSV는 Hyper-V 클러스터링을 위한 VM과 해당 디스크를 저장하는 공유 저장소로 사용됩니다.
+* 저장소는 여러 클러스터 간에 공유되어서는 안 됩니다.  클러스터당 하나 이상의 CSV/CIFS 공유를 계획합니다.
+* SMB 공유가 공유 저장소로 사용되는 경우 클러스터의 모든 Hyper-V 노드의 컴퓨터 계정에 대한 액세스 권한을 부여하도록 SMB 공유에 대한 사용 권한을 구성해야 합니다.
+
+
+자세한 내용은 다음을 참조하세요.
+
+* link:https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/system-requirements-for-hyper-v-on-windows#how-to-check-for-hyper-v-requirements["Windows Server의 Hyper-V 시스템 요구 사항"]
+* link:https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj134244(v=ws.11)#step-1-prepare-to-validate-hardware-for-a-failover-cluster["장애 조치(Failover) 클러스터에 대한 하드웨어 검증"]
+* link:https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj863389(v=ws.11)["Hyper-V 클러스터 배포"]
+
+
+
+
+=== Windows 기능 설치
+
+다음 단계에서는 필수 Windows Server 2022 기능을 설치하는 방법을 설명합니다.
+
+*모든 호스트*
+
+. 지정된 모든 노드에 필요한 업데이트와 장치 드라이버로 Windows OS 2022를 준비합니다.
+. 설치 중에 입력한 관리자 암호를 사용하여 각 Hyper-V 노드에 로그인합니다.
+. 작업 표시줄에서 PowerShell 아이콘을 마우스 오른쪽 버튼으로 클릭하고 PowerShell 프롬프트를 시작합니다. `Run as Administrator` .
+. Hyper-V, MPIO 및 클러스터링 기능을 추가합니다.
++
+[source, cli]
+----
+Add-WindowsFeature Hyper-V, Failover-Clustering, Multipath-IO `-IncludeManagementTools –Restart
+----
+
+
+
+
+=== 네트워크 구성
+
+장애 허용형 배포를 달성하려면 적절한 네트워크 계획이 중요합니다.  각 유형의 트래픽에 대해 별도의 물리적 네트워크 어댑터를 설정하는 것은 장애 조치 클러스터에 대한 표준 제안이었습니다.  가상 네트워크 어댑터를 추가하고, SET(스위치 임베디드 팀)를 도입하고, Hyper-V QoS와 같은 기능을 도입하여 네트워크 트래픽을 더 적은 물리적 어댑터로 압축할 수 있습니다.  서비스 품질, 중복성, 트래픽 격리를 염두에 두고 네트워크 구성을 설계하세요.  트래픽 격리 기술과 함께 VLAN과 같은 네트워크 격리 기술을 구성하면 트래픽에 대한 중복성과 서비스 품질이 제공되어 스토리지 트래픽 성능이 향상되고 일관성이 추가됩니다.
+
+여러 개의 논리적 및/또는 물리적 네트워크를 사용하여 특정 작업 부하를 분리하고 격리하는 것이 좋습니다.  일반적으로 세그먼트로 구분되는 일반적인 네트워크 트래픽 예는 다음과 같습니다.
+
+* iSCSI 스토리지 네트워크.
+* CSV(클러스터 공유 볼륨) 또는 하트비트 네트워크.
+* 라이브 마이그레이션
+* VM 네트워크
+* 관리 네트워크
+
+
+*참고*: iSCSI를 전용 NIC와 함께 사용하는 경우 팀 구성 솔루션을 사용하는 것은 권장되지 않으며 MPIO/DSM을 사용해야 합니다.
+
+*참고*: Hyper-V 네트워킹 모범 사례에서는 Hyper-V 환경에서 SMB 3.0 스토리지 네트워크에 NIC 팀을 사용하는 것을 권장하지 않습니다.
+
+추가 정보는 다음을 참조하세요.link:https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/plan/plan-hyper-v-networking-in-windows-server["Windows Server에서 Hyper-V 네트워킹 계획"]
+
+
+
+=== Hyper-V를 위한 스토리지 디자인 결정
+
+Hyper-V는 가상 머신의 백업 스토리지로 NAS(SMB3.0) 및 블록 스토리지(iSCSI/FC)를 지원합니다.  NetApp iSCSI/FC 및 SMB3를 사용하는 VM의 기본 스토리지인 CSV(클러스터 공유 볼륨)로 사용할 수 있는 SMB3.0, iSCSI 및 FC 프로토콜을 지원합니다.  고객은 스토리지에 직접 액세스해야 하는 작업 부하에 대해 SMB3 및 iSCSI를 게스트 연결 스토리지 옵션으로 사용할 수도 있습니다.  ONTAP 다양한 프로토콜 액세스가 필요한 워크로드를 위한 통합 스토리지(All Flash Array)와 SAN 전용 구성을 위한 SAN 최적화 스토리지(All SAN Array)를 통해 유연한 옵션을 제공합니다.
+
+SMB3 대 iSCSI/FC를 사용하기로 결정하는 것은 현재 시행 중인 기존 인프라에 따른 것입니다. SMB3/iSCSI를 사용하면 고객이 기존 네트워크 인프라를 사용할 수 있습니다.  기존 FC 인프라를 보유한 고객은 해당 인프라를 활용하여 스토리지를 FC 기반 클러스터형 공유 볼륨으로 제공할 수 있습니다.
+
+*참고:* ONTAP 소프트웨어를 실행하는 NetApp 스토리지 컨트롤러는 Hyper-V 환경에서 다음 작업 부하를 지원할 수 있습니다.
+
+* 지속적으로 사용 가능한 SMB 3.0 공유에 호스팅된 VM
+* iSCSI 또는 FC에서 실행되는 CSV(클러스터 공유 볼륨) LUN에 호스팅된 VM
+* 게스트 내부 스토리지 및 게스트 가상 머신으로의 패스스루 디스크
+
+
+*참고*: 씬 프로비저닝, 중복 제거, 압축, 데이터 압축, 플렉스 클론, 스냅샷, 복제와 같은 Core ONTAP 기능은 플랫폼이나 운영 체제에 관계없이 백그라운드에서 원활하게 작동하며 Hyper-V 워크로드에 상당한 가치를 제공합니다.  이러한 기능의 기본 설정은 Windows Server 및 Hyper-V에 최적화되어 있습니다.
+
+*참고*: 여러 경로를 VM에 사용할 수 있고 다중 경로 I/O 기능이 설치 및 구성된 경우 게스트 내 초기자를 사용하여 게스트 VM에서 MPIO가 지원됩니다.
+
+*참고*: ONTAP NFS, SMB, FC, FCoE, iSCSI, NVMe/FC, S3 등 모든 주요 산업 표준 클라이언트 프로토콜을 지원합니다.  하지만 NVMe/FC와 NVMe/TCP는 Microsoft에서 지원되지 않습니다.
+
+
+
+=== NetApp Windows iSCSI 호스트 유틸리티 설치
+
+다음 섹션에서는 NetApp Windows iSCSI 호스트 유틸리티의 무인 설치를 수행하는 방법을 설명합니다.  설치에 대한 자세한 내용은 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_72.html["Windows Unified Host Utilities 7.2(또는 최신 지원 버전)를 설치하세요."]
+
+*모든 호스트*
+
+. 다운로드link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.2["Windows iSCSI 호스트 유틸리티"]
+. 다운로드한 파일의 차단을 해제하세요.
++
+[source, cli]
+----
+Unblock-file ~\Downloads\netapp_windows_host_utilities_7.2_x64.msi
+----
+. 호스트 유틸리티를 설치합니다.
++
+[source, cli]
+----
+~\Downloads\netapp_windows_host_utilities_7.2_x64.msi /qn "MULTIPATHING=1"
+----
+
+
+*참고*: 이 프로세스 중에 시스템이 재부팅됩니다.
+
+
+
+=== Windows 호스트 iSCSI 초기자 구성
+
+다음 단계에서는 기본 제공 Microsoft iSCSI 초기자를 구성하는 방법을 설명합니다.
+
+*모든 호스트*
+
+. 작업 표시줄에서 PowerShell 아이콘을 마우스 오른쪽 버튼으로 클릭하고 관리자 권한으로 실행을 선택하여 PowerShell 프롬프트를 실행합니다.
+. iSCSI 서비스가 자동으로 시작되도록 구성합니다.
++
+[source, cli]
+----
+Set-Service -Name MSiSCSI -StartupType Automatic
+----
+. iSCSI 서비스를 시작합니다.
++
+[source, cli]
+----
+Start-Service -Name MSiSCSI
+----
+. MPIO를 구성하여 모든 iSCSI 장치를 클레임합니다.
++
+[source, cli]
+----
+Enable-MSDSMAutomaticClaim -BusType iSCSI
+----
+. 새로 요청된 모든 장치의 기본 부하 분산 정책을 라운드 로빈으로 설정합니다.
++
+[source, cli]
+----
+Set-MSDSMGlobalDefaultLoadBalancePolicy -Policy RR 
+----
+. 각 컨트롤러에 대해 iSCSI 대상을 구성합니다.
++
+[source, cli]
+----
+New-IscsiTargetPortal -TargetPortalAddress <<iscsia_lif01_ip>> -InitiatorPortalAddress <iscsia_ipaddress>
+
+New-IscsiTargetPortal -TargetPortalAddress <<iscsib_lif01_ip>> -InitiatorPortalAddress <iscsib_ipaddress
+
+New-IscsiTargetPortal -TargetPortalAddress <<iscsia_lif02_ip>> -InitiatorPortalAddress <iscsia_ipaddress>
+
+New-IscsiTargetPortal -TargetPortalAddress <<iscsib_lif02_ip>> -InitiatorPortalAddress <iscsib_ipaddress>
+----
+. 각 iSCSI 네트워크에 대한 세션을 각 대상에 연결합니다.
++
+[source, cli]
+----
+Get-IscsiTarget | Connect-IscsiTarget -IsPersistent $true -IsMultipathEnabled $true -InitiatorPo rtalAddress <iscsia_ipaddress>
+
+Get-IscsiTarget | Connect-IscsiTarget -IsPersistent $true -IsMultipathEnabled $true -InitiatorPo rtalAddress <iscsib_ipaddress>
+----
+
+
+*참고*: 성능을 높이고 대역폭을 활용하려면 여러 세션(최소 5~8개)을 추가하세요.
+
+
+
+=== 클러스터 생성
+
+*서버는 하나뿐입니다*
+
+. PowerShell 아이콘을 마우스 오른쪽 버튼으로 클릭하고 다음을 선택하여 관리자 권한으로 PowerShell 프롬프트를 시작합니다. `Run as Administrator`` .
+. 새로운 클러스터를 만듭니다.
++
+[source, cli]
+----
+New-Cluster -Name <cluster_name> -Node <hostnames> -NoStorage -StaticAddress <cluster_ip_address>
+----
++
+image:hyperv-deploy-001.png["클러스터 관리 인터페이스를 보여주는 이미지"]
+
+. 라이브 마이그레이션에 적합한 클러스터 네트워크를 선택하세요.
+. CSV 네트워크를 지정합니다.
++
+[source, cli]
+----
+(Get-ClusterNetwork -Name Cluster).Metric = 900
+----
+. 클러스터를 변경하여 쿼럼 디스크를 사용합니다.
++
+.. PowerShell 아이콘을 마우스 오른쪽 버튼으로 클릭하고 '관리자 권한으로 실행'을 선택하여 관리자 권한으로 PowerShell 프롬프트를 실행합니다.
++
+[source, cli]
+----
+start-ClusterGroup "Available Storage"| Move-ClusterGroup -Node $env:COMPUTERNAME
+----
+.. 장애 조치(Failover) 클러스터 관리자에서 다음을 선택하세요. `Configure Cluster Quorum Settings` .
++
+image:hyperv-deploy-002.png["클러스터 쿼럼 구성 설정 이미지"]
+
+.. 환영 페이지에서 다음을 클릭합니다.
+.. 쿼럼 감시를 선택하고 다음을 클릭합니다.
+.. 디스크 감시 구성`을 선택하고 다음을 클릭합니다.
+.. 사용 가능한 저장소에서 디스크 W를 선택하고 다음을 클릭합니다.
+.. 확인 페이지에서 '다음'을 클릭하고 요약 페이지에서 '마침'을 클릭합니다.
++
+정족수와 증인에 대한 자세한 내용은 다음을 참조하세요.link:https://learn.microsoft.com/en-us/windows-server/failover-clustering/manage-cluster-quorum#general-recommendations-for-quorum-configuration["쿼럼 구성 및 관리"]
+
+
+
+. 배포를 검증하려면 장애 조치(Failover) 클러스터 관리자에서 클러스터 검증 마법사를 실행하세요.
+. 장애 조치(Failover) 클러스터 관리자 내의 역할을 통해 가상 머신 데이터를 저장하고 고가용성 가상 머신을 생성하기 위해 CSV LUN을 만듭니다.
+

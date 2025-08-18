@@ -1,0 +1,11 @@
+---
+section: kvm
+title: KVM 가상화
+url: "/kvm/index.html"
+entries:
+- title: KVM 가상화에 대하여
+  pdf-filename: NetApp 의 KVM 가상화 개요
+  url: "/kvm/kvm-overview.html"
+- title: KVM 및 Libvirt를 사용한 ONTAP 스토리지
+  pdf-filename: KVM 가상화를 위한 NetApp ONTAP 스토리지
+  url: "/kvm/kvm-ontap.html"

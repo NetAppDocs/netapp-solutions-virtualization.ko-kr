@@ -1,0 +1,32 @@
+---
+indexpage:
+  title: VM 마이그레이션 솔루션
+  summary: NetApp VM 마이그레이션 솔루션은 다양한 플랫폼과 스토리지 시스템에 걸쳐 가상 머신을 마이그레이션하고 변환하기 위한 포괄적인
+    도구와 유틸리티를 제공합니다.
+  lead: NetApp VM 마이그레이션 솔루션은 다양한 플랫폼과 스토리지 시스템에 걸쳐 가상 머신을 마이그레이션하고 변환하기 위한 포괄적인 도구와
+    유틸리티를 제공합니다.
+  tiles:
+  - title: 시작하기
+    links:
+    - title: Shift Toolkit 소개
+      url: shift-toolkit-overview.html
+    - title: VM을 ONTAP 데이터 저장소로 마이그레이션하는 방법
+      url: migrate-get-start-ontap.html
+    - title: Amazon EC2로 VM 마이그레이션에 관하여
+      url: migrate-vms-to-ec2-fsxn-overview.html
+  - title: Shift Toolkit 사용
+    links:
+    - title: Shift Toolkit 설치
+      url: shift-toolkit-install.html
+    - title: Shift Toolkit 구성
+      url: shift-toolkit-ui.html
+    - title: Shift Toolkit을 사용하여 VM 마이그레이션
+      url: shift-toolkit-migration.html
+    - title: Shift Toolkit을 사용하여 VM 변환
+      url: shift-toolkit-conversion.html
+  - title: 온프레미스 및 클라우드에서 VM 마이그레이션
+    links:
+    - title: VM을 ONTAP 데이터 저장소로 마이그레이션
+      url: migrate-vms-to-ontap-datastore.html
+    - title: VM을 Amazon EC2로 마이그레이션
+      url: migrate-vms-to-ec2-fsxn-deploy.html

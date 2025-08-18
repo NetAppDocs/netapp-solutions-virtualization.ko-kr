@@ -1,0 +1,62 @@
+---
+indexpage:
+  title: NetApp VMware 가상화 솔루션
+  summary: NetApp VMware 가상화 솔루션은 온프레미스와 클라우드에서 VMware를 사용하여 가상화를 위한 NetApp 스토리지의
+    역량을 보여주는 전략적 및 기술적 역량의 집합입니다.
+  lead: NetApp VMware 가상화 솔루션은 온프레미스와 클라우드에서 VMware를 사용하여 가상화를 위한 NetApp 스토리지의 역량을
+    보여주는 전략적 및 기술적 역량의 집합입니다.
+  tiles:
+  - title: 시작하기
+    links:
+    - title: VMware vSphere용 ONTAP 정보
+      url: vmw-getting-started-overview.html
+    - title: VMware용 NetApp 플랫폼 정보
+      url: vmw-getting-started-ntap-options.html
+    - title: 블로그
+      url: "../blogs.html"
+    - title: 비디오
+      url: "../videos/vmware-videos.html"
+  - title: NetApp 의 VMware Cloud Foundation
+    links:
+    - title: VMware Cloud Foundation 및 ONTAP 정보
+      url: vmw-vcf-overview.html
+    - title: SnapCenter 로 VCF 워크로드 보호
+      url: vmw-vcf-protect-sc.html
+    - title: BlueXP 로 VMware 데이터 저장소 보호
+      url: vmw-vcf-disaster-recovery.html
+    - title: vMSC와 ONTAP 고가용성 통합
+      url: vmw-vcf-protect-vmsc.html
+    - title: 랜섬웨어로부터 데이터를 보호하고 복구하세요
+      url: vmw-nfs-arp.html
+    - title: DII를 사용하여 온프레미스 스토리지 모니터링
+      url: vmw-dii.html
+  - title: NetApp 의 VMware vSphere Foundation
+    links:
+    - title: NetApp 의 VMware vSphere Foundation 소개
+      url: vmw-vvf-overview.html
+    - title: vSphere 8에 VMFS 배포
+      url: vmw-vmfs-deploy.html
+    - title: NFS nConnect 기능 사용
+      url: vmw-vsphere8-nfs-nconnect.html
+    - title: NFS 데이터 저장소 구성
+      url: vmw-nfs-otv10.html
+    - title: 재해 복구 구성
+      url: vmw-nfs-vlsr.html
+  - title: VMware 도구 및 유틸리티
+    links:
+    - title: 가상 머신 데이터 수집기
+      url: "../assess/vmw-vmdc.html"
+    - title: ONTAP tools for VMware vSphere
+      url: https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html
+    - title: NetApp ONTAP 9를 사용한 VMware Site Recovery Manager(SRM)
+      url: https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-overview.html
+    - title: NetApp 상호 운용성 매트릭스 도구
+      url: https://mysupport.netapp.com/matrix/#welcome
+    - title: VMware 하드웨어 호환성 가이드
+      url: https://www.vmware.com/resources/compatibility/search.php?deviceCategory=san&details=1&partner=64&isSVA=0&page=1&display_interval=10&sortColumn=Partner&sortOrder=Asc
+  - title: 추가 자료
+    links:
+    - title: ONTAP 사용한 VMware vSphere 모범 사례
+      url: https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html
+    - title: NetApp ONTAP 사용한 VMware vSphere Virtual Volumes( vVols )
+      url: https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vvols-overview.html

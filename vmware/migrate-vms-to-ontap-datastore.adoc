@@ -1,0 +1,552 @@
+---
+sidebar: sidebar 
+permalink: vmware/migrate-vms-to-ontap-datastore.html 
+keywords: netapp, vmware, ontap, datastore, migration, svmotion, hcx, xvmotion, vmotion, vvol, iscsi, nfs, nvme, fc, sso 
+summary:  
+---
+= VMware vSphere에서 ONTAP 데이터 저장소로 VM 마이그레이션
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware vSphere 환경에서는 가상 머신을 NetApp ONTAP 지원 데이터 저장소로 마이그레이션하면 상당한 이점을 얻을 수 있습니다.  vSAN, 타사 스토리지 시스템에서 이전하거나 기존 인프라를 업그레이드하는 경우 다양한 vMotion 시나리오와 마이그레이션 전략을 살펴보고 VM을 ONTAP 데이터 저장소로 원활하게 전환하세요.  이를 통해 ONTAP의 엔터프라이즈급 스토리지 기능을 활용하면서 비즈니스 연속성을 보장할 수 있습니다.
+
+Broadcom의 VMware vSphere는 가상 머신을 호스팅하기 위한 VMFS, NFS 및 vVol 데이터 저장소를 지원합니다.  고객은 하이퍼 컨버지드 인프라나 중앙 집중식 공유 스토리지 시스템을 사용하여 데이터 저장소를 만들 수 있습니다.
+
+고객은 ONTAP 기반 스토리지 시스템에서 호스팅하는 것이 공간 효율적인 스냅샷과 가상 머신 복제본을 제공하고, 데이터 센터와 클라우드에서 다양한 배포 모델을 선택할 수 있는 유연성, 모니터링 및 알림 도구를 통한 운영 효율성, 보안, 거버넌스 및 VM 데이터를 검사할 수 있는 선택적 규정 준수 도구 등을 제공하는 데 가치가 있다고 생각하는 경우가 많습니다.
+
+ONTAP 데이터스토어에 호스팅된 VM은 VMware vSphere(SCV)용 SnapCenter 플러그인을 사용하여 보호할 수 있습니다.  SCV는 스토리지 기반 스냅샷을 생성하고 원격 ONTAP 스토리지 시스템에도 복제합니다.  복원은 기본 또는 보조 스토리지 시스템에서 수행할 수 있습니다.
+
+고객은 Cloud Insights 나 Aria Operations를 선택하거나 두 가지를 조합하거나 ONTAP API를 사용하여 문제 해결, 성능 모니터링, 보고 및 알림 기능을 제공하는 타사 도구를 선택할 수 있는 유연성을 갖습니다.
+
+고객은 ONTAP Tools vCenter 플러그인이나 API를 사용하여 데이터스토어를 쉽게 프로비저닝할 수 있으며, 전원이 켜져 있는 동안에도 VM을 ONTAP 데이터스토어로 마이그레이션할 수 있습니다.
+
+
+NOTE: Aria Automation, Tanzu(또는 기타 Kubernetes 플레이버)와 같은 외부 관리 도구를 사용하여 배포된 일부 VM은 일반적으로 VM 스토리지 정책에 따라 달라집니다.  동일한 VM 스토리지 정책 내에서 데이터 저장소 간에 마이그레이션하는 경우 애플리케이션에 미치는 영향이 적어야 합니다.  애플리케이션 소유자에게 문의하여 해당 VM을 새 데이터 저장소로 올바르게 마이그레이션하세요. vSphere 8이 도입되었습니다. https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/how-to-prepare-an-application-for-vsphere-vmotion.html#:~:text=vSphere%208.0%20introduces%20a%20notification,the%20necessary%20steps%20to%20prepare.["지연 시간에 민감한 애플리케이션을 위한 vSphere vMotion 알림"] vMotion에 대한 애플리케이션을 준비합니다.
+
+
+
+== 네트워크 요구 사항
+
+.vMotion을 사용한 VM 마이그레이션
+[%collapsible%open]
+====
+ONTAP 데이터 저장소에는 연결성, 내결함성 및 성능 향상을 제공하기 위해 이중 스토리지 네트워크가 이미 구축되어 있다고 가정합니다.
+
+vSphere 호스트 간의 VM 마이그레이션도 vSphere 호스트의 VMKernel 인터페이스를 통해 처리됩니다.  핫 마이그레이션(전원이 켜진 VM)의 경우 vMotion이 활성화된 서비스가 있는 VMKernel 인터페이스가 사용되고, 콜드 마이그레이션(전원이 꺼진 VM)의 경우 프로비저닝 서비스가 활성화된 VMKernel 인터페이스가 데이터를 이동하는 데 사용됩니다.  유효한 인터페이스를 찾을 수 없는 경우 관리 인터페이스를 사용하여 데이터를 이동하는데, 이는 특정 사용 사례에서는 바람직하지 않을 수 있습니다.
+
+image:migrate-vms-to-ontap-002.png["서비스가 활성화된 VMKernel"]
+
+VMKernel 인터페이스를 편집할 때 필요한 서비스를 활성화하는 옵션이 있습니다.
+
+image:migrate-vms-to-ontap-001.png["VMKernel 서비스 옵션"]
+
+
+TIP: vMotion 및 Provisioning VMkernel 인터페이스에서 사용하는 포트 그룹에 대해 최소 두 개의 고속 활성 업링크 NIC를 사용할 수 있는지 확인하세요.
+
+====
+
+
+== VM 마이그레이션 시나리오
+
+vMotion은 전원 상태와 관계없이 VM을 마이그레이션하는 데 자주 사용됩니다.  특정 시나리오에 대한 추가 고려 사항과 마이그레이션 절차는 아래에서 확인할 수 있습니다.
+
+
+NOTE: 이해하다 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/migration-with-vmotion-host-management/virtual-machine-conditions-and-limitation-for-vmotion-host-management.html["vSphere vMotion의 VM 조건 및 제한 사항"] VM 마이그레이션 옵션을 진행하기 전에.
+
+.특정 vSphere Datastore에서 VM 마이그레이션
+[%collapsible%open]
+====
+UI를 사용하여 VM을 새 데이터 저장소로 마이그레이션하려면 아래 절차를 따르세요.
+
+. vSphere Web Client를 사용하여 스토리지 인벤토리에서 데이터스토어를 선택하고 VM 탭을 클릭합니다.
++
+image:migrate-vms-to-ontap-003.png["특정 데이터 저장소의 VM"]
+
+. 마이그레이션이 필요한 VM을 선택하고 마우스 오른쪽 버튼을 클릭하여 마이그레이션 옵션을 선택합니다.
++
+image:migrate-vms-to-ontap-004.png["마이그레이션할 VM"]
+
+. 저장소만 변경하는 옵션을 선택하고 다음을 클릭합니다.
++
+image:migrate-vms-to-ontap-005.png["저장공간만 변경"]
+
+. 원하는 VM 스토리지 정책을 선택하고 호환되는 데이터 저장소를 선택하세요. 다음을 클릭하세요.
++
+image:migrate-vms-to-ontap-006.png["VM 스토리지 정책을 충족하는 데이터 저장소"]
+
+. 검토하고 마침을 클릭하세요.
++
+image:migrate-vms-to-ontap-007.png["스토리지 마이그레이션 검토"]
+
+
+
+PowerCLI를 사용하여 VM을 마이그레이션하는 샘플 스크립트는 다음과 같습니다.
+
+[source, powershell]
+----
+#Authenticate to vCenter
+Connect-VIServer -server vcsa.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific datastore
+$vm = Get-DataStore 'vSanDatastore' | Get-VM Har*
+
+#Gather VM Disk info
+$vmdisk = $vm | Get-HardDisk
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'NetApp Storage'
+
+#set VM Storage Policy for VM config and its data disks.
+$vm, $vmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Migrate VMs to Datastore specified by Policy
+$vm | Move-VM -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy)
+
+#Ensure VM Storage Policy remains compliant.
+$vm, $vmdisk | Get-SPBMEntityConfiguration
+----
+====
+.동일한 vSphere 클러스터의 VM 마이그레이션
+[%collapsible%open]
+====
+UI를 사용하여 VM을 새 데이터 저장소로 마이그레이션하려면 아래 절차를 따르세요.
+
+. vSphere Web Client를 사용하여 호스트 및 클러스터 인벤토리에서 클러스터를 선택하고 VM 탭을 클릭합니다.
++
+image:migrate-vms-to-ontap-008.png["특정 클러스터의 VM"]
+
+. 마이그레이션이 필요한 VM을 선택하고 마우스 오른쪽 버튼을 클릭하여 마이그레이션 옵션을 선택합니다.
++
+image:migrate-vms-to-ontap-004.png["마이그레이션할 VM"]
+
+. 저장소만 변경하는 옵션을 선택하고 다음을 클릭합니다.
++
+image:migrate-vms-to-ontap-005.png["저장공간만 변경"]
+
+. 원하는 VM 스토리지 정책을 선택하고 호환되는 데이터 저장소를 선택하세요. 다음을 클릭하세요.
++
+image:migrate-vms-to-ontap-006.png["VM 스토리지 정책을 충족하는 데이터 저장소"]
+
+. 검토하고 마침을 클릭하세요.
++
+image:migrate-vms-to-ontap-007.png["스토리지 마이그레이션 검토"]
+
+
+
+PowerCLI를 사용하여 VM을 마이그레이션하는 샘플 스크립트는 다음과 같습니다.
+
+[source, powershell]
+----
+#Authenticate to vCenter
+Connect-VIServer -server vcsa.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific cluster
+$vm = Get-Cluster 'vcf-m01-cl01' | Get-VM Aria*
+
+#Gather VM Disk info
+$vmdisk = $vm | Get-HardDisk
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'NetApp Storage'
+
+#set VM Storage Policy for VM config and its data disks.
+$vm, $vmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Migrate VMs to Datastore specified by Policy
+$vm | Move-VM -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy)
+
+#Ensure VM Storage Policy remains compliant.
+$vm, $vmdisk | Get-SPBMEntityConfiguration
+----
+
+TIP: 데이터 저장소 클러스터가 완전 자동화된 스토리지 DRS(동적 리소스 스케줄링)와 함께 사용되고 두 데이터 저장소(소스 및 대상)가 동일한 유형(VMFS/NFS/vVol)인 경우, 두 데이터 저장소를 동일한 스토리지 클러스터에 유지하고 소스에서 유지 관리 모드를 활성화하여 소스 데이터 저장소에서 VM을 마이그레이션합니다.  경험은 컴퓨팅 호스트가 유지 관리를 위해 처리되는 방식과 유사합니다.
+
+====
+.여러 vSphere 클러스터 간 VM 마이그레이션
+[%collapsible%open]
+====
+
+NOTE: 나타내다 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/cpu-compatibility-and-evc-host-management.html["CPU 호환성 및 vSphere Enhanced vMotion 호환성"] 소스 호스트와 대상 호스트가 서로 다른 CPU 제품군이나 모델인 경우.
+
+UI를 사용하여 VM을 새 데이터 저장소로 마이그레이션하려면 아래 절차를 따르세요.
+
+. vSphere Web Client를 사용하여 호스트 및 클러스터 인벤토리에서 클러스터를 선택하고 VM 탭을 클릭합니다.
++
+image:migrate-vms-to-ontap-008.png["특정 클러스터의 VM"]
+
+. 마이그레이션이 필요한 VM을 선택하고 마우스 오른쪽 버튼을 클릭하여 마이그레이션 옵션을 선택합니다.
++
+image:migrate-vms-to-ontap-004.png["마이그레이션할 VM"]
+
+. 컴퓨팅 리소스 및 스토리지를 변경하는 옵션을 선택하고 다음을 클릭합니다.
++
+image:migrate-vms-to-ontap-009.png["컴퓨팅과 스토리지를 모두 변경합니다."]
+
+. 탐색하여 마이그레이션할 올바른 클러스터를 선택하세요.
++
+image:migrate-vms-to-ontap-012.png["대상 클러스터를 선택하세요"]
+
+. 원하는 VM 스토리지 정책을 선택하고 호환되는 데이터 저장소를 선택하세요. 다음을 클릭하세요.
++
+image:migrate-vms-to-ontap-013.png["VM 스토리지 정책을 충족하는 데이터 저장소"]
+
+. 대상 VM을 배치할 VM 폴더를 선택합니다.
++
+image:migrate-vms-to-ontap-014.png["대상 VM 폴더 선택"]
+
+. 대상 포트 그룹을 선택하세요.
++
+image:migrate-vms-to-ontap-015.png["대상 포트 그룹 선택"]
+
+. 검토하고 마침을 클릭하세요.
++
+image:migrate-vms-to-ontap-007.png["스토리지 마이그레이션 검토"]
+
+
+
+PowerCLI를 사용하여 VM을 마이그레이션하는 샘플 스크립트는 다음과 같습니다.
+
+[source, powershell]
+----
+#Authenticate to vCenter
+Connect-VIServer -server vcsa.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific cluster
+$vm = Get-Cluster 'vcf-m01-cl01' | Get-VM Aria*
+
+#Gather VM Disk info
+$vmdisk = $vm | Get-HardDisk
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'NetApp Storage'
+
+#set VM Storage Policy for VM config and its data disks.
+$vm, $vmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Migrate VMs to another cluster and Datastore specified by Policy
+$vm | Move-VM -Destination (Get-Cluster 'Target Cluster') -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy)
+
+#When Portgroup is specific to each cluster, replace the above command with
+$vm | Move-VM -Destination (Get-Cluster 'Target Cluster') -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy) -PortGroup (Get-VirtualPortGroup 'VLAN 101')
+
+#Ensure VM Storage Policy remains compliant.
+$vm, $vmdisk | Get-SPBMEntityConfiguration
+----
+====
+.동일한 SSO 도메인의 vCenter 서버 간 VM 마이그레이션
+[#vmotion-same-sso%collapsible%open]
+====
+동일한 vSphere Client UI에 나열된 새 vCenter 서버로 VM을 마이그레이션하려면 아래 절차를 따르세요.
+
+
+NOTE: 소스 및 대상 vCenter 버전 등과 같은 추가 요구 사항을 확인하려면 다음을 확인하세요. https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/vmotion-across-vcenter-server-systems-host-management/requirements-for-migration-across-vcenter-servers-host-management.html["vCenter 서버 인스턴스 간 vMotion 요구 사항에 대한 vSphere 설명서"]
+
+. vSphere Web Client를 사용하여 호스트 및 클러스터 인벤토리에서 클러스터를 선택하고 VM 탭을 클릭합니다.
++
+image:migrate-vms-to-ontap-008.png["특정 클러스터의 VM"]
+
+. 마이그레이션이 필요한 VM을 선택하고 마우스 오른쪽 버튼을 클릭하여 마이그레이션 옵션을 선택합니다.
++
+image:migrate-vms-to-ontap-004.png["마이그레이션할 VM"]
+
+. 컴퓨팅 리소스 및 스토리지를 변경하는 옵션을 선택하고 다음을 클릭합니다.
++
+image:migrate-vms-to-ontap-009.png["컴퓨팅과 스토리지를 모두 변경합니다."]
+
+. 대상 vCenter 서버에서 대상 클러스터를 선택합니다.
++
+image:migrate-vms-to-ontap-012.png["대상 클러스터를 선택하세요"]
+
+. 원하는 VM 스토리지 정책을 선택하고 호환되는 데이터 저장소를 선택하세요. 다음을 클릭하세요.
++
+image:migrate-vms-to-ontap-013.png["VM 스토리지 정책을 충족하는 데이터 저장소"]
+
+. 대상 VM을 배치할 VM 폴더를 선택합니다.
++
+image:migrate-vms-to-ontap-014.png["대상 VM 폴더 선택"]
+
+. 대상 포트 그룹을 선택하세요.
++
+image:migrate-vms-to-ontap-015.png["대상 포트 그룹 선택"]
+
+. 마이그레이션 옵션을 검토하고 마침을 클릭합니다.
++
+image:migrate-vms-to-ontap-007.png["스토리지 마이그레이션 검토"]
+
+
+
+PowerCLI를 사용하여 VM을 마이그레이션하는 샘플 스크립트는 다음과 같습니다.
+
+[source, powershell]
+----
+#Authenticate to Source vCenter
+$sourcevc = Connect-VIServer -server vcsa01.sddc.netapp.local -force
+$targetvc = Connect-VIServer -server vcsa02.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific cluster
+$vm = Get-Cluster 'vcf-m01-cl01'  -server $sourcevc| Get-VM Win*
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'iSCSI' -server $targetvc
+
+#Migrate VMs to target vCenter
+$vm | Move-VM -Destination (Get-Cluster 'Target Cluster' -server $targetvc) -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy -server $targetvc) -PortGroup (Get-VirtualPortGroup 'VLAN 101' -server $targetvc)
+
+$targetvm = Get-Cluster 'Target Cluster' -server $targetvc | Get-VM Win*
+
+#Gather VM Disk info
+$targetvmdisk = $targetvm | Get-HardDisk
+
+#set VM Storage Policy for VM config and its data disks.
+$targetvm, $targetvmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Ensure VM Storage Policy remains compliant.
+$targetvm, $targetvmdisk | Get-SPBMEntityConfiguration
+----
+====
+.다양한 SSO 도메인의 vCenter 서버 간 VM 마이그레이션
+[%collapsible%open]
+====
+
+NOTE: 이 시나리오에서는 vCenter 서버 간에 통신이 존재한다고 가정합니다.  그렇지 않으면 아래 나열된 데이터 센터 위치 시나리오를 확인하세요.  필수 조건을 확인하세요 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-1960B6A6-59CD-4B34-8FE5-42C19EE8422A.html["Advanced Cross vCenter vMotion에 대한 vSphere 설명서"]
+
+UI를 사용하여 VM을 다른 vCenter 서버로 마이그레이션하려면 아래 절차를 따르세요.
+
+. vSphere Web Client를 사용하여 소스 vCenter 서버를 선택하고 VM 탭을 클릭합니다.
++
+image:migrate-vms-to-ontap-010.png["소스 vCenter의 VM"]
+
+. 마이그레이션이 필요한 VM을 선택하고 마우스 오른쪽 버튼을 클릭하여 마이그레이션 옵션을 선택합니다.
++
+image:migrate-vms-to-ontap-004.png["마이그레이션할 VM"]
+
+. Cross vCenter Server 내보내기 옵션을 선택하고 다음을 클릭합니다.
++
+image:migrate-vms-to-ontap-011.png["vCenter Server 간 내보내기"]
+
++
+
+TIP: VM은 대상 vCenter 서버에서 가져올 수도 있습니다.  해당 절차에 대해 다음을 확인하세요. https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/vmotion-across-vcenter-server-systems-host-management/migrate-a-virtual-machine-from-an-external-vcenter-server-instance-host-management.html["고급 Cross vCenter vMotion을 사용하여 가상 머신 가져오기 또는 복제"]
+
+. vCenter 자격 증명 세부 정보를 제공하고 로그인을 클릭합니다.
++
+image:migrate-vms-to-ontap-023.png["vCenter 자격 증명"]
+
+. vCenter Server의 SSL 인증서 지문 확인 및 수락
++
+image:migrate-vms-to-ontap-024.png["SSL 지문"]
+
+. 대상 vCenter를 확장하고 대상 컴퓨팅 클러스터를 선택합니다.
++
+image:migrate-vms-to-ontap-025.png["대상 컴퓨팅 클러스터 선택"]
+
+. VM 스토리지 정책에 따라 대상 데이터 저장소를 선택합니다.
++
+image:migrate-vms-to-ontap-026.png["대상 데이터 저장소 선택"]
+
+. 대상 VM 폴더를 선택하세요.
++
+image:migrate-vms-to-ontap-027.png["대상 VM 폴더 선택"]
+
+. 각 네트워크 인터페이스 카드 매핑에 대한 VM 포트 그룹을 선택합니다.
++
+image:migrate-vms-to-ontap-028.png["대상 포트그룹 선택"]
+
+. 검토 후 마침을 클릭하여 vCenter 서버에서 vMotion을 시작합니다.
++
+image:migrate-vms-to-ontap-029.png["Cross vMotion 운영 검토"]
+
+
+
+PowerCLI를 사용하여 VM을 마이그레이션하는 샘플 스크립트는 다음과 같습니다.
+
+[source, powershell]
+----
+#Authenticate to Source vCenter
+$sourcevc = Connect-VIServer -server vcsa01.sddc.netapp.local -force
+$targetvc = Connect-VIServer -server vcsa02.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific cluster
+$vm = Get-Cluster 'Source Cluster'  -server $sourcevc| Get-VM Win*
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'iSCSI' -server $targetvc
+
+#Migrate VMs to target vCenter
+$vm | Move-VM -Destination (Get-Cluster 'Target Cluster' -server $targetvc) -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy -server $targetvc) -PortGroup (Get-VirtualPortGroup 'VLAN 101' -server $targetvc)
+
+$targetvm = Get-Cluster 'Target Cluster' -server $targetvc | Get-VM Win*
+
+#Gather VM Disk info
+$targetvmdisk = $targetvm | Get-HardDisk
+
+#set VM Storage Policy for VM config and its data disks.
+$targetvm, $targetvmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Ensure VM Storage Policy remains compliant.
+$targetvm, $targetvmdisk | Get-SPBMEntityConfiguration
+----
+====
+.데이터 센터 위치 간 VM 마이그레이션
+[%collapsible%open]
+====
+* NSX Federation이나 다른 옵션을 사용하여 레이어 2 트래픽이 여러 데이터 센터에 걸쳐 확장되는 경우 vCenter 서버 간에 VM을 마이그레이션하는 절차를 따르세요.
+* HCX는 다양한 https://techdocs.broadcom.com/us/en/vmware-cis/hcx/vmware-hcx/4-11/vmware-hcx-user-guide-4-11/migrating-virtual-machines-with-vmware-hcx/vmware-hcx-migration-types.html["마이그레이션 유형"] 가동 중지 없이 VM을 이동하기 위해 데이터 센터 전체에서 복제 지원 vMotion을 포함합니다.
+* https://docs.vmware.com/en/Site-Recovery-Manager/index.html["사이트 복구 관리자(SRM)"]일반적으로 재해 복구 목적으로 사용되며 스토리지 어레이 기반 복제를 활용한 계획된 마이그레이션에도 자주 사용됩니다.
+* CDP(Continuous Data Protection) 제품 사용 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-storage-7-0/filtering-virtual-machine-i-o-in-vsphere/about-i-o-filters/classes-of-vaio-filters.html["IO용 vSphere API(VAIO)"] 데이터를 가로채서 원격 위치로 사본을 보내는 RPO 솔루션으로 거의 0에 가깝습니다.
+* 백업 및 복구 제품도 활용할 수 있습니다.  하지만 종종 RTO가 길어집니다.
+* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["BlueXP 재해 복구 서비스(DRaaS)"]스토리지 어레이 기반 복제를 활용하고 특정 작업을 자동화하여 대상 사이트에서 VM을 복구합니다.
+
+
+====
+.하이브리드 클라우드 환경에서 VM 마이그레이션
+[%collapsible%open]
+====
+* https://techdocs.broadcom.com/us/en/vmware-cis/cloud/vmware-cloud/cloud/vmware-cloud-gateway-administration/about-hybrid-linked-mode.html["하이브리드 연결 모드 구성"]그리고 다음 절차를 따르세요link:#vmotion-same-sso["동일한 SSO 도메인의 vCenter 서버 간 VM 마이그레이션"]
+* HCX는 다양한 https://docs.vmware.com/en/VMware-HCX/4.8/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["마이그레이션 유형"] 전원이 켜져 있는 동안 VM을 이동하기 위해 데이터 센터 전체에서 복제 지원 vMotion을 포함합니다.
++
+** link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-aws-vmc-migrate-hcx.html["TR 4942: VMware HCX를 사용하여 FSx ONTAP 데이터 저장소로 워크로드 마이그레이션"^]
+** link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-azure-avs-migrate-hcx.html["TR-4940: VMware HCX를 사용하여 워크로드를 Azure NetApp Files 데이터 저장소로 마이그레이션 - 빠른 시작 가이드"^]
+** link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-gcp-gcve-migrate-hcx.html["VMware HCX를 사용하여 Google Cloud NetApp Volumes 데이터 저장소로 워크로드 마이그레이션 - 빠른 시작 가이드"^]
+
+
+* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["BlueXP 재해 복구 서비스(DRaaS)"]스토리지 어레이 기반 복제를 활용하고 특정 작업을 자동화하여 대상 사이트에서 VM을 복구합니다.
+* 지원되는 CDP(Continous Data Protection) 제품을 사용하는 경우 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-storage-7-0/filtering-virtual-machine-i-o-in-vsphere/about-i-o-filters/classes-of-vaio-filters.html["IO용 vSphere API(VAIO)"] 데이터를 가로채서 원격 위치로 사본을 보내는 RPO 솔루션으로 거의 0에 가깝습니다.
+
+
+
+TIP: 소스 VM이 블록 vVol 데이터 저장소에 있는 경우 SnapMirror 사용하여 다른 지원되는 클라우드 공급자의 Amazon FSx ONTAP 또는 Cloud Volumes ONTAP (CVO)로 복제하고 클라우드 네이티브 VM에서 iSCSI 볼륨으로 사용할 수 있습니다.
+
+====
+
+
+== VM 템플릿 마이그레이션 시나리오
+
+VM 템플릿은 vCenter Server나 콘텐츠 라이브러리에서 관리할 수 있습니다.  VM 템플릿, OVF 및 OVA 템플릿, 기타 유형의 파일은 로컬 콘텐츠 라이브러리에 게시하여 배포하고 원격 콘텐츠 라이브러리에서 구독할 수 있습니다.
+
+* vCenter 인벤토리에 저장된 VM 템플릿은 VM으로 변환할 수 있으며 VM 마이그레이션 옵션을 사용할 수 있습니다.
+* OVF 및 OVA 템플릿, 콘텐츠 라이브러리에 저장된 다른 유형의 파일은 다른 콘텐츠 라이브러리에 복제될 수 있습니다.
+* 콘텐츠 라이브러리 VM 템플릿은 모든 데이터 저장소에 호스팅될 수 있으며 새 콘텐츠 라이브러리에 추가해야 합니다.
+
+
+.데이터 저장소에 호스팅된 VM 템플릿 마이그레이션
+[%collapsible%open]
+====
+. vSphere Web Client에서 VM 및 템플릿 폴더 보기 아래에 있는 VM 템플릿을 마우스 오른쪽 버튼으로 클릭하고 VM으로 변환하는 옵션을 선택합니다.
++
+image:migrate-vms-to-ontap-016.png["VM 템플릿을 VM으로 변환"]
+
+. VM으로 변환한 후 VM 마이그레이션 옵션을 따르세요.
+
+
+====
+.콘텐츠 라이브러리 항목 복제
+[%collapsible%open]
+====
+. vSphere Web Client에서 콘텐츠 라이브러리를 선택하세요.
++
+image:migrate-vms-to-ontap-017.png["콘텐츠 라이브러리 선택"]
+
+. 복제하려는 항목이 있는 콘텐츠 라이브러리를 선택하세요.
+. 항목을 마우스 오른쪽 버튼으로 클릭하고 항목 복제를 클릭합니다.
++
+image:migrate-vms-to-ontap-018.png["콘텐츠 라이브러리 항목 복제"]
+
++
+
+WARNING: 작업 메뉴를 사용하는 경우 작업을 수행할 올바른 대상 개체가 나열되어 있는지 확인하세요.
+
+. 대상 콘텐츠 라이브러리를 선택하고 확인을 클릭합니다.
++
+image:migrate-vms-to-ontap-019.png["대상 콘텐츠 라이브러리 선택"]
+
+. 해당 항목이 대상 콘텐츠 라이브러리에서 사용 가능한지 확인합니다.
++
+image:migrate-vms-to-ontap-020.png["복제 항목 검증"]
+
+
+
+다음은 콘텐츠 라이브러리 CL01에서 CL02로 콘텐츠 라이브러리 항목을 복사하는 PowerCLI 스크립트 샘플입니다.
+
+[source, powershell]
+----
+#Authenticate to vCenter Server(s)
+$sourcevc = Connect-VIServer -server 'vcenter01.domain' -force
+$targetvc = Connect-VIServer -server 'vcenter02.domain' -force
+
+#Copy content library items from source vCenter content library CL01 to target vCenter content library CL02.
+Get-ContentLibaryItem -ContentLibary (Get-ContentLibary 'CL01' -Server $sourcevc) | Where-Object { $_.ItemType -ne 'vm-template' } | Copy-ContentLibaryItem -ContentLibrary (Get-ContentLibary 'CL02' -Server $targetvc)
+----
+====
+.콘텐츠 라이브러리에 VM을 템플릿으로 추가
+[%collapsible%open]
+====
+. vSphere Web Client에서 VM을 선택하고 마우스 오른쪽 버튼을 클릭하여 라이브러리에서 템플릿으로 복제를 선택합니다.
++
+image:migrate-vms-to-ontap-021.png["라이브러리의 템플릿으로 VM 복제"]
+
++
+
+TIP: 라이브러리에서 복제할 VM 템플릿을 선택하면 OVF 및 OVA 템플릿으로만 저장할 수 있으며 VM 템플릿으로는 저장할 수 없습니다.
+
+. 템플릿 유형이 VM 템플릿으로 선택되었는지 확인하고 마법사의 지시에 따라 작업을 완료합니다.
++
+image:migrate-vms-to-ontap-022.png["템플릿 유형 선택"]
+
++
+
+NOTE: 콘텐츠 라이브러리의 VM 템플릿에 대한 추가 세부 정보는 다음을 확인하세요. https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vsphere-virtual-machine-administration-guide-8-0.html["vSphere VM 관리 가이드"]
+
+
+
+====
+
+
+== 사용 사례
+
+.타사 스토리지 시스템(vSAN 포함)에서 ONTAP 데이터 저장소로 마이그레이션합니다.
+[%collapsible%open]
+====
+* ONTAP 데이터 저장소가 프로비저닝되는 위치에 따라 위에서 VM 마이그레이션 옵션을 선택합니다.
+
+
+====
+.이전 버전에서 최신 버전의 vSphere로 마이그레이션합니다.
+[%collapsible%open]
+====
+* 기존 업그레이드가 불가능한 경우, 새로운 환경을 구축하고 위의 마이그레이션 옵션을 사용할 수 있습니다.
++
+
+TIP: Cross vCenter 마이그레이션 옵션에서 소스에서 내보내기 옵션을 사용할 수 없는 경우 대상에서 가져옵니다.  해당 절차에 대해 다음을 확인하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/vmotion-across-vcenter-server-systems-host-management/migrate-a-virtual-machine-from-an-external-vcenter-server-instance-host-management.html["고급 Cross vCenter vMotion을 사용하여 가상 머신 가져오기 또는 복제"]
+
+
+
+====
+.VCF 워크로드 도메인으로 마이그레이션.
+[%collapsible%open]
+====
+* 각 vSphere 클러스터에서 대상 워크로드 도메인으로 VM을 마이그레이션합니다.
++
+
+NOTE: 소스 vCenter의 다른 클러스터에 있는 기존 VM과 네트워크 통신을 허용하려면 소스 vCenter vSphere 호스트를 전송 영역에 추가하여 NSX 세그먼트를 확장하거나 에지에 L2 브리지를 사용하여 VLAN에서 L2 통신을 허용합니다.  NSX 문서를 확인하세요 https://techdocs.broadcom.com/us/en/vmware-cis/nsx/vmware-nsx/4-2/administration-guide/segments/edge-bridging-extending-overlay-segments-to-vlan/configure-an-edge-vm-for-bridging.html["브리징을 위한 Edge VM 구성"]
+
+
+
+====
+
+
+== 추가 자료
+
+* https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management.html["vSphere 가상 머신 마이그레이션"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/migration-with-vmotion-host-management.html["vSphere vMotion을 사용하여 가상 머신 마이그레이션"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/nsx/vmware-nsx/4-2/administration-guide/managing-nsx-t-in-multiple-locations/nsx-t-federation/networking-topologies-in-nsx-federation/tier-0-in-federation.html["NSX 페더레이션의 Tier-0 게이트웨이 구성"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/hcx/vmware-hcx/4-11/vmware-hcx-user-guide-4-11.html["HCX 4.8 사용자 가이드"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/live-recovery.html["VMware Live Recovery 설명서"]
+* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["VMware용 BlueXP disaster recovery"]
+

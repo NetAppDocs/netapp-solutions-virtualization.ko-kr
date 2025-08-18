@@ -1,0 +1,75 @@
+---
+section: osv
+title: OpenShift 가상화
+url: "/openshift/index.html"
+entries:
+- title: 시작하기
+  pdf-filename: Red Hat OpenShift Virtualization 개요
+  entries:
+  - title: OpenShift 가상화에 대하여
+    url: "/openshift/osv-overview.html"
+  - title: OpenShift를 위한 스토리지 프로비저닝
+    url: "/openshift/os-netapp-overview.html"
+  - title: NetApp Trident 스토리지 통합
+    url: "/openshift/os-storint-overview.html"
+- title: 배포를 위한 모범 사례
+  pdf-filename: NetApp 에서 Red Hat OpenShift Virtualization을 위한 모범 사례
+  url: "/openshift/os-osv-bpg.html"
+- title: Trident 설치
+  pdf-filename: Trident 설치
+  url: "/openshift/osv-trident-install.html"
+- title: 온프레미스 배포
+  pdf-filename: 온프레미스에 Red Hat OpenShift Virtualization 배포
+  entries:
+  - title: 배포 요구 사항
+    url: "/openshift/osv-deployment-prerequisites.html"
+  - title: OpenShift 가상화 배포
+    url: "/openshift/osv-deployment.html"
+  - title: VM 만들기
+    url: "/openshift/osv-workflow-create-vm.html"
+  - title: VMware에서 VM 마이그레이션
+    url: "/openshift/osv-workflow-vm-migration-mtv.html"
+  - title: 두 클러스터 노드 간에 VM 마이그레이션
+    url: "/openshift/osv-workflow-vm-live-migration.html"
+  - title: VM 복제
+    url: "/openshift/osv-workflow-clone-vm.html"
+  - title: 스냅샷에서 VM 만들기
+    url: "/openshift/osv-workflow-vm-from-snapshot.html"
+- title: FSxN을 사용하여 ROSA에 배포
+  pdf-filename: Amazon FSx for ONTAP 을 사용하여 ROSA에 Red Hat OpenShift Virtuzluation
+    배포
+  entries:
+  - title: ROSA에 OpenShift 배포
+    url: "/openshift/osv-rosa-overview.html"
+  - title: VM을 다시 시작하거나 라이브 마이그레이션합니다.
+    url: "/openshift/osv-rosa-vm-workflows.html"
+- title: Trident Protect를 사용하여 데이터 보호
+  entries:
+  - title: 스냅샷과 백업으로 VM 보호
+    url: "/openshift/osv-vm-dp-using-tp.html"
+  - title: 장애 조치 및 장애 복구 설정
+    url: "/openshift/osv-vm-dr-using-tp.html"
+- title: 타사 도구를 사용하여 데이터 보호
+  pdf-filename: Red Hat OpenShift 가상화 데이터 보호
+  entries:
+  - title: OADP 및 Velero를 사용하여 VM 보호
+    url: "/openshift/osv-vm-dp-using-velero-overview.html"
+  - title: OADP 설치
+    url: "/openshift/osv-oadp-installation.html"
+  - title: Velero를 사용하여 VM 백업
+    url: "/openshift/osv-vm-dp-using-velero.html"
+  - title: Velero를 사용하여 VM 복원
+    url: "/openshift/osv-vm-restore-using-velero.html"
+  - title: 백업 및 복원 삭제
+    url: "/openshift/osv-vm-dp-delete-using-velero.html"
+- title: DII로 VM 모니터링
+  pdf-filename: Red Hat OpenShift 가상화 모니터링
+  entries:
+  - title: DII 소개
+    url: "/openshift/os-ci-overview.html"
+  - title: D II 구성
+    url: "/openshift/os-ci-integration.html"
+  - title: DII를 사용하여 VM 모니터링
+    url: "/openshift/os-ci-samples.html"
+- title: 추가 자료
+  url: "/openshift/os-additional-information.html"

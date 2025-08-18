@@ -1,0 +1,145 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vsphere8-nfs-nconnect.html 
+keywords: netapp, vmware, nfsv3, nconnect, performance 
+summary:  
+---
+= NFS v3 데이터 저장소에서 nConnect를 사용하여 데이터 저장소 성능 개선
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NFS nConnect 기능을 사용하여 VMware vSphere 8 환경에서 데이터 저장소 성능을 개선하세요.  이 절차에는 NFS 데이터 저장소당 VM 호스팅, NFS 데이터 저장소 성능 향상, VM 및 컨테이너 기반 애플리케이션에 대한 상위 계층 구성이 포함됩니다.
+
+VMware vSphere 8.0 U1(기술 미리보기)부터 nconnect 기능을 사용하면 NFS v3 데이터 저장소 볼륨에 대한 여러 TCP 연결을 활성화하여 처리량을 높일 수 있습니다.  NFS 데이터 저장소를 사용하는 고객은 이제 NFS 서버에 대한 연결 수를 늘려 고속 네트워크 인터페이스 카드의 활용도를 극대화할 수 있습니다.
+
+
+NOTE: 이 기능은 일반적으로 8.0 U2가 있는 NFS v3에서 사용할 수 있습니다. 저장소 섹션을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/release-notes/esxi-update-and-patch-release-notes/vsphere-esxi-802-release-notes.html["VMware vSphere 8.0 업데이트 2 릴리스 노트"] .  vSphere 8.0 U3에는 NFS v4.1 지원이 추가되었습니다. 자세한 내용은 다음을 확인하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/release-notes/esxi-update-and-patch-release-notes/vsphere-esxi-803-release-notes.html["vSphere 8.0 업데이트 3 릴리스 노트"]
+
+
+
+== 사용 사례
+
+* 동일한 호스트에서 NFS 데이터 저장소당 더 많은 가상 머신을 호스팅합니다.
+* NFS 데이터 저장소 성능을 향상시킵니다.
+* VM 및 컨테이너 기반 애플리케이션에 대해 더 높은 계층의 서비스를 제공하는 옵션을 제공합니다.
+
+
+
+
+== 기술적 세부 사항
+
+nconnect의 목적은 vSphere 호스트의 NFS 데이터 저장소당 여러 개의 TCP 연결을 제공하는 것입니다.  이는 NFS 데이터 저장소의 병렬 처리와 성능을 높이는 데 도움이 됩니다.  ONTAP 에서 NFS 마운트가 설정되면 연결 ID(CID)가 생성됩니다.  해당 CID는 최대 128개의 동시 운항 작업을 제공합니다.  클라이언트가 해당 숫자를 초과하면 ONTAP 다른 작업이 완료되어 사용 가능한 리소스를 확보할 때까지 일종의 흐름 제어를 실행합니다.  이러한 일시 정지 시간은 보통 몇 마이크로초에 불과하지만 수백만 건의 작업이 진행되는 동안에는 누적되어 성능 문제를 일으킬 수 있습니다.  Nconnect는 128개의 제한을 적용하여 클라이언트의 nconnect 세션 수에 곱할 수 있으며, 이를 통해 CID당 동시 작업이 늘어나고 잠재적으로 성능 향상을 가져올 수 있습니다.  추가 세부 사항은 다음을 참조하세요.link:https://www.netapp.com/media/10720-tr-4067.pdf["NFS 모범 사례 및 구현 가이드"]
+
+
+
+=== 기본 NFS 데이터 저장소
+
+NFS 데이터 저장소의 단일 연결로 인한 성능 제한을 해결하기 위해 추가 데이터 저장소를 마운트하거나 추가 호스트를 추가하여 연결을 늘립니다.
+
+image:vmware-vsphere8-nfs-wo-nconnect.png["nconnect 기능이 없는 NFS 데이터 저장소"]
+
+
+
+=== nConnect NFS 데이터 저장소 사용
+
+ONTAP 도구나 다른 옵션을 사용하여 NFS 데이터 저장소를 생성하면 vSphere CLI, PowerCLI, govc 도구 또는 다른 API 옵션을 사용하여 NFS 데이터 저장소당 연결 수를 수정할 수 있습니다.  vMotion과 함께 성능 문제를 방지하려면 vSphere 클러스터에 속한 모든 vSphere 호스트의 NFS 데이터스토어에 대한 연결 수를 동일하게 유지하세요.
+
+image:vmware-vsphere8-nfs-nconnect.png["nconnect 기능이 활성화된 NFS 데이터 저장소"]
+
+
+
+== 필수 조건
+
+nconnect 기능을 활용하려면 다음 종속성을 충족해야 합니다.
+
+[cols="25%, 25%, 50%"]
+|===
+
+
+| ONTAP 버전 | vSphere 버전 | 댓글 
+
+
+| 9.8 이상 | 8 업데이트 1 | 연결 수를 늘릴 수 있는 옵션이 포함된 기술 미리보기.  연결 수를 줄이려면 데이터 저장소를 마운트 해제해야 합니다. 
+
+
+| 9.8 이상 | 8 업데이트 2 | 일반적으로 연결 수를 늘리거나 줄이는 옵션이 제공됩니다. 
+
+
+| 9.8 이상 | 8 업데이트 3 | NFS 4.1 및 다중 경로 지원. 
+|===
+
+
+== NFS 데이터 저장소에 대한 연결 수 업데이트
+
+ONTAP 도구나 vCenter를 사용하여 NFS 데이터 저장소를 생성하는 경우 단일 TCP 연결이 사용됩니다.  연결 수를 늘리려면 vSphere CLI를 사용할 수 있습니다.  참조 명령은 아래와 같습니다.
+
+[source, bash]
+----
+# Increase the number of connections while creating the NFS v3 datastore.
+esxcli storage nfs add -H <NFS_Server_FQDN_or_IP> -v <datastore_name> -s <remote_share> -c <number_of_connections>
+# To specify the number of connections while mounting the NFS 4.1 datastore.
+esxcli storage nfs41 add -H <NFS_Server_FQDN_or_IP> -v <datastore_name> -s <remote_share> -c <number_of_connections>
+# To utilize specific VMkernel adapters while mounting, use the -I switch
+esxcli storage nfs41 add -I <NFS_Server_FQDN_or_IP>:vmk1 -I <NFS_Server_FQDN_or_IP>:vmk2 -v <datastore_name> -s <remote_share> -c <number_of_connections>
+# To increase or decrease the number of connections for existing NFSv3 datastore.
+esxcli storage nfs param set -v <datastore_name> -c <number_of_connections>
+# For NFSv4.1 datastore
+esxcli storage nfs41 param set -v <datastore_name> -c <number_of_connections>
+# To set VMkernel adapter for an existing NFS 4.1 datastore
+esxcli storage nfs41 param set -I <NFS_Server_FQDN_or_IP>:vmk2 -v <datastore_name> -c <number_of_connections>
+----
+또는 아래와 같이 PowerCLI를 사용하세요.
+
+[source, powershell]
+----
+$datastoreSys = Get-View (Get-VMHost host01.vsphere.local).ExtensionData.ConfigManager.DatastoreSystem
+$nfsSpec = New-Object VMware.Vim.HostNasVolumeSpec
+$nfsSpec.RemoteHost = "nfs_server.ontap.local"
+$nfsSpec.RemotePath = "/DS01"
+$nfsSpec.LocalPath = "DS01"
+$nfsSpec.AccessMode = "readWrite"
+$nfsSpec.Type = "NFS"
+$nfsSpec.Connections = 4
+$datastoreSys.CreateNasDatastore($nfsSpec)
+----
+다음은 govc 도구를 사용하여 연결 수를 늘리는 예입니다.
+
+[source, powershell]
+----
+$env.GOVC_URL = 'vcenter.vsphere.local'
+$env.GOVC_USERNAME = 'administrator@vsphere.local'
+$env.GOVC_PASSWORD = 'XXXXXXXXX'
+$env.GOVC_Datastore = 'DS01'
+# $env.GOVC_INSECURE = 1
+$env.GOVC_HOST = 'host01.vsphere.local'
+# Increase number of connections while creating the datastore.
+govc host.esxcli storage nfs add -H nfs_server.ontap.local -v DS01 -s /DS01 -c 2
+# For NFS 4.1, replace nfs with nfs41
+govc host.esxcli storage nfs41 add -H <NFS_Server_FQDN_or_IP> -v <datastore_name> -s <remote_share> -c <number_of_connections>
+# To utilize specific VMkernel adapters while mounting, use the -I switch
+govc host.esxcli storage nfs41 add -I <NFS_Server_FQDN_or_IP>:vmk1 -I <NFS_Server_FQDN_or_IP>:vmk2 -v <datastore_name> -s <remote_share> -c <number_of_connections>
+# To increase or decrease the connections for existing datastore.
+govc host.esxcli storage nfs param set -v DS01 -c 4
+# For NFSv4.1 datastore
+govc host.esxcli storage nfs41 param set -v <datastore_name> -c <number_of_connections>
+# View the connection info
+govc host.esxcli storage nfs list
+----
+나타내다link:https://kb.vmware.com/s/article/91497["VMware KB 문서 91497"] 자세한 내용은.
+
+
+
+== 디자인 고려 사항
+
+ONTAP 에서 지원하는 최대 연결 수는 스토리지 플랫폼 모델에 따라 달라집니다.  exec_ctx를 찾으세요link:https://www.netapp.com/media/10720-tr-4067.pdf["NFS 모범 사례 및 구현 가이드"] 자세한 내용은.
+
+NFSv3 데이터스토어당 연결 수가 늘어나면 해당 vSphere 호스트에 마운트할 수 있는 NFS 데이터스토어 수가 줄어듭니다.  vSphere 호스트당 지원되는 총 연결 수는 256개입니다.  확인하다link:https://knowledge.broadcom.com/external/article?legacyId=91481["VMware KB 문서 91481"] vSphere 호스트당 데이터스토어 제한에 대해.
+
+
+NOTE: vVol 데이터 저장소는 nConnect 기능을 지원하지 않습니다.  하지만 프로토콜 엔드포인트는 연결 제한에 포함됩니다.  vVol 데이터 저장소가 생성되면 SVM의 각 데이터 lif에 대한 프로토콜 엔드포인트가 생성됩니다.

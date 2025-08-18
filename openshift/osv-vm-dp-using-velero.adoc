@@ -1,0 +1,82 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-vm-dp-using-velero.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization, OADP operator, Openshift Data Protection Application operator, velero 
+summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화 
+---
+= Velero를 사용하여 Red Hat OpenShift Virtualization의 VM에 대한 주문형 백업을 만듭니다.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Velero 및 NetApp ONTAP S3 또는 StorageGRID 사용하여 OpenShift Virtualization에서 VM을 백업합니다.  이 절차에는 주문형 백업을 위한 백업 사용자 정의 리소스(CR)와 예약된 백업을 위한 일정 CR을 만드는 작업이 포함됩니다.  각 백업은 VM 메타데이터와 영구 볼륨을 캡처하여 복구 또는 규정 준수 목적으로 지정된 개체 스토리지 위치에 저장합니다.
+
+
+
+== VM 백업을 생성하는 단계
+
+전체 VM(VM 메타데이터 및 VM 디스크)의 주문형 백업을 만들려면 **백업** 탭을 클릭하세요.  이렇게 하면 백업 사용자 정의 리소스(CR)가 생성됩니다. 백업 CR을 생성하기 위한 샘플 yaml이 제공됩니다.  이 yaml을 사용하면 지정된 네임스페이스에 있는 VM과 디스크가 백업됩니다. 추가 매개변수는 표시된 대로 설정할 수 있습니다.link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.html["선적 서류 비치"] .
+
+디스크를 백업하는 영구 볼륨의 스냅샷은 CSI에 의해 생성됩니다.  VM의 백업과 디스크의 스냅샷이 생성되어 yaml에 지정된 백업 위치에 저장됩니다. 백업은 TTL에 지정된 대로 30일 동안 시스템에 보관됩니다.
+
+....
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup1
+  namespace: openshift-adp
+spec:
+  includedNamespaces:
+  - virtual-machines-demo
+  snapshotVolumes: true
+  storageLocation: velero-demo-1 -->this is the backupStorageLocation previously created
+                                    when Velero is configured.
+  ttl: 720h0m0s
+....
+백업이 완료되면 해당 단계가 완료로 표시됩니다.
+
+image:redhat-openshift-oadp-backup-001.png["백업이 완료되었습니다"]
+
+S3 브라우저 애플리케이션을 사용하면 Object Storage에서 백업을 검사할 수 있습니다. 백업 경로는 구성된 버킷에 접두사 이름(velero/demobackup)과 함께 표시됩니다.  백업 내용에는 가상 머신의 볼륨 스냅샷, 로그 및 기타 메타데이터가 포함되어 있는 것을 볼 수 있습니다.
+
+
+NOTE: StorageGrid에서는 테넌트 관리자에서 제공하는 S3 콘솔을 사용하여 백업 객체를 볼 수도 있습니다.
+
+image:redhat-openshift-oadp-backup-002.png["S3의 백업 객체"]
+
+
+
+== OpenShift Virtualization에서 VM에 대한 예약된 백업 생성
+
+일정에 따라 백업을 만들려면 일정 CR을 만들어야 합니다. 일정은 백업을 만들고 싶은 시간을 지정할 수 있게 해주는 Cron 표현식입니다. 일정 CR을 만드는 샘플 YAML입니다.
+
+....
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: <schedule>
+  namespace: openshift-adp
+spec:
+  schedule: 0 7 * * *
+  template:
+    hooks: {}
+    includedNamespaces:
+    - <namespace>
+    storageLocation: velero-demo-1
+    defaultVolumesToFsBackup: true
+    ttl: 720h0m0s
+....
+Cron 표현식 0 7 * * *는 매일 7시에 백업이 생성됨을 의미합니다. 백업에 포함될 네임스페이스와 백업의 저장 위치도 지정됩니다. 따라서 백업 CR 대신 일정 CR을 사용하여 지정된 시간과 빈도로 백업을 생성합니다.
+
+일정이 생성되면 활성화됩니다.
+
+image:redhat-openshift-oadp-backup-003.png["일정이 생성되었습니다"]
+
+백업은 이 일정에 따라 생성되며, 백업 탭에서 볼 수 있습니다.
+
+image:redhat-openshift-oadp-backup-004.png["일정이 생성되었습니다"]

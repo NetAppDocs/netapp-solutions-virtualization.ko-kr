@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-principal-fc.html 
+keywords: netapp, vmware, cloud, foundation, vcf, asa, all-flash, array, ontap tools, otv, sddc, fc 
+summary:  
+---
+= ONTAP 에서 FC 기반 VMFS 데이터 저장소를 VI 워크로드 도메인의 주요 스토리지로 사용
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+이 사용 사례에서는 VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에 대한 기본 스토리지 솔루션으로 ONTAP 에 파이버 채널(FC) VMFS 데이터 저장소를 설정하는 절차를 설명합니다.  이 절차에서는 필요한 구성 요소, 구성 단계 및 배포 프로세스를 요약합니다.
+
+
+
+== 파이버 채널의 이점
+
+*고성능:* FC는 고속 데이터 전송률을 제공하므로 대량의 데이터에 빠르고 안정적으로 액세스해야 하는 애플리케이션에 이상적입니다.
+
+*낮은 지연 시간:* 매우 낮은 지연 시간은 데이터베이스 및 가상화 환경과 같은 성능에 민감한 애플리케이션에 매우 중요합니다.
+
+*신뢰성:* FC 네트워크는 내장된 중복성 및 오류 수정과 같은 기능을 갖추고 있어 견고성과 안정성이 뛰어난 것으로 알려져 있습니다.
+
+*전용 대역폭:* FC는 스토리지 트래픽에 전용 대역폭을 제공하여 네트워크 혼잡 위험을 줄입니다.
+
+NetApp 스토리지 시스템에서 파이버 채널을 사용하는 방법에 대한 자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/ontap/san-admin/san-provisioning-fc-concept.html["FC를 사용한 SAN 프로비저닝"] .
+
+
+
+== 시나리오 개요
+
+이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
+
+* FC 트래픽을 위한 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 만듭니다.
+* 배포될 호스트의 WWPN 정보를 수집하고 ONTAP 스토리지 시스템에 해당 이니시에이터 그룹을 생성합니다.
+* ONTAP 스토리지 시스템에 FC 볼륨을 생성합니다.
+* FC 볼륨을 생성하기 위해 맵 개시자 그룹
+* FC 스위치에서 단일 이니시에이터-타겟 구역 설정을 활용합니다.  각 개시자마다 하나의 영역을 만듭니다(단일 개시자 영역).
++
+** 각 영역에 대해 SVM에 대한 ONTAP FC 논리 인터페이스(WWPN)인 대상을 포함합니다.  SVM당 노드당 최소 2개의 논리적 인터페이스가 있어야 합니다.  물리적 포트의 WWPN을 사용하지 마세요.
+
+
+* SDDC Manager에서 vMotion 트래픽을 위한 네트워크 풀을 생성합니다.
+* VI 워크로드 도메인에서 사용할 VCF의 커미션 호스트입니다.
+* FC 데이터스토어를 주 스토리지로 사용하여 VCF에 VI 워크로드 도메인을 배포합니다.
+
+
+
+NOTE: 이 솔루션은 NetApp AFF 및 FAS 포함한 NFS 스토리지를 지원하는 ONTAP 플랫폼에 적용할 수 있습니다.
+
+
+
+== 필수 조건
+
+이 시나리오에서는 다음 구성 요소와 구성이 사용됩니다.
+
+* FC 스위치에 연결된 FC 포트가 있는 ONTAP AFF 또는 ASA 스토리지 시스템.
+* FC lifes로 생성된 SVM입니다.
+* FC 스위치에 연결된 FC HBA가 있는 vSphere.
+* FC 스위치에는 단일 이니시에이터-타겟 구역 설정이 구성됩니다.
+
+
+
+NOTE: NetApp FC LUN에 대해 다중 경로를 권장합니다.
+
+
+
+== 배포 단계
+
+
+
+=== 관리 도메인 - 기본 클러스터
+
+초기 클러스터의 FC 주 저장소는 VCF 브라운필드 가져오기 도구에서만 지원됩니다.  VCF가 CloudBuilder 도구(버전 5.2.x까지)로 배포된 경우 VSAN만 지원됩니다.  나타내다 https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/map-for-administering-vcf-5-2/importing-existing-vsphere-environments-admin/convert-or-import-a-vsphere-environment-into-vmware-cloud-foundation-admin.html["기존 vSphere 환경을 관리 도메인으로 변환"] 자세한 내용은.
+
+
+
+=== 관리 도메인 - 추가 클러스터
+
+관리 도메인의 추가 vSphere 클러스터는 다음 옵션을 사용하여 배포할 수 있습니다. * vSphere 환경에 추가 클러스터를 두고 VCF 브라운필드 가져오기 도구를 사용하여 vSphere 환경을 관리 도메인으로 변환합니다. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-vvols-datastore.html["ONTAP tools for VMware vSphere"] , https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["시스템 관리자 또는 ONTAP API"] VMFS 데이터스토어를 vSphere 클러스터에 배포하는 데 사용할 수 있습니다.  * SDDC API를 사용하여 추가 클러스터를 배포합니다.  vSphere 호스트에는 VMFS 데이터 저장소가 구성되어 있어야 합니다.  사용 https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["시스템 관리자 또는 ONTAP API"] LUN을 vSphere 호스트에 배포합니다.  * SDDC 관리자 UI를 사용하여 추가 클러스터를 배포합니다.  하지만 이 옵션은 버전 5.2.x까지만 VSAN 데이터 저장소를 생성합니다.
+
+
+
+=== VI 워크로드 도메인 - 기본 클러스터
+
+관리 도메인이 실행되면 VI 워크로드 도메인을 생성할 수 있습니다.
+
+* SDDC 관리자 UI 사용.  vSphere 호스트에는 VMFS 데이터 저장소가 구성되어 있어야 합니다.  System Manager 또는 ONTAP API를 사용하여 LUN을 vSphere 호스트에 배포합니다.
+* 기존 vSphere 환경을 새로운 VI 워크로드 도메인으로 가져옵니다.  ONTAP tools for VMware vSphere, System Manager 또는 ONTAP API를 사용하여 VMFS 데이터스토어를 vSphere 클러스터에 배포할 수 있습니다.
+
+
+
+
+=== VI 워크로드 도메인 - 추가 클러스터
+
+VI 워크로드가 실행되면 다음 옵션을 사용하여 FC LUN의 VMFS에 추가 클러스터를 배포할 수 있습니다.
+
+* VCF 브라운필드 가져오기 도구를 사용하여 vSphere 환경의 추가 클러스터를 가져왔습니다.  ONTAP tools for VMware vSphere, System Manager 또는 ONTAP API를 사용하여 VMFS 데이터스토어를 vSphere 클러스터에 배포할 수 있습니다.
+* SDDC 관리자 UI 또는 API를 사용하여 추가 클러스터를 배포합니다.  vSphere 호스트에는 VMFS 데이터 저장소가 구성되어 있어야 합니다.  System Manager 또는 ONTAP API를 사용하여 LUN을 vSphere 호스트에 배포합니다.
+
+
+
+
+== 추가 정보
+
+ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] 센터.
+
+VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2.html["VMware Cloud Foundation 문서"] .

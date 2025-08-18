@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-getting-started-vmdc.html 
+keywords: vmware, getting, started, overview, netapp, vm, data, collector, vmdc 
+summary:  
+---
+= 가상 머신 데이터 수집기를 사용하여 VMware 인프라를 평가하는 방법에 대해 알아보세요.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMDC(Virtual Machine Data Collector)는 VMware 환경을 위해 설계된 GUI를 갖춘 무료의 가벼운 도구입니다.  VM, 호스트, 스토리지, 네트워크의 인벤토리와 성능 데이터를 수집하여 리소스 최적화 및 용량 계획에 대한 통찰력을 제공합니다.
+
+
+
+== 소개
+
+VMDC(Virtual Machine Data Collector)는 VMware 환경을 위한 무료의 가볍고 간단한 GUI 기반 툴킷으로, 사용자가 가상 머신(VM), 호스트, 스토리지 및 네트워크에 대한 자세한 인벤토리 정보를 수집할 수 있습니다.
+
+Virtual Machine Data Collector에 대한 자세한 내용은 다음을 참조하세요.link:../assess/vmw-vmdc.html["가상 머신 데이터 수집기 설명서"] .
+
+
+
+== VMDC 기능
+
+VMDC는 vCPU 및 RAM과 함께 VMWare 코어 라이선싱에 대한 최적화 가능성을 예측하기 위한 빠르고 즉각적인 통계를 수집하기 위한 디딤돌일 뿐입니다.  AU와 데이터 수집기를 설치해야 하는 NetApp Data Infrastructure Insights 자세한 VM 토폴로지를 이해하고 주석을 사용하여 VM을 그룹화하여 작업 부하를 적정 크기로 조정하고 인프라를 미래에 대비시키기 위한 당연한 다음 단계입니다.
+
+VMDC로 수집된 메트릭 샘플링:
+
+* VM 정보
++
+** VM 이름
+** VM 전원 상태
+** VM CPU 정보
+** VM 메모리 정보
+** VM 위치
+** VM 네트워크 정보
+** 그리고 더 많은 것
+
+
+* VM 성능
++
+** 선택된 간격의 VM에 대한 성능 데이터
+** VM 읽기/쓰기 정보
+** VM IOPS 정보
+** VM 대기 시간
+** 그리고 더 많은 것
+
+
+* ESXi 호스트 정보
++
+** 호스트 데이터 센터 정보
+** 호스트 클러스터 정보
+** 호스트 모델 정보
+** 호스트 CPU 정보
+** 호스트 메모리 정보
+** 그리고 더 많은 것
+
+
+

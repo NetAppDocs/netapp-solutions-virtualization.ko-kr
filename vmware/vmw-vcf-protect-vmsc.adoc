@@ -1,0 +1,27 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-protect-vmsc.html 
+keywords: vmware, vcf, protect, vmsc, vsphere, metro, storage, cluster 
+summary:  
+---
+= ONTAP 고가용성을 VMware vSphere Metro Storage Cluster(vMSC)와 통합하는 방법에 대해 알아보세요.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp ONTAP 고가용성을 VMware vSphere Metro Storage Cluster(vMSC)와 통합하는 데 사용할 수 있는 NetApp 솔루션에 대해 알아보세요.  이는 VMware Cloud Foundation(VCF) 관리 및 VI 워크로드 도메인을 위한 강력한 솔루션을 제공합니다.
+
+이러한 조합은 지리적으로 분산된 사이트에서 지속적인 데이터 가용성, 원활한 장애 조치 및 재해 복구를 보장하여 중요한 작업 부하에 대한 복원력과 운영 연속성을 향상시킵니다.  SnapMirror 액티브 동기화는 사이트 전체에 장애가 발생하더라도 비즈니스 서비스가 계속 운영될 수 있도록 하며, 보조 복사본을 사용하여 애플리케이션이 투명하게 장애 조치되도록 지원합니다. SnapMirror 액티브 싱크를 사용하면 페일오버를 트리거하는 데 수동 작업이나 사용자 지정 스크립팅이 필요하지 않습니다.
+
+자세한 내용은 다음 솔루션을 참조하세요.
+
+* link:vmw-vcf-vmsc-mgmt-smas.html["SnapMirror Active Sync를 사용하여 관리 도메인에 대한 스트레치 클러스터"]
+* link:vmw-vcf-vmsc-mgmt-mcc.html["MetroCluster 사용하여 관리 도메인에 대한 스트레치 클러스터"]
+* link:vmw-vcf-vmsc-viwld-smas.html["SnapMirror Active Sync를 사용하여 VI 워크로드 도메인에 대한 스트레치 클러스터"]
+* link:vmw-vcf-vmsc-viwld-mcc.html["MetroCluster 사용하여 VI 워크로드 도메인에 대한 스트레치 클러스터"]
+

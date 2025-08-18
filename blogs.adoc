@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: blogs.html 
+summary: ONTAP 스토리지를 NetApp 가상화 솔루션과 통합하기 위한 실용적인 지침과 모범 사례를 제공하는 블로그를 읽어보세요. 
+keywords: netapp, solutions, blogs 
+---
+= NetApp 전문가의 가상화 솔루션 블로그를 읽어보세요
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP 스토리지를 NetApp 가상화 솔루션과 통합하기 위한 실용적인 지침과 모범 사례를 제공하는 블로그를 읽어보세요.
+
+* NetApp 및 VMware Cloud Foundation(VCF)
++
+** link:https://www.netapp.com/blog/netapp-vmware-cloud-foundation-getting-started["1부: 시작하기"]
+** link:https://www.netapp.com/blog/netapp-vmware-cloud-foundation-ontap-principal-storage["2부: VCF 및 ONTAP 주 저장소"]
+** link:https://www.netapp.com/blog/netapp-vmware-cloud-foundation-element-principal-storage["3부: VCF 및 Element 주 저장소"]
+** link:https://www.netapp.com/blog/netapp-vmware-cloud-foundation-supplemental-storage["4부: VMware 및 보조 스토리지용 ONTAP 도구"]
+
+
+* link:https://cloud.netapp.com/blog/azure-blg-optimize-storage-for-cloud-based-vmware-deployments["클라우드 기반 VMware 배포를 위한 스토리지 최적화"]
+* link:https://cloud.netapp.com/blog/azure-blg-netapp-cloud-offerings-with-azure-vmware-solution["NetApp 기반 클라우드 제품을 사용하여 Azure VMware 솔루션 시작"]
+* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/NetApp-and-VMware-Better-than-ever/ba-p/445780["NetApp 과 VMware – 그 어느 때보다 더 뛰어납니다"]
+* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/3-2-1-Data-Protection-for-VMware-with-SnapCenter-Plug-in-and-BlueXP-Backup-and/ba-p/446180["SnapCenter 플러그인과 BlueXP Backup and Recovery for VM을 통한 VMware용 3-2-1 데이터 보호"]
+

@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-vm-dp-delete-using-velero.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization, OADP operator, Openshift Data Protection Application operator, velero 
+summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화 
+---
+= Velero를 사용하여 Red Hat OpenShift Virtualization에서 백업 CR을 삭제하거나 CR을 복원합니다.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Velero를 사용하여 OpenShift Virtualization의 VM에 대한 백업을 삭제하고 리소스를 복원합니다.  OpenShift CLI를 사용하여 개체 스토리지 데이터를 보존하면서 백업을 삭제하거나, Velero CLI를 사용하여 백업 사용자 정의 리소스(CR)와 관련 스토리지 데이터를 모두 삭제합니다.
+
+
+
+== 백업 삭제
+
+OC CLI 도구를 사용하면 개체 스토리지 데이터를 삭제하지 않고도 백업 CR을 삭제할 수 있습니다.
+
+....
+oc delete backup <backup_CR_name> -n <velero_namespace>
+....
+백업 CR을 삭제하고 연관된 개체 스토리지 데이터를 삭제하려면 Velero CLI 도구를 사용하면 됩니다.
+
+지침에 따라 CLI를 다운로드하세요.link:https://velero.io/docs/v1.3.0/basic-install/#install-the-cli["Velero 문서"] .
+
+Velero CLI를 사용하여 다음 삭제 명령을 실행하세요.
+
+....
+velero backup delete <backup_CR_name> -n <velero_namespace>
+....
+
+
+== 복원 삭제
+
+Velero CLI를 사용하여 CR 복원을 삭제할 수 있습니다.
+
+....
+velero restore delete restore --namespace openshift-adp
+....
+oc 명령과 UI를 사용하여 복원 CR을 삭제할 수 있습니다.
+
+....
+oc delete backup <backup_CR_name> -n <velero_namespace>
+....

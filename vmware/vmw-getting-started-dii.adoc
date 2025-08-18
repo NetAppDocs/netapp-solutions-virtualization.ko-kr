@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-getting-started-dii.html 
+keywords: vmware, getting, started, overview, netapp, data, infrastructure, insights, dii 
+summary:  
+---
+= NetApp Data Infrastructure Insights 사용하여 전체 인프라 모니터링에 대해 알아보세요.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp Data Infrastructure Insights (이전 명칭 Cloud Insights)는 온프레미스 및 클라우드 시스템을 모니터링하여 VMware vSphere 및 ONTAP 스토리지 시스템을 포함한 전체 IT 환경에 대한 가시성을 제공합니다.  이를 통해 공공 및 개인 환경에서 성능 추적, 문제 감지, 리소스 최적화와 같은 기능을 사용할 수 있습니다.
+
+
+
+== 소개
+
+Data Infrastructure Insights 사용하면 퍼블릭 클라우드와 프라이빗 데이터 센터를 포함한 모든 리소스를 모니터링하고, 문제를 해결하고, 최적화할 수 있습니다.
+
+Data Infrastructure Insights 에 대한 자세한 내용은 다음을 참조하세요.link:https://docs.netapp.com/us-en/data-infrastructure-insights/index.html["Data Infrastructure Insights 문서"] .
+
+
+
+== Data Infrastructure Insights 기능
+
+* Data Infrastructure Insights 하이브리드 멀티클라우드 모니터링을 제공하여 인프라와 워크로드에 대한 전체 스택 관찰 기능을 제공합니다.
+* Kubernetes를 포함한 이기종 인프라 및 워크로드를 위한 데이터 수집기
+* 쉬운 통합을 위한 Open Telegraf 수집기 및 개방형 API
+* 포괄적인 경고 및 알림
+* 지능적인 통찰력을 위한 머신 러닝
+* 리소스 활용 최적화
+* 질문에 답하기 위해 디스플레이 노이즈를 최소화하는 고급 필터가 있는 내장형 또는 사용자 정의형 대시보드
+* ONTAP 스토리지 작업의 상태를 확인하세요 
+* 랜섬웨어나 데이터 파괴 공격으로부터 가장 귀중한 비즈니스 자산인 데이터를 보호하세요
+

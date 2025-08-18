@@ -1,0 +1,27 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-protect-sc.html 
+keywords: vmware, vcf, protect, snapcenter 
+summary:  
+---
+= VMware vSphere용 SnapCenter 플러그인을 사용하여 VCF 워크로드 도메인을 보호하는 방법에 대해 알아보세요.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapCenter Plug-in for VMware vSphere 사용하여 VMware Cloud Foundation(VCF) 워크로드를 보호하는 데 사용할 수 있는 NetApp 솔루션에 대해 알아보세요.  이 플러그인은 백업과 복구를 간소화하고, 애플리케이션 일관성 백업을 보장하며, NetApp의 효율성 기술로 스토리지를 최적화합니다.
+
+vSphere 클라이언트와의 원활한 통합을 제공하는 동시에 자동화된 워크플로와 확장 가능한 운영을 지원합니다.  SnapMirror 복제 기능은 온프레미스 또는 클라우드에 2차 백업을 제공하여 가상화된 환경에서 강력한 데이터 보호와 운영 효율성을 제공합니다.
+
+자세한 내용은 다음 솔루션을 참조하세요.
+
+* link:vmw-vcf-scv-viwld.html["VCF 워크로드 도메인 보호"]
+* link:vmw-vcf-scv-multiwkld-protection.html["VCF 다중 워크로드 도메인 보호"]
+* link:vmw-vcf-scv-nvme.html["NVMe로 VCF 워크로드 도메인 보호"]
+* link:vmw-vcf-321-data-protection.html["SnapCenter 플러그인과 BlueXP backup and recovery 통한 VMware용 3-2-1 데이터 보호"]
+

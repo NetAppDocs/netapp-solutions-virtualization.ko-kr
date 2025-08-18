@@ -1,0 +1,399 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-nfs-vlsr.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
+summary:  
+---
+= VMware Site Recovery Manager를 사용하여 NFS 데이터 저장소에 대한 재해 복구 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware Site Recovery Manager(SRM)와 ONTAP tools for VMware vSphere 사용하여 NFS 데이터 저장소에 대한 재해 복구를 구현합니다.  이 절차에는 기본 및 보조 사이트에서 vCenter 서버로 SRM을 구성하고, ONTAP 스토리지 복제 어댑터(SRA)를 설치하고, ONTAP 스토리지 시스템 간에 SnapMirror 관계를 설정하고, SRM에 대한 사이트 복구를 설정하는 작업이 포함됩니다.
+
+ONTAP tools for VMware vSphere 10 및 Site Replication Adapter(SRA)를 VMware Site Recovery Manager(SRM)와 함께 사용하면 재해 복구 작업에 상당한 가치를 더할 수 있습니다.  ONTAP 도구 10은 iSCSI 및 NFS vVols 지원하는 VASA 공급자를 위한 기본 고가용성 및 확장성을 포함한 강력한 스토리지 기능을 제공합니다.  이를 통해 데이터 가용성이 보장되고 여러 VMware vCenter 서버와 ONTAP 클러스터의 관리가 간소화됩니다.  VMware Site Recovery Manager와 함께 SRA를 사용하면 조직에서 사이트 간에 가상 머신과 데이터를 원활하게 복제하고 장애 조치를 취할 수 있어 효율적인 재해 복구 프로세스가 가능해집니다.  ONTAP 도구와 SRA를 결합하면 기업은 중요한 작업 부하를 보호하고, 가동 중지 시간을 최소화하고, 예상치 못한 이벤트나 재해가 발생하더라도 비즈니스 연속성을 유지할 수 있습니다.
+
+ONTAP 도구 10은 SAN이나 NAS를 사용하든 스토리지 관리와 효율성 기능을 간소화하고, 가용성을 향상시키고, 스토리지 비용과 운영 오버헤드를 줄여줍니다.  데이터 저장소 프로비저닝을 위한 모범 사례를 활용하고 NFS 및 블록 스토리지 환경에 맞게 ESXi 호스트 설정을 최적화합니다.  이러한 모든 이점을 위해 NetApp ONTAP 소프트웨어를 실행하는 시스템에서 vSphere를 사용할 때 이 플러그인을 권장합니다.
+
+SRA는 SRM과 함께 사용되어 기존 VMFS 및 NFS 데이터 저장소의 운영 및 재해 복구 사이트 간 VM 데이터 복제를 관리하고, DR 복제본의 중단 없는 테스트를 수행하는 데 사용됩니다.  이는 발견, 복구 및 재보호 작업을 자동화하는 데 도움이 됩니다.
+
+이 시나리오에서는 VMWare Site Recovery Manager를 배포하고 사용하여 데이터 저장소를 보호하고 보조 사이트에 대한 테스트 및 최종 장애 조치를 실행하는 방법을 보여드리겠습니다.  재보호와 장애 복구에 대해서도 논의합니다.
+
+
+
+== 시나리오 개요
+
+이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
+
+* 기본 및 보조 사이트에서 vCenter 서버로 SRM을 구성합니다.
+* ONTAP tools for VMware vSphere 에 SRA 어댑터를 설치하고 vCenter에 등록합니다.
+* 소스 및 대상 ONTAP 스토리지 시스템 간 SnapMirror 관계 생성
+* SRM에 대한 사이트 복구를 구성합니다.
+* 테스트와 최종 장애 조치를 수행합니다.
+* 재보호와 장애 복구에 대해 논의합니다.
+
+
+
+
+== 아키텍처
+
+다음 다이어그램은 3노드 고가용성 구성으로 구성된 ONTAP tools for VMware vSphere 사용한 일반적인 VMware Site Recovery 아키텍처를 보여줍니다.
+
+image:vmware-nfs-srm-005.png["기기 구성"]{nbsp}
+
+
+
+== 필수 조건
+
+이 시나리오에는 다음과 같은 구성 요소와 구성이 필요합니다.
+
+* vSphere 8 클러스터는 환경 간 통신을 위한 적절한 네트워크를 갖추고 기본 및 보조 위치 모두에 설치됩니다.
+* 기본 및 보조 위치 모두에 ONTAP 스토리지 시스템을 구축하고, 이더넷 스위치에 NFS 스토리지 트래픽 전용 물리적 데이터 포트를 배치합니다.
+* ONTAP tools for VMware vSphere 설치되었고 두 vCenter 서버가 모두 등록되었습니다.
+* 기본 및 보조 사이트에 VMware Site Replication Manager 어플라이언스가 설치되었습니다.
++
+** SRM에 대한 인벤토리 매핑(네트워크, 폴더, 리소스, 스토리지 정책)이 구성되었습니다.
+
+
+
+
+NetApp 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 내결함성을 제공하는 NFS에 대한 중복 네트워크 설계를 권장합니다.  아키텍처 요구 사항에 따라 단일 서브넷이나 여러 서브넷으로 NFS를 배포하는 것이 일반적입니다.
+
+참조하다 https://www.vmware.com/docs/vmw-best-practices-running-nfs-vmware-vsphere["VMware vSphere를 사용하여 NFS를 실행하기 위한 모범 사례"] VMware vSphere에 대한 자세한 정보는 다음을 참조하세요.
+
+VMware vSphere와 함께 ONTAP 사용하는 것에 대한 네트워크 지침은 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-network.html#nfs["네트워크 구성 - NFS"] NetApp 엔터프라이즈 애플리케이션 설명서의 섹션입니다.
+
+VMware SRM과 함께 ONTAP 스토리지를 사용하는 방법에 대한 NetApp 설명서는 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-overview.html#why-use-ontap-with-srm["ONTAP 사용한 VMware Site Recovery Manager"]
+
+
+
+== 배포 단계
+
+다음 섹션에서는 ONTAP 스토리지 시스템을 사용하여 VMware Site Recovery Manager 구성을 구현하고 테스트하는 배포 단계를 간략하게 설명합니다.
+
+
+
+=== ONTAP 스토리지 시스템 간 SnapMirror 관계 생성
+
+데이터 저장소 볼륨을 보호하려면 소스 및 대상 ONTAP 스토리지 시스템 간에 SnapMirror 관계를 설정해야 합니다.
+
+ONTAP 문서를 참조하세요. https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-replication-workflow-concept.html["여기"] ONTAP 볼륨에 대한 SnapMirror 관계를 만드는 방법에 대한 자세한 내용은 다음을 참조하세요.
+
+단계별 지침은 다음 문서에 요약되어 있습니다.link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-aws-vmc-guest-storage-dr.html#assumptions-pre-requisites-and-component-overview["여기"^] .  이 단계에서는 클러스터 피어와 SVM 피어 관계를 만드는 방법과 각 볼륨에 대한 SnapMirror 관계를 만드는 방법을 설명합니다.  이러한 단계는 ONTAP 시스템 관리자나 ONTAP CLI를 사용하여 수행할 수 있습니다.
+
+
+
+=== SRM 어플라이언스 구성
+
+SRM 어플라이언스와 SRA 어댑터를 구성하려면 다음 단계를 완료하세요.
+
+.1차 및 2차 사이트에 SRM 어플라이언스를 연결합니다.
+[%collapsible%open]
+====
+다음 단계는 1차 사이트와 2차 사이트 모두에 대해 완료되어야 합니다.
+
+. 웹 브라우저에서 다음으로 이동합니다. `https://<SRM_appliance_IP>:5480` 로그인하세요. 시작하려면 *기기 구성*을 클릭하세요.
++
+image:vmware-nfs-srm-001.png["기기 구성"]
+
++
+{nbsp}
+
+. Site Recovery Manager 구성 마법사의 *플랫폼 서비스 컨트롤러* 페이지에서 SRM을 등록할 vCenter Server의 자격 증명을 입력합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-002.png["플랫폼 서비스 컨트롤러"]
+
++
+{nbsp}
+
+. *vCenter Server* 페이지에서 연결된 vServer를 보고 *다음*을 클릭하여 계속합니다.
+. *이름 및 확장자* 페이지에서 SRM 사이트의 이름, 관리자 이메일 주소, SRM에서 사용할 로컬 호스트를 입력합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-003.png["기기 구성"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 변경 사항 요약을 검토하세요.
+
+
+====
+.SRM 어플라이언스에서 SRA 구성
+[%collapsible%open]
+====
+SRM 어플라이언스에서 SRA를 구성하려면 다음 단계를 완료하세요.
+
+. ONTAP 도구 10용 SRA를 다운로드하세요. https://mysupport.netapp.com/site/products/all/details/otv10/downloads-tab["NetApp 지원 사이트"] tar.gz 파일을 로컬 폴더에 저장합니다.
+. SRM 관리 어플라이언스의 왼쪽 메뉴에서 *스토리지 복제 어댑터*를 클릭한 다음 *새 어댑터*를 클릭합니다.
++
+image:vmware-nfs-srm-004.png["새로운 SRM 어댑터 추가"]
+
++
+{nbsp}
+
+. ONTAP 도구 10 설명서 사이트에 설명된 단계를 따르세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/protect/configure-on-srm-appliance.html["SRM 어플라이언스에서 SRA 구성"] .  완료되면 SRA는 제공된 IP 주소와 vCenter 서버의 자격 증명을 사용하여 SRA와 통신할 수 있습니다.
+
+
+====
+
+
+=== SRM에 대한 사이트 복구 구성
+
+사이트 페어링을 구성하고 보호 그룹을 생성하려면 다음 단계를 완료하세요.
+
+.SRM에 대한 사이트 페어링 구성
+[%collapsible%open]
+====
+다음 단계는 기본 사이트의 vCenter 클라이언트에서 완료됩니다.
+
+. vSphere 클라이언트의 왼쪽 메뉴에서 *사이트 복구*를 클릭합니다.  기본 사이트의 SRM 관리 UI에 새 브라우저 창이 열립니다.
++
+image:vmware-nfs-srm-006.png["사이트 복구"]
+
++
+{nbsp}
+
+. *사이트 복구* 페이지에서 *새 사이트 쌍*을 클릭합니다.
++
+image:vmware-nfs-srm-007.png["사이트 복구"]
+
++
+{nbsp}
+
+. *새 쌍 마법사*의 *쌍 유형* 페이지에서 로컬 vCenter 서버가 선택되어 있는지 확인하고 *쌍 유형*을 선택합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-008.png["쌍 유형"]
+
++
+{nbsp}
+
+. *피어 vCenter* 페이지에서 보조 사이트의 vCenter 자격 증명을 입력하고 *vCenter 인스턴스 찾기*를 클릭합니다.  vCenter 인스턴스가 검색되었는지 확인하고 *다음*을 클릭하여 계속합니다.
++
+image:vmware-nfs-srm-009.png["피어 vCenter"]
+
++
+{nbsp}
+
+. *서비스* 페이지에서 제안된 사이트 페어링 옆에 있는 상자를 선택하세요. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-010.png["서비스"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 제안된 구성을 검토한 다음 *마침* 버튼을 클릭하여 사이트 페어링을 만듭니다.
+. 새로운 사이트 쌍과 요약은 요약 페이지에서 볼 수 있습니다.
++
+image:vmware-nfs-srm-011.png["사이트 쌍 요약"]
+
+
+
+====
+.SRM에 대한 어레이 쌍 추가
+[%collapsible%open]
+====
+다음 단계는 기본 사이트의 사이트 복구 인터페이스에서 완료됩니다.
+
+. 사이트 복구 인터페이스에서 왼쪽 메뉴의 *구성 > 어레이 기반 복제 > 어레이 쌍*으로 이동합니다.  시작하려면 *추가*를 클릭하세요.
++
+image:vmware-nfs-srm-012.png["배열 쌍"]
+
++
+{nbsp}
+
+. *어레이 쌍 추가* 마법사의 *스토리지 복제 어댑터* 페이지에서 기본 사이트에 SRA 어댑터가 있는지 확인하고 *다음*을 클릭하여 계속합니다.
++
+image:vmware-nfs-srm-013.png["배열 쌍 추가"]
+
++
+{nbsp}
+
+. *로컬 어레이 관리자* 페이지에서 기본 사이트의 어레이 이름, 스토리지 시스템의 FQDN, NFS를 제공하는 SVM IP 주소를 입력하고, 선택적으로 검색할 특정 볼륨의 이름을 입력합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-014.png["로컬 배열 관리자"]
+
++
+{nbsp}
+
+. *원격 어레이 관리자*에서 보조 사이트의 ONTAP 스토리지 시스템에 대한 마지막 단계와 동일한 정보를 입력합니다.
++
+image:vmware-nfs-srm-015.png["원격 어레이 관리자"]
+
++
+{nbsp}
+
+. *어레이 쌍* 페이지에서 활성화할 어레이 쌍을 선택하고 *다음*을 클릭하여 계속합니다.
++
+image:vmware-nfs-srm-016.png["배열 쌍"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지의 정보를 검토하고 *마침*을 클릭하여 배열 쌍을 만듭니다.
+
+
+====
+.SRM에 대한 보호 그룹 구성
+[%collapsible%open]
+====
+다음 단계는 기본 사이트의 사이트 복구 인터페이스에서 완료됩니다.
+
+. 사이트 복구 인터페이스에서 *보호 그룹* 탭을 클릭한 다음 *새 보호 그룹*을 클릭하여 시작하세요.
++
+image:vmware-nfs-srm-017.png["사이트 복구"]
+
++
+{nbsp}
+
+. *새 보호 그룹* 마법사의 *이름 및 방향* 페이지에서 그룹 이름을 입력하고 데이터 보호를 위한 사이트 방향을 선택합니다.
++
+image:vmware-nfs-srm-018.png["이름과 방향"]
+
++
+{nbsp}
+
+. *유형* 페이지에서 보호 그룹 유형(데이터 저장소, VM 또는 vVol)을 선택하고 어레이 쌍을 선택합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-019.png["유형"]
+
++
+{nbsp}
+
+. *데이터 저장소 그룹* 페이지에서 보호 그룹에 포함할 데이터 저장소를 선택합니다.  선택한 각 데이터스토어에 대해 현재 데이터스토어에 있는 VM이 표시됩니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-020.png["데이터 저장소 그룹"]
+
++
+{nbsp}
+
+. *복구 계획* 페이지에서 선택적으로 보호 그룹을 복구 계획에 추가하도록 선택합니다.  이 경우 복구 계획이 아직 생성되지 않았으므로 *복구 계획에 추가하지 않음*이 선택되었습니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-021.png["복구 계획"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 새로운 보호 그룹 매개변수를 검토하고 *마침*을 클릭하여 그룹을 만듭니다.
++
+image:vmware-nfs-srm-022.png["복구 계획"]
+
+
+
+====
+.SRM에 대한 복구 계획 구성
+[%collapsible%open]
+====
+다음 단계는 기본 사이트의 사이트 복구 인터페이스에서 완료됩니다.
+
+. 사이트 복구 인터페이스에서 *복구 계획* 탭을 클릭한 다음 *새 복구 계획*을 클릭하여 시작하세요.
++
+image:vmware-nfs-srm-023.png["새로운 복구 계획"]
+
++
+{nbsp}
+
+. *복구 계획 만들기* 마법사의 *이름 및 방향* 페이지에서 복구 계획의 이름을 입력하고 소스 사이트와 대상 사이트 간의 방향을 선택합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-024.png["이름과 방향"]
+
++
+{nbsp}
+
+. *보호 그룹* 페이지에서 복구 계획에 포함할 이전에 만든 보호 그룹을 선택합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-025.png["보호 그룹"]
+
++
+{nbsp}
+
+. *테스트 네트워크*에서 계획 테스트 동안 사용될 특정 네트워크를 구성합니다.  매핑이 존재하지 않거나 네트워크를 선택하지 않으면 격리된 테스트 네트워크가 생성됩니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-nfs-srm-026.png["테스트 네트워크"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 선택한 매개변수를 검토한 다음 *마침*을 클릭하여 복구 계획을 만듭니다.
+
+
+====
+
+
+== SRM을 사용한 재해 복구 작업
+
+이 섹션에서는 SRM을 사용하여 재해 복구를 수행하는 다양한 기능에 대해 설명합니다. 여기에는 장애 조치 테스트, 장애 조치 수행, 재보호 및 장애 복구 수행이 포함됩니다.
+
+참조하다 https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-operational_best_practices.html["운영 모범 사례"] SRM 재해 복구 작업에 ONTAP 스토리지를 사용하는 방법에 대한 자세한 내용은 다음을 참조하세요.
+
+.SRM을 사용한 장애 조치 테스트
+[%collapsible%open]
+====
+다음 단계는 Site Recovery 인터페이스에서 완료됩니다.
+
+. 사이트 복구 인터페이스에서 *복구 계획* 탭을 클릭한 다음 복구 계획을 선택합니다.  *테스트* 버튼을 클릭하여 보조 사이트로의 장애 조치 테스트를 시작합니다.
++
+image:vmware-nfs-srm-027.png["테스트 장애 조치"]
+
++
+{nbsp}
+
+. Site Recovery 작업창과 vCenter 작업창에서 테스트 진행 상황을 볼 수 있습니다.
++
+image:vmware-nfs-srm-028.png["작업 창에서 테스트 장애 조치"]
+
++
+{nbsp}
+
+. SRM은 SRA를 통해 보조 ONTAP 스토리지 시스템으로 명령을 보냅니다.  가장 최근의 스냅샷의 FlexClone 이 생성되어 보조 vSphere 클러스터에 마운트됩니다.  새로 마운트된 데이터스토어는 스토리지 인벤토리에서 볼 수 있습니다.
++
+image:vmware-nfs-srm-029.png["새로 마운트된 데이터 저장소"]
+
++
+{nbsp}
+
+. 테스트가 완료되면 *정리*를 클릭하여 데이터 저장소를 마운트 해제하고 원래 환경으로 되돌립니다.
++
+image:vmware-nfs-srm-030.png["새로 마운트된 데이터 저장소"]
+
+
+
+====
+.SRM으로 복구 계획 실행
+[%collapsible%open]
+====
+보조 사이트로 전체 복구 및 장애 조치를 수행합니다.
+
+. 사이트 복구 인터페이스에서 *복구 계획* 탭을 클릭한 다음 복구 계획을 선택합니다.  *실행* 버튼을 클릭하여 보조 사이트로의 장애 조치를 시작합니다.
++
+image:vmware-nfs-srm-031.png["장애 조치 실행"]
+
++
+{nbsp}
+
+. 장애 조치가 완료되면 데이터 저장소가 마운트되고 보조 사이트에 VM이 등록된 것을 볼 수 있습니다.
++
+image:vmware-nfs-srm-032.png["필로버 완료"]
+
+
+
+====
+장애 조치가 완료되면 SRM에서 추가 기능을 사용할 수 있습니다.
+
+*재보호*: 복구 프로세스가 완료되면 이전에 지정된 복구 사이트가 새로운 생산 사이트의 역할을 맡게 됩니다.  그러나 SnapMirror 복제는 복구 작업 중에 중단되므로 새로운 프로덕션 사이트가 향후 재해에 취약해질 수 있다는 점에 유의하는 것이 중요합니다.  지속적인 보호를 보장하려면 새로운 생산 사이트에 대한 새로운 보호 기능을 구축하여 다른 사이트로 복제하는 것이 좋습니다.  원래 운영 사이트가 계속 작동하는 경우 VMware 관리자는 해당 사이트를 새로운 복구 사이트로 재활용하여 보호 방향을 효과적으로 바꿀 수 있습니다.  재보호는 치명적이지 않은 장애에서만 가능하며, 결국 원래 vCenter 서버, ESXi 서버, SRM 서버 및 해당 데이터베이스를 복구해야 한다는 점을 강조하는 것이 중요합니다.  이러한 구성 요소를 사용할 수 없는 경우 새로운 보호 그룹과 새로운 복구 계획을 만들어야 합니다.
+
+*장애 복구*: 장애 복구 작업은 역방향 장애 조치로, 작업을 원래 사이트로 되돌리는 것입니다.  장애 복구 프로세스를 시작하기 전에 원래 사이트가 기능을 회복했는지 확인하는 것이 중요합니다.  원활한 장애 복구를 보장하려면 재보호 프로세스를 완료한 후 최종 장애 복구를 실행하기 전에 테스트 장애 조치를 수행하는 것이 좋습니다.  이러한 관행은 원래 사이트의 시스템이 작업을 완벽하게 처리할 수 있는지 확인하는 검증 단계 역할을 합니다.  이러한 접근 방식을 따르면 위험을 최소화하고 원래 프로덕션 환경으로의 보다 안정적인 전환을 보장할 수 있습니다.
+
+
+
+== 추가 정보
+
+VMware SRM과 함께 ONTAP 스토리지를 사용하는 방법에 대한 NetApp 설명서는 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-overview.html#why-use-ontap-with-srm["ONTAP 사용한 VMware Site Recovery Manager"]
+
+ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] 센터.
+
+VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf.html["VMware Cloud Foundation 문서"] .

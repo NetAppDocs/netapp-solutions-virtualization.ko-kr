@@ -1,0 +1,123 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-scv-nvme.html 
+keywords: netapp, vmware, nvme, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc, scv, workload, domain, backup 
+summary:  
+---
+= VMware vSphere용 NVMe over TCP 스토리지 및 SnapCenter 플러그인을 사용하여 VCF 워크로드 도메인을 보호합니다.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapCenter Plug-in for VMware vSphere 사용하여 NVMe를 통해 VCF 워크로드 도메인을 보호하세요.  이 절차에는 플러그인 설정, 최적의 성능을 위한 NVMe over TCP 구성, 백업, 복원 또는 복제 작업 수행이 포함됩니다.
+
+TCP를 통한 NVMe(Non-Volatile Memory Express)는 All Flash FAS (AFF) 및 All SAN Array(ASA )를 포함하여 VMware Cloud Foundation ESXi 서버와 NetApp 스토리지 간의 고속 데이터 전송을 용이하게 하는 최첨단 네트워크 프로토콜입니다.
+
+
+
+== 소개
+
+TCP를 통한 NVMe를 활용하면 까다로운 작업 부하에서도 낮은 지연 시간과 높은 처리량을 제공합니다.  VMware vSphere(SCV)용 NetApp SnapCenter Plug-in for VMware vSphere 과 NVMe over TCP를 통합하면 효율적인 데이터 관리를 위한 강력한 조합이 제공되어 VMware 환경 내에서 백업, 복원 및 복제 작업이 향상됩니다.
+
+
+
+== TCP를 통한 NVMe의 이점
+
+* 고성능: 낮은 지연 시간과 높은 데이터 전송 속도로 뛰어난 성능을 제공합니다.  이는 까다로운 애플리케이션과 대규모 데이터 작업에 매우 중요합니다.
+* 확장성: 확장 가능한 구성을 지원하여 IT 관리자가 데이터 요구 사항이 증가함에 따라 인프라를 원활하게 확장할 수 있습니다.
+* 효율성: 백업 및 복원 작업을 더 빠르게 진행하여 가동 중지 시간을 줄이고 전반적인 시스템 가용성을 향상시킵니다.
+
+
+이 문서에서는 최적의 성능을 위해 NVMe over TCP를 활용하는 데 중점을 두고 VMware Cloud Foundation(VCF) 환경에서 SCV를 배포하고 관리하는 단계를 제공합니다.
+
+
+
+== 대상
+
+VMware VCF 워크로드 도메인에 대한 데이터 보호 및 재해 복구를 보장하는 솔루션 아키텍트 또는 스토리지 관리자입니다.
+
+
+
+== 아키텍처 개요
+
+SCV는 VMware 환경의 VM, 데이터 저장소, 파일 및 폴더에 대한 빠르고 공간 효율적이며 충돌 일관성이 뛰어나고 VM 일관성이 있는 백업 및 복원 작업을 용이하게 하도록 설계된 강력한 도구입니다.  SCV는 OVA 파일을 사용하여 Linux 가상 어플라이언스로 배포되며 원격 플러그인 아키텍처를 활용합니다.
+
+
+
+=== SCV 배포 아키텍처
+
+* 가상 어플라이언스 배포: SCV는 OVA 파일을 사용하여 Linux 가상 어플라이언스로 배포됩니다.  이 배포 방법은 간소화되고 효율적인 설정 프로세스를 보장합니다.
+* 원격 플러그인 아키텍처: SCV는 원격 플러그인 아키텍처를 사용하여 여러 인스턴스를 관리하는 데 있어 확장성과 유연성을 제공합니다.
+* 일대일 관계: 각 VCF 도메인에는 전용 SCV 인스턴스가 필요하므로 격리되고 효율적인 백업 및 복원 작업이 보장됩니다.
+
+
+ONTAP 9.10.1 이상 버전에서는 NetApp AFF 와 ASA NVMe over TCP를 지원합니다.  AFF 또는 ASA 기본 시스템에 있는 데이터로 ONTAP AFF 또는 ASA 보조 시스템으로 복제할 수 있습니다.  SCV는 또한 SnapCenter Server와 함께 작동하여 SnapCenter 애플리케이션별 플러그인에 대한 VMware 환경에서 애플리케이션 기반 백업 및 복원 작업을 지원합니다.  자세한 내용은 다음을 확인하세요.link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/index.html["SnapCenter Plug-in for VMware vSphere 설명서"] 그리고link:https://docs.netapp.com/us-en/netapp-solutions/vmware/vmware_vcf_aff_multi_wkld_scv.html#audience["SnapCenter Plug-in for VMware vSphere 와 NetApp SnapCenter for VMWare vSphere(SCV)를 사용하여 VCF 관리 도메인과 여러 워크로드 도메인을 보호하세요."]
+
+image:vmware-vcf-aff-050.png["SCV를 사용한 VCF 다중 작업 도메인"]
+
+3-2-1 백업 규칙은 데이터 사본을 세 개 만들어 두 가지 유형의 미디어에 저장하고, 사본 한 개를 오프사이트에 보관하는 데이터 보호 전략입니다. BlueXP backup and recovery 온프레미스와 클라우드 환경 모두에서 광범위한 백업 및 복구 작업에 대한 단일 제어 평면을 제공하는 클라우드 기반 데이터 관리 도구입니다.  NetApp BlueXP backup and recovery 제품군의 일부인 기능은 SCV(온프레미스)와 통합되어 데이터 사본을 클라우드의 개체 스토리지로 확장하는 기능입니다. 이를 통해 1차 또는 2차 저장소 백업에서 가져온 데이터의 세 번째 사본이 오프사이트에 생성됩니다. BlueXP backup and recovery 사용하면 이 두 온프레미스 위치 중 하나에서 데이터 사본을 전송하는 저장 정책을 쉽게 설정할 수 있습니다.  자세한 내용은 다음을 확인하세요.link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-hybrid-321-dp-scv.html["SnapCenter 플러그인과 BlueXP backup and recovery 통한 VMware용 3-2-1 데이터 보호"^] .
+
+
+
+== NVMe 배포 단계에서 VCF용 SCV
+
+그만큼link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["ONTAP tools for VMware vSphere"] (OTV)는 VMware 환경에서 NetApp 스토리지를 관리하기 위한 강력하고 효율적인 솔루션을 제공합니다.  OTV는 vCenter Server와 직접 통합하여 스토리지 관리를 간소화하고, 데이터 보호를 강화하고, 성능을 최적화합니다.  선택 사항이기는 하지만 OTV를 구축하면 VMware 환경의 관리 기능과 전반적인 효율성을 크게 개선할 수 있습니다.
+
+* link:https://docs.netapp.com/us-en/netapp-solutions/vmware/vmware_vcf_asa_supp_wkld_nvme.html#scenario-overview["VCF 워크로드 도메인을 위한 NVMe/TCP 스토리지 생성"]
+* link:https://docs.netapp.com/us-en/netapp-solutions/vmware/vmware_vcf_aff_multi_wkld_scv.html#architecture-overview["VMware vSphere(SCV)에 대한 NetApp SnapCenter 구성"]
+
+
+.VM, 데이터 저장소, 가상 디스크 및 파일 또는 폴더 복원
+[%collapsible%open]
+====
+SCV는 VMware 환경에 대한 포괄적인 백업 및 복원 기능을 제공합니다.  VMFS 환경의 경우 SCV는 Storage VMotion과 함께 복제 및 마운트 작업을 사용하여 복원 작업을 수행합니다.  이를 통해 효율적이고 원활한 데이터 복구가 보장됩니다.  자세한 내용은 다음을 확인하세요.link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_how_restore_operations_are_performed.html["복원 작업이 수행되는 방식."]
+
+* VM 복원 동일한 vCenter Server 내의 원래 호스트나 동일한 vCenter Server에서 관리하는 대체 ESXi 호스트로 VM을 복원할 수 있습니다.
++
+.. VM을 마우스 오른쪽 버튼으로 클릭하고 드롭다운 목록에서 SnapCenter Plug-in for VMware vSphere 선택한 다음, 보조 드롭다운 목록에서 복원을 선택하여 마법사를 시작합니다.
+.. 복원 마법사에서 복원하려는 백업 스냅샷을 선택하고 복원 범위 필드에서 전체 가상 머신을 선택한 다음 복원 위치를 선택하고 백업을 마운트할 대상 정보를 입력합니다.  위치 선택 페이지에서 복원된 데이터 저장소의 위치를 선택합니다.  요약 페이지를 검토하고 마침을 클릭합니다.image:vmware-vcf-aff-066.png["VM 복원"]
+
+
+* 백업에 있는 파일에 액세스하려면 백업에서 기존 데이터 저장소를 마운트할 수 있습니다.  백업이 생성된 동일한 ESXi 호스트에 백업을 마운트하거나 동일한 유형의 VM 및 호스트 구성을 갖춘 대체 ESXi 호스트에 마운트할 수 있습니다.  호스트에 데이터 저장소를 여러 번 마운트할 수 있습니다.
++
+.. 데이터스토어를 마우스 오른쪽 버튼으로 클릭하고 SnapCenter Plug-in for VMware vSphere > 백업 마운트를 선택합니다.
+.. 데이터 저장소 마운트 페이지에서 백업과 백업 위치(기본 또는 보조)를 선택한 다음 마운트를 클릭합니다.
+
+
+
+
+image:vmware-vcf-aff-067.png["데이터스토어 마운트"]
+
+* 가상 디스크 연결 백업에서 하나 이상의 VMDK를 부모 VM에 연결하거나, 동일한 ESXi 호스트의 대체 VM에 연결하거나, 연결 모드에서 동일한 vCenter 또는 다른 vCenter가 관리하는 대체 ESXi 호스트의 대체 VM에 연결할 수 있습니다.
++
+.. VM을 마우스 오른쪽 버튼으로 클릭하고 SnapCenter Plug-in for VMware vSphere > 가상 디스크 연결을 선택합니다.
+.. 가상 디스크 연결 창에서 백업을 선택하고 연결할 디스크를 하나 이상 선택하고 연결할 위치(기본 또는 보조)를 선택합니다.  기본적으로 선택된 가상 디스크는 부모 VM에 연결됩니다.  선택한 가상 디스크를 동일한 ESXi 호스트의 대체 VM에 연결하려면 여기를 클릭하여 대체 VM에 연결을 선택하고 대체 VM을 지정합니다.  첨부를 클릭하세요.
+
+
+
+
+image:vmware-vcf-aff-068.png["가상 디스크 연결"]
+
+* 파일 및 폴더 복원 단계 개별 파일과 폴더는 게스트 파일 복원 세션에서 복원할 수 있습니다. 이 세션에서는 가상 디스크의 백업 사본을 첨부한 다음 선택한 파일이나 폴더를 복원합니다.  파일과 폴더도 복구할 수 있습니다.  더 자세한 내용을 확인하세요link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_restore_guest_files_and_folders_overview.html["SnapCenter 파일 및 폴더 복원."]
++
+.. 게스트 파일이나 폴더 복원 작업을 위해 가상 디스크를 연결하는 경우 복원하기 전에 연결 대상 VM에 자격 증명을 구성해야 합니다.  SnapCenter Plug-in for VMware vSphere 에서 게스트 파일 복원 및 자격 증명으로 실행 섹션을 선택하고 사용자 자격 증명을 입력합니다.  사용자 이름에는 "관리자"를 입력해야 합니다.image:vmware-vcf-aff-060.png["자격 증명 복원"]
+.. vSphere 클라이언트에서 VM을 마우스 오른쪽 버튼으로 클릭하고 SnapCenter Plug-in for VMware vSphere > 게스트 파일 복원을 선택합니다.  복원 범위 페이지에서 백업 이름, VMDK 가상 디스크 및 위치(기본 또는 보조)를 지정합니다.  확인하려면 'Summery'를 클릭하세요.image:vmware-vcf-aff-069.png["파일 및 폴더 복원"]
+
+
+
+
+====
+
+
+== 모니터링 및 보고
+
+SCV는 관리자가 백업 및 복원 작업을 효율적으로 관리하는 데 도움이 되는 강력한 모니터링 및 보고 기능을 제공합니다.  상태 정보를 보고, 작업을 모니터링하고, 작업 로그를 다운로드하고, 보고서에 액세스할 수 있으며 자세한 내용은 다음을 확인하세요.link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_view_status_information.html["VMware vSphere Monitor and Report용 SnapCenter 플러그인."]
+
+image:vmware-vcf-aff-065.png["SCV 대시보드"]
+
+NVMe over TCP와 VMware vSphere용 NetApp SnapCenter Plug-in for VMware vSphere 의 힘을 활용하면 조직은 VMware Cloud Foundation 워크로드 도메인에 대한 고성능 데이터 보호 및 재해 복구를 달성할 수 있습니다.  이러한 접근 방식은 빠르고 안정적인 백업 및 복원 작업을 보장하여 가동 중지 시간을 최소화하고 중요한 데이터를 보호합니다.

@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+permalink: videos/openshift-videos.html 
+summary: NetApp 스토리지 솔루션과 OpenShift Virtualization 통합을 보여주는 비디오 및 데모 
+keywords: openshift, virtualization, netapp, trident, videos, demos 
+---
+= NetApp 사용한 Red Hat OpenShift 가상화에 대한 비디오 시청
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident 와 Ansible을 사용한 재해 복구, VM 보호, 스토리지 관리, 자동화 등의 주요 기능을 보여주는 일련의 비디오를 통해 NetApp 과 OpenShift Virtualization의 통합을 살펴보세요.
+
+
+
+== VM 관리 및 운영
+
+.iSCSI 스토리지를 사용하여 OpenShift Virtualization에서 VM 만들기
+video::497b868d-2917-4824-bbaa-b2d500f92dda[panopto,width=360]
+.OpenShift 가상화를 통한 가상 머신 배포 - NetApp 사용한 Red Hat OpenShift
+video::8a29fa18-8643-499e-94c7-b01200f9ce11[panopto,width=360]
+.Amazon FSx for NetApp ONTAP 사용하여 ROSA에서 OpenShift Virtualization의 가상 머신 라이브 마이그레이션
+video::4b3ef03d-7d65-4637-9dab-b21301371d7d[panopto,width=360]
+.Red Hat MTV를 사용하여 NetApp ONTAP 스토리지를 통해 VM을 OpenShift Virtualization으로 마이그레이션
+video::bac58645-dd75-4e92-b5fe-b12b015dc199[panopto,width=360]
+.워크로드 마이그레이션 - NetApp 사용한 Red Hat OpenShift
+video::27773297-a80c-473c-ab41-b01200fa009a[panopto,width=360]
+
+
+== 데이터 보호 및 재해 복구
+
+.Trident Protect를 사용하여 VM 보호
+video::4670e188-3d67-4207-84c5-b2d500f934a0[panopto,width=360]
+.Trident Protect를 사용한 VM 재해 복구
+video::ae4bdcf7-b344-4f19-89ed-b2d500f94efd[panopto,width=360]
+.Trident 의 고급 데이터 관리 기능을 사용한 OpenShift VM의 장애 조치/장애 복구(Early Access Program에서만 사용 가능)
+video::f2a8fa24-2971-4cdc-9bbb-b1f1007032ea[panopto,width=360]
+
+
+== 스토리지 통합 및 관리
+
+.Red Hat Certified Trident 운영자를 사용하여 Trident 설치
+video::15c225f3-13ef-41ba-b255-b2d500f927c0[panopto,width=360]
+.ONTAP SAN(iSCSI) 스토리지 클래스를 사용하여 OpenShift Virtualization에 새 VM 배포
+video::2e2c6fdb-4651-46dd-b028-b1ed00d37da3[panopto,width=360]
+.ONTAP NAS 스토리지 클래스를 사용하여 PostgreSQL 컨테이너 앱 배포
+video::d3eacf8c-888f-4028-a695-b1ed00d28dee[panopto,width=360]
+
+
+== 자동화 및 모니터링
+
+.OpenShift 클러스터에 Trident 배포하고 스토리지 클래스를 생성하기 위한 Ansible 자동화
+video::fae6605f-b61a-4a34-a97f-b1ed00d2de93[panopto,width=360]
+link:https://github.com/NetApp/trident-install["Ansible을 사용하여 NetApp Trident, StorageClasses 및 Backend를 설치하는 데 사용되는 플레이북은 github에서 찾을 수 있습니다."]
+
+.Openshift Virtualization과 Cloud Insights 통합
+video::29ed6938-eeaf-4e70-ae7b-b15d011d75ff[panopto,width=360]
+.OpenShift Virtualization 설치 - NetApp 사용한 Red Hat OpenShift
+video::e589a8a3-ce82-4a0a-adb6-b01200f9b907[panopto,width=360]

@@ -1,0 +1,92 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vmfs-fc.html 
+keywords: vSphere, datastore, VMFS, FC, ONTAP tools, zone, WWPN 
+summary: 이 페이지에서는 VMware vSphere 환경에 NetApp ONTAP 스토리지 FC VMFS 데이터스토어를 배포하는 단계를 설명합니다. 
+---
+= vSphere VMFS 데이터스토어 - ONTAP 사용한 파이버 채널 스토리지 백엔드
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+이 섹션에서는 ONTAP 파이버 채널(FC) 스토리지를 사용하여 VMFS 데이터 저장소를 만드는 방법에 대해 설명합니다.
+
+
+
+== 당신에게 필요한 것
+
+* vSphere 환경과 ONTAP 관리하는 데 필요한 기본 기술
+* {ontap_version}을 실행하는 ONTAP 스토리지 시스템(FAS/ AFF/CVO/ ONTAP Select/ ASA)
+* ONTAP 자격 증명(SVM 이름, 사용자 ID 및 비밀번호)
+* 호스트, 대상, SVM 및 LUN 정보의 ONTAP WWPN
+* link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-429C4DDD-5EC0-4DBD-8EA8-76082AB7ADEC.html++["완성된 FC 구성 워크시트"]
+* vCenter Server 자격 증명
+* vSphere 호스트 정보
++
+** {vsphere_버전}
+
+
+* 패브릭 스위치
++
+** 연결된 ONTAP FC 데이터 포트 및 vSphere 호스트 사용
+** N_port ID 가상화(NPIV) 기능이 활성화된 경우
+** 단일 개시자 단일 대상 구역을 만듭니다.
++
+*** 각 개시자마다 하나의 구역을 만듭니다(단일 개시자 구역).
+*** 각 영역에 대해 SVM에 대한 ONTAP FC 논리 인터페이스(WWPN)인 대상을 포함합니다.  SVM당 노드당 최소 2개의 논리적 인터페이스가 있어야 합니다.  물리적 포트의 WWPN을 사용하지 마세요.
+
+
+
+
+* VMware vSphere용 ONTAP 도구가 배포, 구성되고 사용 준비가 되었습니다.
+
+
+
+
+== VMFS 데이터 저장소 프로비저닝
+
+VMFS 데이터 저장소를 프로비저닝하려면 다음 단계를 완료하세요.
+
+. 호환성을 확인하세요 https://mysupport.netapp.com/matrix["상호 운용성 매트릭스 도구(IMT)"]
+. 다음을 확인하십시오.link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-7D444A0D-02CE-4A21-8017-CB1DC99EFD9A.html++["FCP 구성이 지원됩니다"] .
+
+
+
+
+=== ONTAP 작업
+
+. link:https://docs.netapp.com/us-en/ontap-cli-98/system-license-show.html["FCP에 대한 ONTAP 라이선스가 있는지 확인하세요."]
++
+.. 사용하세요 `system license show` FCP가 나열되어 있는지 확인하는 명령입니다.
+.. 사용 `licen  se add -license-code <license code>` 라이센스를 추가하세요.
+
+
+. SVM에서 FCP 프로토콜이 활성화되어 있는지 확인하세요.
++
+.. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-1C31DF2B-8453-4ED0-952A-DF68C3D8B76F.html++["기존 SVM에서 FCP를 확인합니다."]
+.. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-D322649F-0334-4AD7-9700-2A4494544CB9.html++["기존 SVM에서 FCP를 구성합니다."]
+.. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-0FCB46AA-DA18-417B-A9EF-B6A665DB77FC.html++["FCP로 새로운 SVM을 생성합니다."]
+
+
+. SVM에서 FCP 논리 인터페이스를 사용할 수 있는지 확인하세요.
++
+.. 사용 `Network Interface show` FCP 어댑터를 확인하세요.
+.. GUI를 사용하여 SVM을 생성하는 경우 논리적 인터페이스가 해당 프로세스의 일부입니다.
+.. 네트워크 인터페이스의 이름을 바꾸려면 다음을 사용하세요. `Network Interface modify` .
+
+
+. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/GUID-D4DAC7DB-A6B0-4696-B972-7327EE99FD72.html++["LUN을 생성하고 매핑합니다."]ONTAP tools for VMware vSphere 사용하는 경우 이 단계를 건너뜁니다.
+
+
+
+
+=== VMware vSphere 작업
+
+. HBA 드라이버가 설치되었는지 확인하세요.  VMware가 지원하는 HBA에는 드라이버가 기본적으로 배포되어 있으며 다음에서 볼 수 있어야 합니다.link:++https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-storage-7-0/getting-started-with-a-traditional-storage-model-in-vsphere-environment/supported-storage-adapters/view-storage-adapters-available-on-an-esxi-host.html++["스토리지 어댑터 정보"] .
+. link:++https://docs.netapp.com/vapp-98/topic/com.netapp.doc.vsc-iag/GUID-D7CAD8AF-E722-40C2-A4CB-5B4089A14B00.html++["ONTAP 도구를 사용하여 VMFS 데이터 저장소 프로비저닝"] .
+

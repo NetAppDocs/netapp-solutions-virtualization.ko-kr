@@ -1,0 +1,291 @@
+---
+sidebar: sidebar 
+permalink: hyperv/hyperv-smas.html 
+keywords: hyperv, hyper-v, snapmirror, active, sync, stretch, cluster, netapp, virtualization 
+summary: 이 논문에서는 Microsoft 스트레치 클러스터 간의 SnapMirror 액티브 싱크 기술 동기식 양방향 복제에 대해 설명합니다. 이를 통해 MSSQL과 Oracle 등의 멀티사이트 애플리케이션 데이터에 적극적으로 접근하고 두 사이트에서 동기화할 수 있습니다. 
+---
+= NetApp SnapMirror Active Sync 및 Microsoft Stretch 클러스터를 사용하여 동기 복제 설정
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapMirror Active Sync를 사용하여 Microsoft 스트레치 장애 조치 클러스터 간에 동기식 양방향 복제를 구성합니다.  이 절차에는 스트레치 장애 조치 클러스터 설치, 클러스터 간 피어링 생성, ONTAP 사용한 중재자 구성, 대칭적 액티브/액티브 보호 활성화, 클러스터 장애 조치 검증 테스트 수행이 포함됩니다.
+
+
+
+== 소개
+
+ONTAP 9.15.1부터 SnapMirror 액티브 동기화는 대칭적 액티브/액티브 배포를 지원하여 양방향 동기 복제를 통해 보호된 LUN의 두 복사본 모두에서 읽기 및 쓰기 I/O 작업을 수행할 수 있습니다.  Windows Stretch Cluster는 여러 지리적 위치에 걸쳐 높은 가용성과 재해 복구를 제공하는 Windows 장애 조치(Failover) 클러스터 기능의 확장입니다.  SnapMirror 액티브 싱크 대칭 액티브/액티브 및 Windows 장애 조치 클러스터링과 같은 클러스터형 애플리케이션을 사용하면 예기치 않은 사고 발생 시에도 RTO 및 RPO를 0으로 유지하여 Microsoft Hyper-V 비즈니스에 중요한 애플리케이션의 지속적인 가용성을 확보할 수 있습니다.  이 솔루션은 다음과 같은 이점을 제공합니다.
+
+* 데이터 손실 없음: 데이터가 동기적으로 복제되어 복구 지점 목표(RPO)가 0이 되도록 보장합니다.
+* 고가용성 및 부하 분산: 두 사이트 모두 적극적으로 요청을 처리하여 부하 분산과 고가용성을 제공합니다.
+* 비즈니스 연속성: 대칭적인 액티브/액티브 구성을 구현하여 두 데이터 센터 모두 애플리케이션을 적극적으로 제공하고 장애 발생 시 원활하게 작업을 인계할 수 있도록 합니다.
+* 성능 향상: 대칭적인 액티브/액티브 구성을 사용하여 여러 스토리지 시스템에 부하를 분산시켜 응답 시간과 전반적인 시스템 성능을 향상시킵니다.
+
+
+이 논문에서는 Microsoft 스트레치 장애 조치 클러스터 간의 SnapMirror 액티브 동기화 기술 동기식 양방향 복제에 대해 설명합니다. 이를 통해 MSSQL 및 Oracle과 같은 다중 사이트 애플리케이션 데이터에 적극적으로 액세스하고 두 사이트에서 동기화할 수 있습니다.  장애가 발생하면 애플리케이션은 데이터 손실이나 액세스 손실 없이 남아 있는 활성 사이트로 즉시 리디렉션되므로 높은 가용성, 재해 복구 및 지리적 중복성이 제공됩니다.
+
+
+
+== 사용 사례
+
+사이버 공격, 정전, 자연 재해 등의 중단이 발생하는 경우, 전 세계적으로 연결된 비즈니스 환경에서는 데이터 손실 없이 비즈니스에 중요한 애플리케이션 데이터를 신속하게 복구해야 합니다.  이러한 요구는 금융 분야나 GDPR(일반 데이터 보호 규정)과 같은 규제 의무를 준수하는 분야에서 더욱 높아집니다.  지리적으로 분산된 위치 간에 데이터를 복제하기 위해 대칭적인 액티브/액티브 구성을 배포하여 로컬에서 데이터에 액세스할 수 있도록 하고 지역적 중단 시에도 연속성을 보장합니다.
+
+SnapMirror Active Sync는 다음과 같은 사용 사례를 제공합니다.
+
+.RTO(복구 시간 객체)가 없는 애플리케이션 배포
+SnapMirror Active Sync 배포에서는 기본 클러스터와 미러 클러스터가 있습니다.  기본 클러스터(L1P)의 LUN에는 보조 클러스터에 미러(L1S)가 있습니다. 읽기 및 쓰기는 핫 근접성 설정에 따라 호스트에 로컬인 사이트에서 처리됩니다.
+
+.RTO 또는 TAF가 없는 애플리케이션 배포
+TAF(투명 애플리케이션 장애 조치)는 스토리지에 대한 중단 없는 액세스를 달성하기 위해 호스트 MPIO 소프트웨어 기반 경로 장애 조치를 기반으로 합니다.  두 LUN 복사본(예: 기본(L1P) 및 미러 복사본(L1S))은 동일한 ID(일련 번호)를 가지며 호스트에 읽기-쓰기가 가능한 것으로 보고됩니다.
+
+.클러스터링된 애플리케이션
+VMware vSphere Metro Storage Cluster(vMSC), Oracle RAC, SQL을 사용한 Windows Failover Clustering을 포함한 클러스터형 애플리케이션은 VM이 성능 오버헤드 없이 다른 사이트로 장애 조치할 수 있도록 동시 액세스가 필요합니다.  SnapMirror 액티브 싱크 대칭 액티브/액티브는 클러스터형 애플리케이션의 요구 사항을 충족하기 위해 양방향 복제를 통해 로컬로 IO를 제공합니다.
+
+.재난 시나리오
+지리적으로 분산된 위치의 사이트 간에 애플리케이션의 여러 볼륨을 동기식으로 복제합니다.  1차 데이터베이스가 중단되는 경우 자동으로 2차 데이터베이스로 장애 조치를 취해 1계층 애플리케이션의 비즈니스 연속성을 확보할 수 있습니다.
+
+.Windows 장애 조치
+SnapMirror 액티브 동기화는 사용하기 쉬운 애플리케이션 수준의 세분성과 자동 장애 조치를 통해 유연성을 제공하여 가상 및 물리적 환경 모두에서 Oracle, Microsoft SQL Server 등과 같은 비즈니스에 중요한 애플리케이션에 대한 높은 데이터 가용성과 빠른 데이터 복제를 달성합니다.
+
+
+
+== 솔루션 아키텍처
+
+Microsoft 스트레치 클러스터에는 각 사이트에 두 개의 Hyper-V 노드가 있습니다.  이 두 노드는 NetApp 스토리지를 공유하고 SnapMirror 액티브 싱크 대칭 액티브-액티브를 사용하여 두 사이트 간의 볼륨을 복제합니다. 일관성 그룹은 데이터세트의 모든 볼륨이 정지되었다가 정확히 동일한 시점에 스냅샷되도록 보장합니다.  이는 데이터 세트를 지원하는 볼륨 전반에 걸쳐 데이터 일관성이 있는 복원 지점을 제공합니다.  ONTAP Mediator는 피어링된 ONTAP 클러스터와 노드에 대한 상태 정보를 수신하여 두 클러스터와 노드 사이에서 조정하고 각 노드/클러스터가 정상적이고 실행 중인지 확인합니다.
+
+솔루션 구성 요소:
+
+* 두 개의 NetApp 스토리지 시스템 ONTAP 9.15.1: 첫 번째 및 두 번째 장애 도메인
+* ONTAP 중재자를 위한 Redhat 8.7 VM
+* Windows 2022의 세 개의 Hyper-V 장애 조치(failover) 클러스터:
++
+** 사이트1, 애플리케이션용 사이트2
+** 중재자를 위한 3번째 사이트
+
+
+* Hyper-V의 VM: Microsoft 도메인 컨트롤러, MSSQL Always On 장애 조치(Failover) 클러스터 인스턴스, ONTAP Mediator
+
+
+image:hyperv-smas-001.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+=== Microsoft Stretch 장애 조치(Failover) 클러스터 설치
+
+Windows Admin Center, PowerShell 또는 서버 관리자 콘솔을 사용하여 장애 조치(Failover) 클러스터링 기능과 관련 PowerShell cmdlet을 설치할 수 있습니다.  필수 구성 요소 및 단계에 대한 자세한 내용은 장애 조치(failover) 클러스터 만들기를 확인하세요.
+
+Windows Stretch 클러스터를 설정하는 단계별 가이드는 다음과 같습니다.
+
+. Hyperv1, Hyperv2, Hyperv3 및 Hyperv4의 네 서버 모두에 Windows 2022를 설치합니다.
+. 4개의 서버를 모두 동일한 Active Directory 도메인(hyperv.local)에 가입시킵니다.
+. 각 서버에 Windows 기능인 장애 조치 클러스터링, Hyper-V, Hyper-V_Powershell 및 MPIO를 설치합니다.
++
+[source, shell]
+----
+Install-WindowsFeature –Name "Failover-Clustering", "Hyper-V", "Hyper-V-Powershell", "MPIO" –IncludeManagementTools
+----
+. MPIO를 구성하고 iSCSI 장치에 대한 지원을 추가합니다.
++
+image:hyperv-smas-002.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+. 사이트 1과 사이트 2 ONTAP 스토리지에서 두 개의 iSCSI LUN(SQLdata 및 SQLlog)을 생성하고 Windows 서버 IQN 그룹에 매핑합니다.  Microsoft iSCSI 소프트웨어 초기자를 사용하여 LUN을 연결합니다.  자세한 내용은 다음을 확인하세요.link:https://docs.netapp.com/us-en/ontap-sm-classic/iscsi-config-windows/index.html["Windows용 iSCSI 구성"] .
+. 오류나 경고가 있는지 클러스터 검증 보고서를 실행합니다.
++
+[source, shell]
+----
+Test-Cluster –Node hyperv1, hyperv2, hyperv3, hyperv4
+----
+. 장애 조치 클러스터를 생성하고 정적 IP 주소를 할당합니다.
++
+[source, shell]
+----
+New-Cluster –Name <clustername> –Node hyperv1, hyperv2, hyperv3, hyperv4, StaticAddress <IPaddress>
+----
++
+image:hyperv-smas-003.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+. 매핑된 iSCSI 스토리지를 장애 조치 클러스터에 추가합니다.
+. 쿼럼에 대한 감시를 구성하려면 클러스터를 마우스 오른쪽 버튼으로 클릭하고 추가 작업 -> 클러스터 쿼럼 설정 구성을 선택한 후 디스크 감시를 선택합니다.
++
+아래 다이어그램은 4개의 클러스터된 공유 LUN을 보여줍니다. 두 개의 사이트는 sqldata와 sqllog이고, 쿼럼의 한 개는 디스크 감시입니다.
+
++
+image:hyperv-smas-004.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+.Always On 장애 조치(Failover) 클러스터 인스턴스
+Always On 장애 조치(Failover) 클러스터 인스턴스(FCI)는 WSFC의 SAN 공유 디스크 스토리지가 있는 노드에 설치되는 SQL Server 인스턴스입니다.  장애 조치 중에 WSFC 서비스는 인스턴스 리소스의 소유권을 지정된 장애 조치 노드로 이전합니다.  그런 다음 SQL Server 인스턴스가 장애 조치 노드에서 다시 시작되고 데이터베이스는 평소처럼 복구됩니다.  설정에 대한 자세한 내용은 SQL을 사용한 Windows 장애 조치(Failover) 클러스터링을 확인하세요.  각 사이트에 Hyper-V SQL FCI VM을 두 개 만들고 우선 순위를 설정합니다.  사이트 1 VM의 기본 소유자로 hyperv1과 hyperv2를 사용하고, 사이트 2 VM의 기본 소유자로 hyperv3과 hyperv4를 사용합니다.
+
+image:hyperv-smas-005.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+=== 클러스터 간 피어링 생성
+
+SnapMirror 사용하여 스냅샷 복사본을 복제하려면 먼저 소스 클러스터와 대상 클러스터 간에 피어 관계를 만들어야 합니다.
+
+. 두 클러스터 모두에 클러스터 간 네트워크 인터페이스를 추가합니다.
++
+image:hyperv-smas-006.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+. cluster peer create 명령을 사용하면 로컬 클러스터와 원격 클러스터 간에 피어 관계를 만들 수 있습니다.  피어 관계가 생성된 후 원격 클러스터에서 cluster peer create를 실행하여 로컬 클러스터에 인증할 수 있습니다.
++
+image:hyperv-smas-007.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+
+
+=== ONTAP 사용하여 Mediator 구성
+
+ONTAP Mediator는 피어링된 ONTAP 클러스터와 노드에 대한 상태 정보를 수신하여 두 클러스터와 노드 사이에서 조정하고 각 노드/클러스터가 정상적이고 실행 중인지 확인합니다.  SM-as를 사용하면 소스 볼륨에 쓰여지는 즉시 데이터를 대상에 복제할 수 있습니다.  중재자는 세 번째 실패 도메인에 배치되어야 합니다. 필수 조건
+
+* HW 사양: 8GB RAM, 2x2GHz CPU, 1Gb 네트워크(<125ms RTT)
+* Red Hat 8.7 OS를 설치하고 확인하세요link:https://docs.netapp.com/us-en/ontap/mediator/index.html["ONTAP Mediator 버전 및 지원되는 Linux 버전"] .
+* Mediator Linux 호스트 구성: 네트워크 설정 및 방화벽 포트 31784 및 3260
+* yum-utils 패키지를 설치하세요
+* link:https://docs.netapp.com/us-en/ontap/mediator/index.html#register-a-security-key-when-uefi-secure-boot-is-enabled["UEFI 보안 부팅이 활성화된 경우 보안 키를 등록합니다."]
+
+
+.단계
+. Mediator 설치 패키지를 다운로드하세요.link:https://mysupport.netapp.com/site/products/all/details/ontap-mediator/downloads-tab["ONTAP Mediator 다운로드 페이지"] .
+. ONTAP Mediator 코드 서명을 확인하세요.
+. 설치 프로그램을 실행하고 필요에 따라 메시지에 응답하세요.
++
+[source, shell]
+----
+./ontap-mediator-1.8.0/ontap-mediator-1.8.0 -y
+----
+. 보안 부팅이 활성화된 경우 설치 후 보안 키를 등록하려면 추가 단계를 거쳐야 합니다.
++
+.. SCST 커널 모듈에 서명하려면 README 파일의 지침을 따르세요.
++
+[source, shell]
+----
+/opt/netapp/lib/ontap_mediator/ontap_mediator/SCST_mod_keys/README.module-signing
+----
+.. 필요한 키를 찾으세요:
++
+[source, shell]
+----
+/opt/netapp/lib/ontap_mediator/ontap_mediator/SCST_mod_keys
+----
+
+
+. 설치를 확인하세요
++
+.. 프로세스를 확인하세요:
++
+[source, shell]
+----
+systemctl status ontap_mediator mediator-scst
+----
++
+image:hyperv-smas-008.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+.. ONTAP Mediator 서비스에서 사용되는 포트를 확인하세요.
++
+image:hyperv-smas-009.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+. 자체 서명 인증서를 사용하여 SnapMirror Active Sync용 ONTAP Mediator 초기화
++
+.. ONTAP Mediator Linux VM/호스트 소프트웨어 설치 위치 cd /opt/netapp/lib/ontap_mediator/ontap_mediator/server_config에서 ONTAP Mediator CA 인증서를 찾습니다.
+.. ONTAP 클러스터에 ONTAP Mediator CA 인증서를 추가합니다.
++
+[source, shell]
+----
+security certificate install -type server-ca -vserver <vserver_name>
+----
+
+
+. 중재자를 추가하려면 시스템 관리자로 가서 보호>개요>중재자를 선택하고 중재자의 IP 주소, 사용자 이름(API 사용자의 기본값은 mediatoradmin), 비밀번호, 포트 31784를 입력합니다.
++
+다음 다이어그램은 클러스터 간 네트워크 인터페이스, 클러스터 피어, 중재자 및 SVM 피어가 모두 설정된 것을 보여줍니다.
+
++
+image:hyperv-smas-010.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+
+
+=== 대칭 활성/활성 보호 구성
+
+일관성 그룹은 애플리케이션 작업 부하 관리를 용이하게 하여 쉽게 구성할 수 있는 로컬 및 원격 보호 정책을 제공하고 특정 시점에 볼륨 컬렉션의 충돌 일관성 또는 애플리케이션 일관성을 유지하는 스냅샷 복사본을 동시에 제공합니다.  자세한 내용은 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap/consistency-groups/index.html["일관성 그룹 개요"] .  이 설정에는 균일한 구성을 사용합니다.
+
+.균일한 구성을 위한 단계
+. 일관성 그룹을 생성할 때 igroup을 생성할 호스트 이니시에이터를 지정합니다.
+. SnapMirror 활성화 확인란을 선택한 다음 AutomatedFailoverDuplex 정책을 선택합니다.
+. 나타나는 대화 상자에서 igroup을 복제하려면 개시자 그룹 복제 확인란을 선택합니다.  근위 설정 편집에서 호스트에 대한 근위 SVM을 설정합니다.
++
+image:hyperv-smas-011.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+. 저장을 선택하세요
++
+보호 관계는 소스와 목적지 사이에 설정됩니다.
+
++
+image:hyperv-smas-012.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+
+
+=== 클러스터 장애 조치 검증 테스트 수행
+
+클러스터 유효성 검사, 두 사이트의 SQL 데이터베이스 또는 클러스터형 소프트웨어를 확인하기 위해 계획된 장애 조치 테스트를 수행하는 것이 좋습니다. 테스트 중에도 기본 사이트나 미러링된 사이트에 계속 액세스할 수 있어야 합니다.
+
+Hyper-V 장애 조치(failover) 클러스터 요구 사항은 다음과 같습니다.
+
+* SnapMirror 활성 동기화 관계는 동기화되어야 합니다.
+* 비중단 작업이 진행 중일 때는 계획된 장애 조치를 시작할 수 없습니다.  비방해 작업에는 볼륨 이동, 집계 재배치, 스토리지 장애 조치가 포함됩니다.
+* ONTAP Mediator는 구성되고 연결되어 있으며 쿼럼에 속해야 합니다.
+* 각 사이트에서 최소 두 개의 Hyper-V 클러스터 노드가 동일한 CPU 제품군에 속하고 CPU 프로세서가 있는 경우 VM 마이그레이션 프로세스를 최적화할 수 있습니다.  CPU는 하드웨어 지원 가상화와 하드웨어 기반 데이터 실행 방지(DEP)를 지원하는 CPU여야 합니다.
+* 복원력을 보장하려면 Hyper-V 클러스터 노드가 동일한 Active Directory 도메인 구성원이어야 합니다.
+* 단일 장애 지점을 방지하기 위해 Hyper-V 클러스터 노드와 NetApp 스토리지 노드는 중복 네트워크로 연결해야 합니다.
+* 모든 클러스터 노드가 iSCSI, 파이버 채널 또는 SMB 3.0 프로토콜을 통해 액세스할 수 있는 공유 스토리지입니다.
+
+
+
+
+==== 테스트 시나리오
+
+호스트, 스토리지 또는 네트워크에서 장애 조치를 트리거하는 방법에는 여러 가지가 있습니다.
+
+image:hyperv-smas-013.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+.Hyper-V 실패 노드 또는 사이트
+* 노드 장애 장애 조치 클러스터 노드는 장애가 발생한 노드의 작업 부하를 대신 수행할 수 있으며, 이 프로세스를 장애 조치라고 합니다.  조치: Hyper-V 노드의 전원을 끕니다. 예상 결과: 클러스터의 다른 노드가 작업 부하를 인계받습니다.  VM은 다른 노드로 마이그레이션됩니다.
+* 한 사이트 장애가 발생한 경우 전체 사이트에 장애가 발생하고 기본 사이트가 미러 사이트로 장애 조치를 취할 수 있습니다. 작업: 한 사이트에서 두 Hyper-V 노드를 모두 끕니다.  예상 결과: 기본 사이트의 VM은 SnapMirror 액티브 동기화 대칭 액티브/액티브가 양방향 복제로 로컬에서 IO를 제공하고 RPO와 RTO가 0이므로 워크로드에 영향을 미치지 않으므로 미러 사이트 Hyper-V 클러스터로 마이그레이션됩니다.
+
+
+.한 사이트의 스토리지 장애
+* 기본 사이트에서 SVM 중지 작업: iSCSI SVM 중지 예상 결과: Hyper-V 기본 클러스터는 이미 미러링된 사이트에 연결되었으며 SnapMirror 활성 동기화 대칭 활성/활성을 사용하면 작업 부하에 영향을 미치지 않으며 RPO와 RTO가 0입니다.
+
+
+.성공 기준
+테스트하는 동안 다음 사항을 관찰하세요.
+
+* 클러스터의 동작을 관찰하고 서비스가 나머지 노드로 전송되는지 확인하세요.
+* 오류나 서비스 중단이 있는지 확인하세요.
+* 클러스터가 스토리지 오류를 처리하고 계속 작동할 수 있는지 확인하세요.
+* 데이터베이스 데이터에 계속 액세스할 수 있는지, 서비스가 계속 운영되는지 확인합니다.
+* 데이터베이스 데이터 무결성이 유지되는지 확인하세요.
+* 특정 애플리케이션이 사용자에게 영향을 미치지 않고 다른 노드로 장애 조치될 수 있는지 검증합니다.
+* 장애 조치 중 및 장애 조치 후에 클러스터가 부하를 분산하고 성능을 유지할 수 있는지 확인합니다.
+
+
+
+
+== 요약
+
+SnapMirror Active Sync는 여러 사이트 애플리케이션 데이터(예: MSSQL 및 Oracle)를 두 사이트에서 적극적으로 액세스하고 동기화하는 데 도움이 될 수 있습니다.  장애가 발생하면 애플리케이션은 즉시 남아 있는 활성 사이트로 리디렉션되며 데이터 손실이나 액세스 손실이 발생하지 않습니다.

@@ -1,0 +1,74 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-workflow-create-vm.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화 
+---
+= Red Hat OpenShift Virtualization을 사용하여 ONTAP 스토리지에 VM 만들기
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+OpenShift Virtualization을 사용하여 VM을 만듭니다.  이 절차에는 운영 체제 템플릿 선택, 스토리지 클래스 구성, 특정 요구 사항을 충족하도록 VM 매개변수 사용자 지정이 포함됩니다.  필수 조건으로, 트라이던트 백엔드, 스토리지 클래스, 볼륨 스냅샷 클래스 객체를 이미 생성했어야 합니다.  참조할 수 있습니다link:osv-trident-install.html["Trident 설치 섹션"] 자세한 내용은.
+
+
+
+== VM 생성
+
+VM은 운영 체제와 데이터를 호스팅하기 위해 볼륨이 필요한 상태 저장 배포입니다.  CNV를 사용하면 VM이 포드로 실행되고 VM은 Trident 통해 NetApp ONTAP 에 호스팅된 PV에 의해 지원됩니다.  이러한 볼륨은 디스크로 연결되며 VM의 부팅 소스를 포함한 전체 파일 시스템을 저장합니다.
+
+image:redhat-openshift-052.png["VM 아키텍처 생성"]
+
+OpenShift 클러스터에서 가상 머신을 빠르게 생성하려면 다음 단계를 완료하세요.
+
+. 가상화 > 가상 머신으로 이동하여 만들기를 클릭합니다.
+. 템플릿에서 선택하세요.
+. 부팅 소스를 사용할 수 있는 원하는 운영 체제를 선택하세요.
+. VirtualMachine을 생성한 후 시작 확인란을 선택합니다.
+. 빠른 가상 머신 생성을 클릭합니다.
+
+
+가상 머신이 생성되고 시작되어 *실행 중* 상태가 됩니다.  기본 스토리지 클래스를 사용하여 부팅 디스크에 대한 PVC와 해당 PV를 자동으로 생성합니다.  나중에 VM을 라이브 마이그레이션하려면 디스크에 사용된 스토리지 클래스가 RWX 볼륨을 지원하는지 확인해야 합니다.  이는 라이브 마이그레이션에 대한 요구 사항입니다. ontap-nas 및 ontap-san(iSCSI 및 NVMe/TCP 프로토콜의 volumeMode 블록)은 해당 스토리지 클래스를 사용하여 생성된 볼륨에 대한 RWX 액세스 모드를 지원할 수 있습니다.
+
+클러스터에서 ontap-san 스토리지 클래스를 구성하려면 다음을 참조하세요.link:osv-workflow-vm-migration-mtv.html["VMware에서 OpenShift Virtualization으로 VM을 마이그레이션하기 위한 섹션"] .
+
+
+NOTE: '빠른 가상 머신 생성'을 클릭하면 기본 스토리지 클래스를 사용하여 VM의 부팅 가능한 루트 디스크에 대한 PVC와 PV가 생성됩니다.  가상 머신 사용자 지정 > 가상 머신 매개변수 사용자 지정 > 디스크를 선택한 다음, 필요한 스토리지 클래스를 사용하도록 디스크를 편집하여 디스크에 대해 다른 스토리지 클래스를 선택할 수 있습니다.
+
+일반적으로 VM 디스크를 프로비저닝하는 동안 파일 시스템보다 블록 액세스 모드가 선호됩니다.
+
+OS 템플릿을 선택한 후 가상 머신 생성을 사용자 지정하려면 빠른 생성 대신 가상 머신 사용자 지정을 클릭합니다.
+
+. 선택한 운영 체제에 부팅 소스가 구성되어 있으면 *VirtualMachine 매개변수 사용자 지정*을 클릭할 수 있습니다.
+. 선택한 운영 체제에 부팅 소스가 구성되어 있지 않으면 이를 구성해야 합니다.  표시된 절차에 대한 세부 정보를 볼 수 있습니다.link:https://docs.openshift.com/container-platform/4.14/virt/virtual_machines/creating_vms_custom/virt-creating-vms-from-custom-images-overview.html["선적 서류 비치"] .
+. 부팅 디스크를 구성한 후 *VirtualMachine 매개변수 사용자 지정*을 클릭할 수 있습니다.
+. 이 페이지의 탭에서 VM을 사용자 정의할 수 있습니다.  예를 들어, *디스크* 탭을 클릭한 다음 *디스크 추가*를 클릭하여 VM에 다른 디스크를 추가합니다.
+. 가상 머신을 생성하려면 '가상 머신 생성'을 클릭합니다. 그러면 백그라운드에서 해당 포드가 실행됩니다.
+
+
+
+NOTE: URL 또는 레지스트리에서 템플릿이나 운영 체제에 대한 부팅 소스가 구성되면 PVC가 생성됩니다. `openshift-virtualization-os-images` 프로젝트를 실행하고 KVM 게스트 이미지를 PVC로 다운로드합니다.  해당 OS에 대한 KVM 게스트 이미지를 수용할 수 있을 만큼 템플릿 PVC에 충분한 프로비저닝 공간이 있는지 확인해야 합니다.  이러한 PVC는 해당 프로젝트의 해당 템플릿을 사용하여 생성될 때 복제되어 가상 머신에 루트디스크로서 연결됩니다.
+
+image:rh-os-n-use-case-vm-create-001.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+image:rh-os-n-use-case-vm-create-002.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+image:rh-os-n-use-case-vm-create-003.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+image:rh-os-n-use-case-vm-create-004.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+image:rh-os-n-use-case-vm-create-005.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+== 비디오 데모
+
+다음 비디오에서는 iSCSI 스토리지를 사용하여 OpenShift Virtualization에서 VM을 만드는 방법을 보여줍니다.
+
+.Block Storage를 사용하여 OpenShift Virtualization에서 VM 만들기
+video::497b868d-2917-4824-bbaa-b2d500f92dda[panopto,width=360]

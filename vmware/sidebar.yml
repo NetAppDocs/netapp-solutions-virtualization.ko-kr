@@ -1,0 +1,158 @@
+---
+section: vmware
+title: VMware 가상화
+url: "/vmware/index.html"
+entries:
+- title: 시작하기
+  pdf-filename: NetApp 및 VMware 시작하기
+  entries:
+  - title: 핵심 개념
+    entries:
+    - title: VMware vSphere용 ONTAP 정보
+      url: "/vmware/vmw-getting-started-overview.html"
+    - title: VMware용 NetApp 플랫폼 정보
+      url: "/vmware/vmw-getting-started-ntap-options.html"
+    - title: 하이브리드 멀티클라우드 환경에 대하여
+      url: "/vmware/vmw-getting-started-hmc.html"
+  - title: 관리 도구 및 솔루션
+    entries:
+    - title: ONTAP tools for VMware vSphere
+      url: "/vmware/vmw-getting-started-otv.html"
+    - title: 관리를 위한 ONTAP 및 VMware API
+      url: "/vmware/vmw-getting-started-automation.html"
+    - title: 모니터링을 위한 Data Infrastructure Insights
+      url: "/vmware/vmw-getting-started-dii.html"
+    - title: 효율성 향상을 위한 VM 워크로드 마이그레이션
+      url: "/vmware/vmw-getting-started-migration.html"
+  - title: 데이터 보호 솔루션
+    entries:
+    - title: MetroCluster 및 SnapMirror Active Sync를 통한 보호
+      url: "/vmware/vmw-getting-started-vmsc.html"
+    - title: ONTAP 통한 보안 및 랜섬웨어 보호
+      url: "/vmware/vmw-getting-started-security.html"
+  - title: 백업 및 재해 복구 솔루션
+    entries:
+    - title: SnapCenter Plug-in for VMware vSphere
+      url: "/vmware/vmw-getting-started-snapcenter.html"
+    - title: BlueXP disaster recovery
+      url: "/vmware/vmw-dr-gs.html"
+- title: NetApp 의 VMware Cloud Foundation
+  pdf-filename: NetApp 의 VMware Cloud Foundation
+  entries:
+  - title: VMware Cloud Foundation 및 ONTAP 정보
+    url: "/vmware/vmw-vcf-overview.html"
+  - title: 기존 vSphere 클러스터를 VCF로 변환
+    entries:
+    - title: 기존 vSphere 클러스터를 VCF로 변환하는 방법
+      url: "/vmware/vmw-vcf-migrate.html"
+    - title: 기존 vSphere 클러스터를 NFS 데이터 저장소로 변환
+      url: "/vmware/vmw-vcf-mgmt-nfs.html"
+    - title: 기존 vSphere 클러스터를 FC 데이터 저장소로 변환
+      url: "/vmware/vmw-vcf-mgmt-fc.html"
+  - title: 주요 저장소를 사용하여 VCF 제공
+    entries:
+    - title: 주 저장소 프로비저닝에 관하여
+      url: "/vmware/vmw-vcf-provision.html"
+    - title: FC를 사용한 관리 도메인 제공
+      url: "/vmware/vmw-vcf-mgmt-principal-fc.html"
+    - title: NFS를 사용한 관리 도메인 제공
+      url: "/vmware/vmw-vcf-mgmt-principal-nfs.html"
+    - title: FC를 사용하여 VI 워크로드 도메인 프로비저닝
+      url: "/vmware/vmw-vcf-viwld-principal-fc.html"
+    - title: NFS를 사용하여 VI 워크로드 도메인 프로비저닝
+      url: "/vmware/vmw-vcf-viwld-principal-nfs.html"
+  - title: 보충 스토리지로 VCF 확장
+    entries:
+    - title: 저장공간 확장에 관하여
+      url: "/vmware/vmw-vcf-expand.html"
+    - title: iSCSI를 사용하여 관리 도메인 확장
+      url: "/vmware/vmw-vcf-mgmt-supplemental-iscsi.html"
+    - title: FC로 관리 도메인 확장
+      url: "/vmware/vmw-vcf-mgmt-supplemental-fc.html"
+    - title: vVols iSCSI를 사용하여 VI 워크로드 도메인 확장
+      url: "/vmware/vmw-vcf-viwld-supp-iscsi-vvols.html"
+    - title: vVols NFS를 사용하여 VI 워크로드 도메인 확장
+      url: "/vmware/vmw-vcf-viwld-supp-nfs-vvols.html"
+    - title: NVMe/TCP로 VI 워크로드 도메인 확장
+      url: "/vmware/vmw-vcf-viwld-supp-nvme.html"
+    - title: FC를 사용하여 VI 워크로드 도메인 확장
+      url: "/vmware/vmw-vcf-viwld-supp-fc.html"
+  - title: SnapCenter 로 VCF 보호
+    entries:
+    - title: SnapCenter 사용하여 VCF 워크로드 보호에 관하여
+      url: "/vmware/vmw-vcf-protect-sc.html"
+    - title: 단일 VCF 워크로드 도메인 보호
+      url: "/vmware/vmw-vcf-scv-viwld.html"
+    - title: 여러 VCF 워크로드 도메인 보호
+      url: "/vmware/vmw-vcf-scv-multiwkld-protection.html"
+    - title: NVMe를 사용하여 VCF 워크로드 도메인 보호
+      url: "/vmware/vmw-vcf-scv-nvme.html"
+  - title: BlueXP 로 VMware 데이터 저장소 보호
+    entries:
+    - title: BlueXP 사용하여 VMware 데이터 저장소 보호에 관하여
+      url: "/vmware/vmw-vcf-disaster-recovery.html"
+    - title: SnapCenter 및 BlueXP 사용하여 데이터 보호 구성
+      url: "/vmware/vmw-vcf-321-data-protection.html"
+    - title: VMFS 데이터 저장소에 대한 재해 복구 설정
+      url: "/vmware/vmw-disaster-recovery-vmfs.html"
+    - title: NFS 데이터 저장소에 대한 재해 복구 설정
+      url: "/vmware/vmw-disaster-recovery-nfs.html"
+  - title: vSphere Metro Storage Cluster로 워크로드 보호
+    entries:
+    - title: ONTAP 고가용성 통합에 관하여
+      url: "/vmware/vmw-vcf-protect-vmsc.html"
+    - title: MetroCluster 사용하여 관리 도메인 구성
+      url: "/vmware/vmw-vcf-vmsc-mgmt-mcc.html"
+    - title: MetroCluster 사용하여 VI 워크로드 도메인 구성
+      url: "/vmware/vmw-vcf-vmsc-viwld-mcc.html"
+    - title: SnapMirror Active Sync를 사용하여 관리 도메인 구성
+      url: "/vmware/vmw-vcf-vmsc-mgmt-smas.html"
+    - title: SnapMirror Active Sync를 사용하여 VI 워크로드 도메인 구성
+      url: "/vmware/vmw-vcf-vmsc-viwld-smas.html"
+  - title: vSphere에서 VM 마이그레이션
+    url: "/vmware/migrate-vms-to-ontap-datastore.html"
+  - title: 랜섬웨어로부터 데이터를 보호하고 복구하세요
+    url: "/vmware/vmw-nfs-arp.html"
+  - title: DII를 사용하여 온프레미스 스토리지 모니터링
+    url: "/vmware/vmw-dii.html"
+- title: NetApp 의 VMware vSphere Foundation
+  pdf-filename: NetApp 의 VMware vSphere Foundation
+  entries:
+  - title: 시작하기
+    entries:
+    - title: NetApp 의 VMware vSphere Foundation 소개
+      url: "/vmware/vmw-vvf-overview.html"
+    - title: VMware vSphere 8에 대한 NetApp 지원 정보
+      url: "/vmware/vmw-vsphere8.html"
+    - title: ONTAP 스토리지와 함께 VMware vSphere 8 사용에 관하여
+      url: "/vmware/vmw-vsphere-with-ontap.html"
+    - title: VMware vSphere 8의 새로운 기능
+      url: "/vmware/vmw-vsphere8-overview.html"
+  - title: vSphere 8에 VMFS 배포
+    url: "/vmware/vmw-vmfs-deploy.html"
+  - title: NFS nConnect 기능 사용
+    url: "/vmware/vmw-vsphere8-nfs-nconnect.html"
+  - title: NFS 데이터 저장소 구성
+    url: "/vmware/vmw-nfs-otv10.html"
+  - title: 재해 복구 구성
+    url: "/vmware/vmw-nfs-vlsr.html"
+  - title: SnapMirror Active Sync를 사용하여 vMSC 설정
+    url: "/vmware/vmw-vmsc-with-smas.html"
+  - title: SnapMirror Active Sync를 VMSC로 변환
+    url: "/vmware/vmware-smbc-cvt-smas.html"
+  - title: ONTAP 과 함께 vVols 사용
+    url: "/vmware/vmw-vvol-overview.html"
+  - title: 가상 머신 데이터 수집기를 사용하여 데이터 수집
+    pdf-filename: 가상 머신 데이터 수집기
+    entries:
+    - title: VMDC 소개
+      url: "/vmware/vmw-getting-started-vmdc.html"
+    - title: VMDC를 사용하여 데이터 수집
+      url: "/assess/vmw-vmdc.html"
+- title: VMware Sovereign Cloud
+  pdf-filename: NetApp 및 VMware Sovereign Cloud
+  entries:
+  - title: Sovereign Cloud 소개
+    url: "/vmware/vmw-sovereign-cloud.html"
+  - title: Sovereign Cloud와 NetApp 통합
+    url: "/vmware/vmw-sovereign-cloud-use-cases.html"

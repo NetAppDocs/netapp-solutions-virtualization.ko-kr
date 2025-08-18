@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-disaster-recovery.html 
+keywords: vmware, vcf, dr, disaster recovery, draas, bluexp 
+summary:  
+---
+= BlueXP disaster recovery 사용하여 VMware 데이터 저장소를 보호하는 방법에 대해 알아보세요.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware를 위한 BlueXP disaster recovery 사용하여 재해 복구를 위한 NetApp 솔루션에 대해 알아보세요.  이를 통해 기본 사이트에서 재해 복구 사이트로 블록 수준 복제를 사용하여 재해 복구를 위한 강력한 솔루션이 제공됩니다.
+
+BlueXP DRaaS는 랜섬웨어 공격을 포함한 사이트 장애 및 데이터 무결성 문제로부터 작업 부하를 보호하는 효과적이고 경제적인 방법입니다.  또한 NetApp BlueXP DRaaS는 관리형 클라우드 기반 재해 복구 솔루션을 제공하여 이러한 전략을 강화하고 재해 발생 시 신속한 복구와 최소한의 가동 중지 시간을 보장합니다.
+
+기술적 세부 사항은 다음 솔루션을 참조하세요.
+
+* link:vmw-disaster-recovery-vmfs.html["VMFS 데이터 저장소에 BlueXP DRaaS를 사용한 DR"]
+* link:vmw-disaster-recovery-nfs.html["NFS 데이터 저장소에 BlueXP DRaaS를 사용한 DR"]
+

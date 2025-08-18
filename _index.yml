@@ -1,0 +1,70 @@
+---
+indexpage:
+  title: NetApp 가상화 솔루션
+  summary: NetApp 조직이 여러 하이퍼바이저와 플랫폼에 걸쳐 IT 인프라를 최적화할 수 있도록 포괄적인 가상화 솔루션을 제공합니다.  VMware
+    환경을 현대화하고, 대체 하이퍼바이저로 마이그레이션하고, NetApp의 고급 데이터 관리 및 클라우드 통합 기능을 활용하는 전략을 알아보세요.
+  lead: NetApp 조직이 여러 하이퍼바이저와 플랫폼에 걸쳐 IT 인프라를 최적화할 수 있도록 포괄적인 가상화 솔루션을 제공합니다.  VMware
+    환경을 현대화하고, 대체 하이퍼바이저로 마이그레이션하고, NetApp의 고급 데이터 관리 및 클라우드 통합 기능을 활용하는 전략을 알아보세요.
+  tiles:
+  - title: 시작하기
+    links:
+    - title: 새로운 소식
+      url: "/whats-new.html"
+    - title: NetApp 통한 가상화에 대해 알아보세요
+      url: "/virtualization/virt-overview.html"
+    - title: 모든 가상화 솔루션에 NetApp 사용하세요
+      url: "/virtualization/virt-options-on-netapp.html"
+    - title: 블로그
+      url: "/blogs.html"
+    - title: 비디오 및 데모
+      url: "/videos/index.html"
+  - title: 가상화를 위한 NetApp 솔루션
+    links:
+    - title: 온프레미스 및 클라우드 VMware
+      url: "/vmware/index.html"
+    - title: 마이크로소프트 하이퍼-V
+      url: hyperv/index.html
+    - title: Red Hat OpenShift 가상화
+      url: "/openshift/index.html"
+    - title: Proxmox 가상 환경
+      url: "/proxmox/index.html"
+    - title: KVM과 libvirt
+      url: "/kvm/index.html"
+  - title: VM 마이그레이션 및 변환
+    links:
+    - title: Shift Toolkit을 사용하여 VM 마이그레이션
+      url: "/migration/shift-toolkit-migration.html"
+    - title: Shift Toolkit을 사용하여 VM 변환
+      url: "/migration/shift-toolkit-conversion.html"
+    - title: VM을 ONTAP 데이터 저장소로 마이그레이션
+      url: "/migration/migrate-vms-to-ontap-datastore.html"
+    - title: VM을 Amazon EC2로 마이그레이션
+      url: "/migration/migrate-vms-to-ec2-fsxn-overview.html"
+  - title: 관리 도구 및 통합
+    links:
+    - title: ONTAP tools for VMware vSphere
+      url: "/vmware/vmw-getting-started-otv.html"
+    - title: 관리를 위한 ONTAP 및 VMware API
+      url: "/vmware/vmw-getting-started-automation.html"
+    - title: 모니터링을 위한 Data Infrastructure Insights
+      url: "/vmware/vmw-getting-started-dii.html"
+    - title: 효율성 향상을 위한 VM 워크로드 마이그레이션
+      url: "/vmware/vmw-getting-started-migration.html"
+  - title: 데이터 보호 및 재해 복구
+    links:
+    - title: MetroCluster 및 SnapMirror Active Sync로 보호
+      url: "/vmware/vmw-getting-started-vmsc.html"
+    - title: 랜섬웨어로부터 데이터를 보호하고 복구하세요
+      url: "/vmware/vmw-getting-started-security.html"
+    - title: SnapCenter Plug-in for VMware vSphere
+      url: "/vmware/vmw-getting-started-snapcenter.html"
+    - title: BlueXP disaster recovery
+      url: "/vmware/vmw-dr-gs.html"
+  - title: 솔루션 요청 및 피드백
+    links:
+    - title: 요청 자동화
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Request%20Automation]%0d%0a%0d%0aSolution%20Name:%20%0d%0aRequest%20Title:%20%0d%0aDescription:%0d%0aSuggestions:&title=Request%20Automation%20-%20%3Crequest_title%3E
+    - title: 새로운 솔루션을 제안하다
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Request%20Solution]%0d%0a%0d%0aSolution%20Use%20Case:%20%0d%0aSolution%20Description:%20%0d%0aAdditional%20Comments:&title=Request%20Solution%20-%20%3Csolution%3E
+    - title: 솔루션 피드백 제공
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Solution%20Feedback]%0d%0a%0d%0aSolution%20Name:%20%0d%0aSolution%20Feedback:%20%0d%0aAdditional%20Comments:&title=Solution%20Feedback%20-%20%3Csolution%3E

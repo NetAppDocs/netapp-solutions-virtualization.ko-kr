@@ -1,0 +1,185 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-workflow-vm-migration-mtv.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화 
+---
+= VMware에서 Red Hat OpenShift 클러스터로 VM 마이그레이션
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+OpenShift 가상화 마이그레이션 툴킷을 사용하여 VMware에서 OpenShift 클러스터로 VM을 마이그레이션합니다.  이 마이그레이션에는 가상화용 마이그레이션 툴킷(MTV) 설치, 소스 및 대상 공급자 생성, 마이그레이션 계획 작성, 콜드 또는 웜 마이그레이션 수행이 포함됩니다.
+
+.저온 이동
+[%collapsible%open]
+====
+이는 기본 마이그레이션 유형입니다.  데이터가 복사되는 동안 소스 가상 머신은 종료됩니다.
+
+====
+.따뜻한 이주
+[%collapsible%open]
+====
+이러한 유형의 마이그레이션에서는 대부분의 데이터가 소스 가상 머신(VM)이 실행되는 동안 사전 복사 단계에서 복사됩니다.  그런 다음 VM이 종료되고 나머지 데이터는 전환 단계에서 복사됩니다.
+
+====
+
+
+== 비디오 데모
+
+다음 비디오에서는 영구 저장소로 ontap-san 스토리지 클래스를 사용하여 VMware에서 OpenShift Virtualization으로 RHEL VM을 콜드 마이그레이션하는 방법을 보여줍니다.
+
+.Red Hat MTV를 사용하여 NetApp ONTAP 스토리지를 통해 VM을 OpenShift Virtualization으로 마이그레이션
+video::bac58645-dd75-4e92-b5fe-b12b015dc199[panopto,width=360]
+
+
+== 가상화를 위한 마이그레이션 툴킷을 사용하여 VMware에서 OpenShift 가상화로 VM 마이그레이션
+
+이 섹션에서는 Trident 사용하여 OpenShift Container 플랫폼에서 실행되고 NetApp ONTAP 스토리지와 통합된 OpenShift Virtualization으로 VMware의 가상 머신을 마이그레이션하기 위해 MTV(Migration Toolkit for Virtualization)를 사용하는 방법을 살펴보겠습니다.
+
+다음 다이어그램은 VMware에서 Red Hat OpenShift Virtualization으로 VM을 마이그레이션하는 과정을 개략적으로 보여줍니다.
+
+image:rh-os-n-use-case-vm-migration-using-mtv.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+=== 샘플 마이그레이션을 위한 전제 조건
+
+
+
+=== **VMware에서**
+
+* 다음 구성을 사용하여 rhel 9.3을 사용하는 RHEL 9 VM이 설치되었습니다.
++
+** CPU: 2, 메모리: 20GB, 하드디스크: 20GB
+** 사용자 자격 증명: 루트 사용자 및 관리자 사용자 자격 증명
+
+
+* VM이 준비된 후 postgresql 서버가 설치되었습니다.
++
+** postgresql 서버가 시작되었고 부팅 시 시작되도록 설정되었습니다.
++
+[source, console]
+----
+systemctl start postgresql.service`
+systemctl enable postgresql.service
+The above command ensures that the server can start in the VM in OpenShift Virtualization after migration
+----
+** 데이터베이스 2개, 테이블 1개, 테이블에 행 1개가 추가되었습니다.  나타내다link:https://access.redhat.com/documentation/fr-fr/red_hat_enterprise_linux/9/html/configuring_and_using_database_servers/installing-postgresql_using-postgresql["여기"] RHEL에 PostgreSQL 서버를 설치하고 데이터베이스와 테이블 항목을 생성하는 방법에 대한 지침입니다.
+
+
+
+
+
+NOTE: postgresql 서버를 시작하고 부팅 시 서비스가 시작되도록 설정하세요.
+
+
+
+=== **OpenShift 클러스터에서**
+
+MTV를 설치하기 전에 다음 설치가 완료되었습니다.
+
+* OpenShift 클러스터 4.17 이상
+* iSCSI(ontap-san 스토리지 클래스)에 대해 클러스터 노드에서 멀티패스가 활성화되었습니다.  node-prep 플래그를 사용하여 Trident 25.02를 설치하면 다중 경로를 쉽게 활성화할 수 있습니다.  참조할 수 있습니다link:osv-trident-install.html["Trident 설치 섹션"] 자세한 내용은.
+* 필요한 백엔드와 스토리지 클래스, 스냅샷 클래스를 설치합니다. 를 참조하세요link:osv-trident-install.html["Trident 설치 섹션"] 자세한 내용은.
+* link:https://docs.openshift.com/container-platform/4.13/virt/install/installing-virt-web.html["OpenShift 가상화"]
+
+
+
+
+=== MTV 설치
+
+이제 가상화를 위한 마이그레이션 툴킷(MTV)을 설치할 수 있습니다.  제공된 지침을 참조하세요link:https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/installing-the-operator["여기"] 설치에 대한 도움이 필요하면.
+
+가상화를 위한 마이그레이션 툴킷(MTV) 사용자 인터페이스가 OpenShift 웹 콘솔에 통합되었습니다.  참조할 수 있습니다link:https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/migrating-vms-web-console#mtv-ui_mtv["여기"] 다양한 작업에 사용자 인터페이스를 사용하기 시작합니다.
+
+**소스 공급자 만들기**
+
+RHEL VM을 VMware에서 OpenShift Virtualization으로 마이그레이션하려면 먼저 VMware에 대한 소스 공급자를 만들어야 합니다.  지침을 참조하세요link:https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/migrating-vms-web-console#adding-providers["여기"] 소스 공급자를 생성합니다.
+
+VMware 소스 공급자를 생성하려면 다음이 필요합니다.
+
+* VCenter URL
+* VCenter 자격증
+* VCenter 서버 지문
+* 저장소의 VDDK 이미지
+
+
+샘플 소스 공급자 생성:
+
+image:rh-os-n-use-case-vm-migration-source-provider.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+NOTE: 가상화를 위한 마이그레이션 툴킷(MTV)은 VMware Virtual Disk Development Kit(VDDK) SDK를 사용하여 VMware vSphere에서 가상 디스크를 전송하는 속도를 높입니다.  따라서 VDDK 이미지를 만드는 것은 선택 사항이기는 하지만 적극 권장됩니다.  이 기능을 사용하려면 VMware Virtual Disk Development Kit(VDDK)를 다운로드하고, VDDK 이미지를 빌드하고, VDDK 이미지를 이미지 레지스트리에 푸시합니다.
+
+제공된 지침을 따르세요link:https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/prerequisites#creating-vddk-image_mtv["여기"] OpenShift 클러스터에서 접근 가능한 레지스트리에 VDDK 이미지를 생성하고 푸시합니다.
+
+**대상 공급자 만들기**
+
+OpenShift 가상화 공급자가 소스 공급자이므로 호스트 클러스터가 자동으로 추가됩니다.
+
+**마이그레이션 계획 만들기**
+
+제공된 지침을 따르세요link:https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/migrating-vms-web-console#creating-migration-plan_mtv["여기"] 마이그레이션 계획을 수립합니다.
+
+계획을 세울 때, 아직 만들어지지 않은 경우 다음 항목을 만들어야 합니다.
+
+* 소스 네트워크를 대상 네트워크에 매핑하는 네트워크 매핑입니다.
+* 소스 데이터 저장소를 대상 스토리지 클래스에 매핑하기 위한 스토리지 매핑입니다.  이를 위해 ontap-san 스토리지 클래스를 선택할 수 있습니다.  마이그레이션 계획이 생성되면 계획 상태가 *준비*로 표시되고 이제 계획을 *시작*할 수 있습니다.
+
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-ready.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+
+
+=== 콜드 마이그레이션 수행
+
+*시작*을 클릭하면 일련의 단계를 거쳐 VM 마이그레이션이 완료됩니다.
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-complete.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+
+모든 단계가 완료되면 왼쪽 탐색 메뉴의 *가상화*에서 *가상 머신*을 클릭하여 마이그레이션된 VM을 볼 수 있습니다.  가상 머신에 액세스하는 방법에 대한 지침이 제공됩니다.link:https://docs.openshift.com/container-platform/4.13/virt/virtual_machines/virt-accessing-vm-consoles.html["여기"] .
+
+가상 머신에 로그인하여 posgresql 데이터베이스의 내용을 확인할 수 있습니다.  데이터베이스, 테이블 및 테이블 항목은 소스 VM에서 생성된 것과 동일해야 합니다.
+
+
+
+=== Warm 마이그레이션 수행
+
+웜 마이그레이션을 수행하려면 위에 표시된 대로 마이그레이션 계획을 만든 후 계획 설정을 편집하여 기본 마이그레이션 유형을 변경해야 합니다.  콜드 마이그레이션 옆에 있는 편집 아이콘을 클릭하고 버튼을 토글하여 웜 마이그레이션으로 설정합니다.  **저장**을 클릭합니다.  이제 **시작**을 클릭하여 마이그레이션을 시작하세요.
+
+
+NOTE: VMware에서 블록 스토리지에서 이동할 때 OpenShift Virtualization VM에 대해 블록 스토리지 클래스를 선택했는지 확인하세요.  또한, 나중에 VM의 라이브 마이그레이션을 수행할 수 있도록 volumeMode를 block으로 설정하고 액세스 모드를 rwx로 설정해야 합니다.
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-warm-001.png["1"]
+
+**1개 VM 중 0개 완료**를 클릭하고 VM을 확장하면 마이그레이션 진행 상황을 볼 수 있습니다.
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-warm-002.png["2"]
+
+얼마 후 디스크 전송이 완료되고 마이그레이션은 컷오버 상태로 진행될 때까지 기다립니다.  DataVolume이 일시 중지 상태입니다.  계획으로 돌아가서 **전환** 버튼을 클릭하세요.
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-warm-003.png["3"]
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-warm-004.png["4"]
+
+현재 시간이 대화 상자에 표시됩니다.  이후 시간으로 전환을 예약하려면 시간을 미래의 시간으로 변경하세요.  그렇지 않은 경우 지금 전환을 수행하려면 **전환 설정**을 클릭하세요.
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-warm-005.png["5"]
+
+몇 초 후, 컷오버 단계가 시작되면 DataVolume은 일시 중지 상태에서 ImportScheduled 상태로, 그리고 ImportInProgress 상태로 전환됩니다.
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-warm-006.png["6"]
+
+컷오버 단계가 완료되면 DataVolume이 성공 상태가 되고 PVC가 바인딩됩니다.
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-warm-007.png["7"]
+
+마이그레이션 계획은 ImageConversion 단계를 완료하고 마지막으로 VirtualMachineCreation 단계를 완료합니다.  VM은 OpenShift Virtualization에서 실행 상태가 됩니다.
+
+image:rh-os-n-use-case-vm-migration-mtv-plan-warm-008.png["8"]

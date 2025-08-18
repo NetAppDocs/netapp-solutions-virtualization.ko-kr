@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: hyperv/hyperv-deploy.html 
+keywords: hyperv, hyper-v, deploy, netapp, virtualization, overview 
+summary: 이 솔루션은 NetApp 스토리지에 Hyper-V를 배포하는 데 필요한 단계를 제공합니다. 
+---
+= ONTAP 스토리지 시스템을 사용한 Microsoft Hyper-V 배포에 대해 알아보세요
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Microsoft의 컴퓨터 가상화는 Windows Server의 Hyper-V 역할을 통해 가능합니다.  ONTAP 스토리지 시스템과 Windows Server 기능을 사용하여 가상화된 컴퓨팅 환경을 만들고 관리하는 방법을 알아보세요.
+
+Windows Server 플랫폼은 Hyper-V 역할을 사용하여 가상화 기술을 제공합니다.  Hyper-V는 Windows Server에서 제공되는 여러 선택적 역할 중 하나입니다.
+
+
+
+== 개요
+
+Hyper-V 역할을 사용하면 Windows Server에 내장된 가상화 기술을 사용하여 가상화된 컴퓨팅 환경을 만들고 관리할 수 있습니다.  Hyper-V 기술은 하드웨어를 가상화하여 하나의 물리적 컴퓨터에서 여러 운영 체제를 동시에 실행할 수 있는 환경을 제공합니다.  Hyper-V를 사용하면 가상 머신과 해당 리소스를 만들고 관리할 수 있습니다.  각 가상 머신은 자체 운영 체제를 실행할 수 있는 격리된 가상화된 컴퓨터 시스템입니다.  Hyper-V는 효율성 개선과 비용 절감을 목표로 하는 다양한 비즈니스 목표를 지원하는 애플리케이션과 워크로드를 가상화하는 인프라를 제공합니다. 이는 VMware vSphere에 대한 완벽한 대안이며, 특히 현재 시장 상황에서 여러 하이퍼바이저의 공존을 모색하는 조직에게 적합합니다.
+
+
+
+== 대상
+
+이 문서에서는 NetApp ONTAP 시스템을 사용한 Hyper-V 클러스터 구성에 대한 아키텍처와 배포 절차를 설명합니다.  이 문서의 대상 독자에는 영업 엔지니어, 현장 컨설턴트, 전문 서비스, IT 관리자, 파트너 엔지니어 및 Hyper-V를 기본 또는 대체 하이퍼바이저로 배포하려는 고객이 포함됩니다.
+
+
+
+== 아키텍처
+
+이 문서에 설명된 아키텍처에는 특히 Microsoft Windows Server 2022 및 Hyper-V 가상화가 포함됩니다.  NetApp 모든 배포에 가상화 소프트웨어와 인프라 관리 소프트웨어를 사용하는 것을 강력히 권장합니다.  이 구성에서는 각 구성 요소의 모범 사례를 사용하여 안정적인 엔터프라이즈급 인프라를 구축합니다.
+
+
+
+== 사용 사례 요약
+
+이 문서에서는 NetApp All-flash FAS 및 ASA 어레이 모델을 사용하여 Microsoft Windows Server 2022에서 워크로드로서 최적의 성능을 발휘하도록 Hyper-V 클러스터를 설정하는 배포 절차와 모범 사례를 설명합니다.  서버 운영 체제/하이퍼바이저는 Microsoft Windows Server 2022입니다.  이 지침은 SAN(스토리지 영역 네트워크) 및 NAS(네트워크 연결 스토리지) 프로토콜을 통해 데이터를 제공하는 NetApp 스토리지 시스템을 다룹니다.

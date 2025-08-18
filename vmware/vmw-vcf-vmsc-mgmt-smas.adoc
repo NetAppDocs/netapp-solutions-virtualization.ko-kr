@@ -1,0 +1,74 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-vmsc-mgmt-smas.html 
+keywords: netapp, vmware, cloud, foundation, vcf, asa, all-flash, array, ontap tools, otv, sddc, iscsi 
+summary:  
+---
+= SnapMirror Active Sync를 사용하여 VCF 관리 도메인에 대한 스트레치 클러스터 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+이 사용 사례에서는 ONTAP tools for VMware vSphere 사용하여 VCF 관리 도메인에 대한 스트레치 클러스터를 구성하는 절차를 설명합니다.  이 절차에는 vSphere 호스트와 vCenter Server 배포, ONTAP 도구 설치, SnapMirror Active Sync를 사용한 데이터 저장소 보호, 보호된 데이터 저장소로 VM 마이그레이션, 보조 스토리지 구성이 포함됩니다.
+
+image:vmware-vcf-asa-mgmt-stretchcluster-001.png["단일 인스턴스 - 여러 가용 영역"]
+
+
+
+== 시나리오 개요
+
+스트레치 클러스터 솔루션은 기본 클러스터나 VCF 관리 또는 워크로드 도메인의 추가 클러스터에 구현될 수 있습니다.  FC의 VMFS는 주 데이터 저장소와 보조 데이터 저장소 모두에서 지원됩니다.  iSCSI의 VMFS는 보조 데이터 저장소에서만 지원됩니다.  SnapMirror 액티브 동기화를 사용하는 NVMe-oF의 VMFS 지원에 대해서는 IMT 참조하세요.
+
+image:vmware-vcf-asa-mgmt-stretchcluster-002.png["VCF 관리 도메인을 위한 ONTAP 사용한 Stretch Cluster"]
+
+.관리 도메인의 주 저장소
+[%collapsible%open]
+====
+VCF 5.2 이상에서는 VCF 가져오기 도구를 사용하여 VSAN 없이도 관리 도메인을 배포할 수 있습니다.  VCF 가져오기 도구의 변환 옵션을 사용하면link:vmw-vcf-mgmt-fc.html["기존 vCenter 배포를 관리 도메인으로"] .  vCenter의 모든 클러스터는 관리 도메인의 일부가 됩니다.
+
+. vSphere 호스트 배포
+. 로컬 데이터 저장소에 vCenter Server를 배포합니다(vCenter는 관리 도메인으로 변환될 vSphere 호스트에 공존해야 함)
+. ONTAP tools for VMware vSphere 배포
+. VMware vSphere용 SnapCenter 플러그인 배포(선택 사항)
+. 데이터 저장소 생성(FC 영역 구성이 완료되어야 함)
+. vSphere 클러스터 보호
+. 새로 생성된 데이터 저장소로 VM 마이그레이션
+
+
+
+NOTE: 클러스터가 확장되거나 축소될 때마다 클러스터의 ONTAP 도구에서 호스트 클러스터 관계를 업데이트하여 소스 또는 대상에 대한 변경 사항을 나타내야 합니다.
+
+====
+.관리 도메인의 추가 스토리지
+[%collapsible%open]
+====
+관리 도메인이 가동되면 ONTAP 도구를 사용하여 추가 데이터 저장소를 만들 수 있으며, 이를 통해 일관성 그룹 확장이 트리거됩니다.
+
+
+TIP: vSphere 클러스터가 보호되면 클러스터의 모든 데이터 저장소도 보호됩니다.
+
+Cloud Builder 도구를 사용하여 VCF 환경을 배포한 경우 iSCSI로 보조 스토리지를 생성하고, ONTAP 도구를 배포하여 iSCSI 데이터 저장소를 생성하고 vSphere 클러스터를 보호합니다.
+
+
+NOTE: 클러스터가 확장되거나 축소될 때마다 클러스터의 ONTAP 도구에서 호스트 클러스터 관계를 업데이트하여 소스 또는 대상에 대한 변경 사항을 나타내야 합니다.
+
+====
+
+
+== 추가 정보
+
+ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] 센터.
+
+VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2.html["VMware Cloud Foundation 5.2 설명서"] .
+
+
+
+== 이 솔루션에 대한 비디오 데모
+
+.ONTAP 도구를 사용한 VCF용 스트레치 클러스터
+video::569a91a9-2679-4414-b6dc-b25d00ff0c5a[panopto,width=360]

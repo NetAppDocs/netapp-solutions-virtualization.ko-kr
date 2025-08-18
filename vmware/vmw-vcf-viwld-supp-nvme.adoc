@@ -1,0 +1,347 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-supp-nvme.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc, iscsi 
+summary:  
+---
+= VI 워크로드 도메인에 보조 스토리지로 NVMe over TCP 추가
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+이 사용 사례에서는 ONTAP Tools for VMware를 사용하여 VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에 대한 보조 스토리지로 NVMe over TCP(NVMe/TCP)를 구성하는 절차를 설명합니다.  이 절차에서는 NVMe/TCP 지원 스토리지 가상 머신(SVM) 설정, NVMe 네임스페이스 생성, ESXi 호스트 네트워킹 구성, VMFS 데이터스토어 배포에 대한 내용을 요약합니다.
+
+
+
+== TCP를 통한 NVMe의 이점
+
+*고성능:* 낮은 지연 시간과 높은 데이터 전송 속도로 뛰어난 성능을 제공합니다.  이는 까다로운 애플리케이션과 대규모 데이터 작업에 매우 중요합니다.
+
+*확장성:* 확장 가능한 구성을 지원하여 IT 관리자가 데이터 요구 사항이 증가함에 따라 인프라를 원활하게 확장할 수 있습니다.
+
+*비용 효율성:* 표준 이더넷 스위치에서 실행되며 TCP 데이터그램 내부에 캡슐화됩니다.  구현에 특별한 장비가 필요하지 않습니다.
+
+NVMe의 이점에 대한 자세한 내용은 다음을 참조하세요. https://www.netapp.com/data-storage/nvme/what-is-nvme/["NVME란 무엇인가요?"]
+
+
+
+== 시나리오 개요
+
+이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
+
+* NVMe/TCP 트래픽을 위한 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 생성합니다.
+* VI 워크로드 도메인에서 iSCSI 네트워크에 대한 분산 포트 그룹을 생성합니다.
+* VI 워크로드 도메인의 ESXi 호스트에서 iSCSI용 vmkernel 어댑터를 생성합니다.
+* ESXi 호스트에 NVMe/TCP 어댑터를 추가합니다.
+* NVMe/TCP 데이터 저장소를 배포합니다.
+
+
+
+
+== 필수 조건
+
+이 시나리오에는 다음과 같은 구성 요소와 구성이 필요합니다.
+
+* 스토리지 트래픽에 전용된 이더넷 스위치의 물리적 데이터 포트가 있는 ONTAP AFF 또는 ASA 스토리지 시스템입니다.
+* VCF 관리 도메인 배포가 완료되었으며 vSphere 클라이언트에 액세스할 수 있습니다.
+* VI 워크로드 도메인이 이전에 배포되었습니다.
+
+
+NetApp NVMe/TCP에 대해 완전 중복 네트워크 설계를 권장합니다.  다음 다이어그램은 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 내구성을 제공하는 중복 구성의 예를 보여줍니다.  NetApp 을 참조하세요link:https://docs.netapp.com/us-en/ontap/san-config/index.html["SAN 구성 참조"] 추가 정보를 원하시면.
+
+image:vmware-vcf-asa-074.png["NVMe-tcp 네트워크 설계"]
+
+다중 경로 지정 및 여러 경로에 걸친 장애 조치의 경우 NetApp NVMe/TCP 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 두는 것을 권장합니다.
+
+이 문서에서는 새로운 SVM을 생성하고 NVMe/TCP 트래픽에 대한 여러 LIF를 생성하기 위해 IP 주소 정보를 지정하는 프로세스를 보여줍니다.  기존 SVM에 새로운 LIF를 추가하려면 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap/networking/create_a_lif.html["LIF(네트워크 인터페이스) 생성"] .
+
+ONTAP 스토리지 시스템에 대한 NVMe 설계 고려 사항에 대한 추가 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap/nvme/support-limitations.html["NVMe 구성, 지원 및 제한 사항"] .
+
+
+
+== 배포 단계
+
+NVMe/TCP를 사용하여 VCF 워크로드 도메인에 VMFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
+
+
+
+=== ONTAP 스토리지 시스템에 SVM, LIF 및 NVMe 네임스페이스 생성
+
+다음 단계는 ONTAP 시스템 관리자에서 수행됩니다.
+
+.스토리지 VM 및 LIF 생성
+[%collapsible%open]
+====
+NVMe/TCP 트래픽을 위한 여러 LIF와 함께 SVM을 생성하려면 다음 단계를 완료하세요.
+
+. ONTAP System Manager에서 왼쪽 메뉴의 *Storage VMs*로 이동한 다음 *+ 추가*를 클릭하여 시작합니다.
++
+image:vmware-vcf-asa-001.png["SVM 생성을 시작하려면 +추가를 클릭하세요."]
+
++
+{nbsp}
+
+. *스토리지 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *NVMe* 탭을 클릭하고 *NVMe/TCP 사용* 확인란을 선택합니다.
++
+image:vmware-vcf-asa-075.png["스토리지 VM 마법사 추가 - NVMe/TCP 활성화"]
+
++
+{nbsp}
+
+. *네트워크 인터페이스* 섹션에 첫 번째 LIF에 대한 *IP 주소*, *서브넷 마스크*, *브로드캐스트 도메인 및 포트*를 입력합니다.  이후 LIF의 경우 확인란을 활성화하여 나머지 모든 LIF에서 공통 설정을 사용하거나 별도의 설정을 사용할 수 있습니다.
++
+
+NOTE: 다중 경로 지정 및 여러 경로에 걸친 장애 조치의 경우 NetApp NVMe/TCP 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 두는 것을 권장합니다.
+
++
+image:vmware-vcf-asa-076.png["LIF에 대한 네트워크 정보를 작성하세요"]
+
++
+{nbsp}
+
+. 스토리지 VM 관리 계정(멀티 테넌시 환경의 경우)을 활성화할지 여부를 선택하고 *저장*을 클릭하여 SVM을 생성합니다.
++
+image:vmware-vcf-asa-004.png["SVM 계정 활성화 및 완료"]
+
+
+
+====
+.NVMe 네임스페이스 생성
+[%collapsible%open]
+====
+NVMe 네임스페이스는 iSCSI 또는 FC의 LUN과 유사합니다.  vSphere Client에서 VMFS 데이터스토어를 배포하려면 먼저 NVMe 네임스페이스를 만들어야 합니다.  NVMe 네임스페이스를 생성하려면 먼저 클러스터의 각 ESXi 호스트에서 NVMe 정규 이름(NQN)을 얻어야 합니다.  ONTAP 은 NQN을 사용하여 네임스페이스에 대한 액세스 제어를 제공합니다.
+
+NVMe 네임스페이스를 생성하려면 다음 단계를 완료하세요.
+
+. 클러스터 내 ESXi 호스트에서 SSH 세션을 열어 NQN을 얻습니다.  CLI에서 다음 명령을 사용하세요.
++
+[source, cli]
+----
+esxcli nvme info get
+----
++
+다음과 유사한 출력이 표시되어야 합니다.
+
++
+[source, cli]
+----
+Host NQN: nqn.2014-08.com.netapp.sddc:nvme:vcf-wkld-esx01
+----
+. 클러스터의 각 ESXi 호스트에 대한 NQN을 기록합니다.
+. ONTAP 시스템 관리자의 왼쪽 메뉴에서 *NVMe 네임스페이스*로 이동한 다음 *+ 추가*를 클릭하여 시작합니다.
++
+image:vmware-vcf-asa-093.png["+추가를 클릭하여 NVMe 네임스페이스를 만듭니다."]
+
++
+{nbsp}
+
+. *NVMe 네임스페이스 추가* 페이지에서 이름 접두사, 생성할 네임스페이스 수, 네임스페이스 크기, 네임스페이스에 액세스할 호스트 운영 체제를 입력합니다.  *호스트 NQN* 섹션에서 네임스페이스에 액세스할 ESXi 호스트에서 이전에 수집한 NQN의 쉼표로 구분된 목록을 만듭니다.
+
+
+스냅샷 보호 정책과 같은 추가 항목을 구성하려면 *추가 옵션*을 클릭하세요.  마지막으로 *저장*을 클릭하여 NVMe 네임스페이스를 생성합니다.
+
++image:vmware-vcf-asa-093.png["+추가를 클릭하여 NVMe 네임스페이스를 만듭니다."]
+
+====
+
+
+=== ESXi 호스트에 네트워킹 및 NVMe 소프트웨어 어댑터 설정
+
+다음 단계는 vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터에서 수행됩니다.  이 경우 vCenter Single Sign-On이 사용되므로 vSphere 클라이언트는 관리 도메인과 워크로드 도메인 모두에서 공통적입니다.
+
+.NVME/TCP 트래픽을 위한 분산 포트 그룹 생성
+[%collapsible%open]
+====
+각 NVMe/TCP 네트워크에 대한 새로운 분산 포트 그룹을 생성하려면 다음을 완료하세요.
+
+. vSphere 클라이언트에서 워크로드 도메인에 대한 *인벤토리 > 네트워킹*으로 이동합니다.  기존 분산 스위치로 이동하여 *새 분산 포트 그룹...*을 만드는 작업을 선택합니다.
++
+image:vmware-vcf-asa-022.png["새 포트 그룹을 생성하도록 선택하세요"]
+
++
+{nbsp}
+
+. *새 분산 포트 그룹* 마법사에서 새 포트 그룹의 이름을 입력하고 *다음*을 클릭하여 계속합니다.
+. *설정 구성* 페이지에서 모든 설정을 작성하세요.  VLAN을 사용하는 경우 올바른 VLAN ID를 제공해야 합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-vcf-asa-023.png["VLAN ID를 작성하세요"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 변경 사항을 검토하고 *마침*을 클릭하여 새 분산 포트 그룹을 만듭니다.
+. 두 번째 NVMe/TCP 네트워크에 대한 분산 포트 그룹을 생성하려면 이 프로세스를 반복하고 올바른 *VLAN ID*를 입력했는지 확인하세요.
+. 두 포트 그룹이 모두 생성되면 첫 번째 포트 그룹으로 이동하여 *설정 편집...* 작업을 선택합니다.
++
+image:vmware-vcf-asa-077.png["DPG - 설정 편집"]
+
++
+{nbsp}
+
+. *분산 포트 그룹 - 설정 편집* 페이지에서 왼쪽 메뉴의 *팀 구성 및 장애 조치*로 이동한 다음 *업링크2*를 클릭하여 *사용하지 않는 업링크*로 이동합니다.
++
+image:vmware-vcf-asa-078.png["uplink2를 사용하지 않는 곳으로 이동"]
+
+. 두 번째 NVMe/TCP 포트 그룹에 대해서도 이 단계를 반복합니다.  하지만 이번에는 *uplink1*을 *사용하지 않는 업링크*로 옮깁니다.
++
+image:vmware-vcf-asa-079.png["업링크 1을 사용하지 않는 곳으로 이동"]
+
+
+
+====
+.각 ESXi 호스트에 VMkernel 어댑터를 만듭니다.
+[%collapsible%open]
+====
+워크로드 도메인의 각 ESXi 호스트에서 이 프로세스를 반복합니다.
+
+. vSphere 클라이언트에서 워크로드 도메인 인벤토리의 ESXi 호스트 중 하나로 이동합니다.  *구성* 탭에서 *VMkernel 어댑터*를 선택하고 *네트워킹 추가...*를 클릭하여 시작합니다.
++
+image:vmware-vcf-asa-030.png["네트워킹 추가 마법사 시작"]
+
++
+{nbsp}
+
+. *연결 유형 선택* 창에서 *VMkernel 네트워크 어댑터*를 선택하고 *다음*을 클릭하여 계속합니다.
++
+image:vmware-vcf-asa-008.png["VMkernel 네트워크 어댑터 선택"]
+
++
+{nbsp}
+
+. *대상 장치 선택* 페이지에서 이전에 생성한 iSCSI용 분산 포트 그룹 중 하나를 선택합니다.
++
+image:vmware-vcf-asa-095.png["대상 포트 그룹을 선택하세요"]
+
++
+{nbsp}
+
+. *포트 속성* 페이지에서 *NVMe over TCP* 상자를 클릭하고 *다음*을 클릭하여 계속합니다.
++
+image:vmware-vcf-asa-096.png["VMkernel 포트 속성"]
+
++
+{nbsp}
+
+. *IPv4 설정* 페이지에서 *IP 주소*, *서브넷 마스크*를 입력하고 새로운 게이트웨이 IP 주소를 입력합니다(필요한 경우에만). 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-vcf-asa-097.png["VMkernel IPv4 설정"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 선택 사항을 검토하고 *마침*을 클릭하여 VMkernel 어댑터를 만듭니다.
++
+image:vmware-vcf-asa-098.png["VMkernel 선택 검토"]
+
++
+{nbsp}
+
+. 두 번째 iSCSI 네트워크에 대한 VMkernel 어댑터를 생성하려면 이 과정을 반복합니다.
+
+
+====
+.NVMe over TCP 어댑터 추가
+[%collapsible%open]
+====
+워크로드 도메인 클러스터의 각 ESXi 호스트에는 스토리지 트래픽에 전용된 모든 NVMe/TCP 네트워크에 대해 NVMe over TCP 소프트웨어 어댑터가 설치되어 있어야 합니다.
+
+NVMe over TCP 어댑터를 설치하고 NVMe 컨트롤러를 검색하려면 다음 단계를 완료하세요.
+
+. vSphere 클라이언트에서 워크로드 도메인 클러스터의 ESXi 호스트 중 하나로 이동합니다.  *구성* 탭에서 메뉴의 *스토리지 어댑터*를 클릭한 다음, *소프트웨어 어댑터 추가* 드롭다운 메뉴에서 *NVMe over TCP 어댑터 추가*를 선택합니다.
++
+image:vmware-vcf-asa-099.png["NVMe over TCP 어댑터 추가"]
+
++
+{nbsp}
+
+. *소프트웨어 NVMe over TCP 어댑터 추가* 창에서 *물리적 네트워크 어댑터* 드롭다운 메뉴에 액세스하여 NVMe 어댑터를 활성화할 올바른 물리적 네트워크 어댑터를 선택합니다.
++
+image:vmware-vcf-asa-100.png["물리적 어댑터 선택"]
+
++
+{nbsp}
+
+. TCP 트래픽을 통한 NVMe에 할당된 두 번째 네트워크에 대해 이 프로세스를 반복하여 올바른 물리적 어댑터를 할당합니다.
+. 새로 설치된 NVMe over TCP 어댑터 중 하나를 선택하고, *컨트롤러* 탭에서 *컨트롤러 추가*를 선택합니다.
++
+image:vmware-vcf-asa-101.png["컨트롤러 추가"]
+
++
+{nbsp}
+
+. *컨트롤러 추가* 창에서 *자동* 탭을 선택하고 다음 단계를 완료합니다.
++
+** 이 NVMe over TCP 어댑터에 할당된 물리적 어댑터와 동일한 네트워크에 있는 SVM 논리 인터페이스 중 하나에 대한 IP 주소를 입력합니다.
+** *컨트롤러 검색* 버튼을 클릭하세요.
+** 검색된 컨트롤러 목록에서 네트워크 주소가 NVMe over TCP 어댑터와 일치하는 두 컨트롤러의 확인란을 클릭합니다.
+** 선택한 컨트롤러를 추가하려면 *확인* 버튼을 클릭하세요.
++
+image:vmware-vcf-asa-102.png["컨트롤러 검색 및 추가"]
+
++
+{nbsp}
+
+
+
+. 몇 초 후에 NVMe 네임스페이스가 장치 탭에 나타납니다.
++
+image:vmware-vcf-asa-103.png["장치 아래에 나열된 NVMe 네임스페이스"]
+
++
+{nbsp}
+
+. NVMe/TCP 트래픽을 위해 설정된 두 번째 네트워크에 대해 NVMe over TCP 어댑터를 생성하려면 이 절차를 반복합니다.
+
+
+====
+.TCP 데이터 저장소를 통한 NVMe 배포
+[%collapsible%open]
+====
+NVMe 네임스페이스에 VMFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
+
+. vSphere 클라이언트에서 워크로드 도메인 클러스터의 ESXi 호스트 중 하나로 이동합니다.  *작업* 메뉴에서 *저장소 > 새 데이터 저장소...*를 선택합니다.
++
+image:vmware-vcf-asa-104.png["NVMe over TCP 어댑터 추가"]
+
++
+{nbsp}
+
+. *새 데이터 저장소* 마법사에서 유형으로 *VMFS*를 선택합니다. 계속하려면 *다음*을 클릭하세요.
+. *이름 및 장치 선택* 페이지에서 데이터 저장소의 이름을 입력하고 사용 가능한 장치 목록에서 NVMe 네임스페이스를 선택합니다.
++
+image:vmware-vcf-asa-105.png["이름 및 장치 선택"]
+
++
+{nbsp}
+
+. *VMFS 버전* 페이지에서 데이터 저장소의 VMFS 버전을 선택합니다.
+. *파티션 구성* 페이지에서 기본 파티션 구성에 원하는 변경 사항을 적용합니다. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-vcf-asa-106.png["NVMe 파티션 구성"]
+
++
+{nbsp}
+
+. *완료 준비* 페이지에서 요약을 검토하고 *마침*을 클릭하여 데이터 저장소를 만듭니다.
+. 인벤토리의 새 데이터 저장소로 이동하여 *호스트* 탭을 클릭합니다.  올바르게 구성된 경우 클러스터의 모든 ESXi 호스트가 나열되고 새 데이터 저장소에 액세스할 수 있어야 합니다.
++
+image:vmware-vcf-asa-107.png["데이터 저장소에 연결된 호스트"]
+
++
+{nbsp}
+
+
+
+====
+
+
+== 추가 정보
+
+ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] 센터.
+
+VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf.html["VMware Cloud Foundation 문서"] .

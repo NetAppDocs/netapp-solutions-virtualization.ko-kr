@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: migration/migrate-vms-to-ec2-fsxn-arch.html 
+keywords: netapp, vmware, amazon, ec2, fsxn, migration, iscsi, 
+summary: '이 기술 보고서에서는 Cirrus Migrate Cloud(CMC)의 MigrateOps "데이터 모빌리티 코드" 기능을 사용하여 온프레미스 VMware vSphere VM을 FSx ONTAP iSCSI LUN에 배치된 데이터 디스크가 있는 Amazon EC2 인스턴스로 마이그레이션하는 방법을 다룹니다.' 
+---
+= VM을 Amazon EC2로 마이그레이션하기 위한 아키텍처 및 요구 사항
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Amazon FSx for NetApp ONTAP 사용하여 VM을 Amazon EC2로 마이그레이션하는 데 필요한 아키텍처와 주요 필수 구성 요소에 대해 알아보세요.
+
+
+
+== 고수준 아키텍처
+
+아래 다이어그램은 CMC MigrateOps를 사용하여 VMware에서 AWS로 가상 머신 디스크(VMDK) 데이터를 마이그레이션하는 상위 수준 아키텍처를 보여줍니다.
+
+image:migrate-ec2-fsxn-001.png["FSx ONTAP 아키텍처 다이어그램을 사용하여 VM을 Amazon EC2로 마이그레이션"]
+
+
+
+== Amazon EC2 및 FSx ONTAP iSCSI를 사용하여 VMware VM을 AWS로 마이그레이션하는 방법
+
+
+
+=== 필수 조건
+
+연습 단계를 시작하기 전에 다음 전제 조건이 충족되었는지 확인하세요.
+
+*AWS에서*
+
+* AWS 계정.  여기에는 서브넷, VPC 설정, 라우팅 테이블, 보안 규칙 마이그레이션, 보안 그룹 및 부하 분산과 같은 네트워킹에 대한 기타 요구 사항에 대한 권한이 포함됩니다.  어떤 마이그레이션과 마찬가지로, 가장 많은 노력과 고려 사항은 네트워킹에 투자되어야 합니다.
+* FSx ONTAP 과 Amazon EC2 인스턴스를 모두 프로비저닝할 수 있는 적절한 IAM 역할입니다.
+* 경로 테이블과 보안 그룹은 FSx ONTAP 과 통신할 수 있습니다.
+* 온프레미스 데이터 센터에서 AWS로의 안전한 데이터 전송을 허용하려면 적절한 보안 그룹에 인바운드 규칙을 추가하세요(자세한 내용은 아래 참조).
+* 공개 인터넷 도메인 이름을 확인할 수 있는 유효한 DNS입니다.
+* DNS 확인이 기능적이며 호스트 이름을 확인할 수 있는지 확인하세요.
+* 최적의 성능과 적정 크기 조정을 위해 소스 환경의 성능 데이터를 사용하여 FSx ONTAP 스토리지의 적정 크기를 조정하세요.
+* 각 MigrateOps 세션은 하나의 EIP를 사용하므로 병렬 처리를 늘리려면 EIP 할당량을 늘려야 합니다.  기본 EIP 할당량은 5라는 점을 명심하세요.
+* (Active Directory 기반 워크로드를 마이그레이션하는 경우) Amazon EC2의 Windows Active Directory 도메인.
+
+
+*Cirrus Migrate Cloud의 경우*
+
+* Cirrus Data Cloud 계정link:http://cloud.cirrusdata.com/["클라우드.시러스데이터닷컴"] CMC를 사용하기 전에 만들어야 합니다.  HTTPS를 통한 CDN, Cirrus Data 엔드포인트 및 소프트웨어 저장소와의 아웃바운드 통신이 허용되어야 합니다.
+* HTTPS 프로토콜(포트 443)을 통해 Cirrus Data Cloud 서비스와의 통신(아웃바운드)을 허용합니다.
+* CMC 프로젝트에서 호스트를 관리하려면 배포된 CMC 소프트웨어가 Cirrus Data Cloud에 대한 단방향 아웃바운드 TCP 연결을 시작해야 합니다.
+* 현재 208.67.222.222에 위치한 portal-gateway.cloud.cirrusdata.com에 대한 TCP 프로토콜, 포트 443 액세스를 허용합니다.
+* 바이너리 데이터 페이로드(application/octet-stream)를 사용하여 HTTP POST 요청(HTTPS 연결을 통해)을 허용합니다.  이는 파일 업로드와 비슷합니다.
+* portal-gateway.cloud.cirrusdata.com이 DNS(또는 OS 호스트 파일)에서 확인 가능한지 확인하세요.
+* 제품 인스턴스가 아웃바운드 연결을 하는 것을 엄격히 금지하는 규칙이 있는 경우, CMC의 "관리 릴레이" 기능을 사용하여 아웃바운드 443 연결이 단일 보안 비프로덕션 호스트에서 이루어지도록 할 수 있습니다.
+
+
+*참고*: 저장 데이터는 Cirrus Data Cloud 엔드포인트로 전송되지 않습니다.  관리 메타데이터만 전송되며, 실제 호스트 이름, 볼륨 이름, 네트워크 IP가 포함되지 않도록 선택적으로 마스크할 수 있습니다.
+
+온프레미스 스토리지 리포지토리에서 AWS로 데이터를 마이그레이션하기 위해 MigrateOps는 호스트 간(H2H) 연결 관리를 자동화합니다.  이는 CMC가 원격 마이그레이션을 용이하게 하기 위해 사용하는 최적화된 단방향 TCP 기반 네트워크 연결입니다.  이 프로세스는 상시 압축 및 암호화 기능을 갖추고 있어 데이터의 특성에 따라 트래픽 양을 최대 8배까지 줄일 수 있습니다.
+
+*참고*: CMC는 마이그레이션 단계 전체 동안 프로덕션 데이터/I/O가 프로덕션 네트워크 밖으로 나가지 않도록 설계되었습니다.  결과적으로 소스 호스트와 대상 호스트 사이에 직접적인 연결이 필요하게 됩니다.

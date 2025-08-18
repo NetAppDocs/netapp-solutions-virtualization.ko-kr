@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: whats-new.html 
+keywords: 'netapp, solutions, virtualization, what"s new, updates, change log' 
+summary: NetApp 가상화 솔루션 자료의 최근 변경 사항 로그입니다. 
+---
+= NetApp 가상화 솔루션의 새로운 기능
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+가상화 솔루션의 새로운 소식을 알아보세요.
+
+
+
+== 2025년 8월 18일
+
+NetApp Solutions 사이트는 이제link:https://docs.netapp.com/us-en/netapp-solutions-family/index.html["NetApp 솔루션 제품군"^] 다음 사이트를 포함합니다.
+
+* link:https://docs.netapp.com/us-en/netapp-solutions-ai/index.html["NetApp 인공지능 솔루션"^]
+* link:https://docs.netapp.com/us-en/netapp-solutions-containers/index.html["NetApp 컨테이너 솔루션"^]
+* link:https://docs.netapp.com/us-en/netapp-solutions-dataops/index.html["NetApp 데이터 관리 솔루션"^]
+* link:https://docs.netapp.com/us-en/netapp-solutions-databases/index.html["NetApp 데이터베이스 솔루션"^]
+* link:https://docs.netapp.com/us-en/netapp-solutions-cloud/index.html["NetApp 퍼블릭 및 하이브리드 클라우드 솔루션"^]
+* link:https://docs.netapp.com/us-en/netapp-solutions-sap/index.html["SAP용 NetApp 솔루션"^]
+* NetApp 가상화 솔루션
+

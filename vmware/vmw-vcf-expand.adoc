@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-expand.html 
+keywords: vmware, vcf, expand, supplemental, storage 
+summary:  
+---
+= 보조 스토리지를 사용하여 VCF 환경의 스토리지 확장에 대해 알아보세요.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware Cloud Foundation(VCF)은 VCF 관리 도메인과 가상 인프라(VI) 워크로드 도메인의 스토리지를 확장하기 위한 광범위한 보조 스토리지 옵션을 지원합니다.
+
+VMware vSphere용 NetApp ONTAP 도구는 NetApp 스토리지를 VCF 환경에 원활하게 통합하여 이러한 확장을 위한 효율적인 솔루션을 제공합니다.  ONTAP 도구는 데이터스토어의 설정 및 관리를 간소화하여 관리자가 vSphere Client에서 직접 스토리지를 프로비저닝하고 관리할 수 있도록 합니다.  ONTAP은 스냅샷, 복제, 데이터 보호와 같은 고급 기능을 제공하여 VCF 환경 내에서 스토리지 성능, 효율성, 확장성을 향상시킵니다.
+
+VCF 환경을 확장하기 위한 기술적 세부 사항은 다음 솔루션을 참조하세요.
+
+* link:vmw-vcf-mgmt-supplemental-iscsi.html["iSCSI를 사용한 관리 도메인"]
+* link:vmw-vcf-mgmt-supplemental-fc.html["FC를 사용한 관리 도메인"]
+* link:vmw-vcf-viwld-supp-iscsi-vvols.html["vVols 를 사용한 가상 인프라 워크로드 도메인(iSCSI)"]
+* link:vmw-vcf-viwld-supp-nfs-vvols.html["vVols (NFS)를 사용한 가상 인프라 워크로드 도메인"]
+* link:vmw-vcf-viwld-supp-nvme.html["NVMe/TCP를 사용한 가상 인프라 워크로드 도메인"]
+* link:vmw-vcf-viwld-supp-fc.html["FC를 사용한 가상 인프라 워크로드 도메인"]
+

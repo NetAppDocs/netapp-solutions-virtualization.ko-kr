@@ -1,0 +1,118 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-demos-videos.html 
+keywords: vSphere, cloud, hybrid cloud, AWS, Azure, Google cloud, snapmirror cloud, cloud backup service, BlueXP Copy and Sync, FabricPool, ONTAP 
+summary: 이 페이지에서는 비디오와 튜토리얼을 소개합니다. 
+---
+= NetApp 사용한 가상화에 대한 비디오와 데모를 시청하세요
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+하이브리드 클라우드, 가상화, 컨테이너 솔루션의 중요한 기능을 설명하는 비디오와 데모를 시청하세요.  ONTAP tools for VMware vSphere NetApp ONTAP 도구, SnapCenter Plug-in for VMware vSphere, 3-2-1 데이터 보호, NetApp AWS 및 Azure와 어떻게 작동하는지 알아보세요.  이러한 기술을 설정하고 관리하는 데 도움이 되는 팁을 얻으세요.
+
+.VMware vSphere용 NetApp ONTAP 도구
+[%collapsible%open]
+====
+.VMware용 ONTAP 도구 - 개요
+video::e8071955-f6f1-45a0-a868-b12a010bba44[panopto]
+.ONTAP 사용한 VMware iSCSI 데이터스토어 프로비저닝
+video::5c047271-aecc-437c-a444-b01200f9671a[panopto]
+.ONTAP 사용한 VMware NFS 데이터스토어 프로비저닝
+video::a34bcd1c-3aaa-4917-9a5d-b01200f97f08[panopto]
+====
+.SnapCenter Plug-in for VMware vSphere
+[%collapsible%open]
+====
+NetApp SnapCenter software 애플리케이션, 데이터베이스, 파일 시스템 전반에서 데이터 보호를 안전하게 조정하고 관리할 수 있는 사용하기 쉬운 엔터프라이즈 플랫폼입니다.
+
+SnapCenter Plug-in for VMware vSphere 사용하면 VMware vCenter 내에서 직접 VM에 대한 백업, 복원 및 연결 작업과 SnapCenter 에 등록된 데이터 저장소에 대한 백업 및 마운트 작업을 수행할 수 있습니다.
+
+VMware vSphere용 NetApp SnapCenter Plug-in for VMware vSphere 에 대한 자세한 내용은 다음을 참조하세요.link:https://docs.netapp.com/ocsc-42/index.jsp?topic=%2Fcom.netapp.doc.ocsc-con%2FGUID-29BABBA7-B15F-452F-B137-2E5B269084B9.html["VMware vSphere용 NetApp SnapCenter Plug-in for VMware vSphere 개요"] .
+
+.SnapCenter Plug-in for VMware vSphere - 솔루션 전제 조건
+video::38881de9-9ab5-4a8e-a17d-b01200fade6a[panopto,width=360]
+.SnapCenter Plug-in for VMware vSphere - 배포
+video::10cbcf2c-9964-41aa-ad7f-b01200faca01[panopto,width=360]
+.SnapCenter Plug-in for VMware vSphere - 백업 워크플로
+video::b7272f18-c424-4cc3-bc0d-b01200faaf25[panopto,width=360]
+.SnapCenter Plug-in for VMware vSphere - 복원 워크플로
+video::ed41002e-585c-445d-a60c-b01200fb1188[panopto,width=360]
+.SnapCenter - SQL 복원 워크플로
+video::8df4ad1f-83ad-448b-9405-b01200fb2567[panopto,width=360]
+====
+.3-2-1 데이터 보호 솔루션
+[%collapsible%open]
+====
+3-2-1 데이터 보호 솔루션은 SnapMirror 기술을 사용하여 온프레미스 기본 및 보조 백업을 결합하고 BlueXP backup and recovery 사용하여 개체 스토리지에 복제된 사본을 결합합니다.
+
+.VMware vSphere 및 BlueXP 백업 및 복구를 위한 SnapCenter Plug-in for VMware vSphere 사용한 VMFS 데이터 저장소의 3-2-1 데이터 보호
+video::7c21f3fc-4025-4d8f-b54c-b0e001504c76[panopto,width=360]
+====
+.AWS FSx ONTAP 활용한 AWS의 VMware Cloud
+[%collapsible%open]
+====
+.iSCSI를 사용하는 FSx ONTAP 사용한 Windows 게스트 연결 스토리지
+video::0d03e040-634f-4086-8cb5-b01200fb8515[panopto,width=360]
+.NFS를 사용하는 FSx ONTAP 사용한 Linux 게스트 연결 스토리지
+video::c3befe1b-4f32-4839-a031-b01200fb6d60[panopto,width=360]
+.Amazon FSx ONTAP 통한 VMware Cloud on AWS TCO 절감
+video::f0fedec5-dc17-47af-8821-b01200f00e08[panopto,width=360]
+.Amazon FSx ONTAP 사용한 AWS 보충 데이터 저장소의 VMware Cloud
+video::2065dcc1-f31a-4e71-a7d5-b01200f01171[panopto,width=360]
+.VMC를 위한 VMware HCX 배포 및 구성 설정
+video::6132c921-a44c-4c81-aab7-b01200fb5d29[panopto,width=360]
+.VMC 및 FSx ONTAP 용 VMware HCX를 사용한 vMotion 마이그레이션 데모
+video::52661f10-3f90-4f3d-865a-b01200f06d31[panopto,width=360]
+.VMC 및 FSx ONTAP 용 VMware HCX를 사용한 콜드 마이그레이션 데모
+video::685c0dc2-9d8a-42ff-b46d-b01200f056b0[panopto,width=360]
+====
+.Azure NetApp Files (ANF)를 사용한 Azure의 Azure VMware 서비스
+[%collapsible%open]
+====
+.Azure NetApp Files 사용한 Azure VMware 솔루션 보충 데이터 저장소 개요
+video::8c5ddb30-6c31-4cde-86e2-b01200effbd6[panopto,width=360]
+.Cloud Volumes ONTAP, SnapCenter 및 JetStream을 사용한 Azure VMware 솔루션 DR
+video::5cd19888-8314-4cfc-ba30-b01200efff4f[panopto,width=360]
+.AVS 및 ANF를 위한 VMware HCX를 사용한 콜드 마이그레이션 데모
+video::b7ffa5ad-5559-4e56-a166-b01200f025bc[panopto,width=360]
+.AVS 및 ANF를 위한 VMware HCX를 사용한 vMotion 데모
+video::986bb505-6f3d-4a5a-b016-b01200f03f18[panopto,width=360]
+.AVS 및 ANF를 위한 VMware HCX를 사용한 대량 마이그레이션 데모
+video::255640f5-4dff-438c-8d50-b01200f017d1[panopto,width=360]
+====
+.NetApp ONTAP 활용한 VMware Cloud Foundation
+[%collapsible%open]
+====
+.VCF 워크로드 도메인의 주 스토리지로서의 NFS 데이터 저장소
+video::9b66ac8d-d2b1-4ac4-a33c-b16900f67df6[panopto]
+.VCF 관리 도메인을 위한 보조 스토리지로서의 iSCSI 데이터 저장소
+video::1d0e1af1-40ae-483a-be6f-b156015507cc[panopto]
+====
+.VMware Tanzu를 사용한 NetApp
+[%collapsible%open]
+====
+VMware Tanzu를 사용하면 고객이 vSphere 또는 VMware Cloud Foundation을 통해 Kubernetes 환경을 배포, 관리 및 운영할 수 있습니다.  VMware의 이 제품 포트폴리오를 통해 고객은 필요에 가장 적합한 VMware Tanzu 에디션을 선택하여 단일 제어 평면에서 모든 관련 Kubernetes 클러스터를 관리할 수 있습니다.
+
+VMware Tanzu에 대한 자세한 내용은 다음을 참조하세요. https://tanzu.vmware.com/tanzu["VMware Tanzu 개요"^] .  이 리뷰에서는 VMware Tanzu에 대한 사용 사례, 사용 가능한 추가 기능 등에 대해 설명합니다.
+
+.NetApp 및 VMware Tanzu Basic과 함께 vVols 사용하는 방법, 1부
+video::ZtbXeOJKhrc[youtube,width=360]
+.NetApp 및 VMware Tanzu Basic과 함께 vVols 사용하는 방법, 2부
+video::FVRKjWH7AoE[youtube,width=360]
+.NetApp 및 VMware Tanzu Basic과 함께 vVols 사용하는 방법, 3부
+video::Y-34SUtTTtU[youtube,width=360]
+====
+.NetApp Cloud Insights
+[%collapsible%open]
+====
+NetApp Cloud Insights 온프레미스 및 클라우드 인프라에 대한 가시성과 제어 기능을 제공하도록 설계된 포괄적인 모니터링 및 분석 플랫폼입니다.
+
+.NetApp Cloud Insights - 최신 데이터 센터를 위한 관찰성
+video::1e4da521-3104-4d51-8cde-b0e001502d3d[panopto,width=360]
+====
