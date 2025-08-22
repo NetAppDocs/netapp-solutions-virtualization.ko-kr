@@ -12,6 +12,10 @@ indexpage:
       url: vmw-getting-started-overview.html
     - title: VMware용 NetApp 플랫폼 정보
       url: vmw-getting-started-ntap-options.html
+    - title: ONTAP 사용한 VCF 9 설계 옵션
+      url: vmw-vcf-design.html
+    - title: ONTAP 활용한 VCF 9 배치
+      url: vmw-vcf-deployment.html
     - title: 블로그
       url: "../blogs.html"
     - title: 비디오

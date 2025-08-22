@@ -1,0 +1,162 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-deployment.html 
+keywords: netapp, vmware, cloud, foundation, vcf, flexpod 
+summary: ONTAP 사용하여 VMware Cloud Foundation 9 환경을 배포, 통합 또는 업그레이드합니다.  새로운 VCF 9.0 환경을 설정하고, 기존 vCenter 인스턴스와 ONTAP 데이터 저장소를 통합하고, 이전 VCF 배포를 업그레이드하는 방법을 알아보세요. 
+---
+= VMware Cloud Foundation 및 ONTAP 사용하여 프라이빗 클라우드 환경 설정
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP 사용하여 VMware Cloud Foundation 9 환경을 배포, 융합 또는 업그레이드합니다.  새로운 VCF 9.0 환경을 설정하고, 기존 vCenter 인스턴스와 ONTAP 데이터 저장소를 통합하고, 이전 VCF 배포를 업그레이드하는 방법을 알아보세요.
+
+
+
+== 새로운 VCF 9 인스턴스 배포
+
+이 워크플로를 사용하여 깨끗한 VMware Cloud Foundation(VCF) 9.0 환경을 배포합니다.  배포 후에는 워크로드를 마이그레이션하거나 애플리케이션 프로비저닝을 시작하고 인프라 서비스를 제공할 수 있습니다.
+
+상위 레벨 단계는 다음을 참조하세요.link:https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/assets/vmware-cis/vcf/vcf-9.0-vcf-deploy-journey.pdf["빌드 여정 – 새로운 VMware Cloud Foundation 배포 설치"] .
+
+.단계
+. 를 따르세요link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/deployment/deploying-a-new-vmware-cloud-foundation-or-vmware-vsphere-foundation-private-cloud-/preparing-your-environment.html["Broadcom VCF 9 배포 단계"] .
+. 배포 준비 단계에서는 주요 스토리지 옵션에 대한 작업을 완료합니다.
+
+
+[role="tabbed-block"]
+====
+.FC의 VMFS
+--
+. 모든 ESXi 호스트의 WWPN을 수집합니다.  당신은 실행할 수 있습니다 `esxcli storage san fc list` , ESXi 호스트 클라이언트를 사용하거나 PowerCLI를 사용하세요.
+. 구역 지정을 구성합니다. 보다 link:https://docs.netapp.com/us-en/ontap/san-config/fc-fcoe-recommended-zoning-configuration.html#dual-fabric-zoning-configurations["ONTAP 시스템에 권장되는 FC 구역 구성"] .
++
+
+NOTE: 물리적 어댑터 WWPN이 아닌 SVM 논리 인터페이스(LIF)의 WWPN을 사용하세요.
+
+. System Manager, ONTAP CLI 또는 API를 사용하여 LUN을 생성하고 WWPN을 통해 호스트에 매핑합니다.
+. ESXi에서 스토리지 어댑터를 다시 스캔하고 VMFS 데이터 저장소를 생성합니다.
+
+
+--
+.NFSv3
+--
+. 하나의 ESXi 호스트에 VMkernel 인터페이스를 만듭니다.
+. 확인하십시오link:https://docs.netapp.com/us-en/ontap/task_nas_enable_linux_nfs.html["SVM에는 NFS가 활성화되어 있습니다."] 그리고link:https://docs.netapp.com/us-en/ontap/nfs-admin/enable-disable-vmware-vstorage-over-nfs-task.html["NFS를 통한 vStorage가 활성화되었습니다."] .
+. 볼륨을 생성하고 ESXi 호스트를 허용하는 정책과 함께 내보냅니다.
+. 필요에 따라 권한을 조정하세요.
+. ONTAP NFS VAAI VIB를 배포하고 vLCM 이미지에 포함합니다.  예를 들어: `esxcli software vib install -d /NetAppNasPlugin2.0.1.zip` .  ( NetApp 지원 사이트에서 ZIP을 다운로드하세요.)
+. VMkernel 인터페이스를 생성한 호스트에 NFS 볼륨을 마운트합니다.  예를 들어: `esxcli storage nfs add -c 4 -H 192.168.122.210 -s /use1_m01_nfs01 -v use1-m01-cl01-nfs01` .
++
+
+NOTE: 그만큼 `nConnect` 세션 수는 호스트당입니다.  필요에 따라 배포 후 다른 호스트를 업데이트합니다.
+
+
+
+--
+====
+. *VCF 함대 배포* 단계의 *배포 요약 확인 및 다음 단계 검토*가 끝나면 다음을 완료하세요.
++
+.. ONTAP 도구 배포
++
+*** link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["ONTAP 도구 10.x 다운로드"]NetApp 지원 사이트에서.
+*** ONTAP 도구 관리자, 노드 및 내부 통신에 사용되는 가상 IP에 대한 DNS 레코드를 만듭니다.
+*** OVA를 관리 vCenter Server에 배포합니다.
+*** link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["관리 도메인 vCenter 등록"]ONTAP 도구 관리자를 사용하여.
+*** link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html["저장소 백엔드 추가"]vSphere Client UI를 사용합니다.
+*** link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-datastore.html["보충 데이터 저장소 만들기"](콘텐츠 레지스트리를 하나 포함).
+*** HA 배포를 계획하는 경우 콘텐츠 레지스트리를 만듭니다.
+*** link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/manage/edit-appliance-settings.html["HA 활성화"]ONTAP 도구 관리자에서.
+
+
+.. SnapCenter 플러그인 배포
++
+*** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_deploy_snapcenter_plug-in_for_vmware_vsphere_01.html["SnapCenter Plug-in for VMware vSphere 배포"] .
+*** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_add_storage.html["저장소 백엔드 추가"] .
+*** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_backup_policies.html["백업 정책 생성"] .
+*** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_resource_groups.html["리소스 그룹 생성"] .
+
+
+.. BlueXP 커넥터 배포
++
+*** link:https://docs.netapp.com/us-en/bluexp-setup-admin/concept-connectors.html#what-you-can-do-without-a-connector["커넥터 없이 할 수 있는 일을 검토하세요"] .
+*** link:https://docs.netapp.com/us-en/bluexp-setup-admin/concept-modes.html#overview["커넥터 배포"] .
+
+
+.. 백업 및 복구에 BlueXP 사용하세요
++
+*** link:https://docs.netapp.com/us-en/bluexp-backup-recovery/prev-vmware-protect-overview.html["VM 워크로드 보호"] .
+*** link:https://docs.netapp.com/us-en/bluexp-backup-recovery/br-use-kubernetes-protect-overview.html["VKS 워크로드 보호"] .
+
+
+
+
+. VCF 인스턴스에서 vCenter를 워크로드 도메인으로 가져온 후 다음을 완료하세요.
++
+.. ONTAP 도구 등록
++
+*** link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["워크로드 도메인 vCenter 등록"]ONTAP 도구 관리자를 사용하여.
+*** link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html["저장소 백엔드 추가"]vSphere Client UI를 사용합니다.
+*** link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-datastore.html["보충 데이터 저장소 만들기"] .
+
+
+.. SnapCenter Plug-in for VMware vSphere 배포
++
+*** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_deploy_snapcenter_plug-in_for_vmware_vsphere_01.html["SnapCenter Plug-in for VMware vSphere 배포"] .
+*** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_add_storage.html["저장소 백엔드 추가"] .
+*** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_backup_policies.html["백업 정책 생성"] .
+*** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_resource_groups.html["리소스 그룹 생성"] .
+
+
+.. 백업 및 복구에 BlueXP 사용하세요
++
+*** link:https://docs.netapp.com/us-en/bluexp-backup-recovery/prev-vmware-protect-overview.html["VM 워크로드 보호"] .
+*** link:https://docs.netapp.com/us-en/bluexp-backup-recovery/br-use-kubernetes-protect-overview.html["VKS 워크로드 보호"] .
+
+
+
+
+
+
+새로운 워크로드 도메인을 생성할 때마다 이러한 단계를 재사용할 수 있습니다.
+
+
+
+== 기존 구성 요소를 VCF 9로 수렴
+
+이미 VCF 차량의 일부 구성 요소를 보유하고 있고 이를 재사용하는 것을 선호할 수도 있습니다.  vCenter 인스턴스를 재사용하는 경우 데이터 저장소는 ONTAP 도구로 프로비저닝되는 경우가 많으며, 이는 VCF의 주요 저장소 역할을 할 수 있습니다.
+
+.필수 조건
+* 기존 vCenter 인스턴스가 작동하는지 확인합니다.
+* ONTAP 에서 제공하는 데이터 저장소를 사용할 수 있는지 확인하세요.
+* 에 대한 액세스를 보장합니다link:https://imt.netapp.com/imt/#welcome["상호 운용성 매트릭스"] .
+
+
+.단계
+. 검토하다link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/deployment/converging-your-existing-vsphere-infrastructure-to-a-vcf-or-vvf-platform-/supported-scenarios-to-converge-to-vcf.html["VCF로 수렴하기 위한 지원 시나리오"] .
+. ONTAP 에서 프로비저닝한 데이터 저장소를 주 저장소로 사용하여 vCenter 인스턴스를 수렴합니다.
+. 다음을 사용하여 지원되는 버전을 확인하세요.link:https://imt.netapp.com/imt/#welcome["상호 운용성 매트릭스"] .
+. 치받이link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/upgrade/upgrade-ontap-tools.html["ONTAP 도구"] 필요한 경우.
+. 업그레이드link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_upgrade.html["VMware vSphere용 SnapCenter 플러그인"] 필요한 경우.
+
+
+
+
+== 기존 VCF 환경을 VCF 9로 업그레이드
+
+표준 업그레이드 프로세스를 사용하여 이전 VCF 배포를 버전 9.0으로 업그레이드합니다.  그 결과, 업그레이드된 관리 및 워크로드 도메인을 갖춘 버전 9.0을 실행하는 VCF 환경이 탄생했습니다.
+
+.필수 조건
+* 관리 도메인과 워크로드 도메인을 백업합니다.
+* ONTAP 도구와 SnapCenter 플러그인이 VCF 9.0과 호환되는지 확인하세요.  를 따르세요link:https://imt.netapp.com/imt/#welcome["상호 운용성 매트릭스"] 에게link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/upgrade/upgrade-ontap-tools.html["ONTAP 도구 업그레이드"] 그리고link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_upgrade.html["VMware vSphere용 SnapCenter 플러그인"] VCF 9에서 지원되는
+
+
+.단계
+. VCF 관리 도메인을 업그레이드합니다.  보다link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/deployment/upgrading-cloud-foundation.html["VCF 관리 도메인을 VCF 9로 업그레이드"] 지침을 보려면.
+. 모든 VCF 5.x 워크로드 도메인을 업그레이드합니다.  보다link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/lifecycle-management/lifecycle-management-of-vcf-core-components/upgrade-workload-domains-to-vcf-5-2.html["VCF 5.x 워크로드 도메인을 VCF 9로 업그레이드"] 지침을 보려면.
+

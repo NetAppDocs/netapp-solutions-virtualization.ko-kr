@@ -41,6 +41,10 @@ entries:
   entries:
   - title: VMware Cloud Foundation 및 ONTAP 정보
     url: "/vmware/vmw-vcf-overview.html"
+  - title: ONTAP 사용한 VCF 9 설계 옵션
+    url: "/vmware/vmw-vcf-design.html"
+  - title: ONTAP 사용한 VCF 9 배포
+    url: "/vmware/vmw-vcf-deployment.html"
   - title: 기존 vSphere 클러스터를 VCF로 변환
     entries:
     - title: 기존 vSphere 클러스터를 VCF로 변환하는 방법

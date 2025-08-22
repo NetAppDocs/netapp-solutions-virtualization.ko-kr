@@ -7162,4 +7162,151 @@
   <block id="7b3d5a145c3f76308664a64408c99eaa" category="sidebar">NetApp 및 VMware Sovereign Cloud</block>
   <block id="55bd65f05776cdd05a9fb927d9835206" category="sidebar">Sovereign Cloud 소개</block>
   <block id="cd048e95761db719bdba41eb37a4b0d9" category="sidebar">Sovereign Cloud와 NetApp 통합</block>
+  <block id="c6215902c114efb89d5447ed2e7f9335" category="summary">ONTAP 사용하여 VMware Cloud Foundation 9 환경을 배포, 통합 또는 업그레이드합니다.  새로운 VCF 9.0 환경을 설정하고, 기존 vCenter 인스턴스와 ONTAP 데이터 저장소를 통합하고, 이전 VCF 배포를 업그레이드하는 방법을 알아보세요.</block>
+  <block id="387581f1d6573d1818e62d62852ab219" category="doc">VMware Cloud Foundation 및 ONTAP 사용하여 프라이빗 클라우드 환경 설정</block>
+  <block id="a72bceb4e1132784448690c407c3609e" category="paragraph">ONTAP 사용하여 VMware Cloud Foundation 9 환경을 배포, 융합 또는 업그레이드합니다.  새로운 VCF 9.0 환경을 설정하고, 기존 vCenter 인스턴스와 ONTAP 데이터 저장소를 통합하고, 이전 VCF 배포를 업그레이드하는 방법을 알아보세요.</block>
+  <block id="d32067c54b3bac63bd44a03e0ea81140" category="section-title">새로운 VCF 9 인스턴스 배포</block>
+  <block id="44d27c0a0344f54b95759b7fe85d8e1a" category="paragraph">이 워크플로를 사용하여 깨끗한 VMware Cloud Foundation(VCF) 9.0 환경을 배포합니다.  배포 후에는 워크로드를 마이그레이션하거나 애플리케이션 프로비저닝을 시작하고 인프라 서비스를 제공할 수 있습니다.</block>
+  <block id="97fa4819cf2e4392ecbe8064e3274273" category="inline-link-macro">빌드 여정 – 새로운 VMware Cloud Foundation 배포 설치</block>
+  <block id="32755a71c8f959d4ac7787a078e66ab4" category="paragraph">상위 레벨 단계는 다음을 참조하세요.<block ref="e25816c69554adea5634ef69e530621d" category="inline-link-macro-rx"></block> .</block>
+  <block id="68059df22dc1abc0bdf6287417184424" category="inline-link-macro">Broadcom VCF 9 배포 단계</block>
+  <block id="6f00e63ad17fb9a6904029172c534f2f" category="list-text">를 따르세요<block ref="eecd5f2ac7f0f13e9cf45a38029c3009" category="inline-link-macro-rx"></block> .</block>
+  <block id="24ca170ce9f7336d95578ee3d1f3ee86" category="list-text">배포 준비 단계에서는 주요 스토리지 옵션에 대한 작업을 완료합니다.</block>
+  <block id="803eb67d4866057b9c2c6c8f982b2269" category="open-title">FC의 VMFS</block>
+  <block id="7bae0c7c422ace44852c1b3ade9a0415" category="list-text">모든 ESXi 호스트의 WWPN을 수집합니다.  당신은 실행할 수 있습니다<block ref="c2a16b08807ab71a8fde996e835d2ed1" prefix=" " category="inline-code"></block> , ESXi 호스트 클라이언트를 사용하거나 PowerCLI를 사용하세요.</block>
+  <block id="c1a33a8a2188d4e7317f1b4e8bcde13c" category="inline-link-macro">ONTAP 시스템에 권장되는 FC 구역 구성</block>
+  <block id="ce197f3a1410adc45d13f4907d6f5e68" category="list-text">구역 지정을 구성합니다. 보다 <block ref="5beab4bc15415f19d04fb73f401fc81f" category="inline-link-macro-rx"></block> .</block>
+  <block id="cf6bff07c96d4e89a9d3f3747f09d894" category="admonition">물리적 어댑터 WWPN이 아닌 SVM 논리 인터페이스(LIF)의 WWPN을 사용하세요.</block>
+  <block id="52b7c10dd6b2306a9c9f7df60ba9c7d3" category="list-text">System Manager, ONTAP CLI 또는 API를 사용하여 LUN을 생성하고 WWPN을 통해 호스트에 매핑합니다.</block>
+  <block id="1f8c3f3951ef4e01e2c5abbd3f72c9d2" category="list-text">ESXi에서 스토리지 어댑터를 다시 스캔하고 VMFS 데이터 저장소를 생성합니다.</block>
+  <block id="5b12ee0369243579651edca43ff65c85" category="open-title">NFSv3</block>
+  <block id="fb56341c130ce55e22b690ccd62f3d5c" category="list-text">하나의 ESXi 호스트에 VMkernel 인터페이스를 만듭니다.</block>
+  <block id="22934a99efc5b841c35971755ae578f0" category="inline-link-macro">SVM에는 NFS가 활성화되어 있습니다.</block>
+  <block id="2367d9834a0034873e06e2332fe8c496" category="inline-link-macro">NFS를 통한 vStorage가 활성화되었습니다.</block>
+  <block id="1f92bd5b07cc7307fd2469e633e93d4d" category="list-text">확인하십시오<block ref="96f1124c9b5e40d527cc884b95af0c21" category="inline-link-macro-rx"></block> 그리고<block ref="f25b5b849f33fc0b8fb2ed633a01a01c" category="inline-link-macro-rx"></block> .</block>
+  <block id="ff62ead87a8b0ec462af711575546d5a" category="list-text">볼륨을 생성하고 ESXi 호스트를 허용하는 정책과 함께 내보냅니다.</block>
+  <block id="63858332253645c601dc3017c444dd06" category="list-text">필요에 따라 권한을 조정하세요.</block>
+  <block id="b26cbfa423e4dbdd39049d4221013e2b" category="list-text">ONTAP NFS VAAI VIB를 배포하고 vLCM 이미지에 포함합니다.  예를 들어:<block ref="73afe7a6acd4a74db996a3fb02511fc6" prefix=" " category="inline-code"></block> .  ( NetApp 지원 사이트에서 ZIP을 다운로드하세요.)</block>
+  <block id="f397647f4c63cdc8a02924cd51728b7f" category="list-text">VMkernel 인터페이스를 생성한 호스트에 NFS 볼륨을 마운트합니다.  예를 들어:<block ref="de490eb31163a6b904883ddd8a7e8488" prefix=" " category="inline-code"></block> .</block>
+  <block id="d0f7e79cc966c79b495d00b5b7618797" category="admonition">그만큼<block ref="18fa343def87f30e3f96b45cf0b59a40" prefix=" " category="inline-code"></block> 세션 수는 호스트당입니다.  필요에 따라 배포 후 다른 호스트를 업데이트합니다.</block>
+  <block id="4a46eaaf404c43e00d3d4c88ff251335" category="list-text">*VCF 함대 배포* 단계의 *배포 요약 확인 및 다음 단계 검토*가 끝나면 다음을 완료하세요.</block>
+  <block id="3d7fe3e43f9f24fffe5ed0d546d12f13" category="list-text">ONTAP 도구 배포</block>
+  <block id="822a5495aa960609265175fb443bdf68" category="inline-link-macro">ONTAP 도구 10.x 다운로드</block>
+  <block id="76a81d47dd4c6c2f20e420bba9153e68" category="list-text"><block ref="0ad8f9dcd40fc593bc2059235b67d252" category="inline-link-macro-rx"></block>NetApp 지원 사이트에서.</block>
+  <block id="c2a6e0e73d239e16d504bdbc611ca9ad" category="list-text">ONTAP 도구 관리자, 노드 및 내부 통신에 사용되는 가상 IP에 대한 DNS 레코드를 만듭니다.</block>
+  <block id="995f383a655fb7d0a0afbdcce5d18a4d" category="list-text">OVA를 관리 vCenter Server에 배포합니다.</block>
+  <block id="9f601bd2daf1651582a1383821b9afc3" category="inline-link-macro">관리 도메인 vCenter 등록</block>
+  <block id="2c77169fbe649eb2b92af40c3c6f3695" category="list-text"><block ref="4954c7d20f0d22568753d8d00cffbfc3" category="inline-link-macro-rx"></block>ONTAP 도구 관리자를 사용하여.</block>
+  <block id="b7b548cca311da161065ba4f767b95a7" category="inline-link-macro">저장소 백엔드 추가</block>
+  <block id="dcedcf827a87c8e90fb1ce8725777212" category="list-text"><block ref="d7bef56968aee47db4adb8a14a981251" category="inline-link-macro-rx"></block>vSphere Client UI를 사용합니다.</block>
+  <block id="74c6629d6758f3953243df0af0d36910" category="inline-link-macro">보충 데이터 저장소 만들기</block>
+  <block id="c274967a56cc8c2192846897048bf284" category="list-text"><block ref="bf4864d276cd873bf4878589e9faac9f" category="inline-link-macro-rx"></block>(콘텐츠 레지스트리를 하나 포함).</block>
+  <block id="3129ccd6abb1c6f28e9cded466a59dae" category="list-text">HA 배포를 계획하는 경우 콘텐츠 레지스트리를 만듭니다.</block>
+  <block id="626a39bf99aea8d864004319ffc66b9e" category="inline-link-macro">HA 활성화</block>
+  <block id="b65361593891273a9a3a04902faee73d" category="list-text"><block ref="d25937ee88ed725a5a2b38e0f4dc9473" category="inline-link-macro-rx"></block>ONTAP 도구 관리자에서.</block>
+  <block id="289b1e355098d29bd11363a593f0dc76" category="list-text">SnapCenter 플러그인 배포</block>
+  <block id="9beedbcb12b97ab44bb9c704d822b5d1" category="list-text"><block ref="e571a06e08f51cdb7ad1c593eaa7ed6d" category="inline-link-macro-rx"></block> .</block>
+  <block id="2548cfcfac956c46c8a3a89495d1a46a" category="list-text"><block ref="cc1500d76361c72cf779abe48f0fc35a" category="inline-link-macro-rx"></block> .</block>
+  <block id="c53d877e510b11baafe9977012350927" category="list-text"><block ref="cb0dead520e90c499c96670f780765a6" category="inline-link-macro-rx"></block> .</block>
+  <block id="1d39d40690c6b0438c6754882aff3298" category="list-text"><block ref="4d5b4b1a7d4a800c0f6172c83d21c237" category="inline-link-macro-rx"></block> .</block>
+  <block id="3b577205e13f15e3e92d7f8ae09ce62c" category="list-text">BlueXP 커넥터 배포</block>
+  <block id="ca7619b24630485fd04911d2a495defd" category="inline-link-macro">커넥터 없이 할 수 있는 일을 검토하세요</block>
+  <block id="1a3c4e40213fe6b9790fb434adc5745e" category="list-text"><block ref="c78b9a9b3712f648550c534d47359e82" category="inline-link-macro-rx"></block> .</block>
+  <block id="c4221a876311b977e621fffb89b02613" category="inline-link-macro">커넥터 배포</block>
+  <block id="47650d5e720017f803a359e378200a94" category="list-text"><block ref="c3a6ec4f72766dc4f2bf2ee91acf8029" category="inline-link-macro-rx"></block> .</block>
+  <block id="824dbf9a0911f671580becced56fe7f6" category="list-text">백업 및 복구에 BlueXP 사용하세요</block>
+  <block id="342e48c14f539eca38e981c5bea831ed" category="inline-link-macro">VM 워크로드 보호</block>
+  <block id="c93ad43108552b957cc3e28d1be2188c" category="list-text"><block ref="9e814f036a9560076b7c3082866cb88f" category="inline-link-macro-rx"></block> .</block>
+  <block id="baa9e11c89bfdddbdc4cf3eddf1251c3" category="inline-link-macro">VKS 워크로드 보호</block>
+  <block id="2660b5087d0e5c735cc8078a3b0510f4" category="list-text"><block ref="9f08986fdec0abdc78ad8282677ce19e" category="inline-link-macro-rx"></block> .</block>
+  <block id="4dbaeefdde49c53aef6af40802f8c050" category="list-text">VCF 인스턴스에서 vCenter를 워크로드 도메인으로 가져온 후 다음을 완료하세요.</block>
+  <block id="3479582d3853d35537049bf157941078" category="list-text">ONTAP 도구 등록</block>
+  <block id="4f3eda0c91ccb5ee6dd6cb20afe9fe6d" category="inline-link-macro">워크로드 도메인 vCenter 등록</block>
+  <block id="14ea68422db5e51ea43b30a09cf0d77b" category="list-text"><block ref="b19ab33e68a1104b2bf877feedb68fc8" category="inline-link-macro-rx"></block>ONTAP 도구 관리자를 사용하여.</block>
+  <block id="bdfbb9b18654c0d11414bfe7c65cb78b" category="list-text"><block ref="bf4864d276cd873bf4878589e9faac9f" category="inline-link-macro-rx"></block> .</block>
+  <block id="05dbe8c4e6a9bac744f4406531d2061b" category="paragraph">새로운 워크로드 도메인을 생성할 때마다 이러한 단계를 재사용할 수 있습니다.</block>
+  <block id="b3c82f59eab80fb8d633c96337cb27e3" category="section-title">기존 구성 요소를 VCF 9로 수렴</block>
+  <block id="89665820708d6f1603420843a2ef8fca" category="paragraph">이미 VCF 차량의 일부 구성 요소를 보유하고 있고 이를 재사용하는 것을 선호할 수도 있습니다.  vCenter 인스턴스를 재사용하는 경우 데이터 저장소는 ONTAP 도구로 프로비저닝되는 경우가 많으며, 이는 VCF의 주요 저장소 역할을 할 수 있습니다.</block>
+  <block id="da11788e0580a75793b3c6e5a0fb93f6" category="list-text">기존 vCenter 인스턴스가 작동하는지 확인합니다.</block>
+  <block id="2cb537a71661b7c2a7a6968059397cec" category="list-text">ONTAP 에서 제공하는 데이터 저장소를 사용할 수 있는지 확인하세요.</block>
+  <block id="dc351b2abbd920b35cff990b6582b9d7" category="inline-link-macro">상호 운용성 매트릭스</block>
+  <block id="6c68da430cde6e2e273552418701d51c" category="list-text">에 대한 액세스를 보장합니다<block ref="9d206e7d8b64697e7ff10e2e8517d1e9" category="inline-link-macro-rx"></block> .</block>
+  <block id="e21a963d536c490dd477ddb6dc84ff36" category="inline-link-macro">VCF로 수렴하기 위한 지원 시나리오</block>
+  <block id="f89ac32b53262414797b94b331102610" category="list-text">검토하다<block ref="95029b5aaf98b1cee4c885d0fa7b7b03" category="inline-link-macro-rx"></block> .</block>
+  <block id="78edfe40594fa4634576d2deee259a0f" category="list-text">ONTAP 에서 프로비저닝한 데이터 저장소를 주 저장소로 사용하여 vCenter 인스턴스를 수렴합니다.</block>
+  <block id="edfd92b3bc32f867012c03ba5d9b001f" category="list-text">다음을 사용하여 지원되는 버전을 확인하세요.<block ref="9d206e7d8b64697e7ff10e2e8517d1e9" category="inline-link-macro-rx"></block> .</block>
+  <block id="b41e61c996bc663e3cbbb770b4e73f3e" category="inline-link-macro">ONTAP 도구</block>
+  <block id="e6c5a48523776f7389cfd125a6d9c099" category="list-text">치받이<block ref="cfaafa9d0a3b20dee499513a7199b5a0" category="inline-link-macro-rx"></block> 필요한 경우.</block>
+  <block id="8500a2d8b9b445512a10133732ed6a8e" category="inline-link-macro">VMware vSphere용 SnapCenter 플러그인</block>
+  <block id="a03edb2c62782c7126ce2be92e3a06a4" category="list-text">업그레이드<block ref="ec61ce0fc18581edeac6d4f1c992e3e0" category="inline-link-macro-rx"></block> 필요한 경우.</block>
+  <block id="b03ae05da839ba2aeda878b573b5fa07" category="section-title">기존 VCF 환경을 VCF 9로 업그레이드</block>
+  <block id="f70df6a7da4896646127dd428b5da982" category="paragraph">표준 업그레이드 프로세스를 사용하여 이전 VCF 배포를 버전 9.0으로 업그레이드합니다.  그 결과, 업그레이드된 관리 및 워크로드 도메인을 갖춘 버전 9.0을 실행하는 VCF 환경이 탄생했습니다.</block>
+  <block id="410c53f907a2c476256c7cb81ff354cb" category="list-text">관리 도메인과 워크로드 도메인을 백업합니다.</block>
+  <block id="3b36c2c506f0a351293e16aabf9f5c4e" category="inline-link-macro">ONTAP 도구 업그레이드</block>
+  <block id="0bd5bfedcbb622fc43c9d100a8c8a813" category="list-text">ONTAP 도구와 SnapCenter 플러그인이 VCF 9.0과 호환되는지 확인하세요.  를 따르세요<block ref="9d206e7d8b64697e7ff10e2e8517d1e9" category="inline-link-macro-rx"></block> 에게<block ref="d875e42dccfc992261af149190d03bac" category="inline-link-macro-rx"></block> 그리고<block ref="ec61ce0fc18581edeac6d4f1c992e3e0" category="inline-link-macro-rx"></block> VCF 9에서 지원되는</block>
+  <block id="f9089a257f7ed15d274a9bc31bff6caa" category="inline-link-macro">VCF 관리 도메인을 VCF 9로 업그레이드</block>
+  <block id="3eb41dbce4b13907427be772aa2f855c" category="list-text">VCF 관리 도메인을 업그레이드합니다.  보다<block ref="dabaa90d503550b7c9321e223927d88a" category="inline-link-macro-rx"></block> 지침을 보려면.</block>
+  <block id="a8bb023710bfedd7e42a5470f8b79bcf" category="inline-link-macro">VCF 5.x 워크로드 도메인을 VCF 9로 업그레이드</block>
+  <block id="895af0c34b67dcec4c9bd5dd5a263d4d" category="list-text">모든 VCF 5.x 워크로드 도메인을 업그레이드합니다.  보다<block ref="a23caeadd25977c373e6107b0cd023d3" category="inline-link-macro-rx"></block> 지침을 보려면.</block>
+  <block id="d0a4cf1a7c82fcde1b2cf85329cb1d0b" category="summary">VCF 9로 새로 시작하거나 기존 배포를 재사용하여 VCF 9와 ONTAP 사용하여 프라이빗 클라우드 환경을 만들 수 있습니다.  VCF 9의 인기 있는 디자인 청사진과 NetApp 제품이 어떻게 가치를 더하는지 알아보세요.</block>
+  <block id="827930e44738b199c1c5b242c8ed3889" category="doc">VMware Cloud Foundation 및 ONTAP 사용한 디자인 옵션</block>
+  <block id="a74077e2e89fe826075fc1050da6c5ec" category="section-title">저장 옵션</block>
+  <block id="cc191e02cd18d9f35c2ce6fd1f979099" category="paragraph">ONTAP 포함된 VMware Cloud Foundation은 다양한 성능, 확장성 및 가용성 요구 사항을 충족하기 위해 다양한 스토리지 구성을 지원합니다.  다음 표는 사용자 환경에서 사용할 수 있는 주요 저장소 옵션과 보조 저장소 옵션을 요약한 것입니다.</block>
+  <block id="a902e586417987e16e674a7f455cb736" category="cell">제품군</block>
+  <block id="f6e3bf0c5970ea1af691f5d9bb9f1dc1" category="cell">ASA A-시리즈 및 C-시리즈</block>
+  <block id="5fc3ef0b0771dce6d035ce448d2604ff" category="cell">AFF A-시리즈 및 C-시리즈</block>
+  <block id="149f0ea389848f479bd80af6375b383b" category="cell">FAS</block>
+  <block id="a9776c15476fbff0875f710d7962d556" category="cell">iSCSI의 VMFS</block>
+  <block id="58dd3274563c3248052e832c6ae54e5a" category="cell">NVMe-oF의 VMFS</block>
+  <block id="de841868c2911da76b8ae2da9fa3166d" category="cell">NFSv4.1</block>
+  <block id="92e9ce04b9db912a9ef4e9e44bda548e" category="paragraph">다음 청사진은 다양한 사이트 및 리소스 시나리오에서 VMware Cloud Foundation과 ONTAP 에 대한 일반적인 배포 모델을 보여줍니다.</block>
+  <block id="708eaa77450722ee5d243ecf27ef9fcb" category="section-title">최소 설치 면적을 갖춘 단일 사이트의 VCF 함대</block>
+  <block id="ce5162477d4ecb1688d1b01a5f90ed86" category="paragraph">이 디자인 블루프린트는 최소한의 리소스로 단일 vSphere 클러스터에 관리 및 워크로드 구성 요소를 배포하기 위한 것입니다.  VMFS 및 NFSv3 주요 데이터 저장소를 지원하고 2노드 구성을 통한 간단한 배포 옵션을 제공합니다.  모든 앱 조직 모델과 함께 VCF 자동화를 사용하려는 경우 vSphere Supervisor와 NSX Edge 노드를 배포할 두 번째 클러스터가 필요합니다.</block>
+  <block id="4f1dd0a9084f938fd993af8c840d2fd6" category="image-alt">최소 설치 면적으로 단일 사이트에 VCF 함대 구축</block>
+  <block id="6f3ffbc6ff5125b61226e536d7682c87" category="paragraph">리소스 소비를 최소화하려면 가능하면 기존 ONTAP 도구 인스턴스를 사용하세요.  사용할 수 없는 경우 작은 프로필을 갖춘 단일 노드가 적합합니다.  SnapCenter Plug-in for VMware vSphere 기본 스냅샷과 다른 ONTAP 스토리지 어레이로의 복제를 사용하여 가상 머신과 데이터스토어를 보호합니다.</block>
+  <block id="9198bc39b824214d346935ac54123224" category="admonition">VCF를 탐색할 리소스가 부족하다면 많은 클라우드 공급업체가 VCF를 서비스로 제공하고, ONTAP 클라우드 공급업체의 자체 서비스로 제공됩니다.</block>
+  <block id="f7c3e4166c74eba11828df82912d28c0" category="inline-link-macro">단일 사이트에서 최소한의 설치 공간으로 VCF 함대에 대한 Broadcom 기술 문서 제공</block>
+  <block id="eeb745e257315857ce445d8d4b92e037" category="paragraph">이 디자인에 대한 자세한 내용은 다음을 참조하세요.<block ref="f26ce32448c6478601e808dd35aad5ba" category="inline-link-macro-rx"></block> .</block>
+  <block id="7e50f20ff1e926ef774a6bd015d7d0c2" category="section-title">단일 사이트의 VCF 함대</block>
+  <block id="636528e76d417f33afcc87d500bd20d8" category="paragraph">이 설계 청사진은 애플리케이션 고가용성에 의존하는 단일 기본 데이터 센터를 사용하는 고객을 대상으로 합니다.  일반적으로 단일 VCF 환경이 관련됩니다.  블록 워크로드에는 ASA 사용하고 파일/통합 워크로드에는 AFF 사용할 수 있습니다.</block>
+  <block id="ea8500bd602504056d6e5d54b536eb85" category="paragraph">콘텐츠 저장소는 VCF 도메인에서 VM 템플릿과 컨테이너 레지스트리를 공유합니다.  FlexGroup Volume에 호스팅되는 경우 FlexCache 기능을 구독 데이터 저장소로 사용할 수 있습니다.</block>
+  <block id="5a461c7900a0cc956f22f0726b924e49" category="admonition">FlexCache Datastore에서 VM을 호스팅하는 것은 지원되지 않습니다.</block>
+  <block id="5f1b05906f88292b30016b23207f4d75" category="image-alt">단일 사이트의 VCF 함대</block>
+  <block id="fd2d97cbb2b5784b89c16b0daa81cc3e" category="inline-link-macro">ONTAP 도구의 구성 제한</block>
+  <block id="b0ca03346bc47fb1abae508acdfc942a" category="paragraph">HA 모드에서 ONTAP 도구의 단일 인스턴스는 VCF 제품군의 모든 vCenter를 관리할 수 있습니다.  를 참조하세요<block ref="d9a797f78d63c3c01364e4f3a683c385" category="inline-link-macro-rx"></block> 자세한 내용은.  ONTAP 도구는 VCF SSO 및 VCF OPS 스마트 그룹화와 통합되어 동일한 UI에서 여러 vCenter에 액세스할 수 있습니다.</block>
+  <block id="8944254b90a60f33189bb9db573018c1" category="video-title">ONTAP 도구를 사용한 VCF 보충 데이터 저장소</block>
+  <block id="b6fc61200e278cac53ab8b7172493452" category="paragraph">VM 및 데이터 저장소를 보호하려면 각 vCenter 인스턴스에 SnapCenter 플러그인을 배포해야 합니다.</block>
+  <block id="f86e9af5c15a4ce67ca3a90cf6be6d92" category="paragraph">스토리지 정책 기반 관리 기능은 vSphere Supervisor와 함께 사용되어 VKS의 제어 VM을 호스팅합니다.  태그는 VCF Ops에서 중앙 관리됩니다.  NetApp Trident CSI는 VKS와 함께 사용되어 네이티브 어레이 기능을 활용한 애플리케이션 백업 보호를 구현합니다.  vSphere CSI를 사용하면 영구 볼륨 세부 정보가 VCF Automation에 표시됩니다.</block>
+  <block id="970551e49b7ff81699c935a37b6182a3" category="inline-link-macro">단일 사이트에서 VCF 제품군에 대한 Broadcom 기술 문서</block>
+  <block id="98e152eb2f5d95de0d1bf7726d46fda0" category="paragraph">이 청사진에 대한 자세한 내용은 다음을 참조하세요.<block ref="cf85f297faf3a63207c30291d97fbb44" category="inline-link-macro-rx"></block> .</block>
+  <block id="b2bdf254778179f9dc217a3def15b346" category="section-title">단일 지역에 여러 사이트가 있는 VCF 함대</block>
+  <block id="a3820528f66ad4812ae6f2480ea1f090" category="paragraph">이 디자인은 다양한 장애 도메인에 작업 부하를 분산하여 더 높은 가용성을 갖춘 클라우드형 서비스를 제공하는 고객을 위한 것입니다.</block>
+  <block id="04f6415c229fd7a2008e646578846a5e" category="paragraph">VMFS 데이터 저장소의 경우 SnapMirror Active Sync는 vSphere Metro Storage Cluster와 함께 사용할 수 있는 액티브-액티브 스토리지 유닛을 제공합니다.  균일 액세스 모드는 투명한 스토리지 장애 조치를 제공하는 반면, 비균일 액세스 모드는 장애 도메인 장애 발생 시 VM을 다시 시작해야 합니다.</block>
+  <block id="95959633abea4dd695b33419cf9e52a0" category="paragraph">NFS 데이터 저장소의 경우, vSphere Metro Storage Cluster를 탑재한 ONTAP MetroCluster 높은 가용성을 보장합니다.  중재자는 분할 두뇌 시나리오를 피하고 이제 BlueXP 에서 호스팅될 수 있습니다.</block>
+  <block id="b897d2f9072c14f2df9f080dd4680b8d" category="paragraph">VM 배치 규칙은 관리 도메인 구성 요소에 대해 동일한 장애 도메인 내의 VM을 제어합니다.</block>
+  <block id="640398205e5c5d3e63b3fcd1c002c53e" category="image-alt">단일 지역에 여러 사이트가 있는 VCF 함대</block>
+  <block id="73796bf64a7e9b9d1b41d047b8556009" category="paragraph">ONTAP 도구는 SnapMirror 활성 동기화 관계를 설정하는 UI를 제공합니다.  두 장애 도메인의 스토리지 시스템은 ONTAP 도구와 SnapCenter Plug-in for VMware vSphere 에 등록되어야 합니다.</block>
+  <block id="542f8587ecf32ca958fbae5d4fd1a4ad" category="paragraph">SnapMirror 및 SnapMirror to Cloud를 통해 VM용 BlueXP Backup and Recovery를 사용하여 3-2-1 백업 정책을 구현할 수 있습니다.  세 위치 중 어느 곳에서나 복원을 수행할 수 있습니다.</block>
+  <block id="11cfd568dd78fe0098d5f36bf9676a1b" category="paragraph">Kubernetes용 Trident Protect 또는 BlueXP Backup and Recovery는 VKS 클러스터 애플리케이션을 보호합니다.</block>
+  <block id="f02fe719e1873adbd7cea7ccd4c777b9" category="inline-link-macro">단일 지역에 여러 사이트가 있는 VCF 함대에 대한 Broadcom 기술 문서</block>
+  <block id="90f34a885ddfb22d4a676b54cc62c36c" category="paragraph">자세한 내용은 다음을 확인하세요.<block ref="5415fcf8d0391007a73bfff7c6e43438" category="inline-link-macro-rx"></block> .</block>
+  <block id="7f53f4071d0e5a82ef8e86cff41ffb79" category="section-title">여러 지역에 걸쳐 여러 사이트를 보유한 VCF 함대</block>
+  <block id="80d3ea602e3c4a9536986495dd288775" category="paragraph">이 디자인은 전 세계에 퍼져 있는 고객을 대상으로 하며, 근접 서비스와 재해 복구 솔루션을 제공합니다.</block>
+  <block id="b4617491da37db66b9471816f2654093" category="paragraph">VMware Live Site Recovery 또는 BlueXP Disaster Recovery as a Service를 사용하여 VM의 재해 복구를 관리할 수 있습니다.  ONTAP 도구는 ONTAP 사용하여 스토리지 작업을 조율하기 위한 SRA(스토리지 복제 어댑터)를 제공합니다.</block>
+  <block id="c0b79db5f258f0c991a383cbdbf001dd" category="cell">SnapMirror 액티브 싱크</block>
+  <block id="1749d12df3df2319d3eee218a277ff83" category="cell">MetroCluster</block>
+  <block id="fe180aee92ebefcfa83b485f6722e9d7" category="image-alt">여러 지역에 걸쳐 여러 사이트를 갖춘 VCF 함대</block>
+  <block id="54ae787adb65bf8930e964855b741e8c" category="paragraph">ONTAP 도구는 데이터 저장소 복제 설정을 위한 UI를 제공합니다.  BlueXP 스토리지 어레이 간 복제에도 사용할 수 있습니다.  SnapCenter Plug-in for VMware vSphere SnapShots에 대한 기존 SnapMirror 관계를 활용합니다.</block>
+  <block id="629a568c9d01e550bf36c9042dc80e51" category="inline-link-macro">여러 지역에 걸쳐 여러 사이트를 보유한 VCF 함대에 대한 Broadcom 기술 문서</block>
+  <block id="51d909943962ab7a57032828f795608a" category="paragraph">자세한 내용은 다음을 확인하세요.<block ref="8398c667500ceea054eb6ecaafdcbc05" category="inline-link-macro-rx"></block> .</block>
+  <block id="061001f508ad66b14119e8c2abe655d5" category="section-title">단일 지역에 여러 사이트가 있는 VCF 함대와 추가 지역</block>
+  <block id="940d96642171e1e3fa8d8005ef4ffaa2" category="paragraph">이 설계는 VM과 VKS 애플리케이션의 가용성과 재해 복구를 모두 다룹니다.</block>
+  <block id="1a736d26ade0397c5d56910ace33e618" category="paragraph">ASA, AFF, FAS 이 디자인 옵션을 지원합니다.</block>
+  <block id="d3ee4a0fcd185bd9081f96c0778ac589" category="image-alt">단일 지역에 여러 사이트가 있는 VCF 함대 및 추가 지역</block>
+  <block id="8431f1e622f98349837eba3b9fd95b83" category="paragraph">ONTAP 도구나 BlueXP 사용하여 복제 관계를 설정할 수 있습니다.</block>
+  <block id="5c99ff7f98b4498b19c458dd8de13442" category="inline-link-macro">단일 지역 내 여러 사이트와 추가 지역이 있는 VCF 함대에 대한 Broadcom 기술 문서</block>
+  <block id="135208b317232813f97dea0a66efbf19" category="paragraph">자세한 내용은 다음을 참조하십시오. <block ref="31eb8c8d9029a21fe9fa1aae2bff2d12" category="inline-link-macro-rx"></block> .</block>
+  <block id="38c4a772e4657f7e070cb42e5d30bc10" category="sidebar">ONTAP 사용한 VCF 9 설계 옵션</block>
+  <block id="b38115bcd9d3089a288de6f78a3c66b8" category="sidebar">ONTAP 활용한 VCF 9 배치</block>
+  <block id="a9f5271aaa2449b6c26e0ca16c29015c" category="sidebar">ONTAP 사용한 VCF 9 배포</block>
 </blocks>
