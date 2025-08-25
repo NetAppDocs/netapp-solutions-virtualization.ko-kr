@@ -192,7 +192,6 @@
   <block id="3aa8568d7b491636b5161045b0420bf9" category="paragraph">VMDC(Virtual Machine Data Collector)는 VMware 환경을 위한 무료의 가볍고 간단한 GUI 기반 툴킷으로, 사용자가 가상 머신(VM), 호스트, 스토리지 및 네트워크에 대한 자세한 인벤토리 정보를 수집할 수 있습니다.</block>
   <block id="51404ce40a1aee88db03fc9457a8a6f5" category="admonition">*이것은 VMDC의 미리보기 릴리스입니다.*</block>
   <block id="3b878279a04dc47d60932cb294d96259" category="section-title">개요</block>
-  <block id="6c975fe86d9d823de5930a5bb5f5d408" category="paragraph">VMDC의 주요 기능은 클러스터 구성, 네트워킹, 스토리지 및 성능 데이터를 포함하여 vSphere 환경에 있는 vCenter, ESXi 서버 및 가상 머신(VM)의 구성을 보고하는 것입니다.  포괄적인 환경 데이터가 수집되면 인프라에 대한 통찰력 있는 정보를 얻는 데 활용할 수 있습니다.  보고서 출력 화면은 여러 섹션으로 구성된 스프레드시트 스타일의 GUI입니다.  읽기 쉬운 보고서를 제공하고 리소스 사용을 최적화하고 용량을 계획하는 데 도움이 됩니다.</block>
   <block id="94ad1ae30cf339fc2ec42b97a97e1097" category="inline-link-macro">NetApp Data Infrastructure Insights</block>
   <block id="198c11349ad64969391e8716100095b4" category="paragraph">VMDC는 vCPU 및 RAM과 함께 VMWare 코어 라이선싱에 대한 최적화 가능성을 예측하기 위한 빠르고 즉각적인 통계를 수집하기 위한 디딤돌일 뿐입니다. <block ref="ab300fecc3ded19ec8196356be1888c0" category="inline-link-macro-rx"></block> AU와 데이터 수집기를 설치하는 것이 VM 토폴로지의 세부 사항을 이해하고 주석을 사용하여 VM을 그룹화하여 작업 부하를 적정 크기로 조정하고 인프라를 미래에 대비시키기 위한 당연한 다음 단계입니다.</block>
   <block id="6c92285fa6d3e827b198d120ea3ac674" category="inline-link-macro">여기</block>
@@ -267,12 +266,10 @@
   <block id="2cf91f92dd73b22f90f61440fede6bfd" category="paragraph"><block ref="2cf91f92dd73b22f90f61440fede6bfd" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6f8b794f3246b0c1e1780bb4d4d5dc53" category="section-title">결론</block>
   <block id="053e3bac74ac0f651ba700f73e445666" category="paragraph">임박한 라이선스 변경에 따라 기업들은 총소유비용(TCO)의 잠재적 증가에 적극적으로 대처하고 있습니다.  그들은 적극적인 리소스 관리와 적정 규모 조정을 통해 VMware 인프라를 전략적으로 최적화하여 리소스 활용도를 높이고 용량 계획을 간소화하고 있습니다.  전문화된 도구를 효과적으로 활용함으로써 조직은 낭비되는 리소스를 효율적으로 식별하고 회수하여 핵심 리소스 수와 전반적인 라이선스 비용을 줄일 수 있습니다.  VMDC는 기존 환경을 보고하고 최적화하기 위해 슬라이스할 수 있는 VM 데이터를 신속하게 수집하는 기능을 제공합니다.</block>
-  <block id="054e9b3c2ccececc1451f5e410a479cc" category="paragraph">VMDC를 사용하여 신속하게 평가를 수행하여 활용도가 낮은 리소스를 파악한 다음 NetApp Data Infrastructure Insights (DII)를 사용하여 VM 회수에 대한 자세한 분석과 권장 사항을 제공합니다.  이를 통해 고객은 NetApp Data Infrastructure Insights (DII)가 배포되고 구성되는 동안 잠재적인 비용 절감 및 최적화를 파악할 수 있습니다.  NetApp Data Infrastructure Insights (DII)는 기업이 VM 환경을 최적화하기 위해 정보에 입각한 결정을 내리는 데 도움이 될 수 있습니다.  이 솔루션은 최소한의 프로덕션 영향으로 리소스를 회수하거나 호스트를 폐기할 수 있는 곳을 식별하여 기업이 신중하고 전략적인 방식으로 Broadcom의 VMware 인수로 인해 발생한 변화를 탐색하는 데 도움을 줍니다.  다시 말해, VMDC와 DII는 세부적인 분석 메커니즘으로서 기업이 의사 결정에서 감정을 배제하는 데 도움이 됩니다.  당황하거나 좌절하며 변화에 대응하는 대신, 이 두 가지 도구가 제공하는 통찰력을 활용하여 비용 최적화와 운영 효율성 및 생산성의 균형을 이루는 합리적이고 전략적인 결정을 내릴 수 있습니다.</block>
   <block id="daeeee3b4d7cf28d3e75a6bd9dc0d0fc" category="paragraph">NetApp 사용하면 가상화 환경의 크기를 적정하게 조정하고 비용 효율적인 플래시 스토리지 성능과 간소화된 데이터 관리 및 랜섬웨어 솔루션을 도입하여 조직이 새로운 구독 모델에 대비하는 동시에 현재 구축된 IT 리소스를 최적화할 수 있습니다.</block>
   <block id="09629d953b35a882c56710848803a676" category="paragraph"><block ref="09629d953b35a882c56710848803a676" category="inline-image-macro-rx" type="image"></block></block>
   <block id="2934a6ffd8e25f7c2f2e9c5b13787cac" category="inline-link-macro">vSAN TCO 추정기</block>
   <block id="911a18fdbb1ef8e4cfc48e8b2ac18561" category="inline-link-macro">디이</block>
-  <block id="a1db154d784f0498b3fcbc7df03d0417" category="paragraph">VMDC 패키지를 다운로드하고 데이터를 수집하여 사용하세요<block ref="8b8dd88331ec48e68fc93111fdd4fa04" category="inline-link-macro-rx"></block> 쉽게 투사하고 사용할 수 있도록<block ref="f17088cac6f7d4dbeb71411d15c29a3d" category="inline-link-macro-rx"></block> IT가 새로운 요구 사항에 맞게 적응할 수 있도록 현재와 미래의 IT에 영향을 미치는 인텔리전스를 지속적으로 제공합니다.</block>
   <block id="9582ace4b7d1c17255bc81f1b72cd943" category="summary">ONTAP 스토리지를 NetApp 가상화 솔루션과 통합하기 위한 실용적인 지침과 모범 사례를 제공하는 블로그를 읽어보세요.</block>
   <block id="d96f5d7ed73895d182fe448a5d0ae1f3" category="doc">NetApp 전문가의 가상화 솔루션 블로그를 읽어보세요</block>
   <block id="95e5ff389c2796a171f904ad5b9322f6" category="list-text">NetApp 및 VMware Cloud Foundation(VCF)</block>
@@ -7431,4 +7428,8 @@
   <block id="90334da6700cfe14e0c9acaf46941f69" category="sidebar">ONTAP 사용한 VCF 9 설계 옵션</block>
   <block id="e259ef393201a8984594fdd1c6f93d51" category="sidebar">ONTAP 사용한 VCF 9 배포</block>
   <block id="0eec06466a06793fe3f003b743729087" category="sidebar">BlueXP 탑재된 VCF 9 DR</block>
+  <block id="f8acbdad34bfb71afe2fb24304a17fb5" category="paragraph">VMDC의 주요 기능은 클러스터 구성, 네트워킹, 스토리지 및 성능 데이터를 포함하여 vSphere 환경에 있는 vCenter, ESXi 서버 및 가상 머신(VM)의 구성을 보고하는 것입니다. 포괄적인 환경 데이터가 수집되면 인프라에 대한 통찰력 있는 정보를 얻는 데 활용할 수 있습니다. 보고서 출력 화면은 여러 섹션으로 구성된 스프레드시트 스타일의 GUI입니다. 읽기 쉬운 보고서를 제공하고 리소스 사용을 최적화하고 용량을 계획하는 데 도움이 됩니다.</block>
+  <block id="f04d223e3a2e34e08719285cb2c36cc5" category="paragraph">VMDC를 사용하여 신속하게 평가를 수행하여 활용도가 낮은 리소스를 파악한 다음 NetApp Data Infrastructure Insights (DII)를 사용하여 VM 회수에 대한 자세한 분석과 권장 사항을 제공합니다. 이를 통해 고객은 NetApp Data Infrastructure Insights (DII)가 배포되고 구성되는 동안 잠재적인 비용 절감 및 최적화를 파악할 수 있습니다. NetApp Data Infrastructure Insights (DII)는 기업이 VM 환경을 최적화하기 위해 정보에 입각한 결정을 내리는 데 도움이 될 수 있습니다. 이 솔루션은 최소한의 프로덕션 영향으로 리소스를 회수하거나 호스트를 폐기할 수 있는 곳을 식별하여 기업이 신중하고 전략적인 방식으로 Broadcom의 VMware 인수로 인해 발생한 변화를 탐색하는 데 도움을 줍니다. 다시 말해, VMDC와 DII는 세부적인 분석 메커니즘으로서 기업이 의사 결정에서 감정을 배제하는 데 도움이 됩니다. 당황하거나 좌절하며 변화에 대응하는 대신, 이 두 가지 도구가 제공하는 통찰력을 활용하여 비용 최적화와 운영 효율성 및 생산성의 균형을 이루는 합리적이고 전략적인 결정을 내릴 수 있습니다.</block>
+  <block id="5e406bfc196571a2a424ad95e52b9e13" category="paragraph">NetApp 사용하면 가상화 환경의 크기를 적정하게 조정하고 비용 효율적인 플래시 스토리지 성능과 간소화된 데이터 관리 및 랜섬웨어 솔루션을 도입하여 조직이 새로운 구독 모델에 대비하는 동시에 현재 구축된 IT 리소스를 최적화할 수 있습니다.</block>
+  <block id="59fc14373d85269b06b27bed407eef66" category="paragraph">VMDC 패키지를 다운로드하고 데이터를 수집하여 사용하세요<block ref="f87d68376749f3a505ead27b1818548d" category="inline-link-macro-rx"></block> 쉽게 투사하고 사용할 수 있도록<block ref="f17088cac6f7d4dbeb71411d15c29a3d" category="inline-link-macro-rx"></block> IT가 새로운 요구 사항에 맞게 적응할 수 있도록 현재와 미래의 IT에 영향을 미치는 인텔리전스를 지속적으로 제공합니다.</block>
 </blocks>
