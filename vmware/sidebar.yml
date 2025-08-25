@@ -30,6 +30,8 @@ entries:
       url: "/vmware/vmw-getting-started-vmsc.html"
     - title: ONTAP 통한 보안 및 랜섬웨어 보호
       url: "/vmware/vmw-getting-started-security.html"
+    - title: NFS 및 VMFS를 위한 랜섬웨어 보호
+      url: "/vmware/vmw-arp-nfs-vmfs.html"
   - title: 백업 및 재해 복구 솔루션
     entries:
     - title: SnapCenter Plug-in for VMware vSphere
@@ -45,6 +47,8 @@ entries:
     url: "/vmware/vmw-vcf-design.html"
   - title: ONTAP 사용한 VCF 9 배포
     url: "/vmware/vmw-vcf-deployment.html"
+  - title: BlueXP 탑재된 VCF 9 DR
+    url: "/vmware/vmw-vcf-dr-bxp-nfs.html"
   - title: 기존 vSphere 클러스터를 VCF로 변환
     entries:
     - title: 기존 vSphere 클러스터를 VCF로 변환하는 방법

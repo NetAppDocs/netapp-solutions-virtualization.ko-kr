@@ -21,4 +21,4 @@ indexpage:
     - title: Proxmox VE 백업 및 복원
       url: https://pve.proxmox.com/pve-docs/chapter-vzdump.html
     - title: Proxmox VE용 보관
-      url: https://pve.proxmox.com/pve-docs/chapter-storage.html
+      url: https://pve.proxmox.com/pve-docs/chapter-pvesm.html

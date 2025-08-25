@@ -543,7 +543,7 @@ image:bxp-scv-hybrid-023.png["사용 가능한 리소스 보기"]
 ====
 가상 머신을 위한 BlueXP backup and recovery 에서 보존 기간, 백업 소스 및 보관 정책을 지정하는 정책을 만듭니다.
 
-정책 생성에 대한 자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/bluexp-backup-recovery/task-create-policies-vms.html["데이터 저장소를 백업하기 위한 정책 생성"] .
+정책 생성에 대한 자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/bluexp-backup-recovery/prev-vmware-policy-create.html["데이터 저장소를 백업하기 위한 정책 생성"] .
 
 . 가상 머신용 BlueXP backup and recovery 메인 페이지에서 *설정* 드롭다운 메뉴에 액세스하여 *정책*을 선택합니다.
 +
@@ -573,7 +573,7 @@ NOTE: 여기에 입력된 SnapMirror 레이블은 어떤 백업에 정책을 적
 ====
 마지막 단계는 개별 데이터 저장소와 가상 머신에 대한 데이터 보호를 활성화하는 것입니다. 다음 단계에서는 AWS에 대한 백업을 활성화하는 방법을 설명합니다.
 
-자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/bluexp-backup-recovery/task-backup-vm-data-to-aws.html["Amazon Web Services에 데이터 저장소 백업"] .
+자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/bluexp-backup-recovery/prev-vmware-backup-aws.html["Amazon Web Services에 데이터 저장소 백업"] .
 
 . 가상 머신을 위한 BlueXP backup and recovery 메인 페이지에서 백업할 데이터 저장소의 설정 드롭다운에 액세스하여 *백업 활성화*를 선택합니다.
 +
@@ -654,7 +654,7 @@ image:bxp-scv-hybrid-035.png["1차 또는 2차 선택"]
 
 가상 머신을 위한 BlueXP backup and recovery 사용하면 가상 머신을 원래 위치로 복원할 수 있습니다. 복원 기능은 BlueXP 웹 콘솔을 통해 접근합니다.
 
-자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/bluexp-backup-recovery/task-restore-vm-data.html["클라우드에서 가상 머신 데이터 복원"] .
+자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/bluexp-backup-recovery/prev-vmware-restore.html["클라우드에서 가상 머신 데이터 복원"] .
 
 .BlueXP backup and recovery 에서 가상 머신 복원
 [%collapsible%open]

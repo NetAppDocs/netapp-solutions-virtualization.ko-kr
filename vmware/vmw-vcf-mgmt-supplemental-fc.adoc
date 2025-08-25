@@ -72,7 +72,7 @@ ONTAP 도구를 배포하고 이를 사용하여 VCF 관리 도메인에 VMFS �
 
 * link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["관리 도메인에 ONTAP 도구 배포"]
 * link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html["vSphere 클라이언트 인터페이스를 사용하여 스토리지 백엔드 정의"]
-* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-vvols-datastore.html["FC에 VMFS 프로비저닝"]
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-datastore.html["FC에 VMFS 프로비저닝"]
 
 
 
