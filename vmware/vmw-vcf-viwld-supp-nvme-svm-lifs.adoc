@@ -1,0 +1,95 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-supp-nvme-svm-lifs.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc, iscsi 
+summary: 'VMware Cloud Foundation 관리 도메인에 대한 iSCSI 연결을 제공하기 위해 여러 개의 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 만듭니다.  최적의 성능과 가용성을 위해 다중 경로와 장애 조치를 활성화하기 위해 NVMe 프로토콜 지원으로 SVM을 구성하고 별도의 이더넷 네트워크에 걸쳐 여러 LIF를 설정합니다.' 
+---
+= VCF VI 워크로드 도메인에서 NVMe/TCP vVols 데이터 저장소에 대한 SVM 및 LIF와 NVMe 네임스페이스를 생성합니다.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware Cloud Foundation 워크로드 도메인에 대한 NVMe 연결을 제공하기 위해 여러 개의 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 생성합니다.  이 절차에서는 NVMe/TCP 지원 SVM 및 LIF를 설정하고 NVMe 네임스페이스를 만드는 방법을 요약합니다.
+
+
+
+== 1단계: SVM 및 LIF 만들기
+
+NVMe/TCP 트래픽을 위한 여러 LIF가 있는 SVM을 생성하려면 다음 단계를 완료하세요.
+
+기존 SVM에 새로운 LIF를 추가하려면 ONTAP 설명서를 참조하세요.link:https://docs.netapp.com/us-en/ontap/networking/create_a_lif.html["ONTAP LIF 생성"^] .
+
+.단계
+. ONTAP 시스템 관리자에서 왼쪽 메뉴의 *스토리지 VM*으로 이동한 후 *+ 추가*를 클릭합니다.
++
+image:vmware-vcf-asa-001.png["SVM 생성을 시작하려면 +추가를 클릭하세요."]
+
++
+{nbsp}
+
+. *스토리지 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *NVMe* 탭을 클릭하고 *NVMe/TCP 사용* 확인란을 선택합니다.
++
+image:vmware-vcf-asa-075.png["스토리지 VM 마법사 추가 - NVMe/TCP 활성화"]
+
++
+{nbsp}
+
+. *네트워크 인터페이스* 섹션에서 첫 번째 LIF에 대한 *IP 주소*, *서브넷 마스크*, *브로드캐스트 도메인 및 포트*를 입력합니다.  이후 LIF의 경우 개별 설정을 사용하거나 확인란을 활성화하여 나머지 모든 LIF에서 공통 설정을 사용할 수 있습니다.
++
+
+NOTE: 다중 경로 지정 및 여러 경로에 걸친 장애 조치를 위해 NVMe/TCP 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 만듭니다.
+
+. 다중 테넌시 환경의 경우 스토리지 VM 관리 계정을 활성화할지 여부를 선택하고 *저장*을 클릭하여 SVM을 생성합니다.
++
+image:vmware-vcf-asa-004.png["SVM 계정 활성화 및 완료"]
+
+
+
+
+
+== 2단계: NVMe 네임스페이스 만들기
+
+NVMe 네임스페이스는 iSCSI 또는 FC의 LUN과 유사합니다. vSphere Client에서 VMFS 데이터스토어를 배포하려면 먼저 NVMe 네임스페이스를 만들어야 합니다.  NVMe 네임스페이스를 생성하려면 클러스터의 각 ESXi 호스트에서 NVMe 정규화된 이름(NQN)을 가져옵니다.  ONTAP NQN을 사용하여 네임스페이스에 대한 액세스 제어를 제공합니다.
+
+.단계
+. 클러스터 내 ESXi 호스트에서 SSH 세션을 열어 NQN을 얻습니다.  CLI에서 다음 명령을 사용하세요.
++
+[source, cli]
+----
+esxcli nvme info get
+----
++
+다음 예제와 비슷한 출력이 표시되어야 합니다.
+
++
+[source, cli]
+----
+Host NQN: nqn.2014-08.com.netapp.sddc:nvme:vcf-wkld-esx01
+----
+. 클러스터의 각 ESXi 호스트에 대한 NQN을 기록합니다.
+. ONTAP 시스템 관리자에서 왼쪽 메뉴의 *NVMe 네임스페이스*로 이동한 다음 *+ 추가*를 클릭하여 시작합니다.
++
+image:vmware-vcf-asa-093.png["+추가를 클릭하여 NVMe 네임스페이스를 만듭니다."]
+
++
+{nbsp}
+
+. *NVMe 네임스페이스 추가* 페이지에서 이름 접두사, 생성할 네임스페이스 수, 네임스페이스 크기, 네임스페이스에 액세스할 호스트 운영 체제를 입력합니다.
+. *호스트 NQN* 섹션에서 네임스페이스에 액세스할 ESXi 호스트에서 이전에 수집한 NQN의 쉼표로 구분된 목록을 만듭니다.
+. 스냅샷 보호 정책 등의 추가 항목을 구성하려면 *추가 옵션*을 클릭하세요.
+. 마지막으로 *저장*을 클릭하여 NVMe 네임스페이스를 생성합니다.
++
+image:vmware-vcf-asa-093.png["+추가를 클릭하여 NVMe 네임스페이스를 만듭니다."]
+
+
+
+
+
+== 다음은 무엇인가요?
+
+SVM과 LIF를 생성한 후,link:vmw-vcf-viwld-supp-nvme-network.html["NVMe/TCP(NVMe/TCP) vVols 에 대한 네트워킹 구성"] .

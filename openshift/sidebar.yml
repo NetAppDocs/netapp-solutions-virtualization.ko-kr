@@ -43,13 +43,15 @@ entries:
     url: "/openshift/osv-rosa-overview.html"
   - title: VM을 다시 시작하거나 라이브 마이그레이션합니다.
     url: "/openshift/osv-rosa-vm-workflows.html"
-- title: Trident Protect를 사용하여 데이터 보호
+- title: Trident 및 Trident Protect를 사용하여 VM 보호
   entries:
+  - title: 볼륨 그룹 스냅샷을 사용하여 VM 보호
+    url: "/openshift/osv-vm-dp-using-vgs.html"
   - title: 스냅샷과 백업으로 VM 보호
     url: "/openshift/osv-vm-dp-using-tp.html"
   - title: 장애 조치 및 장애 복구 설정
     url: "/openshift/osv-vm-dr-using-tp.html"
-- title: 타사 도구를 사용하여 데이터 보호
+- title: 타사 도구를 사용하여 VM 보호
   pdf-filename: Red Hat OpenShift 가상화 데이터 보호
   entries:
   - title: OADP 및 Velero를 사용하여 VM 보호

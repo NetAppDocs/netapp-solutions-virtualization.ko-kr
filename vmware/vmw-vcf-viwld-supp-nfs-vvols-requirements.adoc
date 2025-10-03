@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-supp-nfs-vvols-requirements.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
+summary: VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.  안정적이고 고성능의 스토리지 통합을 보장하기 위해 권장되는 네트워크 설계 및 인프라 요구 사항을 검토하세요. 
+---
+= VI 워크로드 도메인에 NFS vVols 추가하기 위한 배포 요구 사항
+:allow-uri-read: 
+
+
+[role="lead"]
+VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하는 데 권장되는 네트워크 설계 및 인프라 요구 사항을 검토합니다.  완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.
+
+
+
+== 인프라 요구 사항
+
+다음 구성 요소와 구성이 제대로 되어 있는지 확인하세요.
+
+* 이더넷 스위치에 스토리지 트래픽 전용 물리적 데이터 포트가 있는 ONTAP AFF 또는 FAS 스토리지 시스템입니다.
+* VCF 관리 도메인 배포가 완료되었으며 vSphere 클라이언트에 액세스할 수 있습니다.
+* VI 워크로드 도메인이 이전에 배포되었습니다.
+
+
+
+
+== 권장되는 NFS 네트워크 설계
+
+스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 허용 기능을 제공하기 위해 NFS에 대한 중복 네트워크 설계를 구성합니다.  아키텍처 요구 사항에 따라 단일 서브넷이나 여러 서브넷으로 NFS를 배포하는 것이 일반적입니다.
+
+{nbsp}image:vmware-vcf-aff-070.png["NFS 아키텍처 다이어그램"] {nbsp}
+
+
+
+== 추가 정보
+
+* VMware vSphere에 대한 자세한 내용은 다음을 참조하세요. https://www.vmware.com/docs/vmw-best-practices-running-nfs-vmware-vsphere["VMware vSphere를 사용하여 NFS를 실행하기 위한 모범 사례"] .
+* VMware vSphere와 함께 ONTAP 사용하는 것에 대한 네트워크 지침은 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-network.html#nfs["네트워크 구성 - NFS"] NetApp 엔터프라이즈 애플리케이션 설명서의 섹션입니다.
++
+이 문서에서는 새로운 SVM을 생성하고 NFS 트래픽에 대한 여러 LIF를 생성하기 위해 IP 주소 정보를 지정하는 프로세스를 보여줍니다.  기존 SVM에 새로운 LIF를 추가하려면 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap/networking/create_a_lif.html["LIF(네트워크 인터페이스) 생성"] .
+
+* vSphere 클러스터에서 NFS를 사용하는 것에 대한 전체 정보는 다음을 참조하십시오.link:vmw-vvf-overview.html["vSphere 8용 NFS v3 참조 가이드"] .
+
+
+
+
+== 다음은 무엇인가요?
+
+요구사항을 검토한 후,link:vmw-vcf-viwld-supp-nfs-vvols-svm-lifs.html["SVM과 LIF를 생성합니다"] .

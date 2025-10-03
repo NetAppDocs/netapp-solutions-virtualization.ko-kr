@@ -1,0 +1,194 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-supp-iscsi-vvols-storage.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc, iscsi 
+summary: ONTAP 도구를 사용하여 VI 워크로드 도메인에서 iSCSI vVols 스토리지를 구성합니다.  ONTAP tools for VMware vSphere 배포하고, 스토리지 시스템을 등록하고, 스토리지 기능 프로필을 생성하고, vSphere 클라이언트에서 vVols 데이터 저장소를 프로비저닝합니다. 
+---
+= ONTAP 도구를 사용하여 VCF VI 워크로드 도메인에서 iSCSI vVols 스토리지 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP 도구를 사용하여 VI 워크로드 도메인에서 iSCSI vVols 스토리지를 구성합니다.  ONTAP tools for VMware vSphere 배포하고, 스토리지 시스템을 등록하고, 스토리지 기능 프로필을 생성하고, vSphere 클라이언트에서 vVols 데이터 저장소를 프로비저닝합니다.
+
+
+
+== 1단계: ONTAP tools for VMware vSphere 배포
+
+VI 워크로드 도메인의 경우 ONTAP 도구는 VCF 관리 클러스터에 설치되지만 VI 워크로드 도메인과 연결된 vCenter에 등록됩니다.
+
+ONTAP tools for VMware vSphere VM 어플라이언스로 배포되며 ONTAP 스토리지를 관리하기 위한 통합 vCenter UI를 제공합니다.
+
+.단계
+. ONTAP 도구 OVA 이미지를 가져옵니다.link:https://mysupport.netapp.com/site/products/all/details/otv/downloads-tab["NetApp 지원 사이트"] 로컬 폴더로 다운로드합니다.
+. VCF 관리 도메인의 vCenter 어플라이언스에 로그인합니다.
+. vCenter 어플라이언스 인터페이스에서 관리 클러스터를 마우스 오른쪽 버튼으로 클릭하고 *OVF 템플릿 배포...*를 선택합니다.
++
+image:vmware-vcf-aff-021.png["OVF 템플릿 배포..."]
+
++
+{nbsp}
+
+. *OVF 템플릿 배포* 마법사에서 *로컬 파일* 라디오 버튼을 클릭하고 이전 단계에서 다운로드한 ONTAP 도구 OVA 파일을 선택합니다.
++
+image:vmware-vcf-aff-022.png["OVA 파일 선택"]
+
++
+{nbsp}
+
+. 마법사의 2~5단계에서는 VM의 이름과 폴더를 선택하고, 컴퓨팅 리소스를 선택하고, 세부 정보를 검토하고, 라이선스 계약에 동의합니다.
+. 구성 및 디스크 파일의 저장 위치로 VCF 관리 도메인 클러스터의 vSAN 데이터 저장소를 선택합니다.
++
+image:vmware-vcf-aff-023.png["OVA 파일 선택"]
+
++
+{nbsp}
+
+. *네트워크 선택* 페이지에서 관리 트래픽에 사용되는 네트워크를 선택합니다.
++
+image:vmware-vcf-aff-024.png["네트워크 선택"]
+
++
+{nbsp}
+
+. *템플릿 사용자 정의* 페이지에서 필요한 모든 정보를 입력합니다.
++
+** ONTAP 도구에 대한 관리 액세스에 사용되는 비밀번호입니다.
+** NTP 서버 IP 주소.
+** ONTAP 도구 유지 관리 계정 비밀번호.
+** ONTAP 도구 Derby DB 비밀번호.
+** *VMware Cloud Foundation(VCF) 활성화* 상자를 선택하지 마세요.  보조 저장 장치를 배포하는 데 VCF 모드는 필요하지 않습니다.
+** *VI 워크로드 도메인*에 대한 vCenter 어플라이언스의 FQDN 또는 IP 주소
+** *VI 워크로드 도메인*의 vCenter 어플라이언스에 대한 자격 증명
+** 필수 네트워크 속성입니다.
+
+
+. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-vcf-aff-025.png["OTV 템플릿 사용자 정의 1"]
+
++
+image:vmware-vcf-asa-035.png["OTV 템플릿 사용자 정의 2"]
+
+. *완료 준비* 페이지에서 모든 정보를 검토하고 *마침*을 클릭하여 ONTAP 도구 어플라이언스 배포를 시작하세요.
+
+
+
+
+== 2단계: 스토리지 시스템 추가
+
+ONTAP 도구를 사용하여 스토리지 시스템을 추가하려면 다음 단계를 수행하세요.
+
+
+NOTE: vVol에는 SVM 자격 증명이 아닌 ONTAP 클러스터 자격 증명이 필요합니다. 자세한 내용은 ONTAP tools for VMware vSphere 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/configure/task_add_storage_systems.html["스토리지 시스템 추가"^] .
+
+.단계
+. vSphere 클라이언트에서 주 메뉴로 이동하여 * NetApp ONTAP 도구*를 선택합니다.
++
+image:vmware-vcf-asa-014.png["ONTAP 도구로 이동"]
+
+. * ONTAP 도구*의 시작 페이지(또는 *스토리지 시스템*)에서 *추가*를 클릭하여 새 스토리지 시스템을 추가합니다.
++
+image:vmware-vcf-asa-015.png["저장 시스템 추가"]
+
++
+{nbsp}
+
+. ONTAP 스토리지 시스템의 IP 주소와 자격 증명을 제공하고 *추가*를 클릭합니다.
++
+image:vmware-vcf-asa-016.png["ONTAP 시스템의 IP 및 자격 증명 제공"]
+
++
+{nbsp}
+
+. *예*를 클릭하여 클러스터 인증서를 승인하고 스토리지 시스템을 추가합니다.
++
+image:vmware-vcf-asa-017.png["클러스터 인증서 승인"]
+
+
+
+
+
+== 3단계: ONTAP 도구에서 스토리지 기능 프로필 만들기
+
+저장 기능 프로필은 저장 어레이 또는 저장 시스템이 제공하는 기능을 설명합니다.  여기에는 서비스 품질 정의가 포함되며 프로필에 정의된 매개변수를 충족하는 스토리지 시스템을 선택하는 데 사용됩니다.  제공된 프로필 중 하나를 사용하거나 새로운 프로필을 만들 수 있습니다.
+
+.단계
+. ONTAP 도구에서 왼쪽 메뉴에서 *저장 용량 프로필*을 선택한 다음 *만들기*를 누릅니다.
++
+image:vmware-vcf-asa-039.png["저장 용량 프로필"]
+
+. *저장소 기능 프로필 만들기* 마법사에서 프로필의 이름과 설명을 입력하고 *다음*을 클릭합니다.
++
+image:vmware-asa-010.png["SCP에 이름 추가"]
+
+. 플랫폼 유형을 선택하고 스토리지 시스템이 All-Flash SAN 어레이가 되도록 지정하려면 *비대칭*을 false로 설정합니다.
++
+image:vmware-asa-011.png["SCP 플랫폼"]
+
+. 원하는 프로토콜을 선택하거나 *모든* 프로토콜을 허용하려면 *모두*를 선택하세요.
+. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-asa-012.png["SCP 프로토콜"]
+
+. *성능* 페이지에서는 허용되는 최소 및 최대 IOP 형태로 서비스 품질을 설정할 수 있습니다.
++
+image:vmware-asa-013.png["SCP에 대한 QoS"]
+
+. 필요에 따라 스토리지 효율성, 공간 예약, 암호화 및 계층화 정책을 선택하여 *스토리지 속성* 페이지를 완성합니다.
++
+image:vmware-asa-014.png["SCP의 속성"]
+
+. 요약을 검토하고 *마침*을 클릭하여 프로필을 만듭니다.
++
+image:vmware-vcf-asa-040.png["SCP 요약"]
+
+
+
+
+
+== 4단계: ONTAP 도구에서 vVols 데이터 저장소 만들기
+
+ONTAP 도구에서 vVols 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
+
+.단계
+. ONTAP 도구에서 *개요*를 선택하고 *시작하기* 탭에서 *프로비저닝*을 클릭하여 마법사를 시작합니다.
++
+image:vmware-vcf-asa-041.png["데이터 저장소 제공"]
+
+. 새 데이터 저장소 마법사의 *일반* 페이지에서 vSphere 데이터 센터 또는 클러스터 대상을 선택합니다.
+. 데이터 저장소 유형으로 * vVols*를 선택하고, 데이터 저장소 이름을 입력한 다음, 프로토콜로 *iSCSI*를 선택합니다.
+. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-vcf-asa-042.png["일반 페이지"]
+
+. *스토리지 시스템* 페이지에서 스토리지 기능 프로필, 스토리지 시스템, VM을 선택합니다.
+. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-vcf-asa-043.png["저장 시스템"]
+
+. *저장소 속성* 페이지에서 데이터 저장소에 대한 새 볼륨을 생성하도록 선택하고 생성하려는 볼륨의 저장소 속성을 입력합니다.
+. *추가*를 클릭하여 볼륨을 생성한 다음 *다음*을 클릭하여 계속합니다.
++
+image:vmware-vcf-asa-044.png["저장 속성"]
+
+. 요약을 검토하고 *마침*을 클릭하여 vVol 데이터 저장소 생성 프로세스를 시작합니다.
++
+image:vmware-vcf-asa-045.png["요약 페이지"]
+
+
+
+
+
+== 추가 정보
+
+* ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"^] .
+* VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf.html["VMware Cloud Foundation 문서"^] .
+* VMware에서 VMFS iSCSI 데이터 저장소를 사용하는 방법에 대한 자세한 내용은 다음을 참조하세요.link:vmw-vmfs-iscsi.html["vSphere VMFS 데이터스토어 - ONTAP 사용한 iSCSI 스토리지 백엔드"] .
+* 이 솔루션의 비디오 데모는 다음을 참조하세요.link:../videos/vmware-videos.html#vmware-datastore-provisioning-with-ontap["VMware 데이터스토어 프로비저닝"] .
+

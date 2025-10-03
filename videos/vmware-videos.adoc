@@ -24,6 +24,8 @@ NetApp 스토리지 솔루션과 VMware의 통합을 보여주는 비디오와 �
 video::e8071955-f6f1-45a0-a868-b12a010bba44[panopto]
 .ONTAP 사용한 VMware iSCSI 데이터스토어 프로비저닝
 video::5c047271-aecc-437c-a444-b01200f9671a[panopto]
+.VCF 관리 도메인을 위한 보조 저장소로서의 VMFS(FC) 데이터 저장소
+video::3135c36f-3a13-4c95-aac9-b2a0001816dc[panopto,width=360]
 .ONTAP 사용한 VMware NFS 데이터 저장소 프로비저닝
 video::a34bcd1c-3aaa-4917-9a5d-b01200f97f08[panopto]
 

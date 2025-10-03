@@ -453,8 +453,6 @@
   <block id="4f3e936154f41876858a86235fc914f9" category="paragraph"><block ref="4f3e936154f41876858a86235fc914f9" category="inline-image-macro-rx" type="image"></block></block>
   <block id="e5ce8b0081f2c6290a4c2e3430c561ba" category="paragraph">*참고*: VM 그룹에서 IntelliSnap을 활성화하면 Commvault는 기본(스냅) 사본과 백업 사본에 대한 일정 정책을 자동으로 생성합니다.</block>
   <block id="7557bd62e953fb4d48f07977151ea94f" category="list-text">Save를 클릭합니다.</block>
-  <block id="53304475d79b614c8fb33c36590d429f" category="inline-link-macro">하이퍼바이저 추가</block>
-  <block id="a1b6e96a070775fe5adb6d9205aba3bc" category="paragraph">배열 구성에 대한 자세한 단계는 다음을 참조하세요.<block ref="50b89c70bf10d84a27d3112125b71121" category="inline-link-macro-rx"></block> .</block>
   <block id="9df4173f1890320901407ac35f58abe3" category="paragraph">*백업 수행:*</block>
   <block id="129c76b10c5a9011b721c209c27c448c" category="list-text">탐색 창에서 보호 &gt; 가상화로 이동합니다.  가상 머신 페이지가 나타납니다.</block>
   <block id="2b18fe1715c4ee7c29d5fa3dfd0bbc39" category="list-text">VM 또는 VM 그룹을 백업합니다.  이 데모에서는 VM 그룹이 선택되었습니다.  VM 그룹 행에서 작업 버튼 action_button을 클릭한 다음 백업을 선택합니다.  이 경우, nimplan은 Demogrp 및 Demogrp01과 관련된 계획입니다.</block>
@@ -477,7 +475,6 @@
   <block id="3410395b6496b488cc5fbc89c4ddfd4e" category="inline-image-macro">복원 옵션을 표시하는 이미지</block>
   <block id="10286f5f10d34e0c47090d07f1e19bd0" category="paragraph"><block ref="10286f5f10d34e0c47090d07f1e19bd0" category="inline-image-macro-rx" type="image"></block></block>
   <block id="0838280879ab95748cdbc82a6efa12d9" category="inline-link-macro">Hyper-V 복원</block>
-  <block id="1631eac969a9166a1a5e16d3f114a3b0" category="paragraph">지원되는 모든 복원 옵션에 대한 자세한 단계는 다음을 참조하세요.<block ref="b6255a90ff0a2364a8133d3c521e64cd" category="inline-link-macro-rx"></block> .</block>
   <block id="54c7a65fa507f8f5f87270cf5d65c0a2" category="section-title">고급 NetApp ONTAP 옵션</block>
   <block id="ffaac3485d8c624328866559634ab950" category="paragraph">NetApp SnapMirror 효율적인 사이트 간 스토리지 복제를 지원하여 오늘날의 글로벌 기업에 맞게 재해 복구를 빠르고 안정적이며 관리하기 쉽게 만들어줍니다.  LAN 및 WAN을 통해 고속으로 데이터를 복제하는 SnapMirror 미션 크리티컬 애플리케이션에 높은 데이터 가용성과 빠른 복구 기능을 제공하는 동시에 뛰어난 스토리지 중복 제거 및 네트워크 압축 기능도 제공합니다.  NetApp SnapMirror 기술을 사용하면 재해 복구를 통해 전체 데이터 센터를 보호할 수 있습니다.  볼륨은 점진적으로 오프사이트 위치로 백업될 수 있습니다.  SnapMirror 필요한 RPO만큼 자주 증분형 블록 기반 복제를 수행합니다.  블록 수준 업데이트를 통해 대역폭과 시간 요구 사항이 줄어들고, DR 사이트에서 데이터 일관성이 유지됩니다.</block>
   <block id="25919c7e954c6ca64a2d330db387093c" category="paragraph">중요한 단계는 전체 데이터 세트에 대한 일회성 기준 전송을 만드는 것입니다.  증분 업데이트를 수행하려면 이 작업이 필요합니다.  이 작업에는 소스에서 스냅샷 복사본을 생성하고 해당 복사본에서 참조하는 모든 데이터 블록을 대상 파일 시스템으로 전송하는 작업이 포함됩니다.  초기화가 완료되면 예약된 업데이트나 수동으로 업데이트가 실행될 수 있습니다.  각 업데이트는 소스에서 대상 파일 시스템으로 새롭고 변경된 블록만 전송합니다.  이 작업에는 소스 볼륨에서 스냅샷 복사본을 만들고, 이를 기준 복사본과 비교하고, 변경된 블록만 대상 볼륨으로 전송하는 작업이 포함됩니다.  새로운 사본은 다음 업데이트를 위한 기준 사본이 됩니다.  복제가 주기적으로 이루어지므로 SnapMirror 변경된 블록을 통합하고 네트워크 대역폭을 절약할 수 있습니다.  쓰기 처리량과 쓰기 대기 시간에 미치는 영향은 최소화됩니다.</block>
@@ -4749,8 +4746,6 @@
   <block id="6131b86fb43272260ffa227e2838a6c7" category="list-text"><block ref="6131b86fb43272260ffa227e2838a6c7" category="inline-link-macro-rx"></block></block>
   <block id="a0553081dbb279ff3a50bd564593e31b" category="doc">보조 스토리지를 사용하여 VCF 환경의 스토리지 확장에 대해 알아보세요.</block>
   <block id="a1bb0c5717a1b76681fa1b23b74ef87b" category="paragraph">VMware Cloud Foundation(VCF)은 VCF 관리 도메인과 가상 인프라(VI) 워크로드 도메인의 스토리지를 확장하기 위한 광범위한 보조 스토리지 옵션을 지원합니다.</block>
-  <block id="b43416043953c0c70abd9ead163068d3" category="paragraph">VMware vSphere용 NetApp ONTAP 도구는 NetApp 스토리지를 VCF 환경에 원활하게 통합하여 이러한 확장을 위한 효율적인 솔루션을 제공합니다.  ONTAP 도구는 데이터스토어의 설정 및 관리를 간소화하여 관리자가 vSphere Client에서 직접 스토리지를 프로비저닝하고 관리할 수 있도록 합니다.  ONTAP은 스냅샷, 복제, 데이터 보호와 같은 고급 기능을 제공하여 VCF 환경 내에서 스토리지 성능, 효율성, 확장성을 향상시킵니다.</block>
-  <block id="02a7d4a5a7a72f81c1fcf8372718c239" category="paragraph">VCF 환경을 확장하기 위한 기술적 세부 사항은 다음 솔루션을 참조하세요.</block>
   <block id="e68bc960bb0fbb658d0053492cbba1ef" category="inline-link-macro">iSCSI를 사용한 관리 도메인</block>
   <block id="c211beb5d05e7e8f38a46d65c9120a4a" category="list-text"><block ref="c211beb5d05e7e8f38a46d65c9120a4a" category="inline-link-macro-rx"></block></block>
   <block id="6ac3631616c324bf438b1b46f1aa63cf" category="inline-link-macro">FC를 사용한 관리 도메인</block>
@@ -4971,7 +4966,6 @@
   <block id="618ccecc77c1b3db6b8272406b13655b" category="list-text">SDDC API를 사용하여 추가 클러스터를 배포합니다.  vSphere 호스트에는 NFS 데이터 저장소가 구성되어 있어야 합니다.  사용<block ref="aa58dd097d7fe62340ef394295d83ed9" category="inline-link-rx"></block> LUN을 vSphere 호스트에 배포합니다.</block>
   <block id="46e28cadd6d0de9ad9e6394032518100" category="list-text">SDDC 관리자 UI를 사용하여 추가 클러스터를 배포합니다.  하지만 이 옵션은 5.2.x 이전 릴리스에서만 vSAN 데이터 저장소를 생성합니다.</block>
   <block id="19f71f7fe12e7ebe34ed1f6f55e4432b" category="doc">ONTAP tools for VMware vSphere 사용하여 관리 도메인의 보조 스토리지로 FC 기반 VMFS 데이터 저장소 추가</block>
-  <block id="ff6f1d75c2eacb15d3de14b5f9cb54d9" category="paragraph">이 사용 사례에서는 ONTAP Tools for VMware를 사용하여 VMware Cloud Foundation(VCF) 관리 도메인의 보조 스토리지로 파이버 채널(FC)을 통해 VMFS 데이터 저장소를 구성하는 절차를 설명합니다.  이 절차에서는 VMware vSphere용 ONTAP 도구 배포, vCenter 서버 등록, 스토리지 백엔드 정의, FC 데이터스토어 프로비저닝을 요약합니다.</block>
   <block id="a19e47ab1a15c88b516b23758625d0b4" category="section-title">파이버 채널의 이점</block>
   <block id="8035d5cd4e766d72ae806629bcca53eb" category="paragraph">*고성능:* FC는 고속 데이터 전송률을 제공하므로 대량의 데이터에 빠르고 안정적으로 액세스해야 하는 애플리케이션에 이상적입니다.</block>
   <block id="7d67b9fc17a86ecbabed7780177ff56b" category="paragraph">*낮은 지연 시간:* 매우 낮은 지연 시간은 데이터베이스 및 가상화 환경과 같은 성능에 민감한 애플리케이션에 매우 중요합니다.</block>
@@ -4991,7 +4985,6 @@
   <block id="10f9f69529eddbb4035b744bd50eeb0a" category="admonition">ONTAP 시스템의 물리적 FC 포트 대신 영역 구성에서 SVM FC 논리적 인터페이스를 사용합니다.</block>
   <block id="52fcc9cc0e060b37e71cb463f0b62e36" category="paragraph">NetApp FC LUN에 대해 다중 경로를 권장합니다.</block>
   <block id="3097ad2af11c180c3e0a96a78dfe1685" category="inline-link">SAN 스토리지 관리</block>
-  <block id="8e364763cfbe8a09cae3a8cc28d2881a" category="paragraph">ONTAP 스토리지 시스템에서 파이버 채널을 구성하는 방법에 대한 자세한 내용은 다음을 참조하세요.<block ref="086e8f717779887b4717a247df9e2619" category="inline-link-rx"></block> ONTAP 9 문서에서.</block>
   <block id="23531c4d22073b6e6a64232b54da96c0" category="inline-link-macro">VMFS 배포 가이드</block>
   <block id="a7fd0c013cc17a7d9ba4c9a0072ca181" category="paragraph">ONTAP 스토리지 시스템과 함께 VMFS를 사용하는 방법에 대한 자세한 내용은 다음을 참조하십시오.<block ref="25141bdf87379bdc9d8603ccae367f3e" category="inline-link-macro-rx"></block> .</block>
   <block id="eb6f68387c3161b9c917700bae2f67dc" category="section-title">관리 도메인에 대한 배포 단계</block>
@@ -5004,69 +4997,27 @@
   <block id="d9e13ba7318e04b47ff4cf8d9b3d605d" category="list-text"><block ref="d9e13ba7318e04b47ff4cf8d9b3d605d" category="inline-link-macro-rx"></block></block>
   <block id="2ff21993df702c1dd5f5bec680322a7b" category="section-title">이 솔루션에 대한 비디오 데모</block>
   <block id="632eb1872a4f81e440d937b5f2dd39ae" category="video-title">VCF 관리 도메인을 위한 보조 저장소로서의 VMFS(FC) 데이터 저장소</block>
-  <block id="ddfe564e02d21f91a4f26b7e91b77a34" category="doc">ONTAP tools for VMware vSphere 사용하여 관리 도메인의 보조 스토리지로 iSCSI 데이터 저장소 추가</block>
-  <block id="8cd4d10bde82a0c1ff43c91ea16583d9" category="paragraph">이 사용 사례에서는 VMware Cloud Foundation(VCF) 관리 도메인의 보조 스토리지로 iSCSI 데이터스토어를 추가하는 절차를 설명합니다.  이 절차에서는 iSCSI를 위한 논리적 인터페이스(LIF)를 갖춘 스토리지 가상 머신(SVM) 설정, ESXi 호스트에서 iSCSI 네트워킹 구성, VMware vSphere용 ONTAP 도구 배포, VMFS 데이터 저장소 생성에 대한 내용을 요약합니다.</block>
-  <block id="aee46c7735e7d25a301b43cd85e972ab" category="section-title">iSCSI의 이점</block>
   <block id="a90265e93f7d35d8a66d4c42299f5d58" category="paragraph">*고성능:* 빠르고 효율적인 데이터 전송 속도와 낮은 지연 시간을 제공하는 고성능을 제공합니다.  까다로운 엔터프라이즈 애플리케이션과 가상화 환경에 이상적입니다.</block>
   <block id="73289c9018b02fc0f409002898ed0e6a" category="paragraph">*관리 용이성:* 익숙한 IP 기반 도구와 프로토콜을 사용하여 스토리지 관리를 간소화합니다.</block>
-  <block id="18a2bd8f2bf7c8326419075026852393" category="paragraph">*비용 효율성:* 기존 이더넷 인프라를 활용하여 특수 하드웨어의 필요성을 줄이고 조직이 안정적이고 확장 가능한 스토리지 솔루션을 구축할 수 있도록 합니다.</block>
   <block id="1e6ffe96c50f241a80db55383922acc6" category="inline-link">iSCSI를 사용한 SAN 프로비저닝</block>
   <block id="efd461884424d97b7b0573b40d55fda9" category="paragraph">NetApp 스토리지 시스템에서 iSCSI를 사용하는 방법에 대한 자세한 내용은 다음을 참조하세요.<block ref="66bcfd55d9546e5f33fdb7fcdf1dab91" category="inline-link-rx"></block> .</block>
-  <block id="96083c7da626562cffa7fef2a47a0d03" category="list-text">iSCSI 트래픽을 위한 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 만듭니다.</block>
-  <block id="24888a24fb0a81b2435814cd5d052bfe" category="list-text">VCF 관리 도메인에서 iSCSI 네트워크에 대한 분산 포트 그룹을 만듭니다.</block>
-  <block id="17d8d2d703d38a957c2bd059d191bfda" category="list-text">VCF 관리 도메인의 ESXi 호스트에서 iSCSI용 vmkernel 어댑터를 생성합니다.</block>
-  <block id="249ed508b8f98200a5a9f0e5100673a5" category="list-text">VCF 관리 도메인에 ONTAP 도구를 배포합니다.</block>
-  <block id="bf7cebfa097b82053f7793f4b3295e13" category="list-text">VCF 관리 도메인에 새로운 VMFS 데이터 저장소를 만듭니다.</block>
-  <block id="5e8de78baa5a7a73311fde64cc98a2eb" category="list-text">스토리지 트래픽에 전용된 이더넷 스위치의 물리적 데이터 포트가 있는 ONTAP AFF 또는 ASA 스토리지 시스템입니다.</block>
   <block id="5a4f6cc7da4fbb76616cfd7b0e3ed616" category="list-text">VCF 관리 도메인 배포가 완료되었으며 vSphere 클라이언트에 액세스할 수 있습니다.</block>
   <block id="121d9e4993fb92968420c9621abc9dd8" category="inline-link-macro">SAN 구성 참조</block>
-  <block id="671fe47a354bda76d31d49938ba490f1" category="paragraph">NetApp iSCSI에 대해 완전 중복 네트워크 설계를 권장합니다.  다음 다이어그램은 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 내구성을 제공하는 중복 구성의 예를 보여줍니다.  NetApp 을 참조하세요<block ref="7faee073c28821504170f8e609f3d818" category="inline-link-macro-rx"></block> 추가 정보를 원하시면.</block>
   <block id="09c89d5b964bcd1404121eca82fcd81a" category="inline-image-macro">iSCSI 네트워크 설계</block>
   <block id="a93388ea871dcb1cee9889692a766942" category="paragraph"><block ref="a5df37d545c3dc672a7b5e9ddfd95510" category="inline-image-macro-rx" type="image"></block>{nbsp}</block>
-  <block id="e37fb1809bb764bfb3fd72bbba3bb6b7" category="paragraph">다중 경로 지정 및 여러 경로에 걸친 장애 조치의 경우 NetApp iSCSI 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 두는 것을 권장합니다.</block>
   <block id="753ad49162ca6621affe67bf28ce6a1e" category="inline-link-macro">LIF(네트워크 인터페이스) 생성</block>
-  <block id="e431b828d2ebd2bcb7d98edc5b0d3240" category="paragraph">이 문서에서는 새로운 SVM을 생성하고 iSCSI 트래픽에 대한 여러 LIF를 생성하기 위해 IP 주소 정보를 지정하는 프로세스를 보여줍니다.  기존 SVM에 새로운 LIF를 추가하려면 다음을 참조하세요.<block ref="ea8d663b2747339ef53e044e31dd9c10" category="inline-link-macro-rx"></block> .</block>
   <block id="6fe85aae6e8fa231a1f417edfeef3759" category="inline-link-macro">vSphere VMFS 데이터스토어 - ONTAP 사용한 iSCSI 스토리지 백엔드</block>
-  <block id="b20d2263e4a476d4792b42cc14e07ec7" category="paragraph">VMware에서 VMFS iSCSI 데이터 저장소를 사용하는 것에 대한 추가 정보는 다음을 참조하세요.<block ref="5d8a8c4ba224a813012b781b73721d8b" category="inline-link-macro-rx"></block> .</block>
-  <block id="bf1c83b2f4ba225f2ff2681026f9e942" category="inline-link-macro">ESX/ESXi에서 소프트웨어 iSCSI 포트 바인딩을 사용하기 위한 고려 사항(2038869)</block>
-  <block id="4a24cfd72410eb2b3df2011d8d6914de" category="admonition">동일한 IP 네트워크에 여러 VMkernel 어댑터가 구성된 상황에서는 ESXi 호스트에서 소프트웨어 iSCSI 포트 바인딩을 사용하여 어댑터 전체에 걸친 부하 분산이 이루어지도록 하는 것이 좋습니다.  KB 문서를 참조하세요<block ref="f5c80607ffd9b212982a1150a2719a75" category="inline-link-macro-rx"></block> .</block>
-  <block id="47ce606484ac7cf900bd169ebbf43bb0" category="paragraph">다음 단계는 ONTAP 시스템 관리자에서 수행됩니다.</block>
-  <block id="dd89dbb738472ad058b6c0c6d771695f" category="paragraph">iSCSI 트래픽을 위한 여러 LIF와 함께 SVM을 생성하려면 다음 단계를 완료하세요.</block>
-  <block id="0397ab4246a13f4c366341987150e4b6" category="list-text">*스토리지 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *iSCSI* 탭을 클릭하고 *iSCSI 사용* 확인란을 선택합니다.</block>
   <block id="c253f656831a3a2b78357dcf174aa9ee" category="inline-image-macro">스토리지 VM 마법사 추가 - iSCSI 활성화</block>
   <block id="260b40fc5f74b8f2163cdc8d4d411d6a" category="paragraph"><block ref="260b40fc5f74b8f2163cdc8d4d411d6a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a7ce9450ac3e26c2cfc577b3bfb4e6c2" category="admonition">다중 경로 지정 및 여러 경로에 걸친 장애 조치의 경우 NetApp iSCSI 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 두는 것을 권장합니다.</block>
   <block id="1cc3fea85545b4619ed3684180eb7abc" category="paragraph"><block ref="1cc3fea85545b4619ed3684180eb7abc" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="399bf9cc9a7e189bbada52daca2a3ff1" category="section-title">ESXi 호스트에서 iSCSI에 대한 네트워킹 설정</block>
-  <block id="f1034a0e0adcd697a14a33aeaa8d76e3" category="paragraph">다음 단계는 vSphere 클라이언트를 사용하여 VCF 관리 도메인 클러스터에서 수행됩니다.</block>
-  <block id="250fbff7439e4b0003b750f815c488c5" category="example-title">iSCSI 트래픽을 위한 분산 포트 그룹 생성</block>
-  <block id="9bc8445e8e7576b744f8a26ebcdd82ba" category="paragraph">각 iSCSI 네트워크에 대한 새로운 분산 포트 그룹을 생성하려면 다음을 완료하세요.</block>
-  <block id="4fb2703422cae1899d0395c32e8b6de1" category="list-text">관리 도메인 클러스터의 vSphere 클라이언트에서 *인벤토리 &gt; 네트워킹*으로 이동합니다.  기존 분산 스위치로 이동하여 *새 분산 포트 그룹...*을 만드는 작업을 선택합니다.</block>
-  <block id="ec75003b0a051f80f8c6b36c86622639" category="paragraph"><block ref="ec75003b0a051f80f8c6b36c86622639" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="833e06b97ab3499c1442e14cc541cf26" category="paragraph"><block ref="833e06b97ab3499c1442e14cc541cf26" category="inline-image-macro-rx" type="image"></block></block>
   <block id="52506beb63aab278b57ef11c81fd088a" category="list-text">두 번째 iSCSI 네트워크에 사용되는 분산 포트 그룹을 생성하려면 이 프로세스를 반복하고 올바른 *VLAN ID*를 입력했는지 확인하세요.</block>
   <block id="c7b0037c6f3efb767357cf4d2e211bf2" category="list-text">두 포트 그룹이 모두 생성되면 첫 번째 포트 그룹으로 이동하여 *설정 편집...* 작업을 선택합니다.</block>
-  <block id="c464e320c45f4fd80b0d7fa551c77522" category="paragraph"><block ref="c464e320c45f4fd80b0d7fa551c77522" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9e7134182773e4d3ad2c0c477f46eff7" category="list-text">*분산 포트 그룹 - 설정 편집* 페이지에서 왼쪽 메뉴의 *팀 구성 및 장애 조치*로 이동한 다음 *업링크2*를 클릭하여 *사용하지 않는 업링크*로 이동합니다.</block>
   <block id="ce496791d8c9cf2df9f2972f01ed445c" category="inline-image-macro">uplink2를 사용하지 않는 곳으로 이동</block>
-  <block id="e5af48e496bb3bd9d67c1e513c6cc159" category="paragraph"><block ref="e5af48e496bb3bd9d67c1e513c6cc159" category="inline-image-macro-rx" type="image"></block></block>
   <block id="2cf059cd7ab68b76ae33e25499ef4254" category="list-text">두 번째 iSCSI 포트 그룹에 대해서도 이 단계를 반복합니다.  하지만 이번에는 *uplink1*을 *사용하지 않는 업링크*로 옮깁니다.</block>
   <block id="02f66f9f960e3441541c39583b1778e8" category="inline-image-macro">uplink1을 사용하지 않는 곳으로 이동</block>
-  <block id="8e6f72a2965b35852781f47e6be388eb" category="paragraph"><block ref="8e6f72a2965b35852781f47e6be388eb" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="87eb9c3eaebb02a00fd9170915c216bd" category="example-title">각 ESXi 호스트에 VMkernel 어댑터를 만듭니다.</block>
-  <block id="28aa53e99224863cfb47431b210aa779" category="paragraph">관리 도메인의 각 ESXi 호스트에서 이 프로세스를 반복합니다.</block>
-  <block id="348cd4ca11f40595cdd13e97f53ddc8b" category="list-text">vSphere 클라이언트에서 관리 도메인 인벤토리에 있는 ESXi 호스트 중 하나로 이동합니다.  *구성* 탭에서 *VMkernel 어댑터*를 선택하고 *네트워킹 추가...*를 클릭하여 시작합니다.</block>
-  <block id="f60bb5e31a1e6090d19b27b3238bc789" category="paragraph"><block ref="f60bb5e31a1e6090d19b27b3238bc789" category="inline-image-macro-rx" type="image"></block></block>
   <block id="5c8178e61983fbffcea76cbe27f605d0" category="list-text">*대상 장치 선택* 페이지에서 이전에 생성한 iSCSI용 분산 포트 그룹 중 하나를 선택합니다.</block>
-  <block id="c99adf9308854b5e99419b1e32be8840" category="paragraph"><block ref="c99adf9308854b5e99419b1e32be8840" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ce6520286b2356c765c2a6122fa85d57" category="list-text">*포트 속성* 페이지에서 기본값을 유지하고 *다음*을 클릭하여 계속합니다.</block>
   <block id="651d0e0694075918301d2c251e0d4435" category="inline-image-macro">VMkernel 포트 속성</block>
-  <block id="b18cb9b467f575406c31a47ade767c31" category="paragraph"><block ref="b18cb9b467f575406c31a47ade767c31" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="7254b4c586bc861671ace3f06664e9cf" category="paragraph"><block ref="7254b4c586bc861671ace3f06664e9cf" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="1f3caf467f08449ff48930b2a04c9bb5" category="paragraph"><block ref="1f3caf467f08449ff48930b2a04c9bb5" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6b699f5c7dbc44d7624bc8851ade6925" category="list-text">두 번째 iSCSI 네트워크에 대한 VMkernel 어댑터를 생성하려면 이 과정을 반복합니다.</block>
-  <block id="32e66c8f48d6cd3e72fd9bc47d1653b6" category="section-title">ONTAP 도구를 배포하고 사용하여 스토리지 구성</block>
-  <block id="d0a3a5f0d2a183f278adc1cedfb10363" category="paragraph">다음 단계는 vSphere 클라이언트를 사용하여 VCF 관리 도메인 클러스터에서 수행되며 여기에는 OTV 배포, VMFS iSCSI 데이터 저장소 생성, 관리 VM을 새 데이터 저장소로 마이그레이션하는 작업이 포함됩니다.</block>
   <block id="54b98b7fdf167272ca9441f0c9a03632" category="paragraph">ONTAP tools for VMware vSphere VM 어플라이언스로 배포되며 ONTAP 스토리지를 관리하기 위한 통합 vCenter UI를 제공합니다.</block>
   <block id="761d6de2eb49ac1bc8c002149dba9d6e" category="list-text">ONTAP 도구 OVA 이미지를 가져옵니다.<block ref="19383bb1e197833ea114614ea4b0992b" category="inline-link-macro-rx"></block> 로컬 폴더로 다운로드합니다.</block>
   <block id="c0c3bb0dafadc093a48cffa2c0db0f2c" category="list-text">VCF 관리 도메인의 vCenter 어플라이언스에 로그인합니다.</block>
@@ -5074,42 +5025,22 @@
   <block id="72123732ba7e10b992a8ac60efd5c813" category="list-text">구성 및 디스크 파일의 저장 위치로 VCF 관리 도메인 클러스터의 vSAN 데이터 저장소를 선택합니다.</block>
   <block id="10e9f490e929bccd459cd71b0f18b351" category="paragraph"><block ref="10e9f490e929bccd459cd71b0f18b351" category="inline-image-macro-rx" type="image"></block></block>
   <block id="d24ab590b14577cbc4f7d310c9c2cb5e" category="paragraph"><block ref="d24ab590b14577cbc4f7d310c9c2cb5e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3e01a06be21fdcdb3fe9838d8138c96a" category="list-text">OTV에 대한 관리 액세스에 사용되는 비밀번호입니다.</block>
   <block id="2811b68da7b88dcafbec9896940ec714" category="list-text">NTP 서버 IP 주소.</block>
-  <block id="d1ed9c55dbe26b03997367ebb336c19f" category="list-text">OTV 유지관리 계정 비밀번호.</block>
-  <block id="187b1ea33db4c83ee4a8d373eec4822a" category="list-text">OTV 더비 DB 비밀번호.</block>
   <block id="3b50ba8962ddee5eede6172f0f0c9f1e" category="list-text">*VMware Cloud Foundation(VCF) 활성화* 상자를 선택하지 마세요.  보조 저장 장치를 배포하는 데 VCF 모드는 필요하지 않습니다.</block>
-  <block id="796cb8601e0114b42203886a02c7d7e5" category="list-text">vCenter 어플라이언스의 FQDN 또는 IP 주소를 입력하고 vCenter에 대한 자격 증명을 제공합니다.</block>
   <block id="b4625682195ed34b645c4d3e61eb2359" category="paragraph"><block ref="b4625682195ed34b645c4d3e61eb2359" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="54e9f00554d94291f004db8495095970" category="paragraph"><block ref="54e9f00554d94291f004db8495095970" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="30f4374fdac79deb95171ddca35b1bf9" category="list-text">완료 준비 페이지에서 모든 정보를 검토하고 마침을 클릭하여 OTV 어플라이언스 배포를 시작합니다.</block>
-  <block id="561b3d1657b80fe0075692f56d991309" category="example-title">OTV를 사용하여 관리 도메인에 VMFS iSCSI 데이터 저장소 구성</block>
-  <block id="27aa9096645992ebab2353138672a5de" category="paragraph">OTV를 사용하여 관리 도메인의 보조 저장소로 VMFS iSCSI 데이터 저장소를 구성하려면 다음을 완료하세요.</block>
-  <block id="ed8e715fdc4faf96c2ca6173630ab303" category="list-text">vSphere 클라이언트에서 주 메뉴로 이동하여 * NetApp ONTAP 도구*를 선택합니다.</block>
-  <block id="d851a8ecd8cd77aadf3b8afb0eeb2c8f" category="inline-image-macro">ONTAP 도구로 이동</block>
-  <block id="b72459a61b6d1628179c3577366aa365" category="paragraph"><block ref="b72459a61b6d1628179c3577366aa365" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="231a2ef956890d1204a1bbef2955bc82" category="list-text">* ONTAP 도구*의 시작 페이지(또는 *스토리지 시스템*)에서 *추가*를 클릭하여 새 스토리지 시스템을 추가합니다.</block>
   <block id="849807c461766e9df2e3b28bb10e98c1" category="paragraph"><block ref="849807c461766e9df2e3b28bb10e98c1" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3ca6bfa30c9f46872d6208cbe24395de" category="list-text">ONTAP 스토리지 시스템의 IP 주소와 자격 증명을 제공하고 *추가*를 클릭합니다.</block>
   <block id="af7c977676da9209c26d47cf9eaa8672" category="inline-image-macro">ONTAP 시스템의 IP 및 자격 증명 제공</block>
   <block id="a31a08c5d1e3221499aff83f4f8c42a2" category="paragraph"><block ref="a31a08c5d1e3221499aff83f4f8c42a2" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f94bda743f0e22fb9dfc87a2dc0cc8c4" category="list-text">*예*를 클릭하여 클러스터 인증서를 인증하고 스토리지 시스템을 추가합니다.</block>
   <block id="959f1c9e9e60bedf6f9990ccaa49007d" category="inline-image-macro">클러스터 인증서 승인</block>
   <block id="d6b047827ffcf867f584d10a7dad349e" category="paragraph"><block ref="d6b047827ffcf867f584d10a7dad349e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6a9abdf0de7f27fa3ec1492c07ff36a3" category="example-title">관리 VM을 iSCSI 데이터 저장소로 마이그레이션</block>
-  <block id="25acb2ac88a55a1a1a91dbc0e5896077" category="paragraph">VCF 관리 VM을 보호하기 위해 ONTAP 스토리지를 사용하는 것이 선호되는 경우 vMotion을 사용하여 VM을 새로 생성된 iSCSI 데이터스토어로 마이그레이션할 수 있습니다.</block>
-  <block id="39d71c22e552d00cf52521453f5bab80" category="paragraph">VCF 관리 VM을 iSCSI 데이터 저장소로 마이그레이션하려면 다음 단계를 완료하세요.</block>
-  <block id="594645cd3f384fbd02c065cef16d0eed" category="list-text">vSphere Client에서 관리 도메인 클러스터로 이동하여 *VM* 탭을 클릭합니다.</block>
   <block id="523bd0371401a4679bd05a08ab0f8c00" category="list-text">iSCSI 데이터 저장소로 마이그레이션할 VM을 선택하고 마우스 오른쪽 버튼을 클릭한 후 *마이그레이션..*을 선택합니다.</block>
   <block id="5213ea3316b3aafd4594692a279786d8" category="inline-image-macro">마이그레이션할 VM 선택</block>
   <block id="8f9423ccb55436993972948a3cd45eea" category="paragraph"><block ref="8f9423ccb55436993972948a3cd45eea" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a662f87efce89e9632ab74fe200fadeb" category="list-text">*가상 머신 - 마이그레이션* 마법사에서 마이그레이션 유형으로 *저장소만 변경*을 선택하고 *다음*을 클릭하여 계속합니다.</block>
   <block id="9382bafb96263525df7fcc7cd57254e4" category="inline-image-macro">마이그레이션 유형을 선택하세요</block>
   <block id="12d3f839a06108f7a65e9f31e9f77d4f" category="paragraph"><block ref="12d3f839a06108f7a65e9f31e9f77d4f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="15b83b98dbaaeaee7d012ad0278e7b45" category="list-text">*저장소 선택* 페이지에서 iSCSi 데이터 저장소를 선택하고 *다음*을 선택하여 계속합니다.</block>
   <block id="a93698ceb3cc7f2a9d34bc47c51af1c3" category="inline-image-macro">대상 데이터 저장소 선택</block>
   <block id="b426cb9b5c45794e21f75326b15ec145" category="paragraph"><block ref="b426cb9b5c45794e21f75326b15ec145" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="2a35d960f5430e1a3e1b72e3b41e0a02" category="list-text">선택 사항을 검토하고 *마침*을 클릭하여 마이그레이션을 시작합니다.</block>
   <block id="3b0680cb60afc737eb8e0a472893a41a" category="list-text">이전 상태는 *최근 작업* 창에서 볼 수 있습니다.</block>
   <block id="e6fe88cc8fc038a9cd996fe90954f81c" category="inline-image-macro">vSphere 클라이언트 최근 작업 창</block>
   <block id="23c971c02c1c9abc13d19a76a9fb9a19" category="paragraph"><block ref="23c971c02c1c9abc13d19a76a9fb9a19" category="inline-image-macro-rx" type="image"></block></block>
@@ -5710,19 +5641,9 @@
   <block id="521a0863a481c4915e2b701a78503d49" category="list-text">프로세스를 모니터링하고 프로세스 중에 발생하는 모든 검증 문제를 해결합니다.</block>
   <block id="8345f1be1d5abaaf5feefa8bf0b5508d" category="paragraph">VMware VAAI용 NetApp NFS 플러그인은 ESXi 호스트에 설치된 VMware Virtual Disk Libraries를 통합하고 더 빠르게 완료되는 고성능 복제 작업을 제공합니다.  이는 VMware vSphere와 함께 ONTAP 스토리지 시스템을 사용할 때 권장되는 절차입니다.</block>
   <block id="a6f8fe1106195aff1db9c74c853e136b" category="paragraph">VMware VAAI용 NetApp NFS 플러그인을 배포하는 방법에 대한 단계별 지침은 다음 지침을 참조하세요.<block ref="c253aa55dacb4aa32fd2aaf59d3dd38d" category="inline-link-macro-rx"></block> .</block>
-  <block id="4bf91090c87e403568532524086e182d" category="doc">VI 워크로드 도메인에 보조 스토리지로 FC 기반 VMFS 데이터 저장소 추가</block>
   <block id="aedad572ddb315806612b11aae85b49f" category="paragraph">이 사용 사례에서는 VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에 대한 보조 스토리지로 파이버 채널(FC)을 사용하여 VMFS 데이터 저장소를 구성하는 절차를 설명합니다.  이 절차에서는 VMware vSphere용 ONTAP 도구 배포, VI 워크로드 vCenter 서버 등록, 스토리지 백엔드 정의, FC 데이터스토어 프로비저닝을 요약합니다.</block>
-  <block id="24f3c0bdaff194fd230e2d6a08c6feb1" category="doc">ONTAP tools for VMware vSphere 사용하여 VI 워크로드 도메인에 보조 스토리지로 vVols 추가</block>
-  <block id="b114d3285afc0afce41e3a8f99afb7f2" category="paragraph">이 사용 사례에서는 VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인의 보조 스토리지를 위해 iSCSI를 사용하여 vVols 데이터 저장소를 구성하는 절차를 설명합니다.  이 절차에서는 iSCSI 네트워킹 설정, VMware vSphere용 ONTAP 도구 배포, vVols 데이터 저장소 프로비저닝을 요약합니다.</block>
-  <block id="6819904c812b5563e5ee3accae1d2424" category="paragraph">*iSCSI*는 vVols 데이터 저장소의 저장 프로토콜로 사용됩니다.</block>
-  <block id="b5be24af1f669ebbe987e1d1eb319fa9" category="list-text">VI 워크로드 도메인에서 iSCSI 네트워크에 대한 분산 포트 그룹을 생성합니다.</block>
-  <block id="4f77331a740016465eba8eb9373e83c6" category="list-text">VI 워크로드 도메인의 ESXi 호스트에서 iSCSI용 vmkernel 어댑터를 생성합니다.</block>
-  <block id="2832693ce9f0e3a533143ba510d9e552" category="list-text">VI 워크로드 도메인에 ONTAP 도구를 배포합니다.</block>
-  <block id="d5792b219408b94b8c5931a52e6c4410" category="list-text">VI 워크로드 도메인에 새로운 vVols 데이터 저장소를 만듭니다.</block>
   <block id="28110a27762d5b643ed15b39e757da0c" category="inline-image-macro">NVMe-tcp 네트워크 설계</block>
   <block id="4554a121a1f185cba27502ad66d6037d" category="paragraph"><block ref="4554a121a1f185cba27502ad66d6037d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="e50f55277df464f052b40ee2e63bafc3" category="paragraph">ONTAP 도구를 배포하고 이를 사용하여 VCF 관리 도메인에 vVols 데이터 저장소를 생성하려면 다음 단계를 완료하세요.</block>
-  <block id="e1be82dc50a7cac2157d550e35b52569" category="list-text">*스토리지 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *iSCSI* 탭을 클릭하고 *iSCSI 사용* 확인란을 선택합니다.</block>
   <block id="30f9d1d2d7a23d9392b5e075e9925393" category="paragraph"><block ref="30f9d1d2d7a23d9392b5e075e9925393" category="inline-image-macro-rx" type="image"></block></block>
   <block id="367681cc0086a3c2465235214394bd54" category="paragraph"><block ref="367681cc0086a3c2465235214394bd54" category="inline-image-macro-rx" type="image"></block></block>
   <block id="902df55a57412b1a9588c1556fd63fae" category="paragraph"><block ref="902df55a57412b1a9588c1556fd63fae" category="inline-image-macro-rx" type="image"></block></block>
@@ -5732,195 +5653,74 @@
   <block id="9d73aa377fd13d861eabc5825d4f1e7e" category="paragraph"><block ref="9d73aa377fd13d861eabc5825d4f1e7e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="05d9ede00ef34447ec264ea6a5b67482" category="paragraph"><block ref="05d9ede00ef34447ec264ea6a5b67482" category="inline-image-macro-rx" type="image"></block></block>
   <block id="c2de37472d61bdc710123801fbd13340" category="paragraph"><block ref="c2de37472d61bdc710123801fbd13340" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c68e4e47959329dd98b712cc6c32f065" category="paragraph">다음 단계는 vSphere 클라이언트를 사용하여 VCF 관리 도메인 클러스터에서 수행되며 ONTAP 도구 배포, vVols iSCSI 데이터 저장소 생성, 관리 VM을 새 데이터 저장소로 마이그레이션하는 작업을 포함합니다.</block>
-  <block id="77863c80f12904762aa9c9c1969f84b0" category="paragraph">VI 워크로드 도메인의 경우 ONTAP 도구는 VCF 관리 클러스터에 설치되지만 VI 워크로드 도메인과 연결된 vCenter에 등록됩니다.</block>
-  <block id="415331dd04beeabf95c76adf6d78d369" category="inline-link-macro">여러 vCenter Server 환경에서 ONTAP 도구를 등록하기 위한 요구 사항</block>
-  <block id="cd73dc0500630d023ed88620e13d3b9a" category="paragraph">여러 vCenter 환경에서 ONTAP 도구를 배포하고 사용하는 것에 대한 추가 정보는 다음을 참조하세요.<block ref="8d145519609f3537544147b3e41a34c0" category="inline-link-macro-rx"></block> .</block>
   <block id="adc3f00015306bc47839fa70a861fe88" category="paragraph">ONTAP tools for VMware vSphere VM 어플라이언스로 배포되며 ONTAP 스토리지를 관리하기 위한 통합 vCenter UI를 제공합니다.</block>
-  <block id="126a32aec35f36a6e7b3ff5c57dea284" category="list-text">ONTAP 도구에 대한 관리 액세스에 사용되는 비밀번호입니다.</block>
-  <block id="e14b4ee1fc801cdacfb397f646d41a82" category="list-text">ONTAP 도구 유지 관리 계정 비밀번호.</block>
-  <block id="a8ad7f4a533768cf38ea550b218518a9" category="list-text">ONTAP 도구 Derby DB 비밀번호.</block>
   <block id="6aad212d9a63b3c65bdddf1aac2fd97c" category="list-text">*VI 워크로드 도메인*에 대한 vCenter 어플라이언스의 FQDN 또는 IP 주소</block>
   <block id="249065b94ede8b5b3b6b7acb148bbca3" category="list-text">*VI 워크로드 도메인*의 vCenter 어플라이언스에 대한 자격 증명</block>
   <block id="fa2d713c8de43467fc05de7670f93994" category="paragraph"><block ref="fa2d713c8de43467fc05de7670f93994" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="bb014fb3e6cf4fe09f32ec359a50b7b7" category="list-text">완료 준비 페이지에서 모든 정보를 검토하고 마침을 클릭하여 ONTAP 도구 어플라이언스 배포를 시작합니다.</block>
-  <block id="832b76d7ab7ad3b5c0b2af0a956c640e" category="example-title">ONTAP 도구에 스토리지 시스템을 추가합니다.</block>
-  <block id="d5f4909f277ae787c61e9f3dee2ab532" category="list-text">vSphere 클라이언트의 기본 메뉴에서 NetApp ONTAP 도구를 선택하여 액세스합니다.</block>
-  <block id="2d850ea1ba10f3076d0b3b06385a53bb" category="inline-image-macro">NetApp ONTAP 도구</block>
-  <block id="67057f05c51d0e9fda8b340062b00575" category="paragraph"><block ref="67057f05c51d0e9fda8b340062b00575" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a3951ba584f9d0b3372f555ba4545570" category="list-text">ONTAP 도구 인터페이스의 *인스턴스* 드롭다운 메뉴에서 관리할 워크로드 도메인과 연결된 ONTAP 도구 인스턴스를 선택합니다.</block>
-  <block id="9deba97306600752ad2c137610d5e044" category="inline-image-macro">OTV 인스턴스를 선택하세요</block>
-  <block id="16d4763d6f17a99030f8cc522a84e6ba" category="paragraph"><block ref="16d4763d6f17a99030f8cc522a84e6ba" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3b3e3f87686d9d629e8cd1f2b8816101" category="list-text">ONTAP 도구의 왼쪽 메뉴에서 *스토리지 시스템*을 선택한 다음 *추가*를 누릅니다.</block>
-  <block id="c076cc69f5ab47eff67455a027c169b9" category="paragraph"><block ref="c076cc69f5ab47eff67455a027c169b9" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f8adfbadb1a69154007f8504337443be" category="list-text">IP 주소, 저장 시스템의 자격 증명, 포트 번호를 입력하세요.  *추가*를 클릭하여 검색 프로세스를 시작하세요.</block>
   <block id="787d250b4622b9b1f34f52b01f5768aa" category="inline-link">스토리지 시스템 추가</block>
-  <block id="a3337b9974f5017a6073bd11ee6195a9" category="admonition">vVol에는 SVM 자격 증명이 아닌 ONTAP 클러스터 자격 증명이 필요합니다.  자세한 내용은 다음을 참조하세요.<block ref="7b797fe97b31f4c00e44d1f8444ce45e" category="inline-link-rx"></block> ONTAP 도구 설명서에서.</block>
-  <block id="6abb276fcd1c6f2ef72478218ef9a54c" category="paragraph"><block ref="6abb276fcd1c6f2ef72478218ef9a54c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="038529c38a2ed7358a9b88e3384f2cc6" category="example-title">ONTAP 도구에서 스토리지 기능 프로필 만들기</block>
   <block id="7b9a619b28cb1964e66e04824efbc7f8" category="paragraph">저장 기능 프로필은 저장 어레이 또는 저장 시스템이 제공하는 기능을 설명합니다.  여기에는 서비스 품질 정의가 포함되며 프로필에 정의된 매개변수를 충족하는 스토리지 시스템을 선택하는 데 사용됩니다.  제공된 프로필 중 하나를 사용하거나 새로운 프로필을 만들 수 있습니다.</block>
-  <block id="4e5c2e3794b2111528e663582db055e9" category="paragraph">ONTAP 도구에서 저장 기능 프로필을 생성하려면 다음 단계를 완료하세요.</block>
-  <block id="c45581e92a59ba153cb306ad14499b04" category="list-text">ONTAP 도구의 왼쪽 메뉴에서 *저장 기능 프로필*을 선택한 다음 *만들기*를 누릅니다.</block>
   <block id="5671a8cbfb87337b09f7c0b3f03c48ec" category="inline-image-macro">저장 용량 프로필</block>
   <block id="063fc02c9a3a161c04ca5b2e5c9e15cf" category="paragraph"><block ref="063fc02c9a3a161c04ca5b2e5c9e15cf" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="4b012b40badfec60adbdef906900b4cf" category="list-text">*저장소 기능 프로필 만들기* 마법사에서 프로필의 이름과 설명을 입력하고 *다음*을 클릭합니다.</block>
   <block id="069aa512244afec15b9a9f17b278f68b" category="inline-image-macro">SCP에 이름 추가</block>
   <block id="56186e0c77135d9094b78487000f1b37" category="paragraph"><block ref="56186e0c77135d9094b78487000f1b37" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ba6a510873306304c379b876b552c9c0" category="list-text">플랫폼 유형을 선택하고 스토리지 시스템이 All-Flash SAN 어레이가 되도록 지정하려면 *비대칭*을 false로 설정합니다.</block>
   <block id="12ae59328b3a45d4229e256c0ce1c608" category="inline-image-macro">SCP 플랫폼</block>
   <block id="26b833c649ba4d9b0e89f13ebaeb4170" category="paragraph"><block ref="26b833c649ba4d9b0e89f13ebaeb4170" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="4f1e1765e4715bba3e1ca66ec8ab0df5" category="list-text">다음으로, 프로토콜을 선택하거나 *모든* 프로토콜을 허용합니다. 계속하려면 *다음*을 클릭하세요.</block>
   <block id="cc4291590d0523c4137086227ea5ec07" category="inline-image-macro">SCP 프로토콜</block>
   <block id="cb15dc119286b7066a11ac4ba985e63b" category="paragraph"><block ref="cb15dc119286b7066a11ac4ba985e63b" category="inline-image-macro-rx" type="image"></block></block>
   <block id="4138e7b56f475eb2dfa9fe79922b60e1" category="list-text">*성능* 페이지에서는 허용되는 최소 및 최대 IOP 형태로 서비스 품질을 설정할 수 있습니다.</block>
   <block id="93b5dfc333754dd947693471f8293acc" category="inline-image-macro">SCP에 대한 QoS</block>
   <block id="d0be329fbe578d7de473334718ec4b8b" category="paragraph"><block ref="d0be329fbe578d7de473334718ec4b8b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="34596ead953ef7fb5d62f68e116a4ce3" category="list-text">필요에 따라 스토리지 효율성, 공간 예약, 암호화 및 계층화 정책을 선택하여 *스토리지 속성* 페이지를 완성합니다.</block>
   <block id="c4e4c47ba78659d618a07d39548a1879" category="inline-image-macro">SCP의 속성</block>
   <block id="7d34919404bbe4a086f64b8d9886b5aa" category="paragraph"><block ref="7d34919404bbe4a086f64b8d9886b5aa" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d71e4b14e1f43b180cef205a454a167b" category="list-text">마지막으로 요약을 검토하고 '마침'을 클릭하여 프로필을 만듭니다.</block>
   <block id="6944ea0c5596a5b67b5c6148f4a8b9b6" category="inline-image-macro">SCP 요약</block>
   <block id="4326eebe37eae5b454172ccf40cd4214" category="paragraph"><block ref="4326eebe37eae5b454172ccf40cd4214" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9587808585ba699701aa03bb076f6526" category="example-title">ONTAP 도구에서 vVols 데이터 저장소 만들기</block>
-  <block id="daab724e818dde93567ba19b476997fa" category="paragraph">ONTAP 도구에서 vVols 데이터 저장소를 생성하려면 다음 단계를 완료하세요.</block>
-  <block id="9d267f04429d3918125908adfcd20fda" category="list-text">ONTAP 도구에서 *개요*를 선택하고 *시작하기* 탭에서 *프로비저닝*을 클릭하여 마법사를 시작합니다.</block>
   <block id="1f6f809e91a1dddbea9dc3be70617c6f" category="inline-image-macro">데이터 저장소 제공</block>
   <block id="c3cf8b65076cc7890e48f4cb30d51fe7" category="paragraph"><block ref="c3cf8b65076cc7890e48f4cb30d51fe7" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="568e4dd75e163d48ac46054c5cdf3c36" category="list-text">새 데이터 저장소 마법사의 *일반* 페이지에서 vSphere 데이터 센터 또는 클러스터 대상을 선택합니다.  데이터 저장소 유형으로 * vVols*를 선택하고, 데이터 저장소의 이름을 입력하고, 프로토콜로 *iSCSI*를 선택합니다. 계속하려면 *다음*을 클릭하세요.</block>
   <block id="75ad77f4d0c941bb456f644f4918e260" category="inline-image-macro">일반 페이지</block>
   <block id="ace995243ccff93d662e528954ac7f07" category="paragraph"><block ref="ace995243ccff93d662e528954ac7f07" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="090d00cbb454237bf791d16aa0e9e134" category="list-text">*스토리지 시스템* 페이지에서 스토리지 용량 프로필, 스토리지 시스템 및 SVM을 선택합니다. 계속하려면 *다음*을 클릭하세요.</block>
   <block id="f31303ddb8ada38aed08c2bb8f9d8e6c" category="inline-image-macro">저장 시스템</block>
   <block id="fae23b34e5fda15c34db989e3364193d" category="paragraph"><block ref="fae23b34e5fda15c34db989e3364193d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="411d8326dfe10ae9eb2097abefc2abff" category="list-text">*저장소 속성* 페이지에서 데이터 저장소에 대한 새 볼륨을 생성하도록 선택하고 생성할 볼륨의 저장소 속성을 입력합니다.  *추가*를 클릭하여 볼륨을 생성한 다음 *다음*을 클릭하여 계속합니다.</block>
   <block id="03804e006add62cab43571db2a148f6e" category="inline-image-macro">저장 속성</block>
   <block id="3dca088169d5dcc397d6947fdfa7b3aa" category="paragraph"><block ref="3dca088169d5dcc397d6947fdfa7b3aa" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="80859b3ea74c1d68f3b10cf0ad40cf47" category="list-text">마지막으로 요약을 검토하고 *마침*을 클릭하여 vVol 데이터 저장소 생성 프로세스를 시작합니다.</block>
   <block id="ee477cfabbf34f90bf2dbd1c73038b89" category="paragraph"><block ref="ee477cfabbf34f90bf2dbd1c73038b89" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="0df48665d6ff85e2491ee8f068e8077b" category="doc">ONTAP tools for VMware vSphere 사용하여 VI 워크로드 도메인에 보충 스토리지로 NFS 및 vVols 추가</block>
-  <block id="8b629031d738cfce9116a57c0041f144" category="paragraph">이 사용 사례에서는 ONTAP Tools for VMware를 사용하여 VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에 대한 보조 스토리지로 NFS 및 vVols 데이터 저장소를 추가하는 절차를 설명합니다.  이 절차에서는 VMware vSphere에 ONTAP 도구를 배포하고, NFS 논리 인터페이스를 사용하여 SVM(스토리지 가상 머신)을 구성하고, NFS 및 vVols 데이터 저장소를 프로비저닝하는 방법을 요약합니다.</block>
-  <block id="6e635fefd68ad40f25697a8d284caf4c" category="paragraph">*NFS*는 vVols 데이터 저장소의 저장 프로토콜로 사용됩니다.</block>
   <block id="73b47b7392257675929da26d544a618e" category="paragraph">자세한 내용은 다음을 참조하세요. <block ref="8bcddf5cc48a7b2cdad161474ea426d2" category="inline-link-macro-rx"></block> .</block>
-  <block id="737f26ed93880e456b50da2523531cf4" category="list-text">VI 워크로드 도메인에서 NFS 네트워크에 대한 분산 포트 그룹을 만듭니다.</block>
-  <block id="2178074243563bc9003b3a4b7acf7315" category="list-text">VI 워크로드 도메인의 ESXi 호스트에서 NFS용 vmkernel 어댑터를 생성합니다.</block>
-  <block id="5add656ee5621528a12864b61fed2068" category="list-text">VI 워크로드 도메인에 새로운 NFS 데이터 저장소를 만듭니다.</block>
-  <block id="d18d19c5112ffd5224cdc9df77154e59" category="list-text">스토리지 트래픽에 전용된 이더넷 스위치의 물리적 데이터 포트를 갖춘 ONTAP AFF 또는 FAS 스토리지 시스템입니다.</block>
   <block id="7a9bab4bf37e7af82aa573a2c960be02" category="paragraph">이 문서에서는 새로운 SVM을 생성하고 NFS 트래픽에 대한 여러 LIF를 생성하기 위해 IP 주소 정보를 지정하는 프로세스를 보여줍니다.  기존 SVM에 새로운 LIF를 추가하려면 다음을 참조하세요.<block ref="ea8d663b2747339ef53e044e31dd9c10" category="inline-link-macro-rx"></block> .</block>
   <block id="b27b807739bbc4949376f771ecb4fa71" category="paragraph">vSphere 클러스터에서 NFS를 사용하는 것에 대한 전체 정보는 다음을 참조하십시오.<block ref="8bcddf5cc48a7b2cdad161474ea426d2" category="inline-link-macro-rx"></block> .</block>
-  <block id="a9a6679a790e8c2809ee11d37d73d2f6" category="paragraph">ONTAP 도구를 배포하고 이를 사용하여 VCF 관리 도메인에 vVols 및 NFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.</block>
-  <block id="dcadf439045c5377c9b792766afb6f25" category="admonition">여기에서는 *NFS 클라이언트 액세스 허용* 버튼을 선택할 필요가 없습니다. VMware vSphere용 Ontap Tools를 사용하여 데이터 저장소 배포 프로세스를 자동화합니다.  여기에는 ESXi 호스트에 대한 클라이언트 액세스를 제공하는 것이 포함됩니다.  &amp;#160;</block>
-  <block id="4ad7ba867206766725b3ee220c765a50" category="list-text">*분산 포트 그룹 - 설정 편집* 페이지에서 왼쪽 메뉴의 *팀 구성 및 장애 조치*로 이동합니다.  NFS 트래픽에 사용할 업링크의 티밍을 활성화하려면 *활성 업링크* 영역에 함께 있어야 합니다.  사용하지 않는 업링크를 *사용하지 않는 업링크*로 옮깁니다.</block>
-  <block id="0a21973e257d4e9c9ee2361b4cd0d422" category="paragraph"><block ref="0a21973e257d4e9c9ee2361b4cd0d422" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="15de248f937a7a38ff74b56cd89c2ce7" category="paragraph"><block ref="15de248f937a7a38ff74b56cd89c2ce7" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="71968f6321b97a99916c70fc4666de3d" category="paragraph"><block ref="71968f6321b97a99916c70fc4666de3d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="8819f41a6e57c81d8f8d919ce502227b" category="paragraph"><block ref="8819f41a6e57c81d8f8d919ce502227b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="19791a45d0badc3911f3cc44930c3a29" category="paragraph">다음 단계는 vSphere 클라이언트를 사용하여 VCF 관리 도메인 클러스터에서 수행되며 여기에는 OTV 배포, vVols NFS 데이터 저장소 생성, 관리 VM을 새 데이터 저장소로 마이그레이션하는 작업이 포함됩니다.</block>
-  <block id="9b88f9344af15f36eca7faab714fd1e3" category="paragraph">VI 워크로드 도메인의 경우 OTV는 VCF 관리 클러스터에 설치되지만 VI 워크로드 도메인과 연결된 vCenter에 등록됩니다.</block>
-  <block id="2d43d7dc8ce072cfc15bb87660452c80" category="list-text">ONTAP 도구 인터페이스의 *인스턴스* 드롭다운 메뉴에서 관리할 워크로드 도메인과 연결된 OTV 인스턴스를 선택합니다.</block>
-  <block id="83e67b7f18e7c0c1149e371019ced795" category="example-title">ONTAP 도구에서 NFS 데이터 저장소 만들기</block>
-  <block id="f39afa8fe57d370359e76660e5ccdca3" category="paragraph">ONTAP 도구를 사용하여 NFS에서 실행되는 ONTAP 데이터 저장소를 배포하려면 다음 단계를 완료하세요.</block>
-  <block id="f4a327f36f4599e464818aae9947833b" category="list-text">새 데이터 저장소 마법사의 *일반* 페이지에서 vSphere 데이터 센터 또는 클러스터 대상을 선택합니다.  데이터 저장소 유형으로 *NFS*를 선택하고, 데이터 저장소의 이름을 입력하고, 프로토콜을 선택합니다.  FlexGroup 볼륨을 사용할지 여부와 프로비저닝을 위해 스토리지 기능 파일을 사용할지 여부를 선택합니다. 계속하려면 *다음*을 클릭하세요.</block>
   <block id="3f1b295c05103450b8fa247ecc2a1524" category="inline-link">FlexGroup 볼륨에 대해 지원되는 구성 및 지원되지 않는 구성</block>
-  <block id="61b8c0dcd4bc22dd28117e32a0f4d57e" category="paragraph">참고: *클러스터 전체에 데이터 저장소 데이터 분산*을 선택하면 기본 볼륨이 FlexGroup 볼륨으로 생성되어 스토리지 기능 프로필을 사용할 수 없습니다.  참조하다<block ref="d952e216424018ee671efd89746705b8" category="inline-link-rx"></block> FlexGroup Volumes 사용에 대한 자세한 내용은 다음을 참조하세요.</block>
-  <block id="8586e2fa01275471686915bd663cd7bf" category="paragraph"><block ref="8586e2fa01275471686915bd663cd7bf" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="459677f92742b876ea7d87beba4c836c" category="paragraph"><block ref="459677f92742b876ea7d87beba4c836c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a32da07b4521a3c2d552a321d9b15cc9" category="list-text">*저장소 속성* 페이지에서 사용할 집계를 선택한 후 *다음*을 클릭하여 계속합니다.</block>
-  <block id="1e3b5bd5b47f2ad1b1c6f1914de9153b" category="paragraph"><block ref="1e3b5bd5b47f2ad1b1c6f1914de9153b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="5b6017402c497d8beef964f2a2668177" category="paragraph"><block ref="5b6017402c497d8beef964f2a2668177" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="7855e636ae2b535a23a99c9bf6fdecc7" category="list-text">새 데이터 저장소 마법사의 *일반* 페이지에서 vSphere 데이터 센터 또는 클러스터 대상을 선택합니다.  데이터 저장소 유형으로 * vVols*를 선택하고, 데이터 저장소의 이름을 입력하고, 프로토콜로 *NFS*를 선택합니다. 계속하려면 *다음*을 클릭하세요.</block>
-  <block id="625ab37a325f529249511a3a54e66c1d" category="paragraph"><block ref="625ab37a325f529249511a3a54e66c1d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="97af5d246b6d76a8c9986b380f3463ad" category="paragraph"><block ref="97af5d246b6d76a8c9986b380f3463ad" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="cc0d661db1d8ce993ebe23dfbaa65d65" category="inline-image-macro">저장소 속성 - 다음</block>
-  <block id="4f04688300fe893344fde517120951a4" category="paragraph"><block ref="4f04688300fe893344fde517120951a4" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="fa1bb43229900c510a2fa15c32411f8d" category="list-text">마지막으로 *요약*을 검토하고 *마침*을 클릭하여 vVol 데이터 저장소 생성 프로세스를 시작합니다.</block>
-  <block id="5a78ff47d321d86fc233217bec73c1dc" category="paragraph"><block ref="5a78ff47d321d86fc233217bec73c1dc" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="b3ed0b863b02ee99d25be3df6cc61bf4" category="doc">VI 워크로드 도메인에 보조 스토리지로 NVMe over TCP 추가</block>
-  <block id="af69feaead8361faa0b68d9769428d2c" category="paragraph">이 사용 사례에서는 ONTAP Tools for VMware를 사용하여 VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에 대한 보조 스토리지로 NVMe over TCP(NVMe/TCP)를 구성하는 절차를 설명합니다.  이 절차에서는 NVMe/TCP 지원 스토리지 가상 머신(SVM) 설정, NVMe 네임스페이스 생성, ESXi 호스트 네트워킹 구성, VMFS 데이터스토어 배포에 대한 내용을 요약합니다.</block>
   <block id="a62e4a61c3a42e975176f17d50746e6e" category="paragraph">*고성능:* 낮은 지연 시간과 높은 데이터 전송 속도로 뛰어난 성능을 제공합니다.  이는 까다로운 애플리케이션과 대규모 데이터 작업에 매우 중요합니다.</block>
   <block id="98d950fa106a44b45c92e52fe4d94d44" category="paragraph">*확장성:* 확장 가능한 구성을 지원하여 IT 관리자가 데이터 요구 사항이 증가함에 따라 인프라를 원활하게 확장할 수 있습니다.</block>
-  <block id="cf9cf705a0c4a3cc1e204549cc882ee8" category="paragraph">*비용 효율성:* 표준 이더넷 스위치에서 실행되며 TCP 데이터그램 내부에 캡슐화됩니다.  구현에 특별한 장비가 필요하지 않습니다.</block>
   <block id="f306ee5e5c36b1521ff39d90ff0fd2c8" category="inline-link">NVME란 무엇인가요?</block>
-  <block id="123a41526fced0833cad259366a6ab98" category="paragraph">NVMe의 이점에 대한 자세한 내용은 다음을 참조하세요.<block ref="6bc9e56be688a557680d9de94cd98f12" category="inline-link-rx"></block></block>
-  <block id="64a7c9d7c7f394b204d6bddde009087e" category="list-text">NVMe/TCP 트래픽을 위한 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 생성합니다.</block>
-  <block id="2b49b3a9cae388a4b7189112862d8563" category="list-text">ESXi 호스트에 NVMe/TCP 어댑터를 추가합니다.</block>
-  <block id="3a428e801e285ef6cb787f67fe2d5c35" category="list-text">NVMe/TCP 데이터 저장소를 배포합니다.</block>
-  <block id="6f7b8b0754bbb29abfcb13d1d24670fc" category="paragraph">NetApp NVMe/TCP에 대해 완전 중복 네트워크 설계를 권장합니다.  다음 다이어그램은 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 내구성을 제공하는 중복 구성의 예를 보여줍니다.  NetApp 을 참조하세요<block ref="7faee073c28821504170f8e609f3d818" category="inline-link-macro-rx"></block> 추가 정보를 원하시면.</block>
-  <block id="a266887af594d3c5109c3bc09d873df9" category="paragraph">다중 경로 지정 및 여러 경로에 걸친 장애 조치의 경우 NetApp NVMe/TCP 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 두는 것을 권장합니다.</block>
-  <block id="2a49c11f412e3027bc302e5faaeb9604" category="paragraph">이 문서에서는 새로운 SVM을 생성하고 NVMe/TCP 트래픽에 대한 여러 LIF를 생성하기 위해 IP 주소 정보를 지정하는 프로세스를 보여줍니다.  기존 SVM에 새로운 LIF를 추가하려면 다음을 참조하세요.<block ref="ea8d663b2747339ef53e044e31dd9c10" category="inline-link-macro-rx"></block> .</block>
-  <block id="da6f85bd82ea49f7a42024d470c59236" category="paragraph">ONTAP 스토리지 시스템에 대한 NVMe 설계 고려 사항에 대한 추가 정보는 다음을 참조하세요.<block ref="df7e3196a2a30df5e31c2e459384eafe" category="inline-link-macro-rx"></block> .</block>
-  <block id="6e2394c85abd88b84871f58c8cadf8af" category="paragraph">NVMe/TCP를 사용하여 VCF 워크로드 도메인에 VMFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.</block>
-  <block id="6ae68dd19087ca4fb174c51347145d60" category="section-title">ONTAP 스토리지 시스템에 SVM, LIF 및 NVMe 네임스페이스 생성</block>
-  <block id="f2408e2b486c157b8fa3c022487e8572" category="paragraph">NVMe/TCP 트래픽을 위한 여러 LIF와 함께 SVM을 생성하려면 다음 단계를 완료하세요.</block>
-  <block id="ac07278862ced9112ffa1e580ae3c3d6" category="list-text">*스토리지 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *NVMe* 탭을 클릭하고 *NVMe/TCP 사용* 확인란을 선택합니다.</block>
   <block id="85597521fc0670558e74ff351a98c06a" category="inline-image-macro">스토리지 VM 마법사 추가 - NVMe/TCP 활성화</block>
   <block id="12938f0acaec5b581a362660b29ef062" category="paragraph"><block ref="12938f0acaec5b581a362660b29ef062" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9c28987ec510def545d39ffbaf730c70" category="list-text">*네트워크 인터페이스* 섹션에 첫 번째 LIF에 대한 *IP 주소*, *서브넷 마스크*, *브로드캐스트 도메인 및 포트*를 입력합니다.  이후 LIF의 경우 확인란을 활성화하여 나머지 모든 LIF에서 공통 설정을 사용하거나 별도의 설정을 사용할 수 있습니다.</block>
-  <block id="744d6b235ed51a60ca1204d7d0751fdf" category="admonition">다중 경로 지정 및 여러 경로에 걸친 장애 조치의 경우 NetApp NVMe/TCP 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 두는 것을 권장합니다.</block>
-  <block id="4d9297a9864daae4fb265e3b70fe1b98" category="paragraph"><block ref="4d9297a9864daae4fb265e3b70fe1b98" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a2bb8b60bb0aa8f8dba1ae0f7d23199a" category="example-title">NVMe 네임스페이스 생성</block>
-  <block id="41a49367105445bbdfe1e68bff1cd65f" category="paragraph">NVMe 네임스페이스는 iSCSI 또는 FC의 LUN과 유사합니다.  vSphere Client에서 VMFS 데이터스토어를 배포하려면 먼저 NVMe 네임스페이스를 만들어야 합니다.  NVMe 네임스페이스를 생성하려면 먼저 클러스터의 각 ESXi 호스트에서 NVMe 정규 이름(NQN)을 얻어야 합니다.  ONTAP 은 NQN을 사용하여 네임스페이스에 대한 액세스 제어를 제공합니다.</block>
-  <block id="c076e5c5870a3afcefc3b56a5b0d84b4" category="paragraph">NVMe 네임스페이스를 생성하려면 다음 단계를 완료하세요.</block>
   <block id="7eb21fc89a733de9afbce98bf54dc7f3" category="list-text">클러스터 내 ESXi 호스트에서 SSH 세션을 열어 NQN을 얻습니다.  CLI에서 다음 명령을 사용하세요.</block>
-  <block id="8e2a4837c3394f376994b5bbd3f7f9b7" category="paragraph">다음과 유사한 출력이 표시되어야 합니다.</block>
-  <block id="824f4f9911184c3f3c8da5b3714ef715" category="list-text">클러스터의 각 ESXi 호스트에 대한 NQN을 기록합니다.</block>
-  <block id="148c990ec72ae44f442a426532cb9382" category="list-text">ONTAP 시스템 관리자의 왼쪽 메뉴에서 *NVMe 네임스페이스*로 이동한 다음 *+ 추가*를 클릭하여 시작합니다.</block>
   <block id="0ad53801eab4f6701bdef448d5f5c9dd" category="inline-image-macro">+추가를 클릭하여 NVMe 네임스페이스를 만듭니다.</block>
   <block id="808cf12a91edfbb52af344ff313f413b" category="paragraph"><block ref="808cf12a91edfbb52af344ff313f413b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="1e23cbfe01d2323d9dfc6c038d0268a6" category="list-text">*NVMe 네임스페이스 추가* 페이지에서 이름 접두사, 생성할 네임스페이스 수, 네임스페이스 크기, 네임스페이스에 액세스할 호스트 운영 체제를 입력합니다.  *호스트 NQN* 섹션에서 네임스페이스에 액세스할 ESXi 호스트에서 이전에 수집한 NQN의 쉼표로 구분된 목록을 만듭니다.</block>
-  <block id="4e8a463f5b70a96d952cc7c9319ecdeb" category="paragraph">스냅샷 보호 정책과 같은 추가 항목을 구성하려면 *추가 옵션*을 클릭하세요.  마지막으로 *저장*을 클릭하여 NVMe 네임스페이스를 생성합니다.</block>
-  <block id="c724e6082b16e18f5bbb2540ba9bf834" category="paragraph">+<block ref="808cf12a91edfbb52af344ff313f413b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="373d6471b745a87f73399fac762bf5c1" category="section-title">ESXi 호스트에 네트워킹 및 NVMe 소프트웨어 어댑터 설정</block>
-  <block id="8631ba8e704e0153dc64ce2f9da661f1" category="paragraph">다음 단계는 vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터에서 수행됩니다.  이 경우 vCenter Single Sign-On이 사용되므로 vSphere 클라이언트는 관리 도메인과 워크로드 도메인 모두에서 공통적입니다.</block>
-  <block id="ce7e884f9d06f8cd65c3eacdddcfcc7d" category="example-title">NVME/TCP 트래픽을 위한 분산 포트 그룹 생성</block>
-  <block id="d92fd221fd2fbc9881979c27175e968f" category="paragraph">각 NVMe/TCP 네트워크에 대한 새로운 분산 포트 그룹을 생성하려면 다음을 완료하세요.</block>
   <block id="77c514c5667d97600accdb01661f35ce" category="list-text">두 번째 NVMe/TCP 네트워크에 대한 분산 포트 그룹을 생성하려면 이 프로세스를 반복하고 올바른 *VLAN ID*를 입력했는지 확인하세요.</block>
   <block id="acec12fb37da79d22438a02dea77cb15" category="paragraph"><block ref="acec12fb37da79d22438a02dea77cb15" category="inline-image-macro-rx" type="image"></block></block>
   <block id="02a2e870682b3e37ed4679917d634d9c" category="paragraph"><block ref="02a2e870682b3e37ed4679917d634d9c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a38040f5653a5c38751be10581872059" category="list-text">두 번째 NVMe/TCP 포트 그룹에 대해서도 이 단계를 반복합니다.  하지만 이번에는 *uplink1*을 *사용하지 않는 업링크*로 옮깁니다.</block>
   <block id="3589bef4ad46d3af5e3101933d251b6b" category="inline-image-macro">업링크 1을 사용하지 않는 곳으로 이동</block>
   <block id="41eff2b867e1c9a6902f2fb7f0dc44cc" category="paragraph"><block ref="41eff2b867e1c9a6902f2fb7f0dc44cc" category="inline-image-macro-rx" type="image"></block></block>
   <block id="718b9159d171dc2ea3f13ea7c552061a" category="paragraph"><block ref="718b9159d171dc2ea3f13ea7c552061a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="b5a2d60833c1f179fec2c587bafa7409" category="list-text">*포트 속성* 페이지에서 *NVMe over TCP* 상자를 클릭하고 *다음*을 클릭하여 계속합니다.</block>
   <block id="c51bffa5d59140b2d7feffc4f93c5876" category="paragraph"><block ref="c51bffa5d59140b2d7feffc4f93c5876" category="inline-image-macro-rx" type="image"></block></block>
   <block id="97109ff89e4477f85606ef6e48f35a13" category="paragraph"><block ref="97109ff89e4477f85606ef6e48f35a13" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ebde89364d4a5dafacf1f7eb1bd1ddbb" category="paragraph"><block ref="ebde89364d4a5dafacf1f7eb1bd1ddbb" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a15fde47f39c30c87349a305ee192c5c" category="example-title">NVMe over TCP 어댑터 추가</block>
-  <block id="4ad203b9277363e874c5d7edd089261c" category="paragraph">워크로드 도메인 클러스터의 각 ESXi 호스트에는 스토리지 트래픽에 전용된 모든 NVMe/TCP 네트워크에 대해 NVMe over TCP 소프트웨어 어댑터가 설치되어 있어야 합니다.</block>
-  <block id="50f7b18870480793675c347ecf64b593" category="paragraph">NVMe over TCP 어댑터를 설치하고 NVMe 컨트롤러를 검색하려면 다음 단계를 완료하세요.</block>
-  <block id="9e40519832853b8d6f493a98ec4cd339" category="list-text">vSphere 클라이언트에서 워크로드 도메인 클러스터의 ESXi 호스트 중 하나로 이동합니다.  *구성* 탭에서 메뉴의 *스토리지 어댑터*를 클릭한 다음, *소프트웨어 어댑터 추가* 드롭다운 메뉴에서 *NVMe over TCP 어댑터 추가*를 선택합니다.</block>
-  <block id="7632e8e99ddb7887a61563e7253aa88e" category="paragraph"><block ref="7632e8e99ddb7887a61563e7253aa88e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="fb201979ec227efb23462b632ba93946" category="list-text">*소프트웨어 NVMe over TCP 어댑터 추가* 창에서 *물리적 네트워크 어댑터* 드롭다운 메뉴에 액세스하여 NVMe 어댑터를 활성화할 올바른 물리적 네트워크 어댑터를 선택합니다.</block>
   <block id="06a83e88d9f846f2c40d54fc53cb1be9" category="inline-image-macro">물리적 어댑터 선택</block>
   <block id="18fc8a53fc4c1b0693664cf2f27a572d" category="paragraph"><block ref="18fc8a53fc4c1b0693664cf2f27a572d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="4f07bd112ceef2b050f0ea24444093a5" category="list-text">TCP 트래픽을 통한 NVMe에 할당된 두 번째 네트워크에 대해 이 프로세스를 반복하여 올바른 물리적 어댑터를 할당합니다.</block>
-  <block id="e00eebecab9e81ce4b1dfb2de6b57167" category="list-text">새로 설치된 NVMe over TCP 어댑터 중 하나를 선택하고, *컨트롤러* 탭에서 *컨트롤러 추가*를 선택합니다.</block>
   <block id="e9ba2d60020d1dd434a9dbe426fcd0dc" category="inline-image-macro">컨트롤러 추가</block>
   <block id="9db22b04e88c5a256b676b5ed5c1b34f" category="paragraph"><block ref="9db22b04e88c5a256b676b5ed5c1b34f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="59672a27d65bff0888c08541615320aa" category="list-text">*컨트롤러 추가* 창에서 *자동* 탭을 선택하고 다음 단계를 완료합니다.</block>
-  <block id="523608037f4eb69ee8b3c6f116b0c5e3" category="list-text">이 NVMe over TCP 어댑터에 할당된 물리적 어댑터와 동일한 네트워크에 있는 SVM 논리 인터페이스 중 하나에 대한 IP 주소를 입력합니다.</block>
-  <block id="ad52d6b98275498a9067b68bde8baa30" category="list-text">*컨트롤러 검색* 버튼을 클릭하세요.</block>
-  <block id="99354ac35ee37d78be32844efb6b4ac2" category="list-text">검색된 컨트롤러 목록에서 네트워크 주소가 NVMe over TCP 어댑터와 일치하는 두 컨트롤러의 확인란을 클릭합니다.</block>
-  <block id="f86e19e6e9337f6cb1caafdb9590639d" category="list-text">선택한 컨트롤러를 추가하려면 *확인* 버튼을 클릭하세요.</block>
   <block id="a995d582ed33a0dc115da4394a5014b6" category="inline-image-macro">컨트롤러 검색 및 추가</block>
   <block id="ea4c9e48a18218f4849b91c7e16a1908" category="paragraph"><block ref="ea4c9e48a18218f4849b91c7e16a1908" category="inline-image-macro-rx" type="image"></block></block>
   <block id="238fa964cc0d824bf551491058cb2025" category="list-text">몇 초 후에 NVMe 네임스페이스가 장치 탭에 나타납니다.</block>
   <block id="dc5736b70854896dad5594f23412f58a" category="inline-image-macro">장치 아래에 나열된 NVMe 네임스페이스</block>
   <block id="737785d01c8d62519bb313a52160e677" category="paragraph"><block ref="737785d01c8d62519bb313a52160e677" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="bbd18a5999761c291722d547e95e23b6" category="list-text">NVMe/TCP 트래픽을 위해 설정된 두 번째 네트워크에 대해 NVMe over TCP 어댑터를 생성하려면 이 절차를 반복합니다.</block>
-  <block id="e766e46218f824c0cfcbf1657fbd1b1d" category="example-title">TCP 데이터 저장소를 통한 NVMe 배포</block>
-  <block id="5d3579d134b966a0f95f972ce5b5d8e1" category="paragraph">NVMe 네임스페이스에 VMFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.</block>
-  <block id="0bfe6bed87c95a8dee540036f211c90c" category="list-text">vSphere 클라이언트에서 워크로드 도메인 클러스터의 ESXi 호스트 중 하나로 이동합니다.  *작업* 메뉴에서 *저장소 &gt; 새 데이터 저장소...*를 선택합니다.</block>
-  <block id="39c7c40a0933c3c4196b9703d6be70b4" category="paragraph"><block ref="39c7c40a0933c3c4196b9703d6be70b4" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ba0457261c37efe553dafb50d8b39915" category="list-text">*새 데이터 저장소* 마법사에서 유형으로 *VMFS*를 선택합니다. 계속하려면 *다음*을 클릭하세요.</block>
   <block id="2b3287c5185ebd5b6304f4ef0a5f62d1" category="list-text">*이름 및 장치 선택* 페이지에서 데이터 저장소의 이름을 입력하고 사용 가능한 장치 목록에서 NVMe 네임스페이스를 선택합니다.</block>
   <block id="758092d4e4f10da2465ff5873f73a5e4" category="inline-image-macro">이름 및 장치 선택</block>
   <block id="d4b40fc4726c264382a092f02a45449b" category="paragraph"><block ref="d4b40fc4726c264382a092f02a45449b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a0708f44bf6c92360c8c11a87fd33f88" category="list-text">*VMFS 버전* 페이지에서 데이터 저장소의 VMFS 버전을 선택합니다.</block>
-  <block id="caf86b4c21ba6510c9c590f6e910e035" category="list-text">*파티션 구성* 페이지에서 기본 파티션 구성에 원하는 변경 사항을 적용합니다. 계속하려면 *다음*을 클릭하세요.</block>
   <block id="4b625efef8c42a1d18cb66717eefacdc" category="inline-image-macro">NVMe 파티션 구성</block>
   <block id="4892f2b20e631b6b119005f1460d331b" category="paragraph"><block ref="4892f2b20e631b6b119005f1460d331b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="7b0d4d2f05fe81bce57cd004d513bbd5" category="list-text">*완료 준비* 페이지에서 요약을 검토하고 *마침*을 클릭하여 데이터 저장소를 만듭니다.</block>
-  <block id="83a376a22c0071f6546497e891520b71" category="list-text">인벤토리의 새 데이터 저장소로 이동하여 *호스트* 탭을 클릭합니다.  올바르게 구성된 경우 클러스터의 모든 ESXi 호스트가 나열되고 새 데이터 저장소에 액세스할 수 있어야 합니다.</block>
   <block id="fadd7f5097452b4812eb92260ed93f68" category="inline-image-macro">데이터 저장소에 연결된 호스트</block>
   <block id="3d03d579ae5d90d4cd8ee89d52490924" category="paragraph"><block ref="3d03d579ae5d90d4cd8ee89d52490924" category="inline-image-macro-rx" type="image"></block></block>
   <block id="27ef780cd847ce01fafe4f671aa8c4dd" category="doc">MetroCluster 사용하여 VCF 관리 도메인에 대한 스트레치 클러스터 구성</block>
@@ -6998,11 +6798,9 @@
   <block id="fdbe66c50c9cd110ecc728e4ac09c968" category="sidebar">가상 머신 마이그레이션</block>
   <block id="7d0824877403e4dc93946ac32cf4ecd4" category="sidebar">VMware에서 OpenShift 클러스터로 VM 마이그레이션</block>
   <block id="9297c16597d06c5732b9e9437fb17384" category="sidebar">두 클러스터 노드 간에 VM 마이그레이션</block>
-  <block id="d4b509a3203ffb0b20b48175b410fda7" category="sidebar">Trident Protect를 사용하여 데이터 보호</block>
   <block id="b8b9eab8c1ed7b79387652490f5724ec" category="sidebar">Trident 설치</block>
   <block id="15b7b9ecc0577133b4644a781a961b4e" category="sidebar">스냅샷과 백업으로 VM 보호</block>
   <block id="c095a396cacc96e8af2672ac3dbb7453" category="sidebar">장애 조치 및 장애 복구 설정</block>
-  <block id="d855a5e1e6b6741ae35f8709bb681ad9" category="sidebar">타사 도구를 사용하여 데이터 보호</block>
   <block id="126aaa7cb7e09def942e9e8c96a9bd72" category="sidebar">OADP 및 Velero를 사용하여 VM 보호</block>
   <block id="2ee7e50bbc54af4b61f2537ef313bece" category="sidebar">OADP 설치</block>
   <block id="4fa71e7a8724f8687eab29752cfaf140" category="sidebar">Velero를 사용하여 VM 백업</block>
@@ -7112,7 +6910,6 @@
   <block id="f8d14bdb4c2cf3fcc1ff33c4b3df7171" category="sidebar">FC를 사용하여 VI 워크로드 도메인 프로비저닝</block>
   <block id="e4d96e986579cbcf9685e5871519c1cd" category="sidebar">NFS를 사용하여 VI 워크로드 도메인 프로비저닝</block>
   <block id="33081e6081266eaca223ced0948dfd49" category="sidebar">보충 스토리지로 VCF 확장</block>
-  <block id="9d2fa576e797403c9028fde1642fef8c" category="sidebar">저장공간 확장에 관하여</block>
   <block id="2cb763884e3df0d2de6372091896808e" category="sidebar">iSCSI를 사용하여 관리 도메인 확장</block>
   <block id="d7a933928d5b5d1ea242e09376cced95" category="sidebar">FC로 관리 도메인 확장</block>
   <block id="b173d4d6ec846613ebde8dbf3a28bc68" category="sidebar">vVols iSCSI를 사용하여 VI 워크로드 도메인 확장</block>
@@ -7292,8 +7089,6 @@
   <block id="8431f1e622f98349837eba3b9fd95b83" category="paragraph">ONTAP 도구나 BlueXP 사용하여 복제 관계를 설정할 수 있습니다.</block>
   <block id="5c99ff7f98b4498b19c458dd8de13442" category="inline-link-macro">단일 지역 내 여러 사이트와 추가 지역이 있는 VCF 함대에 대한 Broadcom 기술 문서</block>
   <block id="135208b317232813f97dea0a66efbf19" category="paragraph">자세한 내용은 다음을 참조하십시오. <block ref="31eb8c8d9029a21fe9fa1aae2bff2d12" category="inline-link-macro-rx"></block> .</block>
-  <block id="38c4a772e4657f7e070cb42e5d30bc10" category="sidebar">ONTAP 사용한 VCF 9 설계 옵션</block>
-  <block id="b38115bcd9d3089a288de6f78a3c66b8" category="sidebar">ONTAP 활용한 VCF 9 배치</block>
   <block id="cc2ffe733836ebb3e926756d7f41b567" category="summary">NFS 및 VMFS 데이터 저장소를 위한 자율형 랜섬웨어 보호</block>
   <block id="b158a76f99911ba2c313cfc1c284baea" category="doc">NFS 및 VMFS를 위한 자율형 랜섬웨어 보호</block>
   <block id="32e401809f0324a1cbd22f271f1ec16c" category="paragraph">NetApp ONTAP의 자율형 랜섬웨어 보호(ARP)가 머신 러닝을 사용하여 VMware 환경에서 NFS 및 VMFS 데이터 저장소를 보호하고, 조기 위협 탐지, 변조 방지 스냅샷, 신속한 복구를 제공하여 가상화 및 클라우드 워크로드 전반에서 데이터 복원력을 강화하는 방법을 알아보세요.</block>
@@ -7416,7 +7211,6 @@
   <block id="acfa73f1b952bfe92ec9bac5f5caa209" category="image-alt">BlueXP dr 대시보드를 업데이트했습니다.</block>
   <block id="c519205f1dc88fc2d705a6e422f76905" category="list-text">vSphere 환경에 추가 클러스터를 두고 VCF 브라운필드 가져오기 도구를 사용하여 vSphere 환경을 관리 도메인으로 변환합니다.<block ref="300b49f790d84608b878c7aff7ab36d6" category="inline-link-rx"></block><block ref="aa58dd097d7fe62340ef394295d83ed9" category="inline-link-rx"></block> VMFS 데이터스토어를 vSphere 클러스터에 배포하는 데 사용할 수 있습니다.</block>
   <block id="a536861a2327f9178c498d7f4e0efae3" category="list-text">vSphere 환경에 추가 클러스터를 두고 VCF 브라운필드 가져오기 도구를 사용하여 vSphere 환경을 관리 도메인으로 변환합니다.<block ref="300b49f790d84608b878c7aff7ab36d6" category="inline-link-rx"></block><block ref="aa58dd097d7fe62340ef394295d83ed9" category="inline-link-rx"></block> NFS 데이터스토어를 vSphere 클러스터에 배포하는 데 사용할 수 있습니다.</block>
-  <block id="0bc691b5c74c04aa4cff00c74e7d0a8d" category="list-text"><block ref="0bc691b5c74c04aa4cff00c74e7d0a8d" category="inline-link-macro-rx"></block></block>
   <block id="bfe2be578bf20ab67df18e900b2647ca" category="inline-link-macro">SnapCenter 로 워크로드 보호</block>
   <block id="4c9a688c7220686d694c2f6b357edc34" category="paragraph">ONTAP 9.10.1 이상 버전에서는 NetApp AFF 와 ASA NVMe over TCP를 지원합니다. AFF 또는 ASA 기본 시스템에 있는 데이터로 ONTAP AFF 또는 ASA 보조 시스템으로 복제할 수 있습니다. SCV는 또한 SnapCenter Server와 함께 작동하여 SnapCenter 애플리케이션별 플러그인에 대한 VMware 환경에서 애플리케이션 기반 백업 및 복원 작업을 지원합니다. 자세한 내용은 다음을 확인하세요.<block ref="d1ce1c1059b8df281300d28c6a9c8880" category="inline-link-macro-rx"></block> 그리고<block ref="20cfa131d20d85bda5383c988a8476d5" category="inline-link-macro-rx"></block></block>
   <block id="d9aa22149126bd2eaf83f593b7825c52" category="list-text"><block ref="d9aa22149126bd2eaf83f593b7825c52" category="inline-link-macro-rx"></block></block>
@@ -7432,4 +7226,433 @@
   <block id="f04d223e3a2e34e08719285cb2c36cc5" category="paragraph">VMDC를 사용하여 신속하게 평가를 수행하여 활용도가 낮은 리소스를 파악한 다음 NetApp Data Infrastructure Insights (DII)를 사용하여 VM 회수에 대한 자세한 분석과 권장 사항을 제공합니다. 이를 통해 고객은 NetApp Data Infrastructure Insights (DII)가 배포되고 구성되는 동안 잠재적인 비용 절감 및 최적화를 파악할 수 있습니다. NetApp Data Infrastructure Insights (DII)는 기업이 VM 환경을 최적화하기 위해 정보에 입각한 결정을 내리는 데 도움이 될 수 있습니다. 이 솔루션은 최소한의 프로덕션 영향으로 리소스를 회수하거나 호스트를 폐기할 수 있는 곳을 식별하여 기업이 신중하고 전략적인 방식으로 Broadcom의 VMware 인수로 인해 발생한 변화를 탐색하는 데 도움을 줍니다. 다시 말해, VMDC와 DII는 세부적인 분석 메커니즘으로서 기업이 의사 결정에서 감정을 배제하는 데 도움이 됩니다. 당황하거나 좌절하며 변화에 대응하는 대신, 이 두 가지 도구가 제공하는 통찰력을 활용하여 비용 최적화와 운영 효율성 및 생산성의 균형을 이루는 합리적이고 전략적인 결정을 내릴 수 있습니다.</block>
   <block id="5e406bfc196571a2a424ad95e52b9e13" category="paragraph">NetApp 사용하면 가상화 환경의 크기를 적정하게 조정하고 비용 효율적인 플래시 스토리지 성능과 간소화된 데이터 관리 및 랜섬웨어 솔루션을 도입하여 조직이 새로운 구독 모델에 대비하는 동시에 현재 구축된 IT 리소스를 최적화할 수 있습니다.</block>
   <block id="59fc14373d85269b06b27bed407eef66" category="paragraph">VMDC 패키지를 다운로드하고 데이터를 수집하여 사용하세요<block ref="f87d68376749f3a505ead27b1818548d" category="inline-link-macro-rx"></block> 쉽게 투사하고 사용할 수 있도록<block ref="f17088cac6f7d4dbeb71411d15c29a3d" category="inline-link-macro-rx"></block> IT가 새로운 요구 사항에 맞게 적응할 수 있도록 현재와 미래의 IT에 영향을 미치는 인텔리전스를 지속적으로 제공합니다.</block>
+  <block id="7e515e7d457754faba4dee04f7409ee8" category="list-text">vSphere 클라이언트에서 주 메뉴로 이동하여 * NetApp ONTAP 도구*를 선택합니다.</block>
+  <block id="a0859dce7936df820edd4e58619e2f24" category="inline-image-macro">ONTAP 도구로 이동</block>
+  <block id="b11585a6099033ff94c2dd6beaeca272" category="paragraph"><block ref="b11585a6099033ff94c2dd6beaeca272" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7c52802eed795f18345a8d80296e773b" category="list-text">* ONTAP 도구*의 시작 페이지(또는 *스토리지 시스템*)에서 *추가*를 클릭하여 새 스토리지 시스템을 추가합니다.</block>
+  <block id="beebbe6403c8430c09afbd508a9e60d4" category="list-text">ONTAP 스토리지 시스템의 IP 주소와 자격 증명을 제공하고 *추가*를 클릭합니다.</block>
+  <block id="79ed2e2d7e60c6360e2cb442a1b6b2e9" category="list-text">*예*를 클릭하여 클러스터 인증서를 승인하고 스토리지 시스템을 추가합니다.</block>
+  <block id="3bb54bec686920d074a07f437d26cb0e" category="list-text">*새 분산 포트 그룹* 마법사에서 새 포트 그룹의 이름을 입력하고 *다음*을 클릭하여 계속합니다.</block>
+  <block id="ecb56bbc49999b894b11170005950bc4" category="list-text">*설정 구성* 페이지에서 모든 설정을 작성합니다. VLAN을 사용하는 경우 올바른 VLAN ID를 제공해야 합니다. 계속하려면 *다음*을 클릭하세요.</block>
+  <block id="30462a7eb794117f8ecd5e2b08f3b1c5" category="list-text">*완료 준비* 페이지에서 변경 사항을 검토하고 *마침*을 클릭하여 새 분산 포트 그룹을 만듭니다.</block>
+  <block id="f695ca183f7a9288c9e7d919064c5f35" category="list-text">*분산 포트 그룹 - 설정 편집* 페이지에서 왼쪽 메뉴의 *팀 구성 및 장애 조치*로 이동한 다음 *업링크2*를 클릭하여 *사용하지 않는 업링크*로 이동합니다.</block>
+  <block id="e0eedaf801ba99b9ae7c5520bdc58f81" category="list-text">vSphere 클라이언트에서 워크로드 도메인 인벤토리의 ESXi 호스트 중 하나로 이동합니다. *구성* 탭에서 *VMkernel 어댑터*를 선택하고 *네트워킹 추가...*를 클릭하여 시작합니다.</block>
+  <block id="3f71efc35e122f60d977a0b8a67dfd8a" category="list-text">*연결 유형 선택* 창에서 *VMkernel 네트워크 어댑터*를 선택하고 *다음*을 클릭하여 계속합니다.</block>
+  <block id="35392ab58ef0e5170723ad57579d8d27" category="list-text">*포트 속성* 페이지에서 기본값을 그대로 두고 *다음*을 클릭하여 계속합니다.</block>
+  <block id="630e09e74cc03a1107c9495ce5cd6c70" category="list-text">*IPv4 설정* 페이지에서 *IP 주소*, *서브넷 마스크*를 입력하고 새로운 게이트웨이 IP 주소를 제공합니다(필요한 경우에만). 계속하려면 *다음*을 클릭하세요.</block>
+  <block id="7a989b41532707fa8dbdc04f546022f3" category="list-text">*완료 준비* 페이지에서 선택 사항을 검토하고 *마침*을 클릭하여 VMkernel 어댑터를 만듭니다.</block>
+  <block id="f56d4d5afd4b5c90dd7e440a824487e0" category="list-text">ONTAP 시스템 관리자에서 왼쪽 메뉴의 *스토리지 VM*으로 이동한 다음 *+ 추가*를 클릭하여 시작합니다.</block>
+  <block id="e9bba64125bc16b58fdbc7fcf17252c9" category="list-text">*스토리지 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *iSCSI* 탭을 클릭하고 *iSCSI 사용* 확인란을 선택합니다.</block>
+  <block id="29c203664a3d7b7c214a0a39aac2416a" category="list-text">*네트워크 인터페이스* 섹션에 첫 번째 LIF에 대한 *IP 주소*, *서브넷 마스크*, *브로드캐스트 도메인 및 포트*를 입력합니다. 이후 LIF의 경우 개별 설정을 사용하거나 확인란을 활성화하여 나머지 모든 LIF에서 공통 설정을 사용할 수 있습니다.</block>
+  <block id="0d96540ab990da70d3d66c8aa90ab768" category="admonition">여러 경로에 걸친 다중 경로 및 장애 조치의 경우 iSCSI 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 만듭니다.</block>
+  <block id="50bd2b252d8071c7eff473b4380bdc47" category="list-text">다중 테넌시 환경의 경우 스토리지 VM 관리 계정을 활성화할지 여부를 선택한 다음 *저장*을 클릭하여 SVM을 생성합니다.</block>
+  <block id="1793c55da1be61fc74dfc9e6f6e1bbec" category="list-text">vCenter 어플라이언스 인터페이스에서 관리 클러스터를 마우스 오른쪽 버튼으로 클릭하고 *OVF 템플릿 배포...*를 선택합니다.</block>
+  <block id="c4e2b753cade8ed5dfdbb1a1c68545e9" category="list-text">*OVF 템플릿 배포* 마법사에서 *로컬 파일* 라디오 버튼을 클릭하고 이전 단계에서 다운로드한 ONTAP 도구 OVA 파일을 선택합니다.</block>
+  <block id="8f411127ebb3d9b60a747adfced77ee0" category="list-text">마법사의 2~5단계에서는 VM의 이름과 폴더를 선택하고, 컴퓨팅 리소스를 선택하고, 세부 정보를 검토하고, 라이선스 계약에 동의합니다.</block>
+  <block id="4da334af76c65ad9f13477148b16f851" category="list-text">*네트워크 선택* 페이지에서 관리 트래픽에 사용되는 네트워크를 선택합니다.</block>
+  <block id="5ccdb95adee4f5e5d73431e2d22ad4b5" category="list-text">*템플릿 사용자 정의* 페이지에서 필요한 모든 정보를 입력합니다.</block>
+  <block id="a708d02f143d45f203ca76f3e598518a" category="list-text">ONTAP 도구에 대한 관리 액세스에 사용되는 비밀번호입니다.</block>
+  <block id="fd8ab20c426366bac3a23f95333e1ce8" category="list-text">ONTAP 도구 유지 관리 계정 비밀번호.</block>
+  <block id="12f8fffae463cc92f9c1532da5d5e0ea" category="list-text">ONTAP 도구 Derby DB 비밀번호.</block>
+  <block id="e95d4c1f12ed86c00f934b604c164c9d" category="list-text">필수 네트워크 속성입니다.</block>
+  <block id="3dcb2e1a782d534491a8c818a67ce2ad" category="list-text">계속하려면 *다음*을 클릭하세요.</block>
+  <block id="84224a4966bd7ed75fe7b8c310fa2417" category="list-text">*완료 준비* 페이지에서 모든 정보를 검토하고 *마침*을 클릭하여 ONTAP 도구 어플라이언스 배포를 시작하세요.</block>
+  <block id="72db37ad524e8532d5359b4a65b6d66a" category="inline-link-macro">HyperV에 대한 가이드 설정</block>
+  <block id="04df8da32adcc9e17b531df72a2e62ac" category="paragraph">배열 구성에 대한 자세한 단계는 다음을 참조하세요.<block ref="8f5c961e72b4b15903bdf32579063627" category="inline-link-macro-rx"></block> .</block>
+  <block id="9eec50eb6e4df4b9d2c80a246146c82d" category="paragraph">지원되는 모든 복원 옵션에 대한 자세한 단계는 다음을 참조하세요.<block ref="22b580b6230d474d97461f8fd733bbad" category="inline-link-macro-rx"></block> .</block>
+  <block id="1323041c4fb366c28d7ad3d3e435f8e1" category="summary">Trident Volume Group Snapshots를 사용하여 Red Hat OpenShift Virtualization의 VM을 보호하고 충돌 발생 시에도 일관된 백업과 신속한 복구를 보장합니다.  이 절차에서는 Kubernetes와 NetApp ONTAP 사용하여 여러 VM 디스크를 구성, 스냅샷을 생성하고 복원하는 방법을 보여줍니다.</block>
+  <block id="54b75f795cc57bbb18ab5de9fe521a03" category="doc">Trident Volume Group 스냅샷을 사용하여 Red Hat OpenShift Virtualization에서 VM 보호</block>
+  <block id="62ac4a5ffcbf199aa02fb67dc35a1224" category="paragraph">Trident 25.06 및 NetApp ONTAP 스토리지를 사용하여 Red Hat OpenShift Virtualization에서 VM을 보호하기 위해 볼륨 그룹 스냅샷을 구성합니다.  이 절차에는 iSCSI 지원 기능을 갖춘 Trident 설치, ONTAP 백엔드 및 스토리지 클래스 구성, 여러 개의 영구 디스크가 있는 VM 생성, 모든 VM 디스크의 스냅샷을 동시에 캡처하여 안정적인 복구 작업을 보장하는 볼륨 그룹 스냅샷 구현이 포함됩니다.</block>
+  <block id="f9876e21746e7bbdf7e073434ea71d3e" category="paragraph">볼륨 그룹 스냅샷은 컨테이너 또는 VM의 여러 PersistentVolumeClaims(PVC)에 대한 스냅샷을 찍을 때 발생하는 일관성 문제를 해결하는 Kubernetes 기능입니다.</block>
+  <block id="445598a59c917bc3540823bafde68f0b" category="paragraph">이 기능을 사용하면 여러 PVC의 충돌에 대비한 스냅샷을 동시에 만들 수 있습니다.  이 기능은 Kubernetes 버전 v1.32에서 베타 버전입니다.  Trident Trident 버전 25.06부터 이 베타 기능을 지원합니다(현재는 iSCSI 프로토콜에만 해당).</block>
+  <block id="c64161d1ac8ca4453f0ebc12018a1016" category="paragraph">볼륨 그룹 스냅샷 기능을 지원하기 위해 Kubernetes는 세 가지 새로운 API 객체를 도입했습니다.</block>
+  <block id="92689c08f4921bd68585cef3dd0e8c0c" category="list-text">*VolumeGroupSnapshotClass:* 클러스터 관리자가 볼륨 그룹 스냅샷을 생성하는 방법을 설명하기 위해 생성합니다.</block>
+  <block id="fc9a397cec3f7ef0a46148dd226078e4" category="list-text">*VolumeGroupSnapshot:* Kubernetes 사용자가 여러 PVC에 대한 볼륨 그룹 스냅샷을 생성하도록 요청했습니다.</block>
+  <block id="4755052dbe06b36b5c0b9b5128d0bdc2" category="list-text">*VolumeGroupSnapshotContent:* 동적으로 생성된 VolumeGroupSnapshots에 대해 스냅샷 컨트롤러가 생성합니다.</block>
+  <block id="145323d50cd4c517063efdc17d2beb84" category="paragraph">Trident 25.06은 볼륨 그룹 스냅샷 기능에 지정된 새로운 CRD를 자동으로 감지하여 Trident CSI 사이드카에서 관련 기능 게이트를 활성화합니다.</block>
+  <block id="fe96652b7425a64727efc80e5f29df00" category="admonition">Trident 25.06 버전의 iSCSI 프로토콜에 대해서만 볼륨 그룹 스냅샷을 지원합니다.</block>
+  <block id="b091cca3c38411ebccaa15d67b196b7d" category="section-title">1단계: OpenShift 4.19 설치 및 볼륨 그룹 스냅샷에 대한 FeatureGate 활성화</block>
+  <block id="39411065bb3f9af6f7d4a4bc5206b85f" category="paragraph">Kubernetes 버전 1.32와 함께 OpenShift 4.19 클러스터를 설치합니다.  이 버전에서는 볼륨 그룹 스냅샷 기능이 베타 상태로 업그레이드되었습니다.  OpenShift의 이후 릴리스에는 이 기능을 지원하는 Kubernetes 버전 v1.32 이상이 포함될 수 있습니다.</block>
+  <block id="4fab3ac3adaf161d0999c39a4465e268" category="inline-link">OpenShift 컨테이너 플랫폼 설치</block>
+  <block id="845bca907d593fe77d37df2c235adddc" category="list-text">Red Hat 설명서의 지침에 따라 OpenShift Cluster 버전 4.19를 설치하세요.<block ref="8cb82eed0e197b5440127bef64403dbd" category="inline-link-rx"></block> .</block>
+  <block id="9291fb30450614096a9eafbcf2c2c7c1" category="list-text">OpenShift 클러스터에서 Kubernetes 버전을 확인합니다.</block>
+  <block id="a997f40d1ab14d9245c066df1b6c27fa" category="paragraph">다음 이미지는 Kubernetes v1.32와 함께 설치된 OpenShift Cluster v4.19를 보여줍니다.</block>
+  <block id="8610b796f94678d0b867309c9fbe0fbe" category="inline-image-macro">K8s V1.32가 포함된 OpenShift 클러스터</block>
+  <block id="e5df176c6cb8c2d0053b862b0b3e92f8" category="paragraph"><block ref="e5df176c6cb8c2d0053b862b0b3e92f8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="18e71f6ddbe02f2f02c0e78d250ea2a6" category="list-text">OpenShift 웹 콘솔을 사용하여 VolumeGroupSnapshot에 대한 FeatureGate를 켭니다. *관리 -&gt; 사용자 정의 리소스 정의*로 이동합니다.</block>
+  <block id="35b8362cb944edaf6eaf04d1b3c005e8" category="list-text">*FeatureGate*를 검색하여 클릭하세요.</block>
+  <block id="c218694f2d8b8687dcc70cdee98134c9" category="list-text">*인스턴스* 탭을 클릭하고 *클러스터* 인스턴스를 선택합니다.</block>
+  <block id="71ca4d31188f7a348183111f2a2cc734" category="list-text">*YAML* 탭을 선택하고 FeatureGate/cluster 객체를 편집하여 *customNoUpgrade* 아래의 활성화된 목록에 VolumeGroupSnapshot을 포함합니다.</block>
+  <block id="e0899b91faf74122c34854f68155285e" category="inline-image-macro">VolumeGroupSnapshot FeatureGate 활성화</block>
+  <block id="b8c12c9552c7290bee74177a2e0c5ed6" category="paragraph"><block ref="b8c12c9552c7290bee74177a2e0c5ed6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="37e03725df5bb5cdde6d4d0afdc3b635" category="section-title">2단계: 볼륨 그룹 스냅샷을 위해 Trident 25.06 설치 및 구성</block>
+  <block id="782e519a63eb25ccefc310c298a7a676" category="paragraph">볼륨 그룹 스냅샷 기능은 Trident 25.06의 iSCSI 프로토콜에 대해서만 Trident 에서 지원됩니다.  참고: OpenShift Cluster 4.19에서 iSCSI 프로토콜을 활성화하려면 Trident 버전 25.06.1을 설치해야 합니다.</block>
+  <block id="130032ea82f2a57c964e33284d3f1a68" category="paragraph">Trident 설치하고 VM에 대한 볼륨 그룹 스냅샷을 활성화하기 위해 필요한 스토리지 인프라를 구성합니다.  여기에는 ONTAP 에 대한 iSCSI 백엔드 연결 설정, VM 영구 볼륨에 대한 스토리지 클래스 정의, 개별 및 그룹 스냅샷 클래스 구성이 포함됩니다.</block>
+  <block id="22e7ccef4e677feea58fdea44ad9ba53" category="admonition">새로운 VM을 생성할 때 골든 이미지의 스냅샷에서 빠른 FlexCloning 메커니즘을 활용할 수 있도록 Trident 스토리지 클래스와 스냅샷 클래스를 둘 다 기본값으로 설정하는 것이 가장 좋습니다.</block>
+  <block id="135b308ed83c53f1516b7c754566d1c4" category="list-title">시작하기 전에</block>
+  <block id="c8159ab128f56f961fea04ae85fc820a" category="list-text">VolumeGroupSnapshots에 대해 Feature Gate가 켜져 있는지 확인하세요.</block>
+  <block id="f621d63a709e6addb759c93a6b2a25f9" category="list-text">iSCSI 도구를 설치하려면 node-prep을 사용하세요.</block>
+  <block id="d9dcde6d6071e1bf764188a209500189" category="list-text">다음 명령을 사용하여 Trident 설치하세요.</block>
+  <block id="8bbafe07a90e1ba5e6a75eeb5714aa6b" category="inline-image-macro">iscsi nodeprep으로 Trident 설치</block>
+  <block id="07340f7d8db0ef73e27802f635d0c72c" category="paragraph"><block ref="07340f7d8db0ef73e27802f635d0c72c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c52c8c9f6e0c8ea933a260b27643476f" category="list-text">VolumeGroupSnapshots에 필요한 CRD가 설치되었는지 확인하세요.</block>
+  <block id="27fc031885e6e07bc2b602f2ba6cdd38" category="inline-image-macro">필요한 CRD가 사용 가능합니다</block>
+  <block id="1fde4c5ebd956b22842de9e8eee81ff5" category="paragraph"><block ref="1fde4c5ebd956b22842de9e8eee81ff5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="123d0445f47ed7b3b67896243f176a72" category="list-text">다음 YAML 정의를 사용하여 Trident iSCSI 백엔드를 만듭니다.</block>
+  <block id="551a60362c443b9daf8357d6bb7f287b" category="list-text">다음 YAML 정의를 사용하여 iSCSI 스토리지 클래스를 만듭니다.</block>
+  <block id="0eac286e442b2deb836eee7182b46a23" category="list-text">다음 YAML 정의를 사용하여 VolumeSnapshotClass 객체를 만듭니다.</block>
+  <block id="2d9d87b212b540650fc007aaa82544d7" category="inline-image-macro">저장소 클래스 및 볼륨 스냅샷 클래스</block>
+  <block id="f1eb673e0c3221209c3012e006617f6b" category="paragraph"><block ref="f1eb673e0c3221209c3012e006617f6b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="070e7b688db9a61434314c44bbdde4fc" category="list-text">클러스터의 스토리지 클래스와 VolumeSnapshotClass에 대한 기본값을 설정합니다.</block>
+  <block id="426b2afe27f4922e6db77ee32f7205e6" category="list-text">다음 YAML 정의를 사용하여 VolumeGroupSnapshotClass 객체를 만듭니다.</block>
+  <block id="c746abd70c34bc2a641db9ba10111020" category="inline-image-macro">볼륨 그룹 스냅샷 클래스</block>
+  <block id="dcf40d015d1b534af82567c4b8c47bbd" category="paragraph"><block ref="dcf40d015d1b534af82567c4b8c47bbd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2361b1d8d2bf9430187a95efd5dfffa1" category="section-title">3단계: OpenShift Virtualization을 설치하고 여러 디스크로 테스트 VM을 만듭니다.</block>
+  <block id="c574c315f4a1a8eb28f9e603141d8641" category="paragraph">클러스터에서 VM 관리 기능을 활성화하려면 OpenShift Virtualization Operator를 설치하세요.  설치 후 여러 개의 영구 디스크가 있는 테스트 VM을 만들어 볼륨 그룹 스냅샷 기능을 시연합니다.</block>
+  <block id="6f7c720fb5576726f01c8f207eae0594" category="list-text">OpenShift Virtualization Operator를 설치합니다.</block>
+  <block id="c638d67606b6ad5442cedc79c8089fb1" category="admonition">Trident 사용하여 기본 스토리지 클래스와 스냅샷 클래스를 설정한 후에 이 작업을 수행해야 Trident CSI를 사용하여 골든 이미지를 클러스터에서 VolumeSnapshots로 사용할 수 있습니다.</block>
+  <block id="6b89d99b966aaf61c7bf87b2afa58435" category="list-text">골든 이미지가 볼륨 스냅샷에 있는지 확인하세요.</block>
+  <block id="4fc1ca6ff8e8fcb1c4bc7d09263efba9" category="inline-image-macro">볼륨 스냅샷의 골든 이미지</block>
+  <block id="a78fd6c2399ba0bc8e7d75f986dd3c30" category="paragraph"><block ref="a78fd6c2399ba0bc8e7d75f986dd3c30" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="09c6cd854a2a0c553b42e21e34e3d770" category="list-text">기본 템플릿에서 VM을 만듭니다.  VM에 디스크 2개를 추가합니다.  (루트 디스크 1개와 추가 디스크 2개).</block>
+  <block id="88a695de0ae933dfe78a5721229e6a80" category="inline-image-macro">3개의 PVC가 있는 VM</block>
+  <block id="abe11e72db7e407e41ef5c9f78fb2230" category="paragraph"><block ref="abe11e72db7e407e41ef5c9f78fb2230" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="384244fed642ea4291b7c869f4d65fc4" category="list-text">ONTAP 백엔드에서 해당 볼륨을 확인하세요.</block>
+  <block id="0f44915d1014f2239afd89f352d97868" category="paragraph">루트 디스크 볼륨은 골든 이미지가 있는 스냅샷의 플렉스 클론 볼륨입니다.  VM의 추가 2개 디스크에 대한 나머지 2개 볼륨은 FlexVol 볼륨입니다.</block>
+  <block id="acab9488229c58903baa2b844e9c47a5" category="list-text">virtctl 도구를 사용하여 VM에 로그인합니다.</block>
+  <block id="b8c023211200fb03e389317c2335d93c" category="list-text">아래와 같이 2개의 디스크를 포맷하고 마운트합니다.</block>
+  <block id="753734afdcd3de53ebb23b0f7ff3d6cc" category="inline-image-macro">VM 디스크</block>
+  <block id="b69d628609631b4b9496118f71b52eaf" category="paragraph"><block ref="b69d628609631b4b9496118f71b52eaf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="967e1fa61cac3dd4dedcd44aec2c2dc5" category="section-title">4단계: 그룹 스냅샷 보호를 위해 VM 디스크에 레이블 지정</block>
+  <block id="e6fa6aa656c26acec12c29b9afcb3390" category="paragraph">볼륨 그룹 스냅샷은 레이블 선택기를 사용하여 어떤 PVC가 함께 속하는지 식별하고, 모든 관련 VM 디스크가 동일한 시점에 동시에 캡처되도록 보장합니다.</block>
+  <block id="7ba7abc349ac97a253f570fe27a8f47c" category="list-text">동일한 키/값을 사용하여 PVC에 레이블을 지정하고 확인합니다.</block>
+  <block id="35bcf5e77365792f5c59e4ed5fc5dc9c" category="list-text">PVC의 라벨을 확인하세요.</block>
+  <block id="50d8c74989bf87f21fd4cbb4498f6b5c" category="list-text">다음 YAML 정의를 사용하여 레이블이 지정된 모든 PVC를 자동으로 검색하는 VolumeGroupSnapshot을 만듭니다.</block>
+  <block id="68258c66d9fce158fa3080990e531b9d" category="inline-image-macro">VGS이 생성되었습니다</block>
+  <block id="2890452992685499665456f00e1c5e02" category="paragraph"><block ref="2890452992685499665456f00e1c5e02" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8eea62084ca7e541d918e823422bd82e" category="paragraph-title">결과</block>
+  <block id="786540beebc6cb766a8a0fcbb6f8fd39" category="paragraph">**consistencygroup: group1**이라는 라벨 키/값 쌍이 있는 모든 PVC의 스냅샷이 생성됩니다.  Trident VolumeGroupSnapshots는 ONTAP 백엔드에서 ONTAP 일관성 그룹을 사용합니다.</block>
+  <block id="090308d9034fd3640b2807348e527d62" category="admonition">Trident VolumeGroupSnapshots는 ONTAP 백엔드에서 ONTAP 일관성 그룹(CG)을 사용합니다.  REST API를 사용하는 경우 레이블별로 그룹화된 VM에 속한 모든 볼륨으로 CG가 생성되고, 각 볼륨의 스냅샷이 일관된 방식으로 촬영된 후 CG가 삭제됩니다.  타이밍에 따라 ONTAP 에서 일관성 그룹이 생성되고 삭제되는 것을 볼 수도 있고 볼 수 없을 수도 있습니다.</block>
+  <block id="9cafbf88fae77ebcd2c0932f7ab5e14b" category="paragraph">다음 이미지는 ONTAP 에서 생성된 다음 삭제된 일관성 그룹을 보여줍니다.</block>
+  <block id="dde5a2bc810f2a631f47fa641c270da5" category="inline-image-macro">ONTAP 일관성 그룹</block>
+  <block id="2481c49a386e81051d35fcfdc7c06b3d" category="paragraph"><block ref="2481c49a386e81051d35fcfdc7c06b3d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9d48cd7ed1b5fb0b48b0bf044be38912" category="section-title">5단계: 스냅샷에서 VM 디스크 복원</block>
+  <block id="df045e2a53a6df63ff623c54440533e6" category="paragraph">이 단계에서는 필요할 때 스냅샷이 VM 데이터를 성공적으로 복구할 수 있는지 확인합니다.  우리가 잃어버렸다고 가정하자<block ref="b9c73ec7aee3cbc103a29d07938b5c39" prefix=" " category="inline-code"></block> 두 개의 데이터 디스크 각각에서 파일을 가져옵니다.</block>
+  <block id="0d0aac0e38ef22ded5e194818cc47436" category="inline-image-macro">파일이 손실되었습니다</block>
+  <block id="0ac6e7f7c4c225eba3e82be2d568829d" category="paragraph"><block ref="0ac6e7f7c4c225eba3e82be2d568829d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="98b1b86182c6b6480c8a24632c3f6ba0" category="admonition">여러 볼륨의 스냅샷을 하나의 단위로 생성했지만, 개별 스냅샷에서만 복원할 수 있습니다.</block>
+  <block id="74b9acade2fa5de5be2d7a1e6db1dacb" category="paragraph">Trident *TridentActionSnapshotRestore (TASR) CR*을 사용하여 스냅샷에서 빠르고 정확한 볼륨 복원을 제공합니다.  이 CR은 필수 Kubernetes 작업으로 작동하며 작업이 완료된 후에는 유지되지 않습니다.</block>
+  <block id="a7d7a292399b1b09c339d1fea2c071a1" category="list-text">VM을 중지합니다.</block>
+  <block id="76cd7a8d3b9c6be103b9a0b212f651d0" category="list-text">아래에 표시된 대로 YAML을 사용하여 첫 번째 디스크/PVC의 내용을 해당 스냅샷으로 복원합니다.</block>
+  <block id="7759f192e336230723222fbd25f8ac06" category="list-text">마찬가지로 PVC와 해당 스냅샷을 사용하여 두 번째 디스크에 대한 또 다른 TASR 객체를 만듭니다.</block>
+  <block id="049aee8bc98e6dd95bc5b6dd2c3c90b9" category="list-text">복원 작업이 성공 상태로 표시되는지 확인하세요.</block>
+  <block id="2c6476c6f5b1db2b75db53650f255f19" category="inline-image-macro">TASR이 성공했다</block>
+  <block id="0f2ec79df3c1f2d6feb5a3cf7c2e14ec" category="paragraph"><block ref="0f2ec79df3c1f2d6feb5a3cf7c2e14ec" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7c9603c8d955bab55b57e9f42b7aa604" category="list-text">이제 VM을 시작하고 로그인한 다음 sample.txt 파일이 디스크에 다시 있는지 확인하세요.</block>
+  <block id="1d184d0062a03dddd5212bef274ee207" category="inline-image-macro">스냅샷이 복원되었습니다</block>
+  <block id="88d2f23f41c1bebf4371a92898da5394" category="paragraph"><block ref="88d2f23f41c1bebf4371a92898da5394" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9d8f10e36431e3ee739300b9cf063be6" category="paragraph">ONTAP tools for VMware vSphere NetApp 스토리지를 VCF 환경에 원활하게 통합하여 이러한 확장을 위한 효율적인 솔루션을 제공합니다.</block>
+  <block id="572cfc955c531b150a2b773992a22ce0" category="paragraph">ONTAP 도구는 데이터스토어의 설정 및 관리를 간소화하여 관리자가 vSphere Client에서 직접 스토리지를 프로비저닝하고 관리할 수 있도록 합니다.  ONTAP의 스냅샷, 복제, 데이터 보호와 같은 고급 기능은 VCF 환경 내에서 스토리지 성능, 효율성, 확장성을 향상시킵니다.</block>
+  <block id="9979ba306178a05563f7bf7d85d1f8fc" category="section-title">저장 용량 확장을 위한 지원 프로토콜</block>
+  <block id="f4944b6c460f5da77fa5924190918399" category="paragraph">VCF 환경은 여러 가지 저장 프로토콜을 사용하여 확장할 수 있으며, 각각 고유한 이점과 사용 사례를 제공합니다.</block>
+  <block id="134122d89d5cbd6afe813e0516d016a2" category="paragraph">다음 프로토콜을 사용하여 VCF 관리 도메인과 VI 워크로드 도메인의 스토리지를 확장할 수 있습니다.  VCF 배포에 보조 스토리지를 원활하게 통합하기 위해 사용자 환경에 가장 적합한 옵션을 선택하세요.</block>
+  <block id="3f9a2cadbf9ab77acd9644a38b2e20d2" category="paragraph">표준 이더넷 네트워크를 사용하는 블록 기반 프로토콜입니다.  고성능, 유연성, 비용 효율적인 확장이 필요한 환경에 이상적입니다.</block>
+  <block id="4b6c80cfc49b954a062a02243f49b82e" category="paragraph">iSCSI는 VMFS 데이터 저장소에 널리 사용되며 스냅샷 및 복제와 같은 고급 ONTAP 기능을 지원합니다.</block>
+  <block id="a8817667081304bbbf094d8797ae31eb" category="list-text">*비용 효율성:* 기존 이더넷 인프라를 사용하므로 특수 하드웨어의 필요성이 줄어들고 조직에서 안정적이고 확장 가능한 스토리지 솔루션을 구축할 수 있습니다.</block>
+  <block id="5903a917b575023b60264c602c220771" category="paragraph-title">파이버 채널(FC)</block>
+  <block id="414adc7baebbb501d2705425a204fb7e" category="paragraph">전용 FC 네트워크를 사용하는 고속, 저지연 프로토콜입니다.  FC는 안정성, 전용 대역폭, 강력한 오류 수정 기능이 요구되는 미션 크리티컬 워크로드에 적합합니다.  일반적으로 기업 환경에서 VMFS 데이터 저장소에 사용됩니다.</block>
+  <block id="09cb62b5d36524c3c08b85420cb9601f" category="paragraph-title">NFS(네트워크 파일 시스템)</block>
+  <block id="58d35df6b9892ca3924d065f090f2bca" category="paragraph">호스트 간에 파일을 쉽게 공유하고 관리할 수 있게 해주는 파일 기반 프로토콜입니다.  NFS는 설정이 간편하고 효율적으로 확장 가능하므로 유연한 파일 액세스가 필요한 가상화된 작업 부하 및 환경에 적합합니다.</block>
+  <block id="5ded510424ea1d79367785d8abe8f3fd" category="paragraph">ONTAP 과 vSphere는 관리 및 워크로드 도메인 모두에서 NFS 데이터 저장소를 지원합니다.</block>
+  <block id="287077fec1893a03203047e92758ac24" category="list-text">*간단하고 사용하기 쉬움:* NFS는 설정과 관리가 간단하므로 빠르고 쉽게 파일을 공유해야 하는 환경에 매우 적합합니다.</block>
+  <block id="8b7c42123642e2e4ea7dd426aeb2de58" category="paragraph-title">NVMe/TCP</block>
+  <block id="586dad36209ef44d26b7c58a8810c9a4" category="paragraph">TCP/IP를 사용하여 표준 이더넷 네트워크에서 높은 성능과 낮은 지연 시간을 제공하는 최신 프로토콜입니다.  NVMe/TCP는 특수 하드웨어가 필요 없이 확장성과 비용 효율성을 제공하므로 까다로운 애플리케이션과 대규모 데이터 작업에 이상적입니다.</block>
+  <block id="90053f64e007132aefbdcdc31e767fe5" category="list-text">*비용 효율성:* 표준 이더넷 스위치에서 실행되며 TCP 데이터그램 내부에 캡슐화됩니다. 구현에 특별한 장비가 필요하지 않습니다.</block>
+  <block id="566f44c1d7550bea856da34e2c7cc3b6" category="paragraph">NVMe의 이점에 대한 자세한 내용은 다음을 참조하세요.<block ref="6bc9e56be688a557680d9de94cd98f12" category="inline-link-rx"></block> .</block>
+  <block id="233fcb3654b23c31beb9694465c5df62" category="section-title">보조 저장소 추가를 위한 사용 사례</block>
+  <block id="9d5c4cd4b9251f4db94204b192efe2c7" category="paragraph">다음 사용 사례에서는 다양한 프로토콜과 구성을 사용하여 VCF 관리 도메인과 VI(가상 인프라) 워크로드 도메인에 보조 스토리지를 추가하는 방법을 보여줍니다.</block>
+  <block id="04ce076ee500d5e1357363d0a255ccc0" category="summary">VMware Cloud Foundation(VCF) 관리 도메인의 보조 스토리지로 Fibre Channel(FC)을 통해 VMFS 데이터 저장소를 구성합니다.  관리 도메인에 ONTAP 도구를 배포하고, 스토리지 백엔드를 추가하고, 데이터 저장소를 프로비저닝합니다.</block>
+  <block id="1f5b9331424465b91884f3f71acdd438" category="paragraph">이 사용 사례에서는 VMware Cloud Foundation(VCF) 관리 도메인의 보조 스토리지로 파이버 채널(FC)을 통해 VMFS 데이터 저장소를 구성하는 방법을 설명합니다.  이 절차에서는 관리 도메인에 ONTAP 도구를 배포하고, 스토리지 백엔드를 추가하고, 데이터 저장소를 프로비저닝하는 단계를 요약합니다.</block>
+  <block id="f3a4de865d82a4d1db3e356b6f05459b" category="paragraph">다음 구성 요소와 구성이 제대로 되어 있는지 확인하세요.</block>
+  <block id="310dd3f0b08a4dc5b7f391f6d39b9820" category="list-text">FC LIF로 생성된 SVM입니다.</block>
+  <block id="ddb933765dafde838b70c5919d751090" category="list-text">FC LUN에 다중 경로를 사용합니다.</block>
+  <block id="72d60d15f39ddd20088ecbdfeaa30181" category="list-text">ONTAP tools for VMware vSphere 에 있는 지침에 따라 관리 도메인에 ONTAP 도구를 배포합니다.<block ref="81dd52f09ea8388243e1cf03e2631092" category="inline-link-macro-rx"></block> .</block>
+  <block id="85056c49db0b05a3fca657b4dcf483b2" category="paragraph">ONTAP tools for VMware vSphere NFS 및 VMFS 데이터 저장소를 지원하는 핵심 서비스와 함께 소규모 단일 노드로 배포됩니다.</block>
+  <block id="9bcc1b635c97972d71cfba8865fed56c" category="list-text">ONTAP tools for VMware vSphere 에 있는 지침에 따라 vSphere 클라이언트 인터페이스를 사용하여 스토리지 백엔드를 추가합니다.<block ref="250176476ebc00df1ac1f9b13a4f1d55" category="inline-link-macro-rx"></block> .</block>
+  <block id="442290d4045e6c10552f661da43a9706" category="paragraph">스토리지 백엔드를 추가하면 ONTAP 클러스터를 온보딩할 수 있습니다.</block>
+  <block id="7f4c0c8af4af62b0d20441e6311049cd" category="list-text">ONTAP tools for VMware vSphere 에 있는 지침에 따라 FC에 VMFS를 프로비저닝하세요.<block ref="da3cb3e470210076c7a44d223d4c4d71" category="inline-link-macro-rx"></block> .</block>
+  <block id="0c81abdaa3dce98a90f30c04312e0fe4" category="list-text">ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.<block ref="f0c19d3f5bc112feb1d30474db65aa4c" category="inline-link-macro-rx"></block> .</block>
+  <block id="9170490ac213e0fff83de34c7e91bcae" category="inline-link-macro">VMware Cloud Foundation 문서</block>
+  <block id="8e7ab01bc954224f95f203434a5e4942" category="list-text">VCF 구성에 대한 정보는 다음을 참조하세요.<block ref="d0415f75a68d025dacd4c0ccc6eae0b3" category="inline-link-macro-rx"></block> .</block>
+  <block id="cee0080085e096ebf01c7ac34d4c127d" category="list-text">ONTAP 스토리지 시스템에서 파이버 채널을 구성하는 방법에 대한 자세한 내용은 ONTAP 9 설명서를 참조하세요.<block ref="086e8f717779887b4717a247df9e2619" category="inline-link-rx"></block> .</block>
+  <block id="9bbc42935de6d783c15740e2ebd9497a" category="inline-link-macro">VMFS 배포 가이드</block>
+  <block id="bdf8fa9d9d6327af115008cc17880877" category="list-text">ONTAP 스토리지 시스템에서 VMFS를 사용하는 방법에 대한 자세한 내용은 다음을 참조하십시오.<block ref="6ef3d431e4e3b29019609e8fe2c86a7b" category="inline-link-macro-rx"></block> .</block>
+  <block id="6ee46f4bd06aee15f61eace0a8bd3eb8" category="inline-link-macro">VMware 데이터스토어 프로비저닝</block>
+  <block id="019187c70701eb104596fdbd601aac4c" category="list-text">이 솔루션의 비디오 데모는 다음을 참조하세요.<block ref="9b6c1076aa80eb4eff9cf1460e424eb0" category="inline-link-macro-rx"></block> .</block>
+  <block id="264d5cbf78f1cc0efa0d674580d77dd9" category="summary">ONTAP 스토리지 시스템에 대한 연결을 활성화하기 위해 VMware Cloud Foundation 관리 도메인의 ESXi 호스트에서 iSCSI 네트워킹을 구성합니다.  VLAN 분리를 통해 분산 포트 그룹을 만들고, 중복성을 위해 업링크 팀을 구성하고, 각 ESXi 호스트에 VMkernel 어댑터를 설정하여 장애 조치 기능을 위한 전용 iSCSI 경로를 설정합니다.</block>
+  <block id="7ca9bbaafcbdd87f947a91dcb6db61ff" category="doc">VCF 관리 도메인의 ESXi 호스트에서 iSCSI에 대한 네트워킹 구성</block>
+  <block id="17b3208733da1dafdf956d657335da4f" category="paragraph">vSphere 클라이언트를 사용하여 VCF 관리 도메인 클러스터에서 다음 단계를 수행합니다.</block>
+  <block id="f4dd91e9fc917cfd1849cd1f306a2737" category="section-title">1단계: iSCSI 트래픽을 위한 분산 포트 그룹 생성</block>
+  <block id="2eb5271b2489c6462a488c30ca9cc894" category="paragraph">각 iSCSI 네트워크에 대한 새로운 분산 포트 그룹을 생성하려면 다음 단계를 완료하세요.</block>
+  <block id="78892a07918070a703af3334c6046825" category="section-title">2단계: 각 ESXi 호스트에 VMkernel 어댑터 만들기</block>
+  <block id="4452f5be97c6c72f67ab711663e7480f" category="paragraph">관리 도메인의 각 ESXi 호스트에 VMkernel 어댑터를 만듭니다.</block>
+  <block id="fa7f00a8eb8f59e233d2527246e51846" category="inline-link-macro">ESXi 호스트에서 iSCSI에 대한 스토리지 구성</block>
+  <block id="062aba62fac4d2c77766d65b1878fea5" category="paragraph">워크로드 도메인의 모든 ESXi 호스트에서 iSCSI에 대한 네트워킹을 구성한 후<block ref="2d0309663a1eb6c73e4ad6b3ca6928ba" category="inline-link-macro-rx"></block> .</block>
+  <block id="b6b3505fd0664c517f831fcaca8ef87f" category="summary">VCF 관리 도메인에 보조 스토리지로 iSCSI 데이터스토어를 추가하는 데 필요한 요구 사항을 검토합니다.</block>
+  <block id="55b8fc8accbe0c63d7b3ec13410a5ca2" category="doc">VCF 관리 도메인에 iSCSI 데이터 저장소를 추가하기 위한 배포 요구 사항</block>
+  <block id="7c949ceed56723a84124d5f5d0bae05d" category="paragraph">VMware Cloud Foundation(VCF) 관리 도메인에 보조 스토리지로 iSCSI 데이터스토어를 추가하는 데 필요한 요구 사항을 검토합니다.  VMware Cloud Foundation 관리 도메인에 iSCSI vVols 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템과 배포된 VCF 관리 도메인이 필요합니다.</block>
+  <block id="439af0eafa830454ed233636672264ba" category="section-title">인프라 요구 사항</block>
+  <block id="708fec064c241102ffc255e7376aa794" category="list-text">이더넷 스위치에 스토리지 트래픽 전용 물리적 데이터 포트가 있는 ONTAP AFF 또는 ASA 스토리지 시스템입니다.</block>
+  <block id="54b752754c9cba43ef12c283cfa1eed3" category="section-title">권장되는 iSCSI 네트워크 설계</block>
+  <block id="1c55acd0b5e32876750fef8fce21b0a0" category="paragraph">iSCSI의 경우 완전히 중복된 네트워크 설계를 구성해야 합니다.  다음 다이어그램은 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 허용 기능을 제공하는 중복 구성의 예를 보여줍니다. NetApp 을 참조하세요<block ref="7faee073c28821504170f8e609f3d818" category="inline-link-macro-rx"></block> 추가 정보를 원하시면.</block>
+  <block id="f660de9aeb0364cb792fb0a3fe01fea5" category="inline-link-macro">ESX/ESXi에서 소프트웨어 iSCSI 포트 바인딩을 사용하기 위한 고려 사항</block>
+  <block id="a4bc844ae4a10733e685ad38928a78a1" category="admonition">동일한 IP 네트워크에 여러 VMkernel 어댑터가 구성된 상황에서는 ESXi 호스트에서 소프트웨어 iSCSI 포트 바인딩을 사용하여 어댑터 전체에 걸친 부하 분산이 이루어지도록 하는 것이 좋습니다. KB 문서를 참조하세요<block ref="973e1eb1f5cc7e63fe7ffa3b5b3b5450" category="inline-link-macro-rx"></block> .</block>
+  <block id="228e108b8d6617ebcf8e6df6d3b1340a" category="inline-link-macro">SVM과 LIF를 생성합니다</block>
+  <block id="9775044f4a177af2c0e789f3bad0415e" category="paragraph">배포 요구 사항을 검토한 후,<block ref="1e6c1a1b7160b1c05383b42986415712" category="inline-link-macro-rx"></block> .</block>
+  <block id="7cca92cee8fd9816aebc0d22277b2b3b" category="summary">VMware Cloud Foundation 관리 도메인을 확장하기 위해 보조 iSCSI 스토리지를 설정합니다.  ONTAP 도구를 배포하고, 관리 도메인에 iSCSI 데이터 저장소를 구성하고, 관리 VM을 새 데이터 저장소로 마이그레이션합니다.</block>
+  <block id="6a2a3bfa6bffc01ab1ec92b35b265dac" category="doc">ONTAP 도구를 사용하여 VCF 관리 도메인에서 iSCSI 스토리지 구성</block>
+  <block id="35a7d213e28372d30019129be6bb8fb2" category="paragraph">vSphere 클라이언트를 사용하여 VCF 관리 도메인 클러스터에서 다음 단계를 수행합니다.</block>
+  <block id="2f6f752da6367b090e199bd9be171f39" category="section-title">1단계: ONTAP tools for VMware vSphere 배포</block>
+  <block id="9bd4876bef0a8307a866c41c4f816152" category="section-title">2단계: 스토리지 시스템 추가</block>
+  <block id="7882270b52febb71b241aada9c515a89" category="paragraph">ONTAP 도구를 사용하여 스토리지 시스템을 추가하려면 다음 단계를 수행하세요.</block>
+  <block id="7050b89aa3aeeaf9b342181943ab8a94" category="section-title">선택 사항: 관리 VM을 iSCSI 데이터 저장소로 마이그레이션</block>
+  <block id="85febf4fdf21fa87fe07b66a41ce27d8" category="paragraph">VCF 관리 VM을 보호하기 위해 ONTAP 스토리지를 사용하려는 경우 vMotion을 사용하여 VM을 새로 만든 iSCSI 데이터스토어로 마이그레이션합니다.</block>
+  <block id="d57b28c01455bab1e8a3b112a97a10f2" category="list-text">vSphere Client에서 관리 도메인 클러스터로 이동하여 *VM* 탭을 클릭합니다.</block>
+  <block id="abc554bb32f6262f3db3148c82138db9" category="list-text">*가상 머신 - 마이그레이션* 마법사에서 마이그레이션 유형으로 *저장소만 변경*을 선택하고 *다음*을 클릭하여 계속합니다.</block>
+  <block id="352b41b17c2fe124e6daea50c0207145" category="list-text">선택 사항을 검토하고 *마침*을 클릭하여 마이그레이션을 시작합니다.</block>
+  <block id="9f2764d9059634479f6a13c901f88758" category="list-text">ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.<block ref="3910dfb9291615ffabfac0d706916004" category="inline-link-macro-rx"></block> .</block>
+  <block id="e6c818d058fe78c91c537b4e367013f3" category="list-text">VCF 구성에 대한 정보는 다음을 참조하세요.<block ref="925ca5ffab5753dc19469a4fe1e5d6fd" category="inline-link-macro-rx"></block> .</block>
+  <block id="63c605cc0037077807af667b045c8cb6" category="inline-link-macro">vSphere VMFS 데이터스토어 - ONTAP 사용한 iSCSI 스토리지 백엔드</block>
+  <block id="219427efea5466ad65d4e2e947b09dfc" category="list-text">VMware에서 VMFS iSCSI 데이터 저장소를 사용하는 방법에 대한 자세한 내용은 다음을 참조하세요.<block ref="8919c7eabf612bf93e9d0ffa86c0da93" category="inline-link-macro-rx"></block> .</block>
+  <block id="c00ce0b13a44a568c23b070cc20cd819" category="summary">VMware Cloud Foundation 관리 도메인에 대한 iSCSI 연결을 제공하기 위해 여러 개의 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 만듭니다.  iSCSI 프로토콜 지원을 통해 SVM을 구성하고 별도의 이더넷 네트워크에 걸쳐 여러 LIF를 설정하여 다중 경로 지정과 장애 조치를 활성화하여 최적의 성능과 가용성을 확보합니다.</block>
+  <block id="de93e3bebfdf9c6a3b6292761594f004" category="doc">VCF 관리 도메인에서 iSCSI 데이터 저장소에 대한 SVM 및 LIF 생성</block>
+  <block id="498fd130cacfa6f6c1cd7e2c084baba1" category="inline-link-macro">ONTAP LIF 생성</block>
+  <block id="171b874422740a5361cf96694845414a" category="paragraph">기존 SVM에 새로운 LIF를 추가하려면 ONTAP 설명서를 참조하세요.<block ref="0dd83352fe1a672de604487265159d1a" category="inline-link-macro-rx"></block> .</block>
+  <block id="86cf6f04c39e6c73e4fdab2f874d9a7f" category="inline-link-macro">ESXi 호스트에서 iSCSI에 대한 네트워킹 구성</block>
+  <block id="31a9a58b2b4daf7d42c7d6f7f2985ac7" category="paragraph">SVM과 LIF를 생성한 후,<block ref="6ec1351988625276ec8fa165629cc164" category="inline-link-macro-rx"></block> .</block>
+  <block id="0364f5de87fc65c91498fbab0af089fb" category="summary">VMware Cloud Foundation(VCF) 관리 도메인의 보조 스토리지로 iSCSI 데이터스토어를 추가하는 작업을 시작해 보세요.  iSCSI를 위한 논리적 인터페이스(LIF)를 갖춘 스토리지 가상 머신(SVM)을 설정하고, ESXi 호스트에서 iSCSI 네트워킹을 구성하고, ONTAP tools for VMware vSphere 배포하고, VMFS 데이터 저장소를 생성합니다.</block>
+  <block id="bca600aff76b7deb3fcbd5d2af1de94d" category="doc">VCF 관리 도메인에 iSCSI 데이터 저장소를 보조 저장소로 추가하기 위한 배포 워크플로</block>
+  <block id="06c2cea18679d64399783748fa367bdd" category="inline-image-macro">하나</block>
+  <block id="d44a93f583d8dd035058f77b10cd0476" category="inline-link-macro">배포 요구 사항 검토</block>
+  <block id="daaa9e3b02dc739a8d4af06133db31ef" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block><block ref="a4e113d4cddce34a6392991872abbb21" category="inline-link-macro-rx"></block></block>
+  <block id="fca27e0d26068b4a2bc1bf4232d95367" category="paragraph">VCF 관리 도메인에 보조 스토리지로 iSCSI 데이터 저장소를 추가하는 데 필요한 요구 사항을 검토합니다.</block>
+  <block id="aada29daee1d64ed0fe907043855cb7e" category="inline-image-macro">둘</block>
+  <block id="db05a53eba1405381837ddf6f6f1b5e0" category="inline-link-macro">SVM 및 LIF 생성</block>
+  <block id="0acb87d3fad2722061040533123f88de" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block><block ref="5b95bd8018fadc58ba4e698049666f4e" category="inline-link-macro-rx"></block></block>
+  <block id="5928262b0ae3e6c8b5dea4af8c210019" category="paragraph">iSCSI 트래픽을 위해 여러 개의 LIF가 있는 SVM을 생성합니다.</block>
+  <block id="ca8a2087e5557e317599344687a57391" category="inline-image-macro">삼</block>
+  <block id="037919f181fe0f629904c45b4387a48c" category="inline-link-macro">네트워킹 구성</block>
+  <block id="5a1be1dd344dbfa2b27c6f99f2ee2561" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block><block ref="7d6447a24617c9dca57268c8ac77d79c" category="inline-link-macro-rx"></block></block>
+  <block id="1f3ec023086f600b537c4f607e659fc0" category="paragraph">ESXi 호스트에서 iSCSI에 대한 네트워킹을 설정합니다.</block>
+  <block id="981b8fcee42e1e726a67a2b9a98ea6e9" category="inline-image-macro">네</block>
+  <block id="d25223f4065ca21361aff2e7cdc61203" category="inline-link-macro">저장소 구성</block>
+  <block id="766cd09e1254684f2e8c1e197d2a2abd" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block><block ref="9ef3da81cc0ef4ce676c9ffc5d30f442" category="inline-link-macro-rx"></block></block>
+  <block id="72af6715e813abaf90dec370492017e0" category="paragraph">ONTAP 도구를 배포하고 사용하여 스토리지를 구성합니다.</block>
+  <block id="46e1e8aeebcde461daa8e396597a1f79" category="paragraph">ONTAP 스토리지 시스템에서 파이버 채널을 구성하는 방법에 대한 자세한 내용은 다음을 참조하세요.<block ref="086e8f717779887b4717a247df9e2619" category="inline-link-rx"></block> ONTAP 9 문서에서.</block>
+  <block id="a31a9f1f6191c39126d5cf76493a7140" category="doc">VI 워크로드 도메인에 보조 스토리지로 FC 기반 VMFS 데이터 저장소 추가</block>
+  <block id="cfadb8d377e0685ac809af40827b5707" category="inline-link-macro">VI 워크로드 vCenter 등록</block>
+  <block id="2ed0940924cd6f183ce08bc3fd2686f3" category="list-text">ONTAP tools for VMware vSphere 에 있는 지침에 따라 VI 워크로드 vCenter를 등록하세요.<block ref="f82bfbefd662316918009488940c4f73" category="inline-link-macro-rx"></block> .</block>
+  <block id="58533060e2502fb4927d22cd8df07e15" category="paragraph">VI 워크로드 vCenter를 등록하면 vCenter 플러그인이 활성화됩니다.</block>
+  <block id="012cf9601616b6839e5e819ea0527c19" category="list-text">ONTAP tools for VMware vSphere 에 있는 지침에 따라 vSphere 클라이언트 인터페이스를 사용하여 스토리지 백엔드를 추가합니다.<block ref="d06870107ceaccbba81ad9fa6df9b859" category="inline-link-macro-rx"></block> .</block>
+  <block id="040ee8c6abde5a5eb26956aa687185b9" category="list-text">ONTAP tools for VMware vSphere 에 있는 지침에 따라 파이버 채널(FC)에서 VMFS를 프로비저닝하세요.<block ref="0bc691b5c74c04aa4cff00c74e7d0a8d" category="inline-link-macro-rx"></block> .</block>
+  <block id="c6f53d98284afe2421de978fcfeef311" category="list-text">ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하십시오.<block ref="3910dfb9291615ffabfac0d706916004" category="inline-link-macro-rx"></block> .</block>
+  <block id="6bd3a30fd83bb86e4430c7e1c82485ee" category="list-text">VCF 구성에 대한 정보는 다음을 참조하세요.<block ref="54192ac8f069d6d3e494923353fd32c4" category="inline-link-macro-rx"></block> .</block>
+  <block id="782064b27e179d40c587c5df7b492cfd" category="list-text">ONTAP 스토리지 시스템에서 파이버 채널을 구성하는 방법에 대한 정보는 다음을 참조하십시오.<block ref="cfeb6fd7632aa8a3aff6f995423e20e8" category="inline-link-rx"></block> ONTAP 9 문서에서.</block>
+  <block id="17430c47ea9b872f88c2ebcae1bdf5bc" category="list-text">ONTAP 스토리지 시스템과 함께 VMFS를 사용하는 방법에 대한 정보는 다음을 참조하십시오.<block ref="6ef3d431e4e3b29019609e8fe2c86a7b" category="inline-link-macro-rx"></block> .</block>
+  <block id="e0979780ee6a39cb6e6768ff2ddf835c" category="summary">VI 워크로드 도메인의 ESXi 호스트에서 iSCSI 스토리지에 대한 네트워킹을 구성합니다.  vSphere 클라이언트를 사용하여 iSCSI 트래픽에 대한 분산 포트 그룹을 생성하고 VMkernel 어댑터를 설정하여 안정적인 연결과 다중 경로를 활성화합니다.</block>
+  <block id="8efab881e850e8e6ea2227e94bbd5f26" category="doc">VCF VI 워크로드 도메인의 ESXi 호스트에서 iSCSI에 대한 네트워킹 구성</block>
+  <block id="e384361292cf374729cd5b81296eb8b9" category="paragraph">vCenter Single Sign-On과 함께 vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터에서 이러한 단계를 수행합니다.  동일한 vSphere 클라이언트가 관리 도메인과 워크로드 도메인을 모두 관리합니다.</block>
+  <block id="d1d858a9e6bb9e4ee193cc56447cd648" category="paragraph">각 iSCSI 네트워크에 대한 새로운 분산 포트 그룹을 생성하려면 다음 단계를 완료하세요.</block>
+  <block id="5067e581b664a87354a9dd2f6e2e0991" category="paragraph">vSphere 클라이언트를 사용하여 워크로드 도메인의 각 ESXi 호스트에서 다음 단계를 수행합니다.</block>
+  <block id="6073743bec483c08f32e3558cb79c276" category="inline-link-macro">iSCSI vVols 에 대한 스토리지 구성</block>
+  <block id="7f2431b0a0bc38c7ab4c5de78a03a713" category="paragraph">워크로드 도메인의 모든 ESXi 호스트에서 iSCSI에 대한 네트워킹을 구성한 후<block ref="f6ec792e2ac6a627568e7eef669c0e34" category="inline-link-macro-rx"></block> .</block>
+  <block id="dd4b654a48171725a6acb80c39943e03" category="summary">VMware Cloud Foundation VI 워크로드 도메인에 iSCSI vVols 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.  안정적이고 고성능의 스토리지 통합을 보장하기 위해 권장되는 네트워크 설계 및 인프라 요구 사항을 검토하세요.</block>
+  <block id="648f183b9a559b0980adb06ad519877a" category="doc">VI 워크로드 도메인의 iSCSI vVols 에 대한 배포 요구 사항</block>
+  <block id="aa3ceefa41d6553379d8bb088b7426a8" category="paragraph">VMware Cloud Foundation VI 워크로드 도메인에 iSCSI vVols 배포하는 데 권장되는 네트워크 설계 및 인프라 요구 사항을 검토합니다.  완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.</block>
+  <block id="f7513b732e81dd1d86b04ca4586704c7" category="list-text">VCF 관리 도메인 배포가 완료되었고 vSphere 클라이언트에 액세스할 수 있습니다.</block>
+  <block id="ae06f3b42ccf6216682295be91d90e5e" category="paragraph">iSCSI의 경우 완전히 중복된 네트워크 설계를 구성해야 합니다.  다음 다이어그램은 중복 구성의 예를 보여줍니다.  저장 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 내결함성을 제공합니다.  추가 정보는 NetApp 참조하세요.<block ref="b6cd49332e8e4e167bacc80f785766b6" category="inline-link-macro-rx"></block> .</block>
+  <block id="cbbcca9241f0f6721d6d57ff65999d03" category="admonition">동일한 IP 네트워크에 여러 VMkernel 어댑터가 구성된 상황에서는 ESXi 호스트에서 소프트웨어 iSCSI 포트 바인딩을 사용하여 어댑터 전체에 걸쳐 부하 분산이 이루어지도록 합니다. KB 문서를 참조하세요<block ref="973e1eb1f5cc7e63fe7ffa3b5b3b5450" category="inline-link-macro-rx"></block> .</block>
+  <block id="2b4963eaabfa9d3e1ce8ab7149f495d9" category="paragraph">배포 요구 사항을 검토한 후,<block ref="1f040a54b046768a5a2dc9b24100224f" category="inline-link-macro-rx"></block> .</block>
+  <block id="c32086bbc59aa0a4df487a33da5f6589" category="summary">ONTAP 도구를 사용하여 VI 워크로드 도메인에서 iSCSI vVols 스토리지를 구성합니다.  ONTAP tools for VMware vSphere 배포하고, 스토리지 시스템을 등록하고, 스토리지 기능 프로필을 생성하고, vSphere 클라이언트에서 vVols 데이터 저장소를 프로비저닝합니다.</block>
+  <block id="c9303aecdb235c5d7284a064b1babb0e" category="doc">ONTAP 도구를 사용하여 VCF VI 워크로드 도메인에서 iSCSI vVols 스토리지 구성</block>
+  <block id="7aa8efb94a18b38456913eca849f5679" category="paragraph">VI 워크로드 도메인의 경우 ONTAP 도구는 VCF 관리 클러스터에 설치되지만 VI 워크로드 도메인과 연결된 vCenter에 등록됩니다.</block>
+  <block id="745bb41319cb137451cd704d08b42e35" category="admonition">vVol에는 SVM 자격 증명이 아닌 ONTAP 클러스터 자격 증명이 필요합니다. 자세한 내용은 ONTAP tools for VMware vSphere 참조하세요.<block ref="4cf10c14b81f3599f19356bc5d60d8b9" category="inline-link-rx"></block> .</block>
+  <block id="ebc930837bef0692c9436bd0299b790c" category="section-title">3단계: ONTAP 도구에서 스토리지 기능 프로필 만들기</block>
+  <block id="aa83147bb5e904c4ba98e266edc59fec" category="list-text">ONTAP 도구에서 왼쪽 메뉴에서 *저장 용량 프로필*을 선택한 다음 *만들기*를 누릅니다.</block>
+  <block id="ef238dac22f817d9b046002fae1b1d3f" category="list-text">*저장소 기능 프로필 만들기* 마법사에서 프로필의 이름과 설명을 입력하고 *다음*을 클릭합니다.</block>
+  <block id="7ebc2c304ab81d24c8346d44b70b5a15" category="list-text">원하는 프로토콜을 선택하거나 *모든* 프로토콜을 허용하려면 *모두*를 선택하세요.</block>
+  <block id="8ec359a57d22469a7d85bd3c91f103cc" category="list-text">필요에 따라 스토리지 효율성, 공간 예약, 암호화 및 계층화 정책을 선택하여 *스토리지 속성* 페이지를 완성합니다.</block>
+  <block id="a5c4320dbad3b21490ad74a6c281ff86" category="list-text">요약을 검토하고 *마침*을 클릭하여 프로필을 만듭니다.</block>
+  <block id="3d776e6a8fcc88cd4f760bb044980e0d" category="section-title">4단계: ONTAP 도구에서 vVols 데이터 저장소 만들기</block>
+  <block id="e62faba6576e4e204d8f07a3406bddde" category="paragraph">ONTAP 도구에서 vVols 데이터 저장소를 생성하려면 다음 단계를 완료하세요.</block>
+  <block id="18ba4340c6a62bfc629f2beff00085dd" category="list-text">ONTAP 도구에서 *개요*를 선택하고 *시작하기* 탭에서 *프로비저닝*을 클릭하여 마법사를 시작합니다.</block>
+  <block id="a6eef41a1850354873233f4e32079082" category="list-text">새 데이터 저장소 마법사의 *일반* 페이지에서 vSphere 데이터 센터 또는 클러스터 대상을 선택합니다.</block>
+  <block id="b45c629b373095880c60e4a7e68a2caa" category="list-text">데이터 저장소 유형으로 * vVols*를 선택하고, 데이터 저장소 이름을 입력한 다음, 프로토콜로 *iSCSI*를 선택합니다.</block>
+  <block id="920dcf25364b76605438747a06b8fe07" category="list-text">*스토리지 시스템* 페이지에서 스토리지 기능 프로필, 스토리지 시스템, VM을 선택합니다.</block>
+  <block id="cd89553c0d9522fd1f92d04eeb3bd5b2" category="list-text">*저장소 속성* 페이지에서 데이터 저장소에 대한 새 볼륨을 생성하도록 선택하고 생성하려는 볼륨의 저장소 속성을 입력합니다.</block>
+  <block id="5b6be84e0c5767f90ba48c803b717f4e" category="list-text">*추가*를 클릭하여 볼륨을 생성한 다음 *다음*을 클릭하여 계속합니다.</block>
+  <block id="8a8306692a44a289b352e8f5069bfd76" category="list-text">요약을 검토하고 *마침*을 클릭하여 vVol 데이터 저장소 생성 프로세스를 시작합니다.</block>
+  <block id="af3ca02bd4d916184165ed15e69d0b3e" category="list-text">VCF 구성에 대한 정보는 다음을 참조하세요.<block ref="a72b2a3fbad763c0d59c16c1eeac4c5b" category="inline-link-macro-rx"></block> .</block>
+  <block id="3fe0ed7280c90c4048e88955edb1919b" category="summary">VMware Cloud Foundation VI 워크로드 도메인의 vVols 데이터 저장소에 대한 iSCSI 트래픽을 지원하기 위해 ONTAP 시스템에 스토리지 가상 머신(SVM)과 여러 논리 인터페이스(LIF)를 생성합니다.  새로운 SVM을 추가하고, iSCSI를 활성화하고, LIF를 구성하고, 선택적으로 스토리지 VM 관리 계정을 활성화합니다.</block>
+  <block id="99afdc7f170c278a059b2c20ece49ea0" category="doc">VCF VI 워크로드 도메인의 iSCSI vVols 데이터 저장소에 대한 SVM 및 LIF 생성</block>
+  <block id="ec8b0a319d66a69a5ce2bb95bdd22791" category="paragraph">SVM과 LIF를 생성한 후,<block ref="30d9ace172693cefce9175fdfd581abc" category="inline-link-macro-rx"></block> .</block>
+  <block id="e4018df810f158b9ce0710b2840ad31c" category="summary">VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인의 보조 스토리지를 위한 iSCSI를 사용하여 vVols 데이터스토어를 구성하는 방법을 알아보세요.  SVM과 LIF를 생성하고, iSCSI 네트워킹을 설정하고, ONTAP tools for VMware vSphere 배포하고, vVols 데이터 저장소를 프로비저닝합니다.</block>
+  <block id="8b7144f784c523d891bc144b0b83cf39" category="doc">VI 워크로드 도메인에서 iSCSI vVols 데이터 저장소를 보조 스토리지로 추가하기 위한 배포 워크플로</block>
+  <block id="9e4cf702d2d5f27a64b414e57b957ba0" category="paragraph">VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에서 보조 스토리지로 iSCI vVols 데이터스토어를 구성하는 방법을 알아보세요.  SVM과 LIF를 생성하고, iSCSI 네트워킹을 설정하고, ONTAP tools for VMware vSphere 배포하고, 스토리지를 구성합니다.</block>
+  <block id="8ab2a41ac039546ff19dd4e593d6857c" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block><block ref="1e6fda429eafb67313bde732d8a34a65" category="inline-link-macro-rx"></block></block>
+  <block id="025a94422a712b480d3bf346430791d3" category="paragraph">VMware Cloud Foundation VI 워크로드 도메인에 iSCSI vVols 배포하기 위한 요구 사항을 검토합니다.</block>
+  <block id="22e411aa3f41ae1ccf129db981cf7875" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block><block ref="365ccb7d8371bdb6feee2db3cb0575c8" category="inline-link-macro-rx"></block></block>
+  <block id="f1bfe5dc7451bbfefd8b87d21a7d58f9" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block><block ref="a08beaaa0982e74bb7fb980573564cea" category="inline-link-macro-rx"></block></block>
+  <block id="a11042745556aca14027ecae3fa3cf84" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block><block ref="30300d59439af1c0715ed58624368243" category="inline-link-macro-rx"></block></block>
+  <block id="a134965923d5126148a345b4f5d941cb" category="summary">ONTAP 스토리지 시스템에 대한 연결을 활성화하기 위해 VMware Cloud Foundation 관리 도메인의 ESXi 호스트에서 NFS 네트워킹을 구성합니다.  VLAN 분리를 통해 분산 포트 그룹을 만들고, 중복성을 위해 업링크 팀을 구성하고, 각 ESXi 호스트에 VMkernel 어댑터를 설정하여 장애 조치 기능을 위한 전용 NFS 경로를 설정합니다.</block>
+  <block id="acd5edb4ec2e000265eb2005836f4c6e" category="doc">VCF VI 워크로드 도메인의 ESXi 호스트에서 NFS에 대한 네트워킹 구성</block>
+  <block id="e23f4b023c1878e139fd3e792c470eec" category="paragraph">vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터에서 다음 단계를 수행합니다. 이 경우 vCenter Single Sign-On이 사용되므로 vSphere 클라이언트는 관리 및 워크로드 도메인에서 공통적입니다.</block>
+  <block id="304340d452b4dbcdee187e79b91f8bd3" category="section-title">1단계: NFS 트래픽을 위한 분산 포트 그룹 만들기</block>
+  <block id="397e3b11b855a90427a206b74cc8fc81" category="paragraph">네트워크에서 NFS 트래픽을 전송할 새로운 분산 포트 그룹을 만들려면 다음 단계를 완료하세요.</block>
+  <block id="d2f66d4101766352f85831a4f376cee5" category="list-text">*분산 포트 그룹 - 설정 편집* 페이지에서 왼쪽 메뉴의 *팀 구성 및 장애 조치*로 이동합니다. NFS 트래픽에 사용할 업링크의 티밍을 활성화하려면 *활성 업링크* 영역에 함께 있어야 합니다. 사용하지 않는 업링크를 *사용하지 않는 업링크*로 옮깁니다.</block>
+  <block id="11cb0daa77a8dd47a7ba6d7ef25cb51b" category="section-title">2단계: 각 ESXi 호스트에 VMkernel 어댑터 만들기</block>
+  <block id="44b5d273ba71cac2d810269d168df2a2" category="paragraph">워크로드 도메인의 각 ESXi 호스트에 VMkernel 어댑터를 만듭니다.</block>
+  <block id="ab26772760f68a2382bf1e3ed2921a09" category="list-text">*연결 유형 선택* 창에서 *VMkernel 네트워크 어댑터*를 선택하고 *다음*을 클릭하여 계속합니다.</block>
+  <block id="d6b74fa2ccbcaaafe1b5044cd53d86c6" category="list-text">*포트 속성* 페이지에서 기본값(활성화된 서비스 없음)을 유지하고 *다음*을 클릭하여 계속합니다.</block>
+  <block id="e63e1d9a90fb605098b7320928e2f684" category="list-text">*IPv4 설정* 페이지에서 *IP 주소*, *서브넷 마스크*를 입력하고, 새로운 게이트웨이 IP 주소를 제공합니다(필요한 경우에만). 계속하려면 *다음*을 클릭하세요.</block>
+  <block id="03794692d7c768a4096907cf7605f902" category="list-text">*완료 준비* 페이지에서 선택 사항을 검토하고 *마침*을 클릭하여 VMkernel 어댑터를 만듭니다.</block>
+  <block id="e913c066350c5909c0888d0c645baf15" category="inline-link-macro">NFS vVols 에 대한 스토리지 구성</block>
+  <block id="4ccf9a761de9323db8b234fd5fdf1789" category="paragraph">워크로드 도메인의 모든 ESXi 호스트에서 NFS에 대한 네트워킹을 구성한 후<block ref="1fd03f3b1ae5f76f8ac8415468243aee" category="inline-link-macro-rx"></block> .</block>
+  <block id="12a372afab6964bd158b95372c03e4b6" category="summary">VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.  안정적이고 고성능의 스토리지 통합을 보장하기 위해 권장되는 네트워크 설계 및 인프라 요구 사항을 검토하세요.</block>
+  <block id="b191fd67ebbc0feedd1f3044226896b3" category="doc">VI 워크로드 도메인에 NFS vVols 추가하기 위한 배포 요구 사항</block>
+  <block id="061c7aa2853dcf97a09ebec7b460746d" category="paragraph">VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하는 데 권장되는 네트워크 설계 및 인프라 요구 사항을 검토합니다.  완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.</block>
+  <block id="6a304b8e666c97571d1867a4b6e8aacb" category="list-text">이더넷 스위치에 스토리지 트래픽 전용 물리적 데이터 포트가 있는 ONTAP AFF 또는 FAS 스토리지 시스템입니다.</block>
+  <block id="1196eb36124361830d88d891474975df" category="section-title">권장되는 NFS 네트워크 설계</block>
+  <block id="c720a69ee5e948dfb5c13e7cdf864c4a" category="paragraph">스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 허용 기능을 제공하기 위해 NFS에 대한 중복 네트워크 설계를 구성합니다.  아키텍처 요구 사항에 따라 단일 서브넷이나 여러 서브넷으로 NFS를 배포하는 것이 일반적입니다.</block>
+  <block id="d044a37c615d6add7f6b4a3eb95a960c" category="list-text">VMware vSphere에 대한 자세한 내용은 다음을 참조하세요.<block ref="60602ee99761efec44031359073db236" category="inline-link-rx"></block> .</block>
+  <block id="bc09613bead00d69a3945f53b53927e6" category="paragraph">요구사항을 검토한 후,<block ref="587ef03e209ce66bcfae111d392f5101" category="inline-link-macro-rx"></block> .</block>
+  <block id="7dc48b260195a4f676ca3e277771324c" category="summary">VI 워크로드 도메인에서 NFS vVols 스토리지를 구성합니다.  ONTAP tools for VMware vSphere 배포한 후 vSphere 클라이언트 인터페이스를 사용하여 스토리지 시스템을 추가하고, 스토리지 기능 프로필을 생성하고, vVols 데이터 저장소를 프로비저닝합니다.</block>
+  <block id="2cab819d76afaf80da4ef43c3648c136" category="doc">ONTAP 도구를 사용하여 VCF VI 워크로드 도메인에서 NFS vVols 스토리지 구성</block>
+  <block id="319a1942012e342c730846168d71c837" category="section-title">3단계: ONTAP 도구에서 NFS 데이터 저장소 만들기</block>
+  <block id="8aada6e9e7adc892cbfd27bb673811fd" category="paragraph">NFS에서 실행되는 ONTAP 데이터 저장소를 배포하려면 다음 단계를 완료하세요.  ONTAP 도구를 사용하세요.</block>
+  <block id="67d8b93842787c38f53ca0f500a407fd" category="list-text">ONTAP 도구에서 *개요*를 선택하고 *시작하기* 탭에서 *프로비저닝*을 클릭하여 마법사를 시작합니다.</block>
+  <block id="7faa69f6dda852a0075d468ce72c76f6" category="list-text">데이터 저장소 유형으로 *NFS*를 선택하고, 데이터 저장소의 이름을 입력하고, 프로토콜을 선택합니다.</block>
+  <block id="8d2db3260e3e9715f3241d96aac04deb" category="list-text">FlexGroup 볼륨을 사용할지 여부와 프로비저닝을 위해 스토리지 기능 파일을 사용할지 여부를 선택합니다.</block>
+  <block id="d8c0ba9870eefdf1d4152492ec9e0c9c" category="admonition">*클러스터 전체에 데이터 저장소 데이터를 분산*하도록 선택하면 기본 볼륨이 FlexGroup 볼륨으로 생성되므로 스토리지 기능 프로필을 사용할 수 없습니다. 참조하다<block ref="f65341a4d01a486350c5ff35d5ba3877" category="inline-link-rx"></block> FlexGroup Volumes 사용에 대한 자세한 내용은 다음을 참조하세요.</block>
+  <block id="5d82de192afd7537529a6f6db76b06eb" category="list-text">*스토리지 시스템* 페이지에서 스토리지 기능 프로필, 스토리지 시스템, SVM을 선택합니다. 계속하려면 *다음*을 클릭하세요.</block>
+  <block id="c4bb44909ae82c21f10ec168ee40447d" category="list-text">*저장소 속성* 페이지에서 사용할 집계를 선택한 다음 *다음*을 클릭하여 계속합니다.</block>
+  <block id="d21f5dfb2adddfaba230b93ae951ad30" category="list-text">*요약*을 검토하고 *마침*을 클릭하여 NFS 데이터 저장소 생성을 시작하세요.</block>
+  <block id="37a6da4343a741e685a137609267d97b" category="paragraph">ONTAP 도구에서 vVols 데이터 저장소를 생성하려면 다음 단계를 완료하세요.</block>
+  <block id="dd686fbdaa965d8feb765072612fb2de" category="list-text">ONTAP 도구에서 *개요*를 선택하고 *시작하기* 탭에서 *프로비저닝*을 클릭하여 마법사를 시작합니다.</block>
+  <block id="60f500b93e1c07182bc334e1e5386f64" category="list-text">데이터 저장소 유형으로 * vVols*를 선택하고, 데이터 저장소 이름을 입력한 다음, 프로토콜로 *NFS*를 선택합니다.</block>
+  <block id="44723d1bdaf870db343f0af83f208459" category="list-text">*스토리지 시스템* 페이지에서 스토리지 용량 프로필, 스토리지 시스템, SVM을 선택합니다.</block>
+  <block id="acfcbbd7eb3aaf61b9767c8cd6f159a9" category="list-text">*저장소 속성* 페이지에서 *새 볼륨 만들기*를 선택하고 생성할 볼륨의 저장소 속성을 입력합니다.</block>
+  <block id="f8e6a067a259c1fb5d412cd02aa38d86" category="list-text">*요약* 페이지를 검토하고 *마침*을 클릭하여 vVol 데이터 저장소 생성 프로세스를 시작합니다.</block>
+  <block id="9b1273323551429766cbe7517a1720d5" category="list-text">ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하십시오.<block ref="3910dfb9291615ffabfac0d706916004" category="inline-link-macro-rx"></block> .</block>
+  <block id="70a16e505ee7c008fdee0f6f0cfc60c1" category="list-text">VCF 구성에 대한 정보는 다음을 참조하세요.<block ref="a72b2a3fbad763c0d59c16c1eeac4c5b" category="inline-link-macro-rx"></block> .</block>
+  <block id="2aaf4f6493d0f9fa677828148b9ae306" category="inline-link-macro">여러 vCenter 서버 환경에서 ONTAP 도구를 등록하기 위한 요구 사항</block>
+  <block id="33d1594a065aea9a2181e3576edcab8f" category="list-text">여러 vCenter 환경에서 ONTAP 도구를 배포하고 사용하는 방법에 대한 정보는 다음을 참조하십시오.<block ref="2803d2b777ef789b76b5c7300abb646a" category="inline-link-macro-rx"></block> .</block>
+  <block id="3544960fb47f54c159a2197c7ef7ad8e" category="summary">VMware Cloud Foundation VI 워크로드 도메인의 vVols 데이터 저장소에 대한 NFS 트래픽을 지원하기 위해 ONTAP 시스템에 스토리지 가상 머신(SVM)과 여러 논리 인터페이스(LIF)를 생성합니다.</block>
+  <block id="06fd0f499630ebbb4695def1e84a5748" category="doc">VCF VI 워크로드 도메인의 NFS vVols 데이터 저장소에 대한 SVM 및 LIF 생성</block>
+  <block id="15983ed57ce22ef35e39d126072b154c" category="list-text">ONTAP 시스템 관리자에서 왼쪽 메뉴의 *스토리지 VM*으로 이동한 다음 *+ 추가*를 클릭하여 시작합니다.</block>
+  <block id="799a4fc5e167255a05b279ff8bf598e0" category="list-text">*저장소 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *SMB/CIFS, NFS, S3* 탭을 클릭하고 *NFS 사용* 확인란을 선택합니다.</block>
+  <block id="6bc1db3b25a83b8e2a584550dd9cd05d" category="admonition">*NFS 클라이언트 액세스 허용* 체크박스를 선택할 필요는 없습니다.  ONTAP tools for VMware vSphere ESXi 호스트에 대한 클라이언트 액세스를 제공하는 것을 포함하여 데이터 저장소 배포 프로세스를 자동화하는 데 사용됩니다.</block>
+  <block id="1fc4a3df0ceb7b3a242b5071a573b9fa" category="list-text">*네트워크 인터페이스* 섹션에서 첫 번째 LIF에 대한 *IP 주소*, *서브넷 마스크*, *브로드캐스트 도메인 및 포트*를 입력합니다.  이후 LIF의 경우 개별 설정을 사용하거나 확인란을 활성화하여 나머지 모든 LIF에서 공통 설정을 사용할 수 있습니다.</block>
+  <block id="23482464281d95a9b44bb7ad6b021b96" category="list-text">다중 테넌시 환경의 경우 스토리지 VM 관리 계정을 활성화할지 여부를 선택하고 *저장*을 클릭하여 SVM을 생성합니다.</block>
+  <block id="ff3bb64b6b5b22bfd533d8f194e2bce8" category="inline-link-macro">ESXi 호스트에서 NFS에 대한 네트워킹 구성</block>
+  <block id="2429d9113f7d5563de2cfae58e72703d" category="paragraph">SVM과 LIF를 생성한 후,<block ref="f6be4618d8315d49bccd0ba43dec2530" category="inline-link-macro-rx"></block> .</block>
+  <block id="8a14a8981f57c66fd285be87445e3a92" category="summary">ONTAP tools for VMware vSphere 사용하여 VI 워크로드 도메인에 보조 스토리지로 NFS 및 vVols 추가하는 작업을 시작하세요.  ONTAP tools for VMware vSphere 배포하고, NFS 논리 인터페이스로 SVM(스토리지 가상 머신)을 구성하고, NFS 및 vVols 데이터 저장소를 모두 프로비저닝합니다.</block>
+  <block id="e9a260516ffa8e3bd8cf5eb79b28217c" category="doc">VI 워크로드 도메인에서 NFS vVols 데이터 저장소를 보조 스토리지로 추가하기 위한 배포 워크플로</block>
+  <block id="e0e5abd99ac47f06e28eb53abee34ddf" category="paragraph">ONTAP tools for VMware vSphere 사용하여 VI 워크로드 도메인에 보조 스토리지로 NFS vVols 데이터 저장소를 추가하는 작업을 시작하세요.  배포 요구 사항을 검토하고, ONTAP tools for VMware vSphere 배포하고, 논리적 인터페이스로 SVM을 구성하고, 스토리지를 구성합니다.</block>
+  <block id="c72341fff17c589c7b487f1442c4c74d" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block><block ref="9ec3f882bbc44cb22e0fda1b0a937a19" category="inline-link-macro-rx"></block></block>
+  <block id="495d9d4419df354f01a28c754696d61c" category="paragraph">VMware Cloud Foundation 관리 도메인에 NFS vVols 배포하기 위한 요구 사항을 검토합니다.</block>
+  <block id="3a61572b54f8ad07743c8bad04f4a9d5" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block><block ref="cf5adabfc55de94ed0fddc3d3dfc8ff2" category="inline-link-macro-rx"></block></block>
+  <block id="301efdcb3166eff030bf657aca402e41" category="paragraph">NFS 트래픽을 위해 여러 개의 LIF가 있는 SVM을 생성합니다.</block>
+  <block id="d4206eb231411c19e4dcb53ac5bd4c27" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block><block ref="f63505882fd4480b67a055e1c3ae327a" category="inline-link-macro-rx"></block></block>
+  <block id="e878b8335eefebf285e895afeece5e23" category="paragraph">ESXi 호스트에서 NFS에 대한 네트워킹을 설정합니다.</block>
+  <block id="1bef419d4a86053ee7c4b9bc4f6903d2" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block><block ref="3cb884d96c34243b63f6483b10bd5995" category="inline-link-macro-rx"></block></block>
+  <block id="5ca8127e0e1c1adc8a04dfcd912b7bf7" category="summary">VI 워크로드 도메인의 ESXi 호스트에서 NVMe/TCP(NVMe over TCP) 스토리지에 대한 네트워킹을 구성합니다.  NVMe 트래픽을 위한 분산 포트 그룹을 생성하고, 각 ESXi 호스트에 VMkernel 어댑터를 설정하고, NVMe/TCP 어댑터를 추가하여 안정적인 연결과 다중 경로를 활성화합니다.</block>
+  <block id="858c32ffa5a4550e9c804a9cf20d8497" category="doc">VCF VI 워크로드 도메인의 ESXi 호스트에서 NVMe/TCP에 대한 네트워킹 구성</block>
+  <block id="42d7e792e9e4ed9a8d980f5f7bd43ad1" category="paragraph">vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터에서 다음 단계를 수행합니다. 이 경우 vCenter Single Sign-On이 사용되므로 vSphere 클라이언트는 관리 도메인과 워크로드 도메인 모두에서 공통적입니다.</block>
+  <block id="a2502b385907823f77df2754573a7b12" category="section-title">1단계: NVME/TCP 트래픽을 위한 분산 포트 그룹 생성</block>
+  <block id="50d8ad38470c990c1fcdcb948e238f7f" category="paragraph">각 NVMe/TCP 네트워크에 대한 새로운 분산 포트 그룹을 생성하려면 다음 단계를 완료하세요.</block>
+  <block id="7d4c1d329cf4c7deb33e68afd04cae55" category="list-text">두 포트 그룹이 모두 생성되면 첫 번째 포트 그룹으로 이동하여 *설정 편집...* 작업을 선택합니다.</block>
+  <block id="d573b2576b6686c997a3cf6846f9be52" category="list-text">*분산 포트 그룹 - 설정 편집* 페이지에서 왼쪽 메뉴의 *팀 구성 및 장애 조치*로 이동한 다음 *업링크2*를 클릭하여 *사용하지 않는 업링크*로 이동합니다.</block>
+  <block id="1a4bc37ddbc5408598e7ba14783b7432" category="list-text">두 번째 NVMe/TCP 포트 그룹에 대해서도 이 단계를 반복합니다. 이번에는 *uplink1*을 *사용하지 않는 업링크*로 이동합니다.</block>
+  <block id="843d17ec5b8cbb45395128e0ac5fbe5e" category="section-title">2단계: 각 ESXi 호스트에 VMkernel 어댑터 만들기</block>
+  <block id="131f82d0882e03e36d05bb2c515e0022" category="paragraph">워크로드 도메인의 각 ESXi 호스트에 VMkernel 어댑터를 만듭니다.</block>
+  <block id="17d58457d57c7a74fefdf140efd54815" category="list-text">vSphere 클라이언트에서 워크로드 도메인 인벤토리의 ESXi 호스트 중 하나로 이동합니다.  *구성* 탭에서 *VMkernel 어댑터*를 선택하고 *네트워킹 추가...*를 클릭하여 시작합니다.</block>
+  <block id="46fc7bd592cb14f26c5cde1bdc4de66c" category="list-text">*포트 속성* 페이지에서 *NVMe/TCP* 상자를 클릭하고 *다음*을 클릭하여 계속합니다.</block>
+  <block id="d16d91e113a655cf068859947f84504e" category="list-text">*IPv4 설정* 페이지에서 *IP 주소*와 *서브넷 마스크*를 입력하고 새로운 게이트웨이 IP 주소를 제공합니다(필요한 경우에만). 계속하려면 *다음*을 클릭하세요.</block>
+  <block id="a00ff116426909cbcc0b6242ca741a23" category="section-title">3단계: NVMe/TCP 어댑터 추가</block>
+  <block id="e9422d59bc63e0236ef4baa64726987c" category="paragraph">워크로드 도메인 클러스터의 각 ESXi 호스트에는 스토리지 트래픽에 전용된 모든 NVMe/TCP 네트워크에 대해 NVMe/TCP 소프트웨어 어댑터가 설치되어 있어야 합니다.</block>
+  <block id="9ebca89a66baa36afa27bf06a83aad28" category="paragraph">NVMe/TCP 어댑터를 설치하고 NVMe 컨트롤러를 검색하려면 다음 단계를 완료하세요.</block>
+  <block id="c5d81d1232a1a0ba8fea5b590a7cbde7" category="list-text">vSphere 클라이언트에서 워크로드 도메인 클러스터의 ESXi 호스트 중 하나로 이동합니다.  *구성* 탭에서 메뉴의 *저장소 어댑터*를 클릭합니다.</block>
+  <block id="7ddfa65b020ab63a15a147daefab6c45" category="list-text">*소프트웨어 어댑터 추가* 드롭다운 메뉴에서 *NVMe over TCP 어댑터 추가*를 선택합니다.</block>
+  <block id="21e6ae17243e8ded3e4ebccc1c930d69" category="inline-image-macro">NVMe/TCP 어댑터 추가</block>
+  <block id="1b41b764b2a25b6650342d1c9669953a" category="paragraph"><block ref="1b41b764b2a25b6650342d1c9669953a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d6e5f1bd59b39040eeb00245cfe36023" category="list-text">NVMe/TCP 트래픽에 할당된 두 번째 네트워크에 대해 이 프로세스를 반복하여 올바른 물리적 어댑터를 할당합니다.</block>
+  <block id="4438a36bf483213f0804f574604cd835" category="list-text">새로 설치된 NVMe/TCP 어댑터 중 하나를 선택하세요.  *컨트롤러* 탭에서 *컨트롤러 추가*를 선택합니다.</block>
+  <block id="9774494223fda7b46276f35f24658fb5" category="list-text">이 NVMe/TCP 어댑터에 할당된 물리적 어댑터와 동일한 네트워크에 있는 SVM 논리 인터페이스 중 하나에 대한 IP 주소를 입력하세요.</block>
+  <block id="2691de6bb6831a7e0e166660ae2fbb96" category="list-text">*컨트롤러 검색* 버튼을 클릭하세요.</block>
+  <block id="53e3318abe337ba7a2ea8baa39289f20" category="list-text">검색된 컨트롤러 목록에서 이 NVMe/TCP 어댑터와 네트워크 주소가 일치하는 두 컨트롤러의 확인란을 클릭합니다.</block>
+  <block id="b92b0792ee8e01760ad75c299777954e" category="list-text">선택한 컨트롤러를 추가하려면 *확인*을 클릭하세요.</block>
+  <block id="5afe2dcf5c4ee46c3c05bdfe71e557d6" category="list-text">NVMe/TCP 트래픽을 위해 설정된 두 번째 네트워크에 대한 NVMe/TCP 어댑터를 생성하려면 이 절차를 반복합니다.</block>
+  <block id="e9501dade10df081ca0a3d3601ad902f" category="inline-link-macro">NVMe vVols 에 대한 스토리지 구성</block>
+  <block id="f5dfb11469092798733e25bbe7232719" category="paragraph">네트워킹을 구성한 후,<block ref="3395cd74ca9419d122194e880ab08f64" category="inline-link-macro-rx"></block> .</block>
+  <block id="6766584a70cb652fe56e44606f3e92c9" category="summary">VMware Cloud Foundation VI 워크로드 도메인에 NVMe vVols 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.  안정적이고 고성능의 스토리지 통합을 보장하기 위해 권장되는 네트워크 설계 및 인프라 요구 사항을 검토하세요.</block>
+  <block id="3d1ac7126eec5fe57a4609d45bbe2e25" category="doc">VI 워크로드 도메인의 NVMe vVols 에 대한 배포 요구 사항</block>
+  <block id="9104b45a831a0757ab5a14ca74f27bab" category="paragraph">VMware Cloud Foundation VI 워크로드 도메인에 NVMe vVols 배포하는 데 권장되는 네트워크 설계 및 인프라 요구 사항을 검토합니다.  완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 배포된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.</block>
+  <block id="ed316061b6107ce46e3b0296d05dec97" category="section-title">권장되는 NVMe/TCP 네트워크 설계</block>
+  <block id="93913f8091a82f06ba2ba26793bd5530" category="paragraph">NetApp NVMe/TCP에 대해 완전 중복 네트워크 설계를 권장합니다. 다음 다이어그램은 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 내구성을 제공하는 중복 구성의 예를 보여줍니다.</block>
+  <block id="fff845999ff841f02cd6b66f74259f55" category="paragraph">다중 경로 지정 및 여러 경로에 걸친 장애 조치를 위해 NVMe/TCP 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에서 스토리지 노드당 최소 두 개의 LIF를 구성합니다.</block>
+  <block id="4cbcbf7493ed0c9826333a33d8d0400e" category="paragraph">배포 요구 사항을 검토한 후,<block ref="0fa02a467cc3447de70571015f6b12a0" category="inline-link-macro-rx"></block> .</block>
+  <block id="0dd1b68aaeb36844f5418269ef15620a" category="summary">VI 워크로드 도메인에서 NVMe/TCP(NVMe over TCP) vVols 스토리지를 구성합니다.  ONTAP 도구를 배포하고, 스토리지 시스템을 등록하고, 스토리지 기능 프로필을 생성하고, vSphere 클라이언트에서 vVols 데이터스토어를 프로비저닝합니다.</block>
+  <block id="fe431d9959ab720dc692bb48f3746f91" category="doc">VCF VI 워크로드 도메인에서 NVMe/TCP vVols 스토리지 구성</block>
+  <block id="0ecf1dd407c228222db8ae7b9c135bd4" category="paragraph">VMware Cloud Foundation VI 워크로드 도메인에서 NVMe/TCP vVols 스토리지를 구성합니다.  ONTAP 도구를 배포하고, 스토리지 시스템을 등록하고, 스토리지 기능 프로필을 생성하고, vSphere 클라이언트에서 vVols 데이터스토어를 프로비저닝합니다.</block>
+  <block id="5cf4725d724af2743fceabd0322788c4" category="list-text">vSphere 클라이언트에서 워크로드 도메인 클러스터의 ESXi 호스트 중 하나로 이동합니다. *작업* 메뉴에서 *저장소 &gt; 새 데이터 저장소...*를 선택합니다.</block>
+  <block id="48c57231d0ac267a3f3921d8b98d92e6" category="paragraph"><block ref="48c57231d0ac267a3f3921d8b98d92e6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="02a0292a62440da7f57b87460cb01868" category="list-text">*새 데이터 저장소* 마법사에서 유형으로 *VMFS*를 선택합니다. 계속하려면 *다음*을 클릭하세요.</block>
+  <block id="ff401f191716ad2549cbada866b7ccfe" category="list-text">*VMFS 버전* 페이지에서 데이터 저장소의 VMFS 버전을 선택합니다.</block>
+  <block id="18cbadc1f3bfa3d0ea257debdabe2e9e" category="list-text">*파티션 구성* 페이지에서 기본 파티션 구성에 원하는 변경 사항을 적용합니다. 계속하려면 *다음*을 클릭하세요.</block>
+  <block id="2793b7d584194f84cd99518f84cac440" category="list-text">*완료 준비* 페이지에서 요약을 검토하고 *마침*을 클릭하여 데이터 저장소를 만듭니다.</block>
+  <block id="43e9d15dc57c2ad81a633da6f81420a8" category="list-text">인벤토리의 새 데이터 저장소로 이동하여 *호스트* 탭을 클릭합니다. 올바르게 구성된 경우 클러스터의 모든 ESXi 호스트가 나열되고 새 데이터 저장소에 액세스할 수 있어야 합니다.</block>
+  <block id="627237eeefced8e45d3baf93d23c355b" category="inline-link-macro">NetApp SAN 구성 참조</block>
+  <block id="c96ccfd04af6e0f0de17e583a9283a0d" category="list-text">중복성을 위한 SAN 구성에 대한 자세한 내용은 다음을 참조하세요.<block ref="cd9d9d621b1d37e53bb306a2f9886744" category="inline-link-macro-rx"></block> .</block>
+  <block id="3cecda5cfcd33b9068243a71db5fca0a" category="list-text">ONTAP 스토리지 시스템에 대한 NVMe 설계 고려 사항에 대한 추가 정보는 다음을 참조하세요.<block ref="d2cf33fb44465ac28f135ede985d69d8" category="inline-link-macro-rx"></block> .</block>
+  <block id="764ce1505e492fcbbc6c34c5b59dd3e1" category="summary">VMware Cloud Foundation 관리 도메인에 대한 iSCSI 연결을 제공하기 위해 여러 개의 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 만듭니다.  최적의 성능과 가용성을 위해 다중 경로와 장애 조치를 활성화하기 위해 NVMe 프로토콜 지원으로 SVM을 구성하고 별도의 이더넷 네트워크에 걸쳐 여러 LIF를 설정합니다.</block>
+  <block id="4025871e388a0f10ad57fa27163846a2" category="doc">VCF VI 워크로드 도메인에서 NVMe/TCP vVols 데이터 저장소에 대한 SVM 및 LIF와 NVMe 네임스페이스를 생성합니다.</block>
+  <block id="a69a3e05a416f3a8c0bf152585fabde9" category="paragraph">VMware Cloud Foundation 워크로드 도메인에 대한 NVMe 연결을 제공하기 위해 여러 개의 논리 인터페이스(LIF)가 있는 스토리지 가상 머신(SVM)을 생성합니다.  이 절차에서는 NVMe/TCP 지원 SVM 및 LIF를 설정하고 NVMe 네임스페이스를 만드는 방법을 요약합니다.</block>
+  <block id="a43745066ff14664c4e169a268eac8d7" category="section-title">1단계: SVM 및 LIF 만들기</block>
+  <block id="677862ff0aae760f63059f0bb065e013" category="paragraph">NVMe/TCP 트래픽을 위한 여러 LIF가 있는 SVM을 생성하려면 다음 단계를 완료하세요.</block>
+  <block id="0cf44373a12d6009e02c3a414e0b3776" category="list-text">ONTAP 시스템 관리자에서 왼쪽 메뉴의 *스토리지 VM*으로 이동한 후 *+ 추가*를 클릭합니다.</block>
+  <block id="7c25f7e22c6cd7121533cc214f7df47d" category="list-text">*스토리지 VM 추가* 마법사에서 SVM의 *이름*을 입력하고, *IP 공간*을 선택한 다음, *액세스 프로토콜*에서 *NVMe* 탭을 클릭하고 *NVMe/TCP 사용* 확인란을 선택합니다.</block>
+  <block id="69572f8c53ad06e3ec2a8d17fbc3bb04" category="list-text">*네트워크 인터페이스* 섹션에서 첫 번째 LIF에 대한 *IP 주소*, *서브넷 마스크*, *브로드캐스트 도메인 및 포트*를 입력합니다.  이후 LIF의 경우 개별 설정을 사용하거나 확인란을 활성화하여 나머지 모든 LIF에서 공통 설정을 사용할 수 있습니다.</block>
+  <block id="14e2ee7b45024caf6f179f4df2601b5f" category="admonition">다중 경로 지정 및 여러 경로에 걸친 장애 조치를 위해 NVMe/TCP 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 만듭니다.</block>
+  <block id="5e65d508d246f14ef4d4105a084849f7" category="section-title">2단계: NVMe 네임스페이스 만들기</block>
+  <block id="d3c608449099dbfe5f41a2ce5db56af9" category="paragraph">NVMe 네임스페이스는 iSCSI 또는 FC의 LUN과 유사합니다. vSphere Client에서 VMFS 데이터스토어를 배포하려면 먼저 NVMe 네임스페이스를 만들어야 합니다.  NVMe 네임스페이스를 생성하려면 클러스터의 각 ESXi 호스트에서 NVMe 정규화된 이름(NQN)을 가져옵니다.  ONTAP NQN을 사용하여 네임스페이스에 대한 액세스 제어를 제공합니다.</block>
+  <block id="989db3c2fc5551e827509b034d3f252b" category="paragraph">다음 예제와 비슷한 출력이 표시되어야 합니다.</block>
+  <block id="e9bc3c9be8f0b171177a0bf99d08adc9" category="list-text">클러스터의 각 ESXi 호스트에 대한 NQN을 기록합니다.</block>
+  <block id="0beaab4659773e0aaddf069445bf587b" category="list-text">ONTAP 시스템 관리자에서 왼쪽 메뉴의 *NVMe 네임스페이스*로 이동한 다음 *+ 추가*를 클릭하여 시작합니다.</block>
+  <block id="a6edef5b27eb950b6e931c17cc86d7e0" category="list-text">*NVMe 네임스페이스 추가* 페이지에서 이름 접두사, 생성할 네임스페이스 수, 네임스페이스 크기, 네임스페이스에 액세스할 호스트 운영 체제를 입력합니다.</block>
+  <block id="4c65363bdfa6542e484664f14419a53b" category="list-text">*호스트 NQN* 섹션에서 네임스페이스에 액세스할 ESXi 호스트에서 이전에 수집한 NQN의 쉼표로 구분된 목록을 만듭니다.</block>
+  <block id="19dd29abb97b30c862af041b5245ce52" category="list-text">스냅샷 보호 정책 등의 추가 항목을 구성하려면 *추가 옵션*을 클릭하세요.</block>
+  <block id="fdcd9e5ea95488461799c78db8ee7597" category="list-text">마지막으로 *저장*을 클릭하여 NVMe 네임스페이스를 생성합니다.</block>
+  <block id="5b6c4564b7201e4c83c2c97dc67ff248" category="inline-link-macro">NVMe/TCP(NVMe/TCP) vVols 에 대한 네트워킹 구성</block>
+  <block id="033038a33cec7a7e77e693f9cb3b9db0" category="paragraph">SVM과 LIF를 생성한 후,<block ref="87be4789e51e368b3d97b0d4feb5b62d" category="inline-link-macro-rx"></block> .</block>
+  <block id="aa10c98f1b9600731515ddbfde27d69b" category="summary">VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에 대한 보조 스토리지로 NVMe over TCP(NVMe/TCP) 데이터스토어를 추가하는 작업을 시작해 보세요.  NVMe/TCP 지원 스토리지 가상 머신(SVM)과 LIF를 설정하고, NVMe 네임스페이스를 생성하고, ESXi 호스트 네트워킹을 구성하고, VMFS 데이터스토어를 배포합니다.</block>
+  <block id="cd308318b810204f67ff1ea0f49473df" category="doc">VI 워크로드 도메인에서 vVols NVMe 데이터 저장소를 보조 스토리지로 추가하기 위한 배포 워크플로</block>
+  <block id="da3a309080e005a6e4fbeddb54dbdf76" category="paragraph">VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에 대한 보조 스토리지로 NVMe/TCP vVols 데이터스토어를 추가하는 작업을 시작해 보세요.  배포 요구 사항을 검토하고, NVMe/TCP 지원 SVM 및 LIF를 설정하고, ESXi 호스트 네트워킹을 구성하고, NVMe/TCP 데이터 저장소를 배포합니다.</block>
+  <block id="4d3ea946e933e276a3ae2e7a8adb4085" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block><block ref="49065f34f9f1ccb7f9912e4e7bc854e8" category="inline-link-macro-rx"></block></block>
+  <block id="95d92b5d3ee873fca1f421f89f45037b" category="paragraph">VMware Cloud Foundation VI 워크로드 도메인에 NVMe/TCP 데이터스토어를 배포하기 위한 요구 사항을 검토합니다.</block>
+  <block id="66f1e1899ea50f992ca2e582055cf188" category="inline-link-macro">SVM 및 LIF와 NVMe 네임스페이스를 만듭니다.</block>
+  <block id="8fe085483d451767bb56f18c1efb4ad0" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block><block ref="b06ca7e615aca7e1d9cc822839280f50" category="inline-link-macro-rx"></block></block>
+  <block id="0fb1103bf2421af84e9fb7291cc66b36" category="paragraph">NVMe/TCP 트래픽을 위한 논리적 인터페이스와 NVMe 네임스페이스를 갖춘 스토리지 가상 머신을 만듭니다.</block>
+  <block id="e3667661000dac3865ce7a5ca3535b1e" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block><block ref="00249667314bd4b04440fc8db1086d1e" category="inline-link-macro-rx"></block></block>
+  <block id="2a8fce49319b69c06bee54d19b00c674" category="paragraph">VI 워크로드 도메인에 대한 ESXi 호스트에 분산 포트 그룹과 vmkernel 어댑터를 생성합니다.</block>
+  <block id="4fc3e770f8f711a33c70751d4426e3e8" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block><block ref="c1510f529ae7cf8c1d43236e3210411a" category="inline-link-macro-rx"></block></block>
+  <block id="da424dd6a306bdd392bbbbb53ea1a701" category="paragraph">NVMe/TCP 데이터 저장소를 배포합니다.</block>
+  <block id="bc7ac4e6dc4e920ad96c74c99f8a0d1c" category="sidebar">Trident 및 Trident Protect를 사용하여 VM 보호</block>
+  <block id="71821e13459238c7a33c3ecc284a9ca6" category="sidebar">볼륨 그룹 스냅샷을 사용하여 VM 보호</block>
+  <block id="3222d8c211b64347432fda237cd7ac78" category="sidebar">타사 도구를 사용하여 VM 보호</block>
+  <block id="24d1ffd5763baaa76e50a0a1009f9077" category="sidebar">볼륨 그룹 스냅샷을 사용하여 VM 보호</block>
+  <block id="73d7ea9a5bd44bfd78b7b802d8165480" category="sidebar">저장 공간 확장에 대해 알아보세요</block>
+  <block id="ab3ccb0be518e752d20f706d36d252c9" category="sidebar">배포 워크플로</block>
+  <block id="2d0e9a7694bf5bc701c3af145a6bba71" category="sidebar">검토 요구 사항</block>
+  <block id="c9d5bef67ab8090ce165e090036bc785" category="sidebar">SVM 및 LIF 생성</block>
 </blocks>

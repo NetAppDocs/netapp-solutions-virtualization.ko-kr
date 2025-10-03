@@ -1,0 +1,162 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-supp-nfs-vvols-storage.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
+summary: VI 워크로드 도메인에서 NFS vVols 스토리지를 구성합니다.  ONTAP tools for VMware vSphere 배포한 후 vSphere 클라이언트 인터페이스를 사용하여 스토리지 시스템을 추가하고, 스토리지 기능 프로필을 생성하고, vVols 데이터 저장소를 프로비저닝합니다. 
+---
+= ONTAP 도구를 사용하여 VCF VI 워크로드 도메인에서 NFS vVols 스토리지 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VI 워크로드 도메인에서 NFS vVols 스토리지를 구성합니다.  ONTAP tools for VMware vSphere 배포한 후 vSphere 클라이언트 인터페이스를 사용하여 스토리지 시스템을 추가하고, 스토리지 기능 프로필을 생성하고, vVols 데이터 저장소를 프로비저닝합니다.
+
+
+
+== 1단계: ONTAP tools for VMware vSphere 배포
+
+VI 워크로드 도메인의 경우 ONTAP 도구는 VCF 관리 클러스터에 설치되지만 VI 워크로드 도메인과 연결된 vCenter에 등록됩니다.
+
+ONTAP tools for VMware vSphere VM 어플라이언스로 배포되며 ONTAP 스토리지를 관리하기 위한 통합 vCenter UI를 제공합니다.
+
+.단계
+. ONTAP 도구 OVA 이미지를 가져옵니다.link:https://mysupport.netapp.com/site/products/all/details/otv/downloads-tab["NetApp 지원 사이트"] 로컬 폴더로 다운로드합니다.
+. VCF 관리 도메인의 vCenter 어플라이언스에 로그인합니다.
+. vCenter 어플라이언스 인터페이스에서 관리 클러스터를 마우스 오른쪽 버튼으로 클릭하고 *OVF 템플릿 배포...*를 선택합니다.
++
+image:vmware-vcf-aff-021.png["OVF 템플릿 배포..."]
+
++
+{nbsp}
+
+. *OVF 템플릿 배포* 마법사에서 *로컬 파일* 라디오 버튼을 클릭하고 이전 단계에서 다운로드한 ONTAP 도구 OVA 파일을 선택합니다.
++
+image:vmware-vcf-aff-022.png["OVA 파일 선택"]
+
++
+{nbsp}
+
+. 마법사의 2~5단계에서는 VM의 이름과 폴더를 선택하고, 컴퓨팅 리소스를 선택하고, 세부 정보를 검토하고, 라이선스 계약에 동의합니다.
+. 구성 및 디스크 파일의 저장 위치로 VCF 관리 도메인 클러스터의 vSAN 데이터 저장소를 선택합니다.
++
+image:vmware-vcf-aff-023.png["OVA 파일 선택"]
+
++
+{nbsp}
+
+. *네트워크 선택* 페이지에서 관리 트래픽에 사용되는 네트워크를 선택합니다.
++
+image:vmware-vcf-aff-024.png["네트워크 선택"]
+
++
+{nbsp}
+
+. *템플릿 사용자 정의* 페이지에서 필요한 모든 정보를 입력합니다.
++
+** ONTAP 도구에 대한 관리 액세스에 사용되는 비밀번호입니다.
+** NTP 서버 IP 주소.
+** ONTAP 도구 유지 관리 계정 비밀번호.
+** ONTAP 도구 Derby DB 비밀번호.
+** *VMware Cloud Foundation(VCF) 활성화* 상자를 선택하지 마세요.  보조 저장 장치를 배포하는 데 VCF 모드는 필요하지 않습니다.
+** *VI 워크로드 도메인*에 대한 vCenter 어플라이언스의 FQDN 또는 IP 주소
+** *VI 워크로드 도메인*의 vCenter 어플라이언스에 대한 자격 증명
+** 필수 네트워크 속성입니다.
+
+
+. 계속하려면 *다음*을 클릭하세요.
++
+image:vmware-vcf-aff-025.png["OTV 템플릿 사용자 정의 1"]
+
++
+image:vmware-vcf-asa-035.png["OTV 템플릿 사용자 정의 2"]
+
+. *완료 준비* 페이지에서 모든 정보를 검토하고 *마침*을 클릭하여 ONTAP 도구 어플라이언스 배포를 시작하세요.
+
+
+
+
+== 2단계: 스토리지 시스템 추가
+
+ONTAP 도구를 사용하여 스토리지 시스템을 추가하려면 다음 단계를 수행하세요.
+
+
+NOTE: vVol에는 SVM 자격 증명이 아닌 ONTAP 클러스터 자격 증명이 필요합니다. 자세한 내용은 ONTAP tools for VMware vSphere 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/configure/task_add_storage_systems.html["스토리지 시스템 추가"^] .
+
+.단계
+. vSphere 클라이언트에서 주 메뉴로 이동하여 * NetApp ONTAP 도구*를 선택합니다.
++
+image:vmware-vcf-asa-014.png["ONTAP 도구로 이동"]
+
+. * ONTAP 도구*의 시작 페이지(또는 *스토리지 시스템*)에서 *추가*를 클릭하여 새 스토리지 시스템을 추가합니다.
++
+image:vmware-vcf-asa-015.png["저장 시스템 추가"]
+
++
+{nbsp}
+
+. ONTAP 스토리지 시스템의 IP 주소와 자격 증명을 제공하고 *추가*를 클릭합니다.
++
+image:vmware-vcf-asa-016.png["ONTAP 시스템의 IP 및 자격 증명 제공"]
+
++
+{nbsp}
+
+. *예*를 클릭하여 클러스터 인증서를 승인하고 스토리지 시스템을 추가합니다.
++
+image:vmware-vcf-asa-017.png["클러스터 인증서 승인"]
+
+
+
+
+
+== 3단계: ONTAP 도구에서 NFS 데이터 저장소 만들기
+
+NFS에서 실행되는 ONTAP 데이터 저장소를 배포하려면 다음 단계를 완료하세요.  ONTAP 도구를 사용하세요.
+
+.단계
+. ONTAP 도구에서 *개요*를 선택하고 *시작하기* 탭에서 *프로비저닝*을 클릭하여 마법사를 시작합니다.
+. 새 데이터 저장소 마법사의 *일반* 페이지에서 vSphere 데이터 센터 또는 클러스터 대상을 선택합니다.
+. 데이터 저장소 유형으로 *NFS*를 선택하고, 데이터 저장소의 이름을 입력하고, 프로토콜을 선택합니다.
+. FlexGroup 볼륨을 사용할지 여부와 프로비저닝을 위해 스토리지 기능 파일을 사용할지 여부를 선택합니다.
+. 계속하려면 *다음*을 클릭하세요.
++
+
+NOTE: *클러스터 전체에 데이터 저장소 데이터를 분산*하도록 선택하면 기본 볼륨이 FlexGroup 볼륨으로 생성되므로 스토리지 기능 프로필을 사용할 수 없습니다. 참조하다 https://docs.netapp.com/us-en/ontap/flexgroup/supported-unsupported-config-concept.html["FlexGroup 볼륨에 대해 지원되는 구성 및 지원되지 않는 구성"^] FlexGroup Volumes 사용에 대한 자세한 내용은 다음을 참조하세요.
+
+. *스토리지 시스템* 페이지에서 스토리지 기능 프로필, 스토리지 시스템, SVM을 선택합니다. 계속하려면 *다음*을 클릭하세요.
+. *저장소 속성* 페이지에서 사용할 집계를 선택한 다음 *다음*을 클릭하여 계속합니다.
+. *요약*을 검토하고 *마침*을 클릭하여 NFS 데이터 저장소 생성을 시작하세요.
+
+
+
+
+== 4단계: ONTAP 도구에서 vVols 데이터 저장소 만들기
+
+ONTAP 도구에서 vVols 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
+
+.단계
+. ONTAP 도구에서 *개요*를 선택하고 *시작하기* 탭에서 *프로비저닝*을 클릭하여 마법사를 시작합니다.
+. 새 데이터 저장소 마법사의 *일반* 페이지에서 vSphere 데이터 센터 또는 클러스터 대상을 선택합니다.
+. 데이터 저장소 유형으로 * vVols*를 선택하고, 데이터 저장소 이름을 입력한 다음, 프로토콜로 *NFS*를 선택합니다.
+. 계속하려면 *다음*을 클릭하세요.
+. *스토리지 시스템* 페이지에서 스토리지 용량 프로필, 스토리지 시스템, SVM을 선택합니다.
+. 계속하려면 *다음*을 클릭하세요.
+. *저장소 속성* 페이지에서 *새 볼륨 만들기*를 선택하고 생성할 볼륨의 저장소 속성을 입력합니다.
+. *추가*를 클릭하여 볼륨을 생성한 다음 *다음*을 클릭하여 계속합니다.
+. *요약* 페이지를 검토하고 *마침*을 클릭하여 vVol 데이터 저장소 생성 프로세스를 시작합니다.
+
+
+
+
+== 추가 정보
+
+* ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하십시오.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"^] .
+* VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf.html["VMware Cloud Foundation 문서"^] .
+* 여러 vCenter 환경에서 ONTAP 도구를 배포하고 사용하는 방법에 대한 정보는 다음을 참조하십시오.link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/configure/concept_requirements_for_registering_vsc_in_multiple_vcenter_servers_environment.html["여러 vCenter 서버 환경에서 ONTAP 도구를 등록하기 위한 요구 사항"^] .
+* 이 솔루션의 비디오 데모는 다음을 참조하세요.link:../videos/vmware-videos.html#vmware-datastore-provisioning-with-ontap["VMware 데이터스토어 프로비저닝"] .
+

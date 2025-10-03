@@ -38,15 +38,17 @@ indexpage:
       url: osv-workflow-vm-migration-mtv.html
     - title: 두 클러스터 노드 간에 VM 마이그레이션
       url: osv-workflow-vm-live-migration.html
-  - title: Trident Protect를 사용하여 데이터 보호
+  - title: Trident 및 Trident Protect를 사용하여 VM 보호
     links:
     - title: Trident 설치
       url: osv-trident-install.html
+    - title: 볼륨 그룹 스냅샷을 사용하여 VM 보호
+      url: osv-vm-dp-using-vgs.html
     - title: 스냅샷과 백업으로 VM 보호
       url: osv-vm-dp-using-tp.html
     - title: 장애 조치 및 장애 복구 설정
       url: osv-vm-dr-using-tp.html
-  - title: 타사 도구를 사용하여 데이터 보호
+  - title: 타사 도구를 사용하여 VM 보호
     links:
     - title: OADP 및 Velero를 사용하여 VM 보호
       url: osv-vm-dp-using-velero-overview.html

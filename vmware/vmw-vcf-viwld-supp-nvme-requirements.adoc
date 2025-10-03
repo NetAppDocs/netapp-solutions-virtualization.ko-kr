@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-supp-nvme-requirements.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc, iscsi 
+summary: VMware Cloud Foundation VI 워크로드 도메인에 NVMe vVols 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.  안정적이고 고성능의 스토리지 통합을 보장하기 위해 권장되는 네트워크 설계 및 인프라 요구 사항을 검토하세요. 
+---
+= VI 워크로드 도메인의 NVMe vVols 에 대한 배포 요구 사항
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware Cloud Foundation VI 워크로드 도메인에 NVMe vVols 배포하는 데 권장되는 네트워크 설계 및 인프라 요구 사항을 검토합니다.  완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 배포된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.
+
+
+
+== 인프라 요구 사항
+
+* 이더넷 스위치에 스토리지 트래픽 전용 물리적 데이터 포트가 있는 ONTAP AFF 또는 ASA 스토리지 시스템입니다.
+* VCF 관리 도메인 배포가 완료되었으며 vSphere 클라이언트에 액세스할 수 있습니다.
+* VI 워크로드 도메인이 이전에 배포되었습니다.
+
+
+
+
+== 권장되는 NVMe/TCP 네트워크 설계
+
+NetApp NVMe/TCP에 대해 완전 중복 네트워크 설계를 권장합니다. 다음 다이어그램은 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 내구성을 제공하는 중복 구성의 예를 보여줍니다.
+
+image:vmware-vcf-asa-074.png["NVMe-tcp 네트워크 설계"]
+
+다중 경로 지정 및 여러 경로에 걸친 장애 조치를 위해 NVMe/TCP 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에서 스토리지 노드당 최소 두 개의 LIF를 구성합니다.
+
+
+
+== 다음은 무엇인가요?
+
+배포 요구 사항을 검토한 후,link:vmw-vcf-viwld-supp-nvme-svm-lifs.html["SVM과 LIF를 생성합니다"] .

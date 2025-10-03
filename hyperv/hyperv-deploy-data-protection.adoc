@@ -109,7 +109,7 @@ image:hyperv-deploy-014.png["보호할 VM 선택을 보여주는 이미지"]
 . Save를 클릭합니다.
 
 
-배열 구성에 대한 자세한 단계는 다음을 참조하세요.link:https://documentation.commvault.com/2023e/essential/guided_setup_for_hyper_v.html["하이퍼바이저 추가"] .
+배열 구성에 대한 자세한 단계는 다음을 참조하세요.link:https://documentation.commvault.com/2023e/software/guided_setup_for_hyper_v.html["HyperV에 대한 가이드 설정"] .
 
 *백업 수행:*
 
@@ -145,7 +145,7 @@ image:hyperv-deploy-018.png["복원 옵션을 표시하는 이미지"]
 
 
 
-지원되는 모든 복원 옵션에 대한 자세한 단계는 다음을 참조하세요.link:https://documentation.commvault.com/2023e/essential/restores_for_hyper_v.html["Hyper-V 복원"] .
+지원되는 모든 복원 옵션에 대한 자세한 단계는 다음을 참조하세요.link:https://documentation.commvault.com/2023e/software/restores_for_hyper_v.html["Hyper-V 복원"] .
 
 
 
