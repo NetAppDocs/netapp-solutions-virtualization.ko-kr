@@ -51,12 +51,28 @@ entries:
     url: "/vmware/vmw-vcf-dr-bxp-nfs.html"
   - title: 기존 vSphere 클러스터를 VCF로 변환
     entries:
-    - title: 기존 vSphere 클러스터를 VCF로 변환하는 방법
+    - title: vSphere 클러스터 변환에 대해 알아보세요
       url: "/vmware/vmw-vcf-migrate.html"
-    - title: 기존 vSphere 클러스터를 NFS 데이터 저장소로 변환
-      url: "/vmware/vmw-vcf-mgmt-nfs.html"
-    - title: 기존 vSphere 클러스터를 FC 데이터 저장소로 변환
-      url: "/vmware/vmw-vcf-mgmt-fc.html"
+    - title: NFS 데이터 저장소로 vSphere 클러스터 변환
+      entries:
+      - title: 배포 워크플로
+        url: "/vmware/vmw-vcf-mgmt-nfs.html"
+      - title: 검토 요구 사항
+        url: "/vmware/vmw-vcf-mgmt-nfs-requirements.html"
+      - title: ONTAP 도구 배포 및 NFS 데이터 저장소 프로비저닝
+        url: "/vmware/vmw-vcf-mgmt-nfs-deploy.html"
+      - title: vSphere 클러스터를 VCF로 변환
+        url: "/vmware/vmw-vcf-mgmt-nfs-conversion.html"
+    - title: FC 데이터 저장소로 vSphere 클러스터 변환
+      entries:
+      - title: 배포 워크플로
+        url: "/vmware/vmw-vcf-mgmt-fc.html"
+      - title: 검토 요구 사항
+        url: "/vmware/vmw-vcf-mgmt-fc-requirements.html"
+      - title: ONTAP 도구 배포 및 FC 데이터 저장소 프로비저닝
+        url: "/vmware/vmw-vcf-mgmt-fc-deploy.html"
+      - title: vSphere 클러스터를 VCF로 변환
+        url: "/vmware/vmw-vcf-mgmt-fc-conversion.html"
   - title: 주요 저장소를 사용하여 VCF 제공
     entries:
     - title: 주 저장소 프로비저닝에 관하여

@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-mgmt-nfs-requirements.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, array, ontap tools, otv, sddc, sddc manager, ontap tools, ontap tools 10 
+summary: NetApp ONTAP NFS 데이터 저장소가 있는 vSphere 8 클러스터를 VMware Cloud Foundation 관리 도메인으로 변환하기 위한 요구 사항을 검토합니다. 
+---
+= NFS 데이터 저장소를 사용하여 vCenter Server 인스턴스를 VCF 관리 도메인으로 변환하기 위한 배포 요구 사항
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp ONTAP NFS 데이터 저장소가 있는 vSphere 8 클러스터를 VMware Cloud Foundation 관리 도메인으로 변환하기 위한 요구 사항을 검토합니다.
+
+변환 프로세스에는 AFF 또는 ASA 스토리지 시스템, FC 트래픽을 위한 SVM 및 LIF, 스위치의 NFS 구역화, ESXi 호스트와 vCenter가 있는 vSphere 클러스터, vMotion을 위한 전용 네트워크 세그먼트가 필요합니다.
+
+
+
+== 인프라 요구 사항
+
+다음 구성 요소와 구성이 제대로 되어 있는지 확인하세요.
+
+* NFS 트래픽을 허용하도록 구성된 스토리지 가상 머신(SVM)이 있는 NetApp AFF 스토리지 시스템입니다.
+* NFS 트래픽을 전송하고 SVM과 연결하기 위해 IP 네트워크에서 생성된 논리 인터페이스(LIF)입니다.
+* 4개의 ESXi 호스트와 클러스터에 함께 배치된 vCenter 어플라이언스를 갖춘 vSphere 클러스터입니다.
+* 이 목적으로 설정된 VLAN 또는 네트워크 세그먼트에서 vMotion 및 NFS 스토리지 트래픽을 위해 구성된 분산 포트 그룹입니다.
+* VCF 변환을 위한 소프트웨어. 필수 소프트웨어는 다음으로 이동하세요. https://support.broadcom.com/["Broadcom 지원 포털"] .
+* ONTAP 도구의 전제 조건.
++
+ONTAP 도구의 전제 조건에 대한 전체 정보는 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/prerequisites.html#system-requirements["ONTAP tools for VMware vSphere 의 필수 구성 요소"] .
+
++
+ONTAP tools for VMware vSphere HA 또는 비 HA 구성으로 설치할 수 있습니다.
+
+
+
+
+
+== 추가 자료
+
+* vSphere를 VCF 5.2로 변환하거나 가져오기 위해 지원되는 저장소 및 기타 고려 사항은 다음을 참조하세요. https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/map-for-administering-vcf-5-2/importing-existing-vsphere-environments-admin/considerations-before-converting-or-importing-existing-vsphere-environments-into-vcf-admin.html["기존 vSphere 환경을 VMware Cloud Foundation으로 변환하거나 가져오기 전 고려 사항"] .
+* ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하십시오.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] .
+* VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2.html["VMware Cloud Foundation 5.2 설명서"] .
+
+
+
+
+== 다음은 무엇인가요?
+
+배포 요구 사항을 검토한 후link:vmw-vcf-mgmt-nfs-deploy.html["ONTAP 도구 배포 및 NFS 데이터 저장소 프로비저닝"] .

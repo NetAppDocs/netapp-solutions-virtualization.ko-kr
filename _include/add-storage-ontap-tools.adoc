@@ -5,24 +5,34 @@
 .단계
 . vSphere 클라이언트에서 주 메뉴로 이동하여 * NetApp ONTAP 도구*를 선택합니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-014.png["ONTAP 도구로 이동"]
 
+====
 . * ONTAP 도구*의 시작 페이지(또는 *스토리지 시스템*)에서 *추가*를 클릭하여 새 스토리지 시스템을 추가합니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-015.png["저장 시스템 추가"]
 
-+
-{nbsp}
-
+====
 . ONTAP 스토리지 시스템의 IP 주소와 자격 증명을 제공하고 *추가*를 클릭합니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-016.png["ONTAP 시스템의 IP 및 자격 증명 제공"]
 
-+
-{nbsp}
-
+====
 . *예*를 클릭하여 클러스터 인증서를 승인하고 스토리지 시스템을 추가합니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-017.png["클러스터 인증서 승인"]
 
+====
 

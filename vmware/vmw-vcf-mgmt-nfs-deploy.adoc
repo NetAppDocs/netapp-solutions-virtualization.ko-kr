@@ -1,0 +1,154 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-mgmt-nfs-deploy.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, array, ontap tools, otv, sddc, sddc manager, ontap tools, ontap tools 10 
+summary: ONTAP tools for VMware vSphere 배포하고 NFS 데이터스토어를 프로비저닝하여 VMware Cloud Foundation과 원활하게 통합할 수 있습니다.  ONTAP 도구를 배포하고, 스토리지 백엔드를 구성하고, NFS 데이터스토어를 생성하여 vSphere 8 클러스터를 VCF 관리 도메인으로 변환하는 작업을 지원합니다. 
+---
+= ONTAP 도구 배포 및 VCF 관리 도메인 변환을 위한 NFS 데이터 저장소 프로비저닝
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP tools for VMware vSphere 배포하고 NFS 데이터스토어를 프로비저닝하여 VMware Cloud Foundation과 원활하게 통합할 수 있습니다.  ONTAP 도구를 배포하고, 스토리지 백엔드를 구성하고, NFS 데이터스토어를 생성하여 vSphere 8 클러스터를 VCF 관리 도메인으로 변환하는 작업을 수행합니다.
+
+
+
+== 1단계: ONTAP tools for VMware vSphere 배포
+
+이 단계에서는 ONTAP 도구가 HA가 아닌 구성으로 배포됩니다. HA 및 비 HA 구성에 대한 추가 배포 세부 정보는 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["ONTAP tools for VMware vSphere 배포"] .
+
+.단계
+. ONTAP 도구 OVA 템플릿을 다운로드하세요. https://mysupport.netapp.com/site/["NetApp 지원 사이트"] .
+. vSphere 클라이언트에서 클러스터를 마우스 오른쪽 버튼으로 클릭하고 *OVF 템플릿 배포*를 클릭합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-001.png[OVF 템플릿 배포]
+
+====
+. *OVF 템플릿 배포*에서 다음 단계를 완료하세요.
++
+** OVF 템플릿을 선택하세요.
+** 이름과 폴더를 선택하세요.
+** 컴퓨팅 리소스를 선택하세요.
+** 리뷰 세부 정보.
+** 라이센스 계약에 동의합니다.
+
+
+. 템플릿의 *구성* 페이지에서 배포 유형을 선택합니다. 여기에는 HA 구성에서 ONTAP 도구를 배포할지 여부도 포함됩니다. 계속하려면 *다음*을 클릭하세요.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-002.png[구성 - 배포 유형]
+
+====
+. *저장소 선택* 페이지에서 VM을 설치할 데이터 저장소를 선택하고 *다음*을 클릭합니다.
+. ONTAP 도구 VM이 통신할 네트워크를 선택합니다. 계속하려면 *다음*을 클릭하세요.
+. *템플릿 사용자 지정* 창에서 필요한 모든 정보를 입력하세요.
++
+** 애플리케이션 사용자 이름 및 비밀번호
+** ASUP(AutoSupport)를 활성화할지 여부를 선택합니다.  프록시 URL을 포함합니다.
+** 관리자 사용자 이름과 비밀번호.
+** NTP 서버.
+** 유지 관리 사용자 이름과 비밀번호(콘솔에서 사용되는 "maint" 계정).
+** 배포 구성에 필요한 IP 주소를 제공합니다.
+** 노드 구성에 필요한 모든 네트워킹 정보를 제공합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-003.png[템플릿 사용자 정의]
+
+====
+
+
+. 계속하려면 *다음*을 클릭하고, 배포를 시작하려면 *마침*을 클릭합니다.
+
+
+
+
+== 2단계: ONTAP 도구 구성
+
+ONTAP 도구 VM을 설치하고 전원을 켠 후 관리하려는 vCenter 서버와 ONTAP 스토리지 시스템을 추가합니다.
+
+.단계
+. ONTAP tools for VMware vSphere 에 있는 지침에 따라 vCenter 인스턴스를 추가합니다. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["vCenter 인스턴스 추가"] .
+. ONTAP 스토리지 시스템을 추가하려면 vSphere 클라이언트에 로그인하고 왼쪽의 주 메뉴로 이동하세요. * NetApp ONTAP 도구*를 클릭하여 사용자 인터페이스를 시작합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-004.png[ONTAP 도구 열기]
+
+====
+. 왼쪽 메뉴에서 *스토리지 백엔드*로 이동한 후 *추가*를 클릭하여 *스토리지 백엔드 추가* 창에 액세스합니다.
+. 관리할 ONTAP 스토리지 시스템의 IP 주소와 자격 증명을 입력하세요.  *추가*를 클릭하여 완료하세요.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-005.png[스토리지 백엔드 추가]
+
+====
++
+
+TIP: 스토리지 시스템의 모든 SVM에 대한 전체 관리를 허용하려면 클러스터 IP 주소를 사용하여 vSphere 클라이언트 UI에 스토리지 백엔드를 추가합니다. 또는 ONTAP 도구 관리자를 사용하여 스토리지 백엔드를 추가하고 vCenter 인스턴스와 연결할 수 있습니다. `https://loadBalanceIP:8443/virtualization/ui/` .  이 대체 방법을 사용하면 vSphere 클라이언트 UI에서 SVM 자격 증명만 추가할 수 있으므로 스토리지 액세스를 보다 세부적으로 제어할 수 있습니다.
+
+
+
+
+
+== 3단계: NFS 데이터 저장소 프로비저닝
+
+ONTAP 도구는 vSphere 클라이언트 UI 전체의 기능을 통합합니다. 이 단계에서는 스토리지 인벤토리 페이지에서 NFS 데이터 저장소가 프로비저닝됩니다.
+
+.단계
+. vSphere 클라이언트에서 스토리지 인벤토리로 이동합니다.
+. *작업 > NetApp ONTAP 도구 > 데이터 저장소 만들기*로 이동합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-006.png[데이터 저장소 생성]
+
+====
+. *데이터스토어 생성* 마법사에서 생성할 데이터스토어 유형을 선택합니다.  옵션은 NFS 또는 VMFS입니다.
+. *이름 및 프로토콜* 페이지에서 데이터 저장소의 이름, 크기, 사용할 NFS 프로토콜을 입력합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-007.png[이름과 프로토콜]
+
+====
+. *저장소* 페이지에서 ONTAP 스토리지 플랫폼과 스토리지 가상 머신(SVM)을 선택합니다. 여기에서 사용 가능한 사용자 정의 내보내기 정책을 선택할 수도 있습니다. 계속하려면 *다음*을 클릭하세요.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-008.png[저장 페이지]
+
+====
+. *저장소 속성* 페이지에서 사용할 저장소 집계를 선택합니다. 계속하려면 *다음*을 클릭하세요.
+. *요약* 페이지에서 정보를 검토하고 *마침*을 클릭하여 프로비저닝 프로세스를 시작합니다.
++
+ONTAP 도구는 ONTAP 스토리지 시스템에 볼륨을 생성하고 이를 클러스터의 모든 ESXi 호스트에 NFS 데이터 저장소로 마운트합니다.
+
++
+.예를 보여주세요
+[%collapsible]
+====
+image::vmware-vcf-import-nfs-009.png[요약 페이지]
+
+====
+
+
+
+
+== 다음은 무엇인가요?
+
+ONTAP 도구를 배포하고 NFS 데이터 저장소를 프로비저닝한 후link:vmw-vcf-mgmt-nfs-conversion.html["vSphere 클러스터를 VCF 관리 도메인으로 변환"] .

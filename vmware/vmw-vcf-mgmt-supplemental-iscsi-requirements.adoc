@@ -14,7 +14,7 @@ summary: VCF 관리 도메인에 보조 스토리지로 iSCSI 데이터스토어
 
 
 [role="lead"]
-VMware Cloud Foundation(VCF) 관리 도메인에 보조 스토리지로 iSCSI 데이터스토어를 추가하는 데 필요한 요구 사항을 검토합니다.  VMware Cloud Foundation 관리 도메인에 iSCSI vVols 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템과 배포된 VCF 관리 도메인이 필요합니다.
+VMware Cloud Foundation(VCF) 관리 도메인에 보조 스토리지로 iSCSI 데이터스토어를 추가하는 데 필요한 요구 사항을 검토합니다.
 
 
 

@@ -4,45 +4,51 @@
 
 . vSphere 클라이언트에서 워크로드 도메인 인벤토리의 ESXi 호스트 중 하나로 이동합니다. *구성* 탭에서 *VMkernel 어댑터*를 선택하고 *네트워킹 추가...*를 클릭하여 시작합니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-030.png["네트워킹 추가 마법사 시작"]
 
-+
-{nbsp}
-
+====
 . *연결 유형 선택* 창에서 *VMkernel 네트워크 어댑터*를 선택하고 *다음*을 클릭하여 계속합니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-008.png["VMkernel 네트워크 어댑터 선택"]
 
-+
-{nbsp}
-
+====
 . *대상 장치 선택* 페이지에서 이전에 생성한 iSCSI용 분산 포트 그룹 중 하나를 선택합니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-031.png["대상 포트 그룹을 선택하세요"]
 
-+
-{nbsp}
-
+====
 . *포트 속성* 페이지에서 기본값을 그대로 두고 *다음*을 클릭하여 계속합니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-032.png["VMkernel 포트 속성"]
 
-+
-{nbsp}
-
+====
 . *IPv4 설정* 페이지에서 *IP 주소*, *서브넷 마스크*를 입력하고 새로운 게이트웨이 IP 주소를 제공합니다(필요한 경우에만). 계속하려면 *다음*을 클릭하세요.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-033.png["VMkernel IPv4 설정"]
 
-+
-{nbsp}
-
+====
 . *완료 준비* 페이지에서 선택 사항을 검토하고 *마침*을 클릭하여 VMkernel 어댑터를 만듭니다.
 +
+.예를 보여주세요
+[%collapsible]
+====
 image:vmware-vcf-asa-034.png["VMkernel 선택 검토"]
 
-+
-{nbsp}
-
+====
 . 두 번째 iSCSI 네트워크에 대한 VMkernel 어댑터를 생성하려면 이 과정을 반복합니다.
 
