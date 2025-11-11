@@ -1,0 +1,368 @@
+---
+sidebar: sidebar 
+permalink: migration/shift-toolkit-migrate-esxi2olvm.html 
+keywords: netapp, vmware, esxi, vm, migration, virtualization, oracle, linux, olvm 
+summary: Shift Toolkit을 사용하여 VM을 준비하고, 디스크 형식을 변환하고, 대상 환경을 구성하여 VMware ESXi에서 Oracle Linux Virtualization Manager로 VM을 마이그레이션합니다. 
+---
+= VMware ESXi에서 Oracle Linux Virtualization Manager로 VM 마이그레이션
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Shift Toolkit을 사용하여 VM을 준비하고, 디스크 형식을 변환하고, 대상 환경을 구성하여 VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로 VM을 마이그레이션합니다.
+
+Shift Toolkit은 대상 환경에서 디스크 포맷 변환과 네트워크 재구성을 통해 가상화 플랫폼 간에 VM 마이그레이션을 가능하게 합니다.
+
+
+
+== 시작하기 전에
+
+마이그레이션을 시작하기 전에 다음 전제 조건이 충족되는지 확인하세요.
+
+.Oracle Linux Virtualization Manager 요구 사항
+* 데이터 센터에 Oracle Linux KVM 호스트가 추가된 Oracle Linux Virtualization Manager
+* ONTAP NFS 스토리지가 스토리지 도메인으로 추가되었습니다.
+* 클러스터의 관리자 수준 권한
+* Oracle Linux Virtualization Manager 및 VDSM 릴리스는 >= 4.5입니다.
+* Oracle Linux Virtualization Manager(대상) 호스트는 네트워크에 접속 가능합니다.
+* 적절한 볼륨 및 Qtree로 구성된 NFSv3 스토리지 도메인
++
+** vdsm 사용자(UID 36) 및 kvm 그룹(GID 36)에 대한 읽기-쓰기 액세스가 허용되는지 확인하십시오.
+
+
+* 적절한 VLAN으로 구성된 네트워크
+
+
+.VMware 요구 사항
+* VM VMDK는 NFSv3 볼륨에 배치됩니다(지정된 VM에 대한 모든 VMDK는 동일한 볼륨의 일부여야 함)
+* VMware 도구는 게스트 VM에서 실행됩니다.
+* 마이그레이션할 VM은 준비를 위해 RUNNING 상태입니다.
+* 마이그레이션을 트리거하기 전에 VM의 전원을 꺼야 합니다.
+* VMware 도구 제거는 VM이 전원이 켜지면 대상 하이퍼바이저에서 수행됩니다.
+
+
+.게스트 VM 요구 사항
+* Windows VM의 경우: 로컬 관리자 자격 증명을 사용하세요.
+* Linux VM의 경우: 암호 입력 없이 sudo 명령을 실행할 수 있는 권한이 있는 사용자를 사용하세요.
+* Windows VM의 경우: VirtIO ISO를 VM에 마운트합니다(다음에서 다운로드).link:https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.271-1/virtio-win-0.1.271.iso["여기"] )
++
+
+NOTE: 준비 스크립트는 .msi 패키지를 사용하여 드라이버와 qemu-guest-agents를 설치합니다.
+
+
+
+
+
+== 1단계: 대상 사이트(OLVM) 추가
+
+Shift Toolkit에 대상 Oracle Linux Virtualization Manager 환경을 추가합니다.
+
+.단계
+. *새 사이트 추가*를 클릭하고 *대상*을 선택하세요.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-200.png[목적지를 선택하세요]
+
+====
+. 목적지 사이트 세부 정보를 입력하세요:
++
+** *사이트 이름*: 사이트 이름을 입력하세요
+** *하이퍼바이저*: OLVM을 선택하세요
+** *사이트 위치*: 기본 옵션을 선택하세요
+** *커넥터*: 기본 선택을 선택하세요
+
+
+. *계속*을 클릭하세요.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-201.png[목적지 사이트 세부 정보]
+
+====
+. OLVM 세부 정보를 입력하세요:
++
+** *엔드포인트*: Virtualization Manager의 IP 주소 또는 FQDN
+** *사용자 이름*: username@profile 형식의 사용자 이름(예: admin@internal)
+** *비밀번호*: Virtualization Manager에 액세스하기 위한 비밀번호
+
+
+. *자체 서명된 인증서 수락*을 선택하고 *계속*을 클릭합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-202.png[대상 OLVM 세부 정보]
+
+====
+. *사이트 만들기*를 클릭하세요.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-203.png[대상 OLVM 생성]
+
+====
++
+
+NOTE: 디스크 포맷 변환은 동일한 볼륨 내의 볼륨 수준에서 발생하므로 소스 볼륨과 대상 볼륨은 동일합니다.
+
+
+
+
+
+== 2단계: 리소스 그룹 만들기
+
+부팅 순서와 부팅 지연 구성을 보존하기 위해 VM을 리소스 그룹으로 구성합니다.
+
+.시작하기 전에
+* 필수 구성 요소에 지정된 대로 Qtree가 프로비저닝되었는지 확인하십시오.
+* 변환하기 전에 새로 생성된 ONTAP SVM의 지정된 데이터 저장소로 VM을 이동하여 스테이징 영역에서 프로덕션 NFS 데이터 저장소를 분리합니다.
+
+
+.단계
+. *리소스 그룹*으로 이동하여 *새 리소스 그룹 만들기*를 클릭합니다.
+. 드롭다운에서 소스 사이트를 선택하고 *만들기*를 클릭합니다.
+. 리소스 그룹 세부 정보를 제공하고 워크플로를 선택합니다.
++
+** *복제 기반 마이그레이션*: 소스 하이퍼바이저에서 대상 하이퍼바이저로 종단 간 마이그레이션을 수행합니다.
+** *클론 기반 변환*: 디스크 형식을 선택한 하이퍼바이저 유형으로 변환합니다.
+
+
+. *계속*을 클릭하세요.
+. 검색 옵션을 사용하여 VM을 선택합니다(기본 필터는 "데이터 저장소"입니다).
++
+
+NOTE: 데이터 저장소 드롭다운에는 NFSv3 데이터 저장소만 표시됩니다.  NFSv4 데이터 저장소는 표시되지 않습니다.
+
+. 마이그레이션 세부 정보 업데이트:
++
+** *목적지* 선택
+** *대상 OLVM 항목*을 선택하세요
+** Datastore에서 Qtree로의 매핑 구성
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-204.png[마이그레이션 세부 정보]
+
+====
++
+
+NOTE: ESXi에서 OLVM으로 VM을 변환할 때 대상 경로(변환된 VM이 저장되는 경로)가 qtree로 설정되어 있는지 확인하세요.  또한 이 Qtree가 스토리지 도메인에 추가되었는지 확인하세요.  여러 개의 qtree를 만들어 변환된 VM 디스크를 저장하는 데 사용할 수 있습니다.
+
+
+
+. 선택한 모든 VM에 대한 부팅 순서와 부팅 지연을 구성합니다.
++
+** *1*: 전원을 켜는 첫 번째 VM
+** *3*: 기본값
+** *5*: 마지막으로 전원이 켜진 VM
+
+
+. *리소스 그룹 만들기*를 클릭합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-205.png[리소스 그룹 세부 정보]
+
+====
+
+
+.결과
+리소스 그룹이 생성되어 블루프린트 구성을 위한 준비가 되었습니다.
+
+
+
+== 3단계: 마이그레이션 청사진 만들기
+
+플랫폼 매핑, 네트워크 구성, VM 설정을 포함하여 마이그레이션 계획을 정의하는 청사진을 만듭니다.
+
+.단계
+. *청사진*으로 이동하여 *새 청사진 만들기*를 클릭합니다.
+. 청사진의 이름을 제공하고 호스트 매핑을 구성합니다.
++
+** *소스 사이트* 및 관련 vCenter 선택
+** *대상 사이트* 및 관련 OLVM 대상을 선택하세요.
+** 클러스터 및 호스트 매핑 구성
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-206.png[청사진 세부 정보]
+
+====
+
+
+. 리소스 그룹 세부 정보를 선택하고 *계속*을 클릭합니다.
+. 여러 그룹이 있는 경우 리소스 그룹에 대한 실행 순서를 설정합니다.
+. 적절한 논리 네트워크에 네트워크 매핑을 구성합니다.
++
+
+NOTE: 네트워크는 이미 적절한 VLAN 태그로 OLVM 내에 프로비저닝되어 있어야 합니다.  테스트 마이그레이션의 경우, 프로덕션 네트워크 충돌을 피하기 위해 "네트워크를 구성하지 않음"을 선택하세요. 변환 후 네트워크 설정을 수동으로 지정하세요.
+
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-207.png[네트워크 매핑]
+
+====
+. 스토리지 매핑을 검토합니다(VM 선택에 따라 자동으로 선택됨).
++
+
+NOTE: 사전에 qtree가 프로비저닝되어 있고 필요한 권한이 할당되어 NFS 볼륨에서 가상 머신을 만들고 전원을 켤 수 있는지 확인하세요.
+
+. VM 세부 정보에서 구성 세부 정보를 선택하고 각 OS 유형에 대한 서비스 계정 자격 증명을 제공합니다.
++
+** *Windows*: 로컬 관리자 권한이 있는 사용자를 사용하세요(도메인 자격 증명도 사용 가능)
+** *Linux*: 비밀번호 입력 없이 sudo 명령을 실행할 수 있는 사용자를 사용하세요.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-208.png[구성 매핑 세부 정보]
+
+====
++
+
+NOTE: 구성 선택을 통해 디스크 이미지 형식을 선택하고 prepareVM 재정의를 건너뛸 수 있습니다.  워크플로는 기본적으로 QCOW2 형식으로 설정되어 있지만 필요한 경우 RAW 형식을 선택할 수 있습니다.  override prepareVM 옵션을 사용하면 관리자가 VM 준비를 건너뛰고 사용자 정의 스크립트를 실행할 수 있습니다.
+
+
+
+. IP 설정 구성:
++
+** *구성하지 마세요*: 기본 옵션
+** *IP 유지*: 소스 시스템의 동일한 IP 유지
+** *DHCP*: 대상 VM에 DHCP를 할당합니다.
++
+prepareVM 단계에서 VM의 전원이 켜져 있고 VMware Tools가 설치되어 있는지 확인하세요.
+
+
+
+. VM 설정 구성:
++
+** CPU/RAM 매개변수 크기 조정(선택 사항)
+** 부팅 순서 및 부팅 지연 수정
+** *전원 켜기*: 마이그레이션 후 VM 전원을 켜도록 선택합니다(기본값: 켜짐)
+** *VMware Tools 제거*: 변환 후 VMware Tools 제거(기본값: 선택됨)
+** *VM 펌웨어*: BIOS > BIOS 및 EFI > EFI(자동)
+** *MAC 유지*: 라이선스 요구 사항을 위해 MAC 주소를 유지합니다.
+** *서비스 계정 재정의*: 필요한 경우 별도의 서비스 계정을 지정하세요.
+
+
+. *계속*을 클릭하세요.
+. 날짜와 시간을 선택하여 마이그레이션을 예약하세요.
++
+
+NOTE: VM 준비 시간을 확보하기 위해 최소 30분 전에 마이그레이션 일정을 예약하세요.
+
+. *청사진 만들기*를 클릭하세요.
+
+
+.결과
+Shift Toolkit은 소스 VM에서 스크립트를 실행하여 마이그레이션을 준비하는 prepareVM 작업을 시작합니다.
+
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-209.png[OLVM 준비 세부 정보]
+
+====
+준비 과정:
+
+* VirtIO 드라이버 업데이트, qemu-agent 설치, VMware 도구 제거, IP 세부 정보 백업 및 fstab 업데이트를 위한 스크립트 삽입
+* PowerCLI를 사용하여 게스트 VM(Linux 또는 Windows)에 연결하고 VirtIO 드라이버를 업데이트합니다.
+* Windows VM의 경우: 스크립트를 저장합니다. `C:\NetApp`
+* Linux VM의 경우: 스크립트를 저장합니다. `/NetApp` 그리고 `/opt`
+
+
+
+NOTE: 지원되는 모든 VM OS의 경우 Shift Toolkit은 디스크 변환 전에 필요한 VirtIO 드라이버를 자동으로 설치하여 변환 후 성공적인 부팅을 보장합니다.
+
+prepareVM이 성공적으로 완료되면 블루프린트 상태가 "PrepareVM 완료"로 업데이트됩니다.  이제 예약된 시간에 마이그레이션이 진행되거나 *마이그레이션* 옵션을 클릭하여 수동으로 시작할 수 있습니다.
+
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-210.png[마이그레이션 메뉴 선택]
+
+====
+
+
+== 4단계: 마이그레이션 실행
+
+VMware ESXi에서 Oracle Linux Virtualization Manager로 VM을 변환하기 위한 마이그레이션 워크플로를 트리거합니다.
+
+.시작하기 전에
+모든 VM은 계획된 유지 관리 일정에 따라 정상적으로 전원이 꺼집니다.
+
+.단계
+. 청사진에서 *마이그레이션*을 클릭합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-211.png[마이그레이션 단계]
+
+====
+. Shift Toolkit은 다음과 같은 작업을 수행합니다.
++
+** 블루프린트의 모든 VM에 대한 기존 스냅샷을 삭제합니다.
+** 소스에서 VM 스냅샷을 트리거합니다.
+** 디스크 변환 전에 볼륨 스냅샷을 트리거합니다.
+** 모든 VM에 대해 VMDK를 QCOW2 또는 RAW 형식으로 변환합니다.
++
+Shift Toolkit은 기본 부팅 디스크를 포함하여 각 VM에 연결된 모든 VMDK를 자동으로 찾습니다.
+
++
+
+NOTE: VMDK 파일이 여러 개 있는 경우 각 VMDK가 변환됩니다.
+
+** QCOW2 또는 RAW 이미지를 OLVM 스토리지 도메인에 업로드합니다.
++
+가상 머신 디스크 이미지가 QCOW2 또는 RAW 형식으로 변환되면 Shift Toolkit은 해당 파일을 적절한 스토리지 도메인에 업로드하고 각 디스크를 추가합니다.
+
+** 가상 머신을 생성합니다
++
+Shift Toolkit은 OS에 따라 각 VM을 생성하기 위해 REST API 호출을 수행합니다.
+
++
+
+NOTE: VM은 "기본" 클러스터 아래에 생성됩니다.
+
+** 대상에서 VM 전원을 켭니다.
++
+VM OS에 따라 Shift Toolkit은 스토리지 컨트롤러 인터페이스와 함께 VM 부팅 옵션을 자동으로 할당합니다.  Linux 배포판의 경우 VirtIO 또는 VirtIO SCSI가 사용됩니다.  Windows의 경우 VM은 SATA 인터페이스로 전원을 켠 다음 예약된 스크립트가 VirtIO 드라이버를 자동으로 설치하고 인터페이스를 VirtIO로 변경합니다.
+
+** 각 VM에 네트워크를 등록합니다.
++
+네트워크는 청사진 선택에 따라 할당됩니다.
+
+** 트리거 스크립트나 Cron 작업을 사용하여 VMware 도구를 제거하고 IP 주소를 할당합니다.
+
+
+
+
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-212.png[Oracle에서 마이그레이션된 VM]
+
+====
+
+
+== 비디오 데모
+
+다음 영상에서는 이 솔루션에 설명된 프로세스를 보여줍니다.
+
+.ESX에서 Oracle Linux Virtualization Manager(OLVM)로의 제로 터치 마이그레이션
+video::13bb74ad-25b3-49c0-84b5-b3760100ad6f[panopto]

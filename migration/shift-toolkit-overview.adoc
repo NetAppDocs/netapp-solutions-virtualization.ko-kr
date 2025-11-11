@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-NetApp Shift Toolkit은 VMware ESXi 및 Microsoft Hyper-V와 같은 하이퍼바이저 간 VM 마이그레이션을 간소화하고 가속화하도록 설계된 독립형 제품입니다. 또한 다양한 가상 디스크 형식 간의 디스크 수준 변환을 지원합니다.
+NetApp Shift Toolkit은 VMware ESXi, Microsoft Hyper-V, Oracle Linux Virtualization Manager, Redhat OpenShift 등의 하이퍼바이저에서 VM 마이그레이션을 단순화하고 가속화하도록 설계된 독립형 제품입니다.  또한 다양한 가상 디스크 형식 간의 디스크 수준 변환도 지원합니다.
 
 
 
@@ -28,27 +28,31 @@ NetApp Shift 툴킷을 사용하면 가상 머신(VM)을 마이그레이션하�
 
 == 툴킷 개요
 
-NetApp Shift 툴킷은 서로 다른 하이퍼바이저 간에 가상 머신(VM)을 마이그레이션하고 가상 디스크 형식을 변환할 수 있는 사용하기 쉬운 그래픽 사용자 인터페이스(GUI) 솔루션입니다.  NetApp FlexClone 기술을 활용하여 VM 하드 디스크를 빠르게 변환합니다.  또한, 툴킷은 대상 VM의 생성과 구성을 관리합니다.
+NetApp Shift 툴킷은 서로 다른 하이퍼바이저 간에 가상 머신(VM)을 마이그레이션하고 가상 디스크 형식을 변환할 수 있는 사용하기 쉬운 그래픽 사용자 인터페이스(GUI) 솔루션입니다. NetApp FlexClone® 기술을 활용하여 VM 하드 디스크를 빠르게 변환합니다. 또한, 툴킷은 대상 VM의 생성과 구성을 관리합니다.
 
 Shift 툴킷은 다음 하이퍼바이저 간 양방향 변환을 지원하여 다중 하이퍼바이저 환경에서 유연성을 제공합니다.
 
 * VMware ESXi에서 Microsoft Hyper-V로
-* Microsoft Hyper-V에서 VMware ESXi로(곧 출시 예정)
+* Microsoft Hyper-V에서 VMware ESXi로
+* VMWare ESXi에서 Oracle Linux Virtualization Manager(OLVM)로
+* VMWare ESXi에서 Red Hat OpenShift 가상화로
 
 
 Shift 툴킷은 다음 디스크 형식에 대해 하이퍼바이저 간 가상 디스크의 디스크 수준 변환을 지원합니다.
 
 * VMware ESX에서 Microsoft Hyper-V로(가상 머신 디스크[VMDK]에서 가상 하드 디스크 형식[VHDX]으로)
+* Microsoft Hyper-V에서 VMware ESX로(가상 하드 디스크 포맷[VHDX]에서 가상 머신 디스크[VMDK]로)
 * VMware ESX에서 KVM 호환 하이퍼바이저(VMDK에서 QCOW2로)
+* VMware ESX에서 KVM 호환 하이퍼바이저(VMDK에서 RAW로)
 
 
-image:shift-toolkit-001.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+image::shift-toolkit-001.png[NetApp Shift Toolkit 개요]
 
-Shift 툴킷을 다운로드할 수 있습니다link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["여기"] Windows 시스템에서만 사용 가능합니다.
+Shift 툴킷을 다운로드할 수 있습니다link:https://mysupport.netapp.com/site/tools/tool-eula/vm-data-collector["여기"] Windows 시스템에서만 사용 가능합니다.
 
 
 
-=== VM 이식성의 이점
+== VM 이식성의 이점
 
 ONTAP 모든 하이퍼바이저와 하이퍼스칼라에 적합합니다.  FlexClone 기술을 사용합니다.  더 긴 다운타임을 기다리거나 패스스루 옵션으로 정착하는 것보다 몇 분 안에 VM을 이식하는 것이 현실입니다.
 
@@ -62,29 +66,20 @@ ONTAP 모든 하이퍼바이저와 하이퍼스칼라에 적합합니다.  FlexC
 
 
 
-=== Shift 툴킷 작동 방식
+== Shift 툴킷 작동 방식
 
 변환 시점에 Shift 툴킷은 VMware ESXi 및 Microsoft Hyper-V 호스트와 공유 NetApp 스토리지에 연결됩니다.  Shift 툴킷은 세 가지 주요 NetApp 기술을 사용하여 VM 하드 드라이브를 한 하이퍼바이저에서 다른 하이퍼바이저로 변환하기 위해 FlexClone 활용합니다.
 
-* 단일 볼륨 및 다중 프로토콜
-+
-NetApp ONTAP 사용하면 여러 프로토콜을 사용하여 단일 볼륨에 쉽게 액세스할 수 있습니다.  예를 들어, VMware ESXi는 NFS(네트워크 파일 시스템) 프로토콜을 사용하여 볼륨에 액세스할 수 있으며, Microsoft Hyper-V는 CIFS/SMB 프로토콜을 사용하여 동일한 볼륨에 액세스할 수 있습니다.
+* 단일 볼륨 및 다중 프로토콜 NetApp ONTAP 사용하면 여러 프로토콜을 사용하여 단일 볼륨에 쉽게 액세스할 수 있습니다. 예를 들어, VMware ESXi는 NFS(네트워크 파일 시스템) 프로토콜을 사용하여 볼륨에 액세스할 수 있으며, Microsoft Hyper-V는 CIFS/SMB 프로토콜을 사용하여 동일한 볼륨에 액세스할 수 있습니다.
+* FlexClone 기술 FlexClone 사용하면 데이터 복사 없이 전체 파일이나 볼륨을 빠르게 복제할 수 있습니다. 저장 시스템의 공통 블록은 여러 파일이나 볼륨에서 공유됩니다. 결과적으로 대용량 VM 디스크를 매우 빠르게 복제할 수 있습니다.
+* VM 디스크 변환 NetApp PowerShell Toolkit과 Shift Toolkit에는 NetApp 스토리지 컨트롤러에서 다양한 작업을 수행하는 데 사용할 수 있는 수많은 워크플로가 포함되어 있습니다. 가상 디스크를 다른 형식으로 변환하는 PowerShell cmdlet이 포함되어 있습니다. 예를 들어, VMware VMDK를 Microsoft VHDX로 변환할 수 있으며, 그 반대의 경우도 가능합니다. 이러한 변환은 FlexClone 통해 수행되며, 이를 통해 한 단계로 매우 빠른 복제 및 디스크 형식 변환이 가능합니다.
 
-* FlexClone 기술
-+
-FlexClone 사용하면 데이터 복사 없이 전체 파일이나 볼륨을 빠르게 복제할 수 있습니다.  저장 시스템의 공통 블록은 여러 파일이나 볼륨에서 공유됩니다.  결과적으로 대용량 VM 디스크를 매우 빠르게 복제할 수 있습니다.
 
-* VM 디스크 변환
-+
-NetApp PowerShell Toolkit과 Shift Toolkit에는 NetApp 스토리지 컨트롤러에서 다양한 작업을 수행하는 데 사용할 수 있는 많은 워크플로가 포함되어 있습니다.  가상 디스크를 다른 형식으로 변환하는 PowerShell cmdlet이 포함되어 있습니다.  예를 들어, VMware VMDK를 Microsoft VHDX로 변환할 수 있으며, 그 반대의 경우도 가능합니다.  이러한 변환은 FlexClone 통해 수행되며, 이를 통해 한 단계로 매우 빠른 복제 및 디스크 형식 변환이 가능합니다.
+image::shift-toolkit-002.png[NetApp Shift Toolkit 작동 방식 다이어그램]
 
 
 
-image:shift-toolkit-002.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
-
-
-
-==== 프로토콜 및 통신 방법
+=== 프로토콜 및 통신 방법
 
 Shift 툴킷은 변환 또는 마이그레이션 작업 중에 다음 프로토콜을 사용합니다.
 
@@ -92,3 +87,25 @@ Shift 툴킷은 변환 또는 마이그레이션 작업 중에 다음 프로토�
 * VI Java(openJDK), VMware PowerCLI - VMware ESXi와 통신하는 데 사용됩니다.
 * Windows PowerShell 모듈 - Microsoft Hyper-V와 통신하는 데 사용됩니다.
 
+
+방화벽은 다음 포트를 통한 트래픽을 허용해야 합니다.
+
+[cols="20%, 10%, 25%, 20%, 25%"]
+|===
+| 포트 | 규약 | 원천 | 목적지 | 목적 
+
+
+| 443 | TCP | Shift 툴킷 노드 | VMware vCenter | VMware 인벤토리 
+
+
+| 443 | TCP | Shift 툴킷 노드 | VMware ESXi 노드 | Invoke-vmscript 종속성(라우팅됨) 
+
+
+| 443 | TCP | Shift 툴킷 노드 | 대상 하이퍼바이저 | 목표 재고 
+
+
+| 443 | TCP | Shift 툴킷 노드 | ONTAP 시스템 | ONTAP 접근 
+
+
+| 5985/5986 | HTTP | Shift 툴킷 노드 | Hyper-V 호스트 | 윈RM 
+|===

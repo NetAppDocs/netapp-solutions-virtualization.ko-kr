@@ -1283,112 +1283,45 @@
   <block id="703841c57d312b4b589352aac851caea" category="paragraph">가상화 인프라를 현대화하려는 조직은 종종 가상 머신을 보다 효율적인 스토리지 플랫폼으로 마이그레이션해야 합니다.  다양한 스토리지 시스템에서 NetApp ONTAP 데이터 저장소로 VM을 마이그레이션하는 방법을 알아보세요. 이를 통해 ONTAP의 고급 데이터 관리 기능, 공간 효율적인 스냅샷, 통합 데이터 보호 기능을 활용할 수 있습니다.</block>
   <block id="8b290c60d51c7b14ee6e18accc9eade2" category="doc">Shift Toolkit을 사용하여 VM 변환</block>
   <block id="1b2e9d78e9f2b2a302c46e7584df1000" category="paragraph">Shift Toolkit을 사용하여 VMware ESX 가상 머신 디스크(VMDK)를 Microsoft Hyper-V(VHDX) 디스크 형식이나 Red Hat KVM(QCOW2) 디스크 형식으로 변환합니다.  이 프로세스에는 리소스 그룹 설정, 변환 청사진 생성, 변환 일정 예약이 포함됩니다.</block>
-  <block id="3bb1503332637805beddb73a2dd1fe1b" category="section-title">변환</block>
-  <block id="50b3e826b06c566b5dfd0139d9475ba8" category="paragraph">클론 기반 변환 옵션을 사용하면 다음 디스크 형식에 대해 하이퍼바이저 간에 가상 디스크를 간단히 변환할 수 있습니다.</block>
   <block id="eef829dd0d7a22bac7a4c66eb414abff" category="list-text">VMware ESX에서 Microsoft Hyper-V로(VMDK에서 VHDX로)</block>
   <block id="6b1831fe2dec45a187654bdbfabc905f" category="list-text">VMware ESX에서 Red Hat KVM으로(VMDK에서 QCOW2로)</block>
-  <block id="1ce30c09448885579e04bc72370dba31" category="paragraph">변환된 qcow2 파일은 모든 KVM 하이퍼바이저와 호환됩니다.  예를 들어, qcow2 파일은 virt-manager를 사용하여 RHEL 기반 KVM과 함께 활용하여 VM을 생성할 수 있으며, Ubuntu KVM, Rocky Linux 기반 KVM 등에서도 활용할 수 있습니다.  동일한 기능을 Oracle Linux 가상화 관리자와 함께 사용할 수 있으며 NetApp Trident 사용하여 가져온 후 OpenShift 가상화와도 함께 사용할 수 있습니다.  목표는 조직에서 VM을 프로비저닝하고 네트워크를 할당하는 데 사용하는 기존 자동화 스크립트에 통합할 수 있는 디스크(초 단위에서 분 단위)를 제공하는 것입니다.  이 접근 방식은 Shift 툴킷 API가 디스크 변환을 처리하고 나머지 스크립트가 VM을 불러오므로 전체 마이그레이션 시간을 줄이는 데 도움이 됩니다.</block>
-  <block id="0992b42fb9662c818228838f0476e292" category="paragraph">향후 릴리스에서는 Shift 툴킷이 VMware에서 다른 호환 KVM 하이퍼바이저로의 엔드투엔드 마이그레이션을 지원할 예정입니다.  하지만 현재 릴리스에서는 UI나 API를 통해 변환을 수행할 수 있습니다.</block>
   <block id="3873bc04ca31ec1f2ea54a39c86e8414" category="section-title">QCOW2 형식으로 변환</block>
   <block id="3614d088671b955787ce291357e53f0b" category="paragraph">NetApp Shift 툴킷을 사용하여 가상 디스크를 QCOW2 형식으로 변환하려면 다음과 같은 간단한 단계를 따르세요.</block>
-  <block id="f5a286140209a49b8127628859f074d9" category="list-text">하이퍼바이저로 KVM을 지정하여 대상 사이트 유형을 만듭니다.</block>
-  <block id="13b6fa536eb1d6a6ac45cf21bd047eb5" category="admonition">KVM에는 하이퍼바이저 세부 정보가 필요하지 않습니다.</block>
-  <block id="4afbd42e099f3420ab314bdaed130ef1" category="paragraph"><block ref="4afbd42e099f3420ab314bdaed130ef1" category="inline-image-macro-rx" type="image"></block></block>
   <block id="851cd83416bdd20d81e3f28b08e26a3c" category="list-text">디스크 변환이 필요한 VM으로 리소스 그룹을 만듭니다.</block>
-  <block id="de39d4a03ada965933df2a5ea51e82b6" category="paragraph"><block ref="de39d4a03ada965933df2a5ea51e82b6" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6cbc97ba383f22a9e3e65cbbc97d6881" category="paragraph"><block ref="6cbc97ba383f22a9e3e65cbbc97d6881" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6155aecb81829947036904904a3c52b4" category="paragraph"><block ref="6155aecb81829947036904904a3c52b4" category="inline-image-macro-rx" type="image"></block></block>
   <block id="fe0ac184f6bee650b01e447a9a5cb61a" category="list-text">가상 디스크를 QCOW2 형식으로 변환하기 위한 청사진을 만듭니다.</block>
-  <block id="c4f5d1201a35ef75b21b4b1ac9ab4e65" category="paragraph"><block ref="c4f5d1201a35ef75b21b4b1ac9ab4e65" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d36dcb3edb6854b1637a69a6c150596a" category="paragraph"><block ref="d36dcb3edb6854b1637a69a6c150596a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c8d65d17cd4eb30f1bfd1bfe2f2642d8" category="paragraph"><block ref="c8d65d17cd4eb30f1bfd1bfe2f2642d8" category="inline-image-macro-rx" type="image"></block></block>
   <block id="aa65e16b20639db3321c9f20650a58c0" category="list-text">스케줄링 옵션을 사용하여 슬롯을 지정합니다.  변환을 임시로 수행하려면 일정 옵션을 선택하지 마세요.</block>
-  <block id="65011cd1387d696b0e269674a42a7250" category="paragraph"><block ref="65011cd1387d696b0e269674a42a7250" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="b8b08a67603333329dee64da6a9c79b1" category="list-text">청사진이 생성되면 prepareVM 작업이 시작되고 소스 VM에서 스크립트가 자동으로 실행되어 변환을 준비합니다.</block>
-  <block id="434bb4a031a787b41bee4f0bc93c62f3" category="paragraph"><block ref="434bb4a031a787b41bee4f0bc93c62f3" category="inline-image-macro-rx" type="image"></block></block>
   <block id="2a930c265fb3f9c19b7a2d7309c1e4fc" category="list-text">prepareVM 작업이 성공적으로 완료되면(아래 스크린샷 참조), VM에 연결된 VM 디스크는 변환할 준비가 되고, 블루프린트 상태가 "활성"으로 업데이트됩니다.</block>
   <block id="100a01ffe3b54635799a363afd066afc" category="list-text">VM에 필요한 가동 중지 시간을 예약한 후 "변환"을 클릭합니다.</block>
-  <block id="8524dc13165f3488be7cc27cca3b963f" category="paragraph"><block ref="8524dc13165f3488be7cc27cca3b963f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="d48f1a104f4d2017d9fdc11dd5510d20" category="list-text">변환 작업은 특정 시점의 스냅샷을 사용합니다.  필요한 경우 VM의 전원을 끄고 작업을 다시 시작하세요.</block>
-  <block id="19794bf3d6ee998a9103498d9b1aaea8" category="paragraph"><block ref="19794bf3d6ee998a9103498d9b1aaea8" category="inline-image-macro-rx" type="image"></block></block>
   <block id="216c575d4dd79f068855eb74f1567fe7" category="list-text">변환 작업은 VM과 해당 디스크에 대해 각 작업을 실행하여 적절한 형식을 생성합니다.</block>
-  <block id="782bcdbb4ecfc97e6db558d74b58be1b" category="paragraph"><block ref="782bcdbb4ecfc97e6db558d74b58be1b" category="inline-image-macro-rx" type="image"></block></block>
   <block id="acb9e8c2edb2a83fd9a0db051d4f2ae7" category="list-text">VM을 수동으로 생성하고 디스크를 연결하여 변환된 디스크를 사용합니다.</block>
-  <block id="e8952973514437cb7dcb33fe924dea1e" category="paragraph"><block ref="e8952973514437cb7dcb33fe924dea1e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9661bb934c0e256029f562980b5e3357" category="admonition">Shift 툴킷은 qcow2 포맷에 대한 디스크 변환만 지원합니다.  VM 생성이나 등록을 지원하지 않습니다.  변환된 디스크를 사용하려면 수동으로 VM을 만들고 디스크를 연결하세요.</block>
   <block id="3a2421a37cccba34f4806ec9cb752215" category="section-title">VHDX 형식으로 변환</block>
   <block id="548a45c60e678d13a515c26d5b822404" category="paragraph">NetApp Shift 툴킷을 사용하여 가상 디스크를 VHDX 형식으로 변환하려면 다음과 같은 간단한 단계를 따르세요.</block>
   <block id="14b1ff697ae645ebf429a8a4eee40d01" category="list-text">하이퍼바이저로 Hyper-V를 지정하여 대상 사이트 유형을 만듭니다.</block>
-  <block id="baae1231b6d0b6802495805e7be9506c" category="paragraph"><block ref="baae1231b6d0b6802495805e7be9506c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c944dc7ff9f19f9158611d60b04e3bda" category="paragraph"><block ref="c944dc7ff9f19f9158611d60b04e3bda" category="inline-image-macro-rx" type="image"></block></block>
   <block id="d34a3f81850057a642d88217501ff9a8" category="list-text">가상 디스크를 VHDX 형식으로 변환하기 위한 청사진을 만듭니다.  청사진이 생성되면 준비 작업이 자동으로 시작됩니다.</block>
-  <block id="d76e1235814052a935c7a3d920979819" category="paragraph"><block ref="d76e1235814052a935c7a3d920979819" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ea5202a46e21422e0928216be4af1301" category="list-text">VM에 필요한 가동 중지 시간을 예약한 후 "변환"을 선택합니다.</block>
-  <block id="92023a07a83a3161f389ba6c872d0eef" category="paragraph"><block ref="92023a07a83a3161f389ba6c872d0eef" category="inline-image-macro-rx" type="image"></block></block>
   <block id="50a77afb6e0ed01857c3bd29d3c0f936" category="list-text">변환 작업은 VM과 해당 디스크에 대해 각 작업을 실행하여 적절한 VHDX 형식을 생성합니다.</block>
-  <block id="444e5fd2f4425aec62474b2dab0991b0" category="paragraph"><block ref="444e5fd2f4425aec62474b2dab0991b0" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9ce3b752d5bbad132b9f8fc83bb633e0" category="paragraph"><block ref="9ce3b752d5bbad132b9f8fc83bb633e0" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="09421c49154abf7d91874fd7cf6f2085" category="admonition">VM에서 변환된 VHDX 디스크를 사용하려면 Hyper-V 관리자나 PowerShell 명령을 통해 수동으로 VM을 만들고, 디스크를 연결해야 합니다.  이와 함께 네트워크도 수동으로 매핑해야 합니다.</block>
-  <block id="5d48702e9b8df77a69601eb85be98530" category="doc">ONTAP 스토리지용 Shift Toolkit 설치 및 설정</block>
   <block id="e31d0ee1c1de817765a32300b5238daa" category="paragraph">온라인 또는 오프라인 설치 옵션을 사용하여 Windows 운영 체제를 실행하는 전용 VM에 Shift Toolkit을 설치합니다.  이 프로세스에는 설치 요구 사항 검토, ONTAP 스토리지 가상 머신(SVM), qtree, CIFS 공유 구성, 설치 패키지 다운로드, 설치 프로그램 실행이 포함됩니다.</block>
   <block id="75956d20abc768658d8a3ce83f4641c7" category="section-title">설치 준비</block>
-  <block id="6ee7df27aff737aeacce45fcb0945234" category="paragraph">Shift 툴킷은 Windows 2019 및 2022 버전에서 실행할 수 있습니다.</block>
-  <block id="8fcf5c27e80f68118963a34b46113ef1" category="list-text">Shift 툴킷 패키지를 다운로드하세요<block ref="0e93fa2610e18308a429b8e37bff0fca" category="inline-link-macro-rx"></block></block>
-  <block id="ac454979862fba13b75ddf42406e7fbf" category="list-text">패키지의 압축을 풀어주세요</block>
-  <block id="a900ffc8492122496aa2af04ad8f2958" category="list-text">exe를 실행하여 서비스를 설치하고 시작하세요.</block>
-  <block id="d7f2756c46a03f9ce72e07ecb95f10c2" category="paragraph">Shift 툴킷은 2가지 패키지를 제공합니다.</block>
-  <block id="d58534a098be9e8edf82ce47e89d95f9" category="list-text">온라인(약 130MB 크기) 및</block>
-  <block id="99ff8e96db85436e2aecf9cdd69633be" category="list-text">오프라인(약 1.1GB 크기).</block>
-  <block id="2c5f9d5e675ae3daf1ac96e56ef51d5e" category="paragraph">이름에서 알 수 있듯이 온라인 설치 패키지는 Shift 툴킷이 소유한 S3 버킷에서 인터넷을 통해 필요한 필수 구성 요소를 다운로드하여 설치합니다.</block>
-  <block id="4e6bcd875d8cf966ee4ce6b3333c4e45" category="paragraph"><block ref="4e6bcd875d8cf966ee4ce6b3333c4e45" category="inline-image-macro-rx" type="image"></block></block>
   <block id="d01406fc817e76419b0ab22211866aa7" category="paragraph">온라인 설치는 편리하지만, 오프라인 설치는 설치 과정을 더 많이 제어할 수 있습니다.  오프라인 설치 패키지를 사용하면 Shift 툴킷을 설치하는 데 필요한 모든 사전 요구 사항이 패키지에 포함되어 있습니다.  오프라인 설치의 주요 장점 중 하나는 인터넷에 연결하지 않고도 가상 머신에 Shift 툴킷을 설치할 수 있다는 것입니다.</block>
-  <block id="50bf380243c95c9173da44b1e6c6c318" category="admonition">배포에 적합한 패키지를 사용하세요.  오프라인 모드에서는 모든 필수 구성 요소와 필수 파일이 포함되어 있으므로 프록시 설정을 수정할 필요가 없습니다.</block>
   <block id="140a5e5ebbbd3ad017baca6df1134d0f" category="paragraph">Shift 툴킷은 소스 환경과 대상 환경 간에 연결이 있는 한 VMware 또는 Microsoft Hyper-V 서버를 실행하는 가상 머신에 설치할 수 있으며, Shift 툴킷을 별도의 VM에 설치하는 것이 가장 좋습니다.  이 접근 방식을 사용하면 단일 Shift 툴킷 서버로 다양한 Microsoft Hyper-V 서버 또는 VMware ESXi 서버를 타겟팅할 수 있습니다.</block>
-  <block id="5676f7ccd02e9341b1f0dc22219d49c2" category="admonition">전용 VM에 Shift 툴킷을 설치합니다.</block>
-  <block id="cd858b42008ff4fdbd83da009238e603" category="section-title">설치를 위한 전제 조건</block>
   <block id="47dee50ad0138b8f5ca70e40e86e6c04" category="section-title">하드웨어 요구 사항</block>
   <block id="88c551d15614e9032bf34b2d92cdf120" category="paragraph">Shift 서버 호스트가 최소 하드웨어 요구 사항을 충족하는지 확인하세요.</block>
-  <block id="1cebf54ce4c5328e1dee1d4a579ae052" category="paragraph">하드웨어 요구 사항:</block>
-  <block id="a0d79dd8509005fc058dbfd9439ed77a" category="list-text">CPU: 4개의 vCPU</block>
-  <block id="344522689bea24c6a3c2c1915fb681f1" category="list-text">메모리: 최소 8GB</block>
-  <block id="7b81103566e1045014e8b894b4692c64" category="list-text">디스크 공간: 최소 100GB</block>
-  <block id="58965a69e7541abb53b933601cb4eac3" category="admonition">설치하려면 650MB의 디스크 공간이 필요합니다.</block>
   <block id="77495e745fe2123250999bee6aa73027" category="section-title">연결 요구 사항</block>
   <block id="8caf364f4d38f86f9cfbf6ec94b8c4d7" category="list-text">Shift 툴킷이 환경의 모든 구성 요소와 적절하게 상호 작용할 수 있도록 하이퍼바이저와 스토리지 환경이 구성되어 있는지 확인하세요.</block>
   <block id="b88b0a3e04ecebcedac3f35515322b29" category="list-text">Shift 툴킷은 독립형 Windows 서버(물리적 또는 가상)에 설치해야 합니다.</block>
-  <block id="5b1c4363c8f080471303caf2dd5c6ce7" category="list-text">Shift 서버, Data ONTAP CIFS 서버 및 Hyper-V 서버는 동일한 Windows Active Directory 도메인에 있어야 합니다.</block>
-  <block id="09e23f8a79e1b81322ad6f0437ced340" category="list-text">Storage Virtual Machine에서 VM 변환을 수행할 때 CIFS 및 NFS용 여러 LIF를 사용할 수 있습니다.  Hyper-V 서버와 ESXi 호스트는 이러한 LIF의 IP 주소에서 SVM(스토리지 가상 머신)에 액세스합니다.</block>
   <block id="7c52123dffdc1f6d93ae1497321eb024" category="list-text">CIFS 작업의 경우 Windows 도메인 컨트롤러와 NetApp 스토리지 컨트롤러의 시간 설정을 동기화해야 합니다.</block>
   <block id="858a152d89cbda987e75dae7b49f48fb" category="section-title">ONTAP 스토리지 구성</block>
   <block id="b2564aa0c2b4641018cd4bd578911f04" category="section-title">새로운 SVM 만들기(권장)</block>
   <block id="4dde82c8447e75f25deb74d58d7da88b" category="paragraph">Shift 툴킷을 사용하면 기존 SVM을 사용할 수 있지만 NetApp 새로운 SVM을 만드는 것이 가장 좋습니다.  Storage vMotion을 사용하여 전용 Data ONTAP 스토리지 가상 머신(SVM)에 있는 새로운 지정 NFS v3 데이터 저장소로 마이그레이션 또는 변환할 VM을 이동합니다.  이 svmotion 기반 마이그레이션은 VM의 가동 중지 시간 없이 수행됩니다.  이 접근 방식을 사용하면 마이그레이션하도록 지정된 VM이 프로덕션 SVM에 상주하지 않습니다.  ONTAP CLI, NetApp PowerShell 툴킷 또는 System Manager를 사용하여 새로운 SVM을 만듭니다.</block>
   <block id="2a304a1348456ccd2234cd71a81bd338" category="inline-link-macro">링크</block>
-  <block id="9545ef1244afcc4a3104cf1b434b6d98" category="paragraph">여기에 제공된 단계를 따르세요<block ref="cc80e43f4e29262c38775340c882e8ca" category="inline-link-macro-rx"></block> NFS와 SMB 프로토콜을 모두 허용하는 새로운 SVM을 프로비저닝합니다.</block>
-  <block id="51408e5e3b25fc5a811d161d4ec11813" category="admonition">운영 중인 SVM을 방해가 될 수 있는 방식으로 수정하지 않고도 SVM이 Shift 툴킷 요구 사항을 충족하는지 확인하기 위해 새로운 SVM을 만드는 것이 좋은 방법입니다.</block>
-  <block id="4a6b9b8c6082d6065203a7cd335e9575" category="admonition">Hyper-V 마이그레이션의 경우, 새로운 SVM에서 NFS와 SMB 프로토콜을 모두 활성화해야 합니다.  프로비저닝된 볼륨에는 NFS와 SMB가 모두 활성화되어 있어야 합니다.  대상이 KVM 기반 하이퍼바이저인 경우 SVM에서 NFS 프로토콜이 활성화되어 있어야 합니다.</block>
   <block id="e84341e6b16629fbe413c1888f95b229" category="section-title">Qtree 요구 사항</block>
   <block id="edcc42197be73f95181f0040b4003f88" category="paragraph">VMware에서 Hyper-V로 변환할 VM을 호스팅하는 데 사용될 볼륨에 qtree를 생성하여 VHDX 파일이나 VMDK에서 변환될 qcow2 또는 VHDX 파일을 분리하고 저장해야 합니다.</block>
-  <block id="91213c2f92585358e46cee6d20b49efe" category="list-text">ESX에서 Hyper-V로 변환하는 경우, Shift 툴킷은 변환된 VHDX를 동일한 볼륨 내의 qtree(NTFS 보안 스타일)에 배치합니다.</block>
   <block id="6e4c598a6f37e8fa8e1e784925c467a0" category="list-text">ESX VMDK에서 QCOW2로 변환하는 경우 UNIX 보안 스타일을 적용한 qtree를 사용해야 합니다.</block>
-  <block id="7773e2713b30e2152b36d116cfc23812" category="paragraph">Shift 툴킷은 qtree의 보안 스타일을 확인하지 않습니다.  따라서 대상 하이퍼바이저와 디스크 유형에 따라 적절한 보안 스타일로 qtree를 만드는 것이 중요합니다.</block>
-  <block id="c3c1a2d7bd37064e38d5912fb9a22ebb" category="admonition">대상 경로는 소스 VM의 동일한 볼륨에 있어야 합니다.</block>
-  <block id="086928e9e6a367446b6ac38269430e43" category="admonition">대상 하이퍼바이저 유형 및 디스크 형식에 따라 qtree에 올바른 보안 스타일을 할당합니다.</block>
-  <block id="efb6137e479c07cdacf2ff21aabd63ec" category="admonition">변환된 qcow2 파일을 OpenShift 가상화와 함께 사용할 경우 예외가 있습니다. 이러한 파일은 qtree를 활용하지 않고도 볼륨에 직접 배치할 수 있습니다.  이를 달성하려면 Shift 툴킷 API를 사용하여 VMDK 파일을 qcow2 형식으로 변환하고 볼륨 내에 직접 배치합니다.</block>
   <block id="fdec4d5133d3b0de49a035dd50a83519" category="paragraph">여기에 제공된 단계를 따르세요<block ref="9f94f17bf7139ffd394ee78bb7c594f8" category="inline-link-macro-rx"></block> 올바른 보안 스타일로 qtree를 생성합니다.</block>
-  <block id="3138a7e460318614bb7f95a781de3bef" category="paragraph"><block ref="3138a7e460318614bb7f95a781de3bef" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="32afbe71e08c0250e00506a760e8ed2d" category="section-title">CIFS 공유 요구 사항:</block>
-  <block id="149eac401332501ca63dce3e8a358323" category="paragraph">Hyper-V 마이그레이션의 경우 변환된 VM 데이터가 저장될 공유를 만듭니다.  NFS 공유(변환할 VM을 저장하는 데 사용)와 대상 공유(변환된 VM을 저장하는 데 사용)가 동일한 볼륨에 있는지 확인하세요.  Shift 툴킷은 여러 볼륨에 걸친 확장을 지원하지 않습니다.</block>
   <block id="315b1746bb0dcf32e9812b4cfb357ba2" category="paragraph">여기에 제공된 단계를 따르세요<block ref="2b887d402871e5aff0dd0442fc018730" category="inline-link-macro-rx"></block> 적절한 속성을 사용하여 공유를 생성합니다.  다른 기본 속성과 함께 지속적인 가용성 속성을 선택해야 합니다.</block>
-  <block id="0188bd8f0124f731218c7a13a426869d" category="paragraph"><block ref="0188bd8f0124f731218c7a13a426869d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a81184b2c079fdbc97979f419890f64f" category="paragraph"><block ref="a81184b2c079fdbc97979f419890f64f" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="0311ee0cf7fe887f90c9f918533a9096" category="admonition">SMB 3.0을 활성화해야 합니다. 이는 기본적으로 활성화되어 있습니다.</block>
-  <block id="d3525ee733a0a9400de3b9c51c569106" category="admonition">지속적으로 이용 가능한 속성이 활성화되어 있는지 확인하세요.</block>
-  <block id="de63bc7e3957393b95cabe1066c8d6e5" category="admonition">SMB에 대한 내보내기 정책은 스토리지 가상 머신(SVM)에서 비활성화되어야 합니다.</block>
-  <block id="4871af42b5e6993a6b64636300ff3583" category="admonition">CIFS 서버와 Hyper-V 서버가 속한 도메인은 Kerberos와 NTLMv2 인증을 모두 허용해야 합니다.</block>
-  <block id="875e7b2516d12003e4697ae14eb19d7e" category="admonition">ONTAP Windows 기본 공유 권한인 모든 사람/모든 권한으로 공유를 만듭니다.</block>
   <block id="bbf3330385f894cd7bd34b34e4c36d6c" category="section-title">지원되는 운영 체제</block>
   <block id="95f4429ff2bd832e87b64925c1685c58" category="paragraph">지원되는 Windows 및 Linux 게스트 운영 체제 버전을 변환에 사용하고 Shift 툴킷이 ONTAP 버전을 지원하는지 확인하세요.</block>
-  <block id="5601309f3695b89131620d1b553268ee" category="paragraph">*지원되는 VM 게스트 운영 체제*</block>
   <block id="e6e6e97bd3a19c9de834b9b2df9aa9cf" category="paragraph">다음 Windows 버전은 VM 변환을 위한 게스트 운영 체제로 지원됩니다.</block>
   <block id="2d457b859f61df5cdc0ae605436482d3" category="list-text">윈도우 10</block>
   <block id="8c4731f1a5288444bb2510ff8d967cc3" category="list-text">윈도우 11</block>
@@ -1398,117 +1331,34 @@
   <block id="9e5f96378bed43aac0d5d94368775263" category="list-text">윈도우 서버 2025</block>
   <block id="1595921abd36bc4af7180988ed43a9b5" category="paragraph">다음 Linux 버전은 VM 변환을 위한 게스트 운영 체제로 지원됩니다.</block>
   <block id="f8526f8681da5fb4ee6eff6603918b72" category="list-text">센트OS 리눅스 7.x</block>
-  <block id="4c1d1dacfc95056042d19d0a0035dfa0" category="list-text">Red Hat Enterprise Linux 6.7 이상</block>
   <block id="56e2e43dda6968929f69a62dc28839e8" category="list-text">Red Hat Enterprise Linux 7.2 이상</block>
   <block id="9a1efddee3edb62d1d66534f47e9491f" category="list-text">레드햇 엔터프라이즈 리눅스 8.x</block>
   <block id="8b77c6cfb4459f7c0f5148a019d309fe" category="list-text">레드햇 엔터프라이즈 리눅스 9.x</block>
   <block id="8cb90925b013f6b204667f6101a0d61a" category="list-text">우분투 2018</block>
   <block id="9cc13cb68c0b30728733faffa37b3cca" category="list-text">우분투 2022</block>
   <block id="56a79ef95ef4b0dd6491515391013741" category="list-text">우분투 2024</block>
-  <block id="7de44594e081d9eac39a56c7f63c7189" category="list-text">데비안 10</block>
-  <block id="e49af72440176f7b22d853a9c2b29440" category="list-text">데비안 11</block>
   <block id="653181dc830ebbf1153310c93a009c52" category="list-text">데비안 12</block>
-  <block id="a632519a84e86c54c018111b3c4cc48f" category="list-text">수세 12</block>
-  <block id="b031e3774e5b6bf6e5528baa54422814" category="list-text">수세 15</block>
-  <block id="7c867bedb24da6b526cd8e7d132de924" category="admonition">Red Hat Enterprise Linux 5용 CentOS Linux/RedHat은 지원되지 않습니다.</block>
-  <block id="00cbd645d552bc5478c8874e09acb2b9" category="admonition">Windows Server 2008은 지원되지 않지만 변환 과정은 정상적으로 작동할 것입니다.  모든 위험은 사용자에게 있습니다. 그러나 Shift 툴킷을 사용하여 Windows 2008 VM을 성공적으로 변환했다는 보고를 고객으로부터 받았습니다.  마이그레이션 후에는 IP 주소를 업데이트하는 것이 중요합니다. IP 할당을 자동화하는 데 사용되는 PowerShell 버전은 Windows Server 2008에서 실행되는 이전 버전과 호환되지 않기 때문입니다.</block>
-  <block id="1a4ca952ea303b7ced810887c295c699" category="paragraph">* ONTAP 지원 버전*</block>
   <block id="036ce8c088779f48971ad6fe493beddc" category="paragraph">Shift 툴킷은 ONTAP 9.14.1 이상을 실행하는 플랫폼을 지원합니다.</block>
-  <block id="698d13fe3a79bded299268beefbaab91" category="paragraph">*지원되는 하이퍼바이저 버전*</block>
-  <block id="ead0d975151899edcf9bbd90a9553a4c" category="paragraph">VMware: Shift 툴킷은 vSphere 7.0.3 이상에 대해 검증되었습니다. Hyper-V: Shift 툴킷은 Windows Server 2019, Windows Server 2022 및 Windows Server 2025에서 실행되는 Hyper-V 역할에 대해 검증되었습니다.</block>
-  <block id="6611c2f8b13f32cc2bb902ded53d4f9f" category="admonition">현재 릴리스에서는 Hyper-V를 통해서만 종단 간 가상 머신 마이그레이션이 지원됩니다.</block>
-  <block id="f72cb967396e91908b405a25cb2814a9" category="admonition">현재 릴리스에서는 대상이 KVM인 경우 VMDK에서 qcow2로의 변환이 유일하게 지원되는 워크플로입니다.  따라서 드롭다운에서 KVM을 선택하면 하이퍼바이저 세부 정보가 필요하지 않습니다.  qcow2 디스크는 KVM 변형에서 가상 머신을 프로비저닝하는 데 사용할 수 있습니다.</block>
   <block id="7cd8fb6e31cc946c078d2740c76a9899" category="section-title">설치</block>
-  <block id="88efa1420a635d4f731d85375b4b8d99" category="inline-link-macro">Shift 툴킷 패키지</block>
-  <block id="7389c1ad912ddf253493d005766f97e6" category="list-text">다운로드<block ref="354abf728597f87f3836683acd4aea33" category="inline-link-macro-rx"></block> 압축을 풀어주세요.</block>
-  <block id="7df6a15de449b5e4cc622bbcd4c4a5d5" category="paragraph"><block ref="7df6a15de449b5e4cc622bbcd4c4a5d5" category="inline-image-macro-rx" type="image"></block></block>
   <block id="4448c6c4f09e096cdeca5a9da75d2a05" category="list-text">다운로드한 .exe 파일을 두 번 클릭하여 Shift 툴킷 설치를 시작합니다.</block>
-  <block id="51bff7050f241a5e875e64d2484f2789" category="paragraph"><block ref="51bff7050f241a5e875e64d2484f2789" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ffee295c0d98b6d41b18fd5077be0984" category="admonition">모든 사전 점검이 수행되고, 최소 요구 사항을 충족하지 못할 경우 해당 오류 또는 경고 메시지가 표시됩니다.</block>
   <block id="218d773d342d6995ff28416f2c521841" category="list-text">설치 프로그램이 설치 과정을 시작합니다.  적절한 위치를 선택하거나 기본 배치를 사용하고 다음을 클릭합니다.</block>
-  <block id="1b3c8a28a673d7a16f72fd54802a4e3f" category="paragraph"><block ref="1b3c8a28a673d7a16f72fd54802a4e3f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="0e7a4689823b2d0543b22318af751591" category="list-text">설치 프로그램은 Shift 툴킷 UI에 액세스하는 데 사용될 IP 주소를 선택하라는 메시지를 표시합니다.</block>
-  <block id="7e323bf298aab1119070735027607f08" category="paragraph"><block ref="7e323bf298aab1119070735027607f08" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f9496371491d8eaef3321581f8037d2b" category="admonition">VM에 여러 NIC가 할당된 경우 설정 과정에서 드롭다운 옵션을 사용하여 올바른 IP 주소를 선택할 수 있습니다.</block>
   <block id="a3a6c286494b16816925373579617891" category="list-text">이 단계에서는 설치 프로그램이 프로세스의 일부로 자동으로 다운로드되어 설치되는 모든 필수 구성 요소를 보여줍니다.  Shift 툴킷이 제대로 작동하려면 MongoDB, Windows PowerShell 7, NetApp ONTAP PowerShell 툴킷, 정책 파일 편집기, 자격 증명 관리, VMware.PowerCLI 패키지, Java OpenJDK가 모두 패키지에 포함되어 설치해야 하는 필수 구성 요소는 다음과 같습니다.</block>
-  <block id="b1b4b880eff4bfa6614e885e376cdbf9" category="paragraph">*다음*을 클릭하세요</block>
-  <block id="43fc3724475cb52fceafbf4c6a23b632" category="paragraph"><block ref="43fc3724475cb52fceafbf4c6a23b632" category="inline-image-macro-rx" type="image"></block></block>
   <block id="90ad055a957f3d3f05631d633d789da3" category="list-text">JAVA OpenJDK GNU 라이센스 정보를 검토하세요. 다음을 클릭하세요.</block>
-  <block id="f48b5336afd2b8af1d5816ad8f665688" category="paragraph"><block ref="f48b5336afd2b8af1d5816ad8f665688" category="inline-image-macro-rx" type="image"></block></block>
   <block id="0e25d0993ece97ad92e62173d299859f" category="list-text">바탕 화면 바로 가기를 만들 때 기본값을 유지하고 다음을 클릭합니다.</block>
-  <block id="fb2a37f82b8a54806470e6ae0dbdf492" category="paragraph"><block ref="fb2a37f82b8a54806470e6ae0dbdf492" category="inline-image-macro-rx" type="image"></block></block>
   <block id="3df840774a24d34cd339ee148ce8721d" category="list-text">이제 설치를 진행할 준비가 되었습니다.  설치를 클릭합니다.</block>
-  <block id="45d45d9fffef07c6e7d7dab9c87b6c8d" category="paragraph"><block ref="45d45d9fffef07c6e7d7dab9c87b6c8d" category="inline-image-macro-rx" type="image"></block></block>
   <block id="e9be984c2cb097c27fffdaf7cc1cbe87" category="list-text">설치가 시작되고 필요한 구성 요소가 다운로드되어 설치됩니다.  완료되면 마침을 클릭하세요.</block>
-  <block id="555d1ac96f7edd396efc66c985e1ed8a" category="paragraph"><block ref="555d1ac96f7edd396efc66c985e1ed8a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="7dff5687c881c53f6351151dc7bce114" category="admonition">Shift 툴킷 VM에 인터넷이 없는 경우 오프라인 설치 프로그램은 동일한 단계를 수행하지만 실행 파일에 포함된 패키지를 사용하여 구성 요소를 설치합니다.</block>
-  <block id="a156eaa4d268cfa87bc25b015919f3aa" category="paragraph"><block ref="a156eaa4d268cfa87bc25b015919f3aa" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6481a49321b48cc39a0d2f8b02dc35e8" category="admonition">설치하는 데 8~10분이 걸릴 수 있습니다.</block>
   <block id="227a032350598534e8ee2341c3923593" category="section-title">업그레이드 수행</block>
-  <block id="58084665cbee6befc770395cc54820f9" category="inline-link-macro">업그레이드 패키지</block>
-  <block id="8f8896b9015609490ce23e51b2645b40" category="paragraph">다운로드<block ref="1cd518fa169a8c2939512396fa113577" category="inline-link-macro-rx"></block> "update"로 시작하여 아래 단계를 따르세요.</block>
-  <block id="0c7cb40760d93f822a748de244cb5624" category="paragraph"><block ref="0c7cb40760d93f822a748de244cb5624" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="282af254dd7b899acbd4a29bfc1dee26" category="list-text">지정된 폴더에 파일을 추출합니다.</block>
-  <block id="c4feabbd939a63a71a3026229ebf1805" category="list-text">추출 후 NetApp Shift 서비스를 중지합니다.</block>
-  <block id="b3a6edfac2400a34712ee4200099f860" category="list-text">추출된 폴더의 모든 파일을 설치 디렉토리에 복사하고 메시지가 나타나면 파일을 덮어씁니다.</block>
-  <block id="84561a9502b0e37a4a43ad075cbebf43" category="list-text">완료되면 "관리자 권한으로 실행" 옵션을 사용하여 update.bat을 실행하고 메시지가 표시되면 Shift Toolkit VM IP를 입력합니다.</block>
-  <block id="117d4c7c111803b71f2b79f0496f087c" category="list-text">이 프로세스를 통해 Shift 서비스가 업그레이드되고 시작됩니다.</block>
   <block id="e6f59d79adba2e65b730951cf5d41067" category="doc">Shift Toolkit을 사용하여 VM 마이그레이션</block>
-  <block id="db19d9b591ac5310ff0cb972cf5ca47b" category="paragraph">Shift Toolkit을 사용하여 VMware ESXi에서 Microsoft Hyper-V로 VM을 마이그레이션하세요. 이 프로세스에는 VM 준비, 디스크 형식 변환, 대상 환경의 네트워크 설정 구성이 포함됩니다.</block>
-  <block id="256bb2dde54ca9874cb1ce9381861b23" category="paragraph">청사진이 생성되면 "마이그레이션" 옵션을 실행할 수 있습니다.  마이그레이션 옵션 중에 Shift Toolkit은 일련의 단계를 수행하여 디스크 형식을 변환하고 변환된 디스크를 사용하여 블루프린트에 정의된 대로 Hyper-V 호스트에 가상 머신을 생성합니다.</block>
-  <block id="a2f0df1044ba78a4453a02204bae7d22" category="paragraph">수행되는 주요 단계는 다음과 같습니다.</block>
-  <block id="3e3808a5a18b4504b3a832fc90716554" category="paragraph">필수 조건: 마이그레이션을 시작하기 전에 가상 머신(VM)의 전원이 정상적으로 꺼졌는지 확인하세요. 이는 마이그레이션이 임시 마이그레이션이든 계획된 유지 관리 시간에 따라 예약된 마이그레이션이든 마찬가지입니다.  VM이 완전히 종료되었는지 확인하세요. 운영 체제에 업데이트가 보류 중인 경우 VM이 완전히 종료된 후에만 마이그레이션을 트리거하세요.</block>
   <block id="af7c4460ef7ca4b023752c92f7484d72" category="list-text">블루프린트의 모든 VM에 대한 기존 스냅샷을 삭제합니다.</block>
-  <block id="7eb490629894ef4f37ef16cb38cff104" category="list-text">Blueprint에 대한 VM 스냅샷 트리거 - 소스에서</block>
   <block id="fa1e995f4c1850355f1afed807fea9da" category="list-text">디스크 변환 전 볼륨 스냅샷 트리거</block>
   <block id="60838a0840aab319c97f0e9b05d66763" category="list-text">모든 VM에 대해 VMDK를 VHDx 형식으로 복제하고 변환합니다.</block>
-  <block id="230c513e4b442704f4b7cfdf136294ac" category="list-text">보호 그룹의 VM 전원 켜기 - 대상</block>
   <block id="cefc97ee79bdc83f3dd1b7660c8a2336" category="list-text">각 VM에 네트워크를 등록합니다.</block>
-  <block id="5a1884bfad159a38dad4daa51b199b90" category="list-text">VMware 도구를 제거하고 OS 유형에 따라 트리거 스크립트나 Cron 작업을 사용하여 IP 주소를 할당합니다.</block>
-  <block id="bb4695a70b92668f0a7927d04580db60" category="section-title">고려해야 할 요소</block>
-  <block id="de8047e86030f1dc333b6502c78e1bee" category="paragraph">마이그레이션을 시작하기 전에 모든 전제 조건이 충족되었는지 확인하세요(이 문서의 전제 조건 섹션에서 자세히 설명).  간단히 요약해 보면 다음과 같습니다.</block>
   <block id="a8a16f7fa1e753369041534097ca319e" category="list-text">Shift VM이 도메인의 일부인지 확인하세요.</block>
   <block id="1812af8e852c97c83dce89cc05a86394" category="list-text">CIFS 공유가 적절한 권한으로 구성되었는지 확인하세요.</block>
-  <block id="475ca54d823c76753a9928f02117b80e" category="list-text">마이그레이션이나 변환에 사용되는 qtree에는 올바른 보안 스타일이 있습니다.</block>
-  <block id="ad98b855a60ee815ec1471352651b35b" category="list-text">빠른 테스트로, 클러스터 내의 Hyper-V 호스트에서 Hyper-V 관리자를 사용하여 VM을 만들고 VHDX를 CIFS 공유(a 항목 참조)에 배치해 보세요.  "프로그램 및 기능"을 통해 또는 "PowerShell"을 사용하여 Hyper-V 관리 도구를 추가하여 Shift 툴킷 VM에서도 동일한 작업을 시도해 보세요. - add-windowsfeature rsat-hyper-v-tools</block>
   <block id="f5ae0631a98245d6c1e65f1d44f3200f" category="inline-link-macro">모든 인증 프로토콜을 사용하여 위임을 활성화합니다.</block>
   <block id="521c5cb69668765803b0ec7389054ab3" category="admonition">실패가 있으면,<block ref="a4f6a8e501154ab931eb80381d69d85c" category="inline-link-macro-rx"></block> .</block>
-  <block id="c12b5724776ed0a38b8b23baf41f2dac" category="section-title">네트워크 팁 및 고려 사항</block>
-  <block id="be94a873b446bd5ce6f41898ad7af6d0" category="paragraph">다음과 같은 네트워크 고려사항을 고려해야 합니다.</block>
-  <block id="da1dcb06d15fa289181a0c49a4a74da6" category="list-text">정적 IP 주소가 사용 가능하고 다른 VM에 할당되지 않았는지 확인하세요.</block>
-  <block id="300cc7d3b66cf666cb37df412b0cc68b" category="paragraph">Windows VM의 경우:</block>
-  <block id="557b426c46b237c50dc428bb5ae7e1ab" category="list-text">준비 스크립트는 네트워크 구성 세부 정보(IP 주소 공간, 게이트웨이 주소, DNS 서버)의 사본을 만들고, 트리거 스크립트(마이그레이션 중)는 블루프린트 매핑을 기반으로 단일 NIC이든 여러 NIC이든 네트워크 설정을 다시 적용합니다.</block>
-  <block id="6ce5d088be88a5e51819240d397c15f7" category="list-text">마이그레이션 후에도 Windows 장치 관리자에는 마이그레이션 이전의 네트워크 어댑터 정보가 계속 표시될 수 있습니다.  이는 마이그레이션 후 생성된 새 네트워크 어댑터에 영향을 미치지 않으며 IP 충돌을 일으키지 않지만, 스크립트는 현재 이 이전 등록을 삭제하지 않으므로 계속 표시됩니다.</block>
-  <block id="907c95835e464d0d2873ade7ea1a6aa0" category="paragraph">Linux VM의 경우:</block>
-  <block id="c8d6a020a89e368dfb33a174b3d97908" category="list-text">준비 스크립트는 네트워크 구성 세부 정보(IP 주소 공간, 경로, DNS 서버, 네트워크 장치 이름)의 사본을 만들고 Linux 배포판에 따라 사용된 네트워킹 유형을 식별하여 IP 설정을 적용합니다.  네트워크 재할당 스크립트는 crontab을 사용하여 cron 작업으로 설정되고 부팅 시에 실행됩니다.  예를 들어, cronjob은 네트워크 설정을 다시 적용하기 위해 인스턴스에서 스크립트를 실행합니다(마이그레이션 후). 이는 블루프린트 매핑을 기반으로 하는 단일 NIC이든 여러 NIC이든 상관없습니다.</block>
-  <block id="8a0f3996b9f3377c2a433dff19e9dfba" category="list-text">특정 시나리오에서는 변환된 Hyper-V VM이 소스 측에 있던 ens192 또는 33 대신 eth0 또는 eth1과 같은 인터페이스 이름을 갖게 됩니다.  이 경우 스크립트는 새 인터페이스 이름과 일치하도록 네트워크 구성 세부 정보를 업데이트합니다.  예측 가능한 이름(최신 시스템처럼)이 사용 중이고 인터페이스 이름이 Hyper-V 측에 유지되는 경우 스크립트는 네트워크 측을 건너뛰고 VMware 도구만 제거한 다음 VM을 재부팅합니다.</block>
-  <block id="dac8a27eaf78d1873e6b2ea100734a4f" category="list-text">Shift 툴킷은 현재 NetworkManager, Netplan 및 ifconfig 메커니즘을 지원하고 청사진에 지정된 대로 IP를 유지합니다.</block>
-  <block id="ae4e2a701bd02e4fe16e764948cb3392" category="section-title">단계 및 옵션</block>
-  <block id="c413e5e1faeb02d51d096a9561b4a880" category="paragraph">마이그레이션 프로세스의 주요 단계와 옵션은 다음과 같습니다.</block>
-  <block id="8d56a1ae3b1b5d867379ee612e3441a1" category="list-text">VM 준비 – 마이그레이션을 위해 VM을 준비하고 모든 필수 조건이 완벽하게 완료되었는지 확인합니다.</block>
-  <block id="3db7f97df587202eae38ed044cb299fb" category="list-text">마이그레이션 - 준비가 완료되면 VMware VM을 선택하여 Hyper-V로 마이그레이션합니다. 마이그레이션이 완료되면 VM이 성공적으로 부팅되고 데이터가 제대로 마이그레이션되었는지 확인합니다.</block>
-  <block id="7138a4f7394217e4b27e2927899851f3" category="list-text">테스트 마이그레이션 - 테스트 마이그레이션은 VMDK를 VHDX로 변환하고 SMB 공유에 있는 변환된 VHDX 파일을 사용하여 Hyper-V VM을 만들어 마이그레이션을 시뮬레이션합니다.  테스트 마이그레이션에서는 네트워크 매핑 구성을 허용하지 않습니다. 이 작업은 일반적으로 버블 네트워크에 수동으로 수행해야 합니다.</block>
-  <block id="82a1de5a87a3a4c077d0874be3d0f70a" category="list-text">마이그레이션 재시도 – 마이그레이션이 실패하면 Shift 툴킷은 재시도 옵션을 제공합니다.  이 기능을 사용하면 마이그레이션 작업을 실패 지점에서부터 다시 시작할 수 있습니다.  작업을 다시 시도하기 전에 오류 메시지를 검토하여 수정하는 것이 중요합니다.</block>
-  <block id="8737bc46109bd83c908928c240e44079" category="admonition">Shift 툴킷은 VM 준비에 필요한 스크립트를 복사하는 것을 제외하고는 소스 VM을 변경하지 않습니다.  이를 통해 변환에 실패할 경우 신속하게 롤백할 수 있습니다.</block>
-  <block id="2e6c1fce1d6903e92f89dc479b356b50" category="paragraph">블루프린트에 지정된 구성으로 마이그레이션 워크플로를 트리거하려면 마이그레이션을 클릭합니다.</block>
-  <block id="33bc1af9ef3dc09dd135205794333086" category="paragraph"><block ref="33bc1af9ef3dc09dd135205794333086" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ccd2ee4366c2548c90048ad5cd910277" category="paragraph">워크플로가 시작되면 활성화되고 변환 프로세스는 설명된 단계에 따라 VM을 등록합니다.  블루프린트 내의 VM이 전원이 꺼져 있지 않으면 Shift 툴킷은 진행하기 전에 정상적으로 종료할지 묻습니다.</block>
-  <block id="addd7ffcab0c68cfb5f806e90fa782da" category="paragraph"><block ref="addd7ffcab0c68cfb5f806e90fa782da" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="bdd79b287bfc05ce66f7ce03e67cbe8f" category="admonition">동일한 ESXi 소스에서 동일한 Hyper-V 대상으로 최대 10개의 변환이 병렬로 트리거되지 않도록 권장합니다.</block>
-  <block id="0d81016fdc0569862720d9c75af6bdc6" category="paragraph"><block ref="0d81016fdc0569862720d9c75af6bdc6" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="47633939c6b0f2adf757c354129f566e" category="paragraph">VMDK를 VHDx로 변환하는 작업은 몇 초 만에 완료되므로, 추가 비용을 내고 이용할 수 있는 모든 옵션 중에서 가장 빠른 방법입니다.  이는 또한 마이그레이션 중 VM 가동 중지 시간을 줄이는 데 도움이 됩니다.</block>
-  <block id="3008a5b3a148fed1df84b0ad0d1498d8" category="paragraph"><block ref="3008a5b3a148fed1df84b0ad0d1498d8" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9258a6550539abad3cb842ebacfb972e" category="paragraph">작업이 완료되면 청사진 상태가 "마이그레이션 완료"로 변경됩니다.</block>
-  <block id="f678482e5e54b3930f41af9bf5a4f8d3" category="paragraph"><block ref="f678482e5e54b3930f41af9bf5a4f8d3" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="b84b698329805db6442529e0961d05ba" category="paragraph">마이그레이션이 완료되면 Hyper-V 측에서 VM을 검증할 차례입니다.  아래 스크린샷은 블루프린트 생성 중에 지정된 Hyper-V 호스트에서 실행되는 VM을 보여줍니다.</block>
-  <block id="c6f2ab24dcd145c0a03189d6576df1f3" category="paragraph"><block ref="c6f2ab24dcd145c0a03189d6576df1f3" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="cf41d62e8edc44bd7e1ca1585712a938" category="admonition">Shift 툴킷은 부팅 시 실행되는 cron 작업을 사용합니다.  Hyper-V 호스트에서 VM을 구매한 후에는 Linux 기반 VM에 대한 ssh 연결이나 동등한 연결이 생성되지 않습니다.</block>
-  <block id="a09d3250496eeb83cf34da820985693c" category="paragraph"><block ref="a09d3250496eeb83cf34da820985693c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6d3ecde5a7e6f81ad04253b22745abdd" category="admonition">Windows VM의 경우 Shift Toolkit은 PowerShell 직접을 사용하여 이러한 Windows 기반 게스트 VM에 연결합니다.  PowerShell Direct를 사용하면 네트워크 구성이나 원격 관리 설정에 관계없이 Windows 기반 게스트 VM에 연결할 수 있습니다.</block>
-  <block id="513d6c6f1a8ea7c8518aa36e70d0fbb3" category="admonition">변환 후에는 OS 디스크를 제외한 Windows OS의 모든 VM 디스크가 오프라인이 됩니다.  이는 VMware VM에서 NewDiskPolicy 매개변수가 기본적으로 offlineALL로 설정되어 있기 때문입니다.  이 문제는 기본 Microsoft Windows SAN 정책으로 인해 발생합니다.  이 정책은 여러 서버에서 LUN에 액세스하는 경우 Windows Server를 부팅할 때 LUN이 활성화되는 것을 방지하도록 설계되었습니다.  이는 잠재적인 데이터 손상 문제를 방지하기 위해 수행됩니다.  PowerShell 명령을 실행하면 이를 처리할 수 있습니다: Set-StorageSetting -NewDiskPolicy OnlineAll</block>
-  <block id="2a2f4b2bf25d4d17ad085bd913e2c92a" category="admonition">VM을 스테이징하기 위해 여러 볼륨을 활용합니다. 즉, 필요에 따라 VM을 다른 볼륨으로 스테이징해야 합니다.  리소스 그룹에 대용량 VMDK가 있는 VM이 포함된 경우 변환을 위해 이를 여러 볼륨으로 분산합니다.  이 접근 방식은 복제 분할이 백그라운드에서 진행되는 동안 별도의 볼륨에서 병렬로 복제 작업을 실행하여 스냅샷 작업 중 오류를 방지하는 데 도움이 됩니다.</block>
   <block id="2a5b8b89a800bc24002fbe1505c9f10f" category="doc">NetApp Shift Toolkit을 사용하여 가상화 환경 간에 VM을 마이그레이션하는 방법에 대해 알아보세요.</block>
-  <block id="19458032f469a4e2fb340dd42d884336" category="paragraph">NetApp Shift Toolkit은 VMware ESXi 및 Microsoft Hyper-V와 같은 하이퍼바이저 간 VM 마이그레이션을 간소화하고 가속화하도록 설계된 독립형 제품입니다. 또한 다양한 가상 디스크 형식 간의 디스크 수준 변환을 지원합니다.</block>
   <block id="f9468c81b3d59ac0030570c4f58e95f1" category="section-title">사용 사례</block>
   <block id="b340841aedf27c53c6ab78223730631c" category="paragraph">이제 모든 조직이 멀티 하이퍼바이저 환경의 이점을 확인하고 있습니다.  최근 시장 변화에 따라 모든 조직은 기술적 및 상업적 위험을 고려하여 최적의 방안을 결정하고 있습니다. 여기에는 워크로드 VM을 다른 하이퍼바이저로 마이그레이션하고, 비즈니스 목표 달성에 집중하며, 특정 벤더에 종속되지 않도록 하는 것이 포함됩니다. 이를 통해 라이선스 비용을 최적화하고, 특정 하이퍼바이저의 미사용 코어에 투자하는 대신 IT 예산을 적절한 분야에 투자할 수 있습니다.  그러나 문제는 항상 마이그레이션 시간과 그에 따른 다운타임에 있었습니다.</block>
   <block id="49b1fefa1b4f1daf4a6f91a81e13bda5" category="paragraph">NetApp Shift 툴킷을 사용하면 가상 머신(VM)을 마이그레이션하는 것이 더 이상 문제가 되지 않습니다.  이 독립형 제품은 VMware ESXi에서 Microsoft Hyper-V로 VM을 빠르고 효율적으로 마이그레이션할 수 있도록 지원합니다. 또한 다양한 가상 디스크 형식 간의 디스크 수준 변환도 지원합니다.  ONTAP 이 제공하는 즉시 사용 가능한 기능 덕분에 이러한 마이그레이션은 최소한의 다운타임으로 놀라울 정도로 빠르게 이루어질 수 있습니다.  예를 들어, 1TB VMDK 파일을 변환하는 데는 일반적으로 몇 시간이 걸리지만 Shift 툴킷을 사용하면 몇 초 만에 완료할 수 있습니다.</block>
@@ -1516,12 +1366,9 @@
   <block id="d2ea1b5c03661699a6c5e5e1ff8910ce" category="paragraph">NetApp Shift 툴킷은 서로 다른 하이퍼바이저 간에 가상 머신(VM)을 마이그레이션하고 가상 디스크 형식을 변환할 수 있는 사용하기 쉬운 그래픽 사용자 인터페이스(GUI) 솔루션입니다.  NetApp FlexClone 기술을 활용하여 VM 하드 디스크를 빠르게 변환합니다.  또한, 툴킷은 대상 VM의 생성과 구성을 관리합니다.</block>
   <block id="da06dae4718ab1dc6067fe4956213699" category="paragraph">Shift 툴킷은 다음 하이퍼바이저 간 양방향 변환을 지원하여 다중 하이퍼바이저 환경에서 유연성을 제공합니다.</block>
   <block id="7961104c247c794c894c2bac0896d305" category="list-text">VMware ESXi에서 Microsoft Hyper-V로</block>
-  <block id="19485418d77f7791ecb9c8108e409c12" category="list-text">Microsoft Hyper-V에서 VMware ESXi로(곧 출시 예정)</block>
   <block id="b31a6c0d77f174d2ffabad4641563eeb" category="paragraph">Shift 툴킷은 다음 디스크 형식에 대해 하이퍼바이저 간 가상 디스크의 디스크 수준 변환을 지원합니다.</block>
   <block id="1d9b2b5c415af3bc77c405bb51d2e4bc" category="list-text">VMware ESX에서 Microsoft Hyper-V로(가상 머신 디스크[VMDK]에서 가상 하드 디스크 형식[VHDX]으로)</block>
   <block id="00731b38097d94279210d12f5b394766" category="list-text">VMware ESX에서 KVM 호환 하이퍼바이저(VMDK에서 QCOW2로)</block>
-  <block id="ebb25998148e3ae169dfd45e2ee51613" category="paragraph"><block ref="ebb25998148e3ae169dfd45e2ee51613" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="24a15b3ec265849869b510313ad80608" category="paragraph">Shift 툴킷을 다운로드할 수 있습니다<block ref="01c0f6eea4563eff35284d1f57df8f3e" category="inline-link-macro-rx"></block> Windows 시스템에서만 사용 가능합니다.</block>
   <block id="418d077ac549c797d805688cc7730517" category="section-title">VM 이식성의 이점</block>
   <block id="ad13f9e27400107e5fe2f13412d894e4" category="paragraph">ONTAP 모든 하이퍼바이저와 하이퍼스칼라에 적합합니다.  FlexClone 기술을 사용합니다.  더 긴 다운타임을 기다리거나 패스스루 옵션으로 정착하는 것보다 몇 분 안에 VM을 이식하는 것이 현실입니다.</block>
   <block id="8213857dfa54be1bb0a8cda131717a26" category="paragraph">교대 툴킷:</block>
@@ -1531,13 +1378,6 @@
   <block id="fa55689c41fca573ef8e11a2175101f5" category="list-text">VM 이식성을 통해 가상화 비용을 절감하고 NetApp 에서 무료로 제공됩니다.</block>
   <block id="a98e3c825db1364cd6e967348d296437" category="section-title">Shift 툴킷 작동 방식</block>
   <block id="acf686ceb2ffbb48dd5af03578ace22d" category="paragraph">변환 시점에 Shift 툴킷은 VMware ESXi 및 Microsoft Hyper-V 호스트와 공유 NetApp 스토리지에 연결됩니다.  Shift 툴킷은 세 가지 주요 NetApp 기술을 사용하여 VM 하드 드라이브를 한 하이퍼바이저에서 다른 하이퍼바이저로 변환하기 위해 FlexClone 활용합니다.</block>
-  <block id="2c4923420511e6ef73a76633764aaf48" category="list-text">단일 볼륨 및 다중 프로토콜</block>
-  <block id="6d211c16b4a16f1da68b3fd39fca5db9" category="paragraph">NetApp ONTAP 사용하면 여러 프로토콜을 사용하여 단일 볼륨에 쉽게 액세스할 수 있습니다.  예를 들어, VMware ESXi는 NFS(네트워크 파일 시스템) 프로토콜을 사용하여 볼륨에 액세스할 수 있으며, Microsoft Hyper-V는 CIFS/SMB 프로토콜을 사용하여 동일한 볼륨에 액세스할 수 있습니다.</block>
-  <block id="5f33c81406d13490954ab3ad4f86583d" category="list-text">FlexClone 기술</block>
-  <block id="495d75f5ea786814a3027815703d9fb9" category="paragraph">FlexClone 사용하면 데이터 복사 없이 전체 파일이나 볼륨을 빠르게 복제할 수 있습니다.  저장 시스템의 공통 블록은 여러 파일이나 볼륨에서 공유됩니다.  결과적으로 대용량 VM 디스크를 매우 빠르게 복제할 수 있습니다.</block>
-  <block id="d708ee1ea27e566d7eff7834b62fcbdb" category="list-text">VM 디스크 변환</block>
-  <block id="8853bbfc10f652e4ba2fcbed58835f1a" category="paragraph">NetApp PowerShell Toolkit과 Shift Toolkit에는 NetApp 스토리지 컨트롤러에서 다양한 작업을 수행하는 데 사용할 수 있는 많은 워크플로가 포함되어 있습니다.  가상 디스크를 다른 형식으로 변환하는 PowerShell cmdlet이 포함되어 있습니다.  예를 들어, VMware VMDK를 Microsoft VHDX로 변환할 수 있으며, 그 반대의 경우도 가능합니다.  이러한 변환은 FlexClone 통해 수행되며, 이를 통해 한 단계로 매우 빠른 복제 및 디스크 형식 변환이 가능합니다.</block>
-  <block id="2b82b0d5cf12d76a56ba9e4fb71bd157" category="paragraph"><block ref="2b82b0d5cf12d76a56ba9e4fb71bd157" category="inline-image-macro-rx" type="image"></block></block>
   <block id="3304bf997679ed177360ac60b603d27a" category="section-title">프로토콜 및 통신 방법</block>
   <block id="1b7ed34ee09e4f635e923d8c314298cf" category="paragraph">Shift 툴킷은 변환 또는 마이그레이션 작업 중에 다음 프로토콜을 사용합니다.</block>
   <block id="eca8929eb84849d6dfff3d3e1f4d84df" category="list-text">HTTPS - Shift 툴킷이 Data ONTAP 클러스터와 통신하는 데 사용됩니다.</block>
@@ -1576,290 +1416,103 @@
   <block id="8869622b582185708ab6a88f70696deb" category="section-title">VMware에 필요한 최소 권한 역할</block>
   <block id="c94a0325b9c748ddb0eb650094ec01a6" category="paragraph">Shift 툴킷을 사용하여 VMware vSphere에서 가상 머신을 마이그레이션하려면 관리 &gt; 액세스 제어 &gt; 역할을 사용하여 아래 언급된 권한이 있는 RBAC 사용자를 만듭니다.</block>
   <block id="fe945d79ca7427f727a1e51373bebbe0" category="paragraph"><block ref="fe945d79ca7427f727a1e51373bebbe0" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6fc5a771a992714a6628db85d6dc329e" category="doc">Shift Toolkit 구성</block>
   <block id="8c5c783241a5b19bb13e07e15ccfa618" category="paragraph">VM 마이그레이션 또는 변환을 자동화하기 위해 Shift Toolkit을 구성합니다. 이 프로세스에는 소스 및 대상 사이트 추가, 스토리지 구성, VM을 리소스 그룹으로 그룹화, 마이그레이션 블루프린트 생성, 마이그레이션 예약이 포함됩니다.</block>
   <block id="6a479771f0686db43ab4ea4257481625" category="section-title">런 시프트 툴킷</block>
-  <block id="c1a409c93c0e21bf3eb9ec685d32bd3e" category="list-text">브라우저를 사용하여 다음을 입력하여 Shift 툴킷 UI에 액세스합니다.<block ref="0e130af89e1a4a914a39f3580096c07d" category="inline-link-rx"></block> 설치 중에 지정된 주소&gt;:3001"</block>
-  <block id="663525d60f2ca3fc21271786f8feba4c" category="admonition">최상의 환경을 위해 Google Chrome이나 Internet Explorer를 사용하세요.</block>
-  <block id="893ea191662a230194bb1dd5615a3e2c" category="list-text">아래와 같이 기본 자격 증명을 사용하여 UI에 액세스하세요.</block>
-  <block id="121df2ae354c587489901cbab75fe421" category="paragraph">사용자 이름: admin</block>
-  <block id="5ae25c4a648277ba224c0334f38bc22a" category="paragraph">비밀번호: admin</block>
-  <block id="2d51bb274789a42a5a70f9c6ab89301d" category="admonition">관리자 자격 증명은 "비밀번호 변경" 옵션을 사용하여 변경할 수 있습니다.</block>
-  <block id="c1207b55a51f347d95ec313456880d78" category="paragraph"><block ref="c1207b55a51f347d95ec313456880d78" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="512fc46080dbac5796ab628f6ab86060" category="paragraph">"동의 및 계속"을 클릭하여 법적 EULA에 동의하세요.</block>
-  <block id="b85ba2320691b1c4498f10193b986572" category="paragraph"><block ref="b85ba2320691b1c4498f10193b986572" category="inline-image-macro-rx" type="image"></block></block>
   <block id="b79b81de66d2780291c9b6dda7372356" category="section-title">Shift Toolkit 구성</block>
-  <block id="335e068ae34c950f0d502ef9e05c2163" category="paragraph">소스 및 대상 하이퍼바이저에 대한 저장소와 연결이 올바르게 구성되면 FlexClone 기능을 활용하여 가상 머신 VMDK를 적절한 형식으로 마이그레이션하거나 변환하는 작업을 자동화하기 위해 Shift 툴킷을 구성하기 시작합니다.</block>
   <block id="1270245816f577ed8c6c73dbbc0a3723" category="section-title">사이트 추가</block>
-  <block id="f0242e91427b63653ad3dc89a3f9c041" category="paragraph">첫 번째 단계는 소스 vCenter를 검색하여 추가한 다음 대상 Hyper-V 세부 정보(하이퍼바이저와 스토리지 모두)를 Shift 툴킷에 추가하는 것입니다.  지원되는 브라우저에서 Shift 툴킷을 열고 기본 사용자 이름과 비밀번호(admin/admin)를 사용하고 "사이트 추가"를 클릭합니다.</block>
-  <block id="7360809220fe1579cac3d28705c3fa5f" category="paragraph"><block ref="7360809220fe1579cac3d28705c3fa5f" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="e960c2d1f3f95cc2c7b3d44523937731" category="admonition">Discover 옵션을 사용하여 사이트를 추가할 수도 있습니다.</block>
   <block id="c3f34b7f80e0fc989e20a5d527c2e8db" category="paragraph">다음 플랫폼을 추가하세요:</block>
-  <block id="493eca6019555437bdb86e5b38837a6c" category="paragraph">*원천*</block>
   <block id="a113413aa317ecf6a175ae109b5c3601" category="list-text">출처 사이트 세부 정보</block>
   <block id="4ddba14f3deb1d514ef84649d51fbda0" category="list-text">사이트 이름 - 사이트 이름을 입력하세요</block>
-  <block id="43c1d936dc68f9f7ffcd62192937ba13" category="list-text">하이퍼바이저 - VMware를 소스로 선택(GA 중에 사용 가능한 유일한 옵션)</block>
   <block id="335f3582aa104e0f6648ae1188b568e4" category="list-text">사이트 위치 – 기본 옵션을 선택하세요</block>
   <block id="3f4f4f13dbdf8c50ffaf872dc1df3656" category="list-text">커넥터 - 기본 선택을 선택하세요</block>
   <block id="154eda19f7c48c98929b2794931e178d" category="paragraph">입력한 후 계속을 클릭하세요.</block>
-  <block id="4be801aeadd51550dec7ddf576afa300" category="paragraph"><block ref="4be801aeadd51550dec7ddf576afa300" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="0d13b81b5550b18d002c86e48f66359e" category="list-text">소스 vCenter</block>
-  <block id="89b9361c4a2e42c5efa479e11f6d5e1c" category="list-text">사용자 이름 - vCenter에 액세스하는 데 사용되는 사용자 이름(UPN 형식:<block ref="af0fcbb2430420c94aa598f825cf7be7" prefix=" " category="inline-code"></block> )</block>
   <block id="6e8360ef2cb7b54d57b3a36042b5665a" category="list-text">vCenter 비밀번호 – 리소스 인벤토리를 수행하기 위해 vCenter에 액세스하는 데 사용되는 비밀번호입니다.</block>
   <block id="5e3a6b5449d3a73e5cb851c4e30845d7" category="list-text">vCenter SSL 지문(선택 사항)</block>
-  <block id="6597866fef440257cba6b22273246663" category="paragraph">"자체 서명된 인증서 수락"을 선택하고 계속을 클릭합니다.</block>
-  <block id="3d9eae46540376b83a7374ef5683a6dd" category="paragraph"><block ref="3d9eae46540376b83a7374ef5683a6dd" category="inline-image-macro-rx" type="image"></block></block>
   <block id="1e509716f788878dfa944363de764dae" category="list-text">ONTAP 스토리지 시스템 자격 증명</block>
-  <block id="f723461124b7d040ecee63f15ac041a5" category="paragraph"><block ref="f723461124b7d040ecee63f15ac041a5" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f71749433015b2ca46ed595533727265" category="paragraph">Shift 툴킷을 추가하면 자동으로 검색이 수행되어 관련 메타데이터 정보와 함께 VM이 표시됩니다.  Shift 툴킷은 VM에서 사용하는 네트워크와 포트 그룹을 자동으로 감지하여 채웁니다.</block>
-  <block id="e07207e9fdef39f2a588bba218133461" category="admonition">소스 사이트에 수정 사항이 있는 경우 검색을 실행하여 최신 정보를 가져오세요.  사이트 이름 옆에 있는 3개의 점을 클릭하고 "사이트 검색"을 클릭하면 됩니다.</block>
-  <block id="9970dbc208d6e5391ad2e2f692912546" category="admonition">VM 인벤토리는 24시간마다 자동으로 새로 고쳐집니다.</block>
-  <block id="71b0af27a4eb7ffefb560fbc067fcee0" category="paragraph"><block ref="71b0af27a4eb7ffefb560fbc067fcee0" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="387d32c888c4db9b22ac4c91d89cd9d1" category="paragraph">특정 vCenter에 대한 데이터를 보려면 대시보드로 이동하여 해당 사이트 이름에 대해 "VM 목록 보기"를 클릭합니다.  이 페이지에는 VM 속성과 함께 VM 인벤토리가 표시됩니다.</block>
-  <block id="dc06aff7d2442a1780f21e04d4e3fbe1" category="paragraph">다음 단계는 대상 하이퍼바이저를 추가하는 것입니다.  추가하려면 "새 사이트 추가"를 클릭하고 "대상"을 선택하세요.</block>
-  <block id="78918485bae6f1eefa855bf90de8527e" category="paragraph">*목적지*</block>
-  <block id="1290064d0ab1d9e3eeb57fa3c000245e" category="paragraph"><block ref="1290064d0ab1d9e3eeb57fa3c000245e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="7d5cfe2c3d75c2870eb8e35590ed65a9" category="list-text">목적지 사이트 세부 정보</block>
-  <block id="83fe7550a62a779ae9798766f89ff3ca" category="list-text">하이퍼바이저 - 대상으로 Hyper-V 또는 KVM을 선택합니다.</block>
-  <block id="76211ef60ecb8d214f69fdb75b3389c3" category="paragraph"><block ref="76211ef60ecb8d214f69fdb75b3389c3" category="inline-image-macro-rx" type="image"></block></block>
   <block id="f91a2f9ab708bd3215ce07eaaa198390" category="paragraph">하이퍼바이저 선택에 따라 필요한 세부 정보를 입력하세요.</block>
-  <block id="723c448ff4aab49502024bca93a0b02f" category="list-text">대상 Hyper-V 세부 정보</block>
-  <block id="1dfc058c9bd04d3eed8a3b85e98d9acf" category="list-text">Hyper-V 독립 실행형 또는 장애 조치 클러스터 관리자 IP 주소 또는 FQDN</block>
-  <block id="a21c9670f3e037b4e3cdacc249f26a43" category="list-text">사용자 이름 - 액세스할 사용자 이름(UPN 형식:<block ref="af0fcbb2430420c94aa598f825cf7be7" prefix=" " category="inline-code"></block> 또는 도메인\관리자)</block>
-  <block id="be85105353550dfc8fd115a826fea432" category="paragraph">비밀번호 – 리소스 인벤토리를 수행하기 위해 Hyper-V 호스트 또는 FCI 인스턴스에 액세스하는 데 사용하는 비밀번호입니다.</block>
-  <block id="2239ff5ef85eb8dab7c81dc6379b9dc2" category="paragraph"><block ref="2239ff5ef85eb8dab7c81dc6379b9dc2" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6c90607deb8e55c96f04cc3e18b8f02d" category="paragraph">완료되면 계속을 클릭하세요.</block>
-  <block id="e71f0365ab928f3796c6c916617302a1" category="admonition">Shift 툴킷은 현재 릴리스에서 System Center와 직접 통신하지 않습니다.</block>
-  <block id="edacf0757b66f3f7b0abc4c5c820279e" category="admonition">Hyper-V FCI 및 호스트 검색은 DNS 확인에 의존합니다.  Shift 툴킷 VM에서 호스트 이름을 확인할 수 있는지 확인하세요.  해결에 실패할 경우 호스트 파일(C:\Windows\System32\drivers\etc\hosts)을 업데이트하고 검색 작업을 다시 시도하세요.</block>
-  <block id="3c4394f878ae7ba2399c799670630207" category="paragraph">* ONTAP 스토리지 시스템*</block>
-  <block id="12d613163276665518b256968b2e3556" category="paragraph"><block ref="12d613163276665518b256968b2e3556" category="inline-image-macro-rx" type="image"></block></block>
   <block id="1016da55014a2f62e92d0fcaff685329" category="admonition">디스크 포맷 변환은 볼륨 수준에서 동일한 볼륨 내에서 발생하므로 소스 및 대상 저장 시스템은 동일해야 합니다.</block>
-  <block id="423ff12e530c1c97a5cf18d190571f37" category="paragraph"><block ref="423ff12e530c1c97a5cf18d190571f37" category="inline-image-macro-rx" type="image"></block></block>
   <block id="b3cf3db93a4c15ed2343e45efb783b14" category="paragraph">다음 단계는 필요한 VM을 리소스 그룹으로 마이그레이션 그룹으로 그룹화하는 것입니다.</block>
   <block id="eed1d3ed9540e99afd146357073d45b4" category="section-title">리소스 그룹화</block>
   <block id="e6c26b48f6cc84a6701906ffb5e98af9" category="paragraph">플랫폼을 추가한 후 마이그레이션하거나 변환하려는 VM을 리소스 그룹으로 그룹화합니다.  Shift 툴킷 리소스 그룹을 사용하면 종속된 VM 세트를 부팅 순서와 부팅 지연을 포함하는 논리적 그룹으로 그룹화할 수 있습니다.</block>
-  <block id="b9d88d63dcb6a8283e1a7ce07c771f03" category="admonition">리소스 그룹을 만들기 전에 Qtree가 프로비저닝되었는지 확인하세요(필수 조건 섹션에 언급된 대로).</block>
-  <block id="49dbff01d4e2352f161ee33354a2612b" category="paragraph">리소스 그룹을 만들려면 "새 리소스 그룹 만들기" 메뉴 항목을 클릭하세요.</block>
-  <block id="221e244f2e4b44f17c799c45d5608aa4" category="list-text">리소스 그룹에 액세스하려면 "새 리소스 그룹 만들기"를 클릭합니다.</block>
-  <block id="b257a6e024be17db839a2a53ccd1087e" category="paragraph"><block ref="b257a6e024be17db839a2a53ccd1087e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="cee8a75be91677a4712bae933cfc0b5d" category="list-text">"새 리소스 그룹"에서 드롭다운에서 소스 사이트를 선택하고 "만들기"를 클릭합니다.</block>
   <block id="1f9d46167d05f89a8e26ba31c6937e61" category="list-text">리소스 그룹 세부 정보를 제공하고 워크플로를 선택합니다.  워크플로는 두 가지 옵션을 제공합니다.</block>
   <block id="b0c060dfd64b30926167361f5f7b431a" category="list-text">클론 기반 마이그레이션 – 소스 하이퍼바이저에서 대상 하이퍼바이저로 VM의 종단 간 마이그레이션을 수행합니다.</block>
   <block id="1e106480898712afb9e293e441018421" category="list-text">클론 기반 변환 – 디스크 형식을 선택한 하이퍼바이저 유형으로 변환합니다.</block>
-  <block id="a06d0f6fe5bd2037045d2d9aa01227d9" category="paragraph"><block ref="a06d0f6fe5bd2037045d2d9aa01227d9" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="70c5e8ad3155885fa2a192c5021afa28" category="list-text">"계속"을 클릭하세요</block>
-  <block id="9c9c048e993e3c9248a7ac862b476c1b" category="list-text">검색 옵션을 사용하여 적절한 VM을 선택하세요. 기본 필터 옵션은 "데이터 저장소"입니다.</block>
-  <block id="c9a892196731a16f2944923ee0f2375f" category="admonition">변환하기 전에 새로 생성된 ONTAP SVM의 지정된 데이터 저장소로 변환하거나 마이그레이션할 VM을 이동합니다.  이를 통해 프로덕션 NFS 데이터 저장소를 격리하고 지정된 데이터 저장소를 사용하여 가상 머신을 스테이징할 수 있습니다.</block>
-  <block id="c879efdf7bc2387888f7d1cc7f24aff3" category="paragraph"><block ref="c879efdf7bc2387888f7d1cc7f24aff3" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ea4862a38abceacc93e6a8c0ac59b7a4" category="admonition">이 컨텍스트의 데이터 저장소 드롭다운에는 NFSv3 데이터 저장소만 표시됩니다.  NFSv4 데이터 저장소는 표시되지 않습니다.</block>
-  <block id="80cc1153a2380c3626789dd3f1671c55" category="paragraph"><block ref="80cc1153a2380c3626789dd3f1671c55" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6bed05b09c56c7625199a6a8edcda769" category="list-text">"대상 사이트", "대상 Hyper-V 항목" 및 데이터 저장소에서 Qtree로의 매핑을 선택하여 마이그레이션 세부 정보를 업데이트합니다.</block>
-  <block id="bb626f950c6753375803b64adc37914d" category="paragraph"><block ref="bb626f950c6753375803b64adc37914d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="b1df42a13124330a2af699b131b97fc3" category="admonition">ESX에서 Hyper-V로 VM을 변환할 때 대상 경로(변환된 VM이 저장된 경로)가 Qtree로 설정되어 있는지 확인하세요. 대상 경로를 적절한 Qtree로 설정하세요.</block>
-  <block id="0edd32787a1b42438f3d70bb7ffb20bb" category="admonition">여러 개의 qtree를 생성하여 변환된 VM 디스크를 적절히 저장하는 데 사용할 수 있습니다.</block>
-  <block id="efee8ceff73b17d6712a1b496ed03dca" category="list-text">선택한 모든 VM에 대한 부팅 순서와 부팅 지연(초)을 선택합니다.  각 가상 머신을 선택하고 우선순위를 설정하여 전원 켜기 순서를 정합니다.  모든 가상 머신의 기본값은 3입니다.</block>
-  <block id="c32b3a0f06aa80c00476ddcabd88fde1" category="paragraph">옵션은 다음과 같습니다.</block>
-  <block id="a89a043e6faeacde759612c6bfa5cc1c" category="paragraph">1 – 전원을 켜는 첫 번째 가상 머신 3 – 기본값 5 – 전원을 켜는 마지막 가상 머신</block>
-  <block id="887dbea6b28c5a072b0faeee01d8b289" category="paragraph"><block ref="887dbea6b28c5a072b0faeee01d8b289" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="2c87628f8a40a1653f593f486a9e90d0" category="list-text">"리소스 그룹 만들기"를 클릭합니다.</block>
-  <block id="5d476915039187eb47cf83bcc62e0609" category="paragraph"><block ref="5d476915039187eb47cf83bcc62e0609" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f3820cc9e8bccdb648e3cf11c77a890a" category="admonition">가상 머신을 추가하거나 제거하기 위해 리소스 그룹을 수정해야 하는 경우, 리소스 그룹 이름 옆에 있는 3개의 점을 클릭하고 "리소스 그룹 편집"을 선택하세요.</block>
   <block id="def6402b3a6f30cb2eb363cd5cefb20d" category="section-title">청사진</block>
-  <block id="b5c2e88d6f815a4bb2a670f37081aed3" category="paragraph">가상 머신을 마이그레이션하거나 변환하려면 계획이 필요합니다.  드롭다운에서 소스 및 대상 하이퍼바이저 플랫폼을 선택하고 이 청사진에 포함될 리소스 그룹을 선택하고, 애플리케이션의 전원을 켜는 방법(예: 도메인 컨트롤러, 그 다음 1계층, 2계층 등)을 그룹화합니다.  이러한 계획은 종종 마이그레이션 계획이라고도 불립니다.  청사진을 정의하려면 "청사진" 탭으로 이동하여 "새 청사진 만들기"를 클릭합니다.</block>
-  <block id="b1f5980f5819e01feef9676474083829" category="paragraph">청사진 만들기를 시작하려면 "새 청사진 만들기"를 클릭하세요.</block>
-  <block id="2c111835fd30663468d9e52f277ac637" category="list-text">블루프린트에 접근하여 "새로운 블루프린트 만들기"를 클릭합니다.</block>
-  <block id="eb8e0de7b6d32a2bd0bda2777df9926a" category="paragraph"><block ref="eb8e0de7b6d32a2bd0bda2777df9926a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="18267624b3e6ea9b3b9ca38202e88b88" category="list-text">"새 블루프린트"에서 계획의 이름을 제공하고 소스 사이트 &gt; 관련 vCenter, 대상 사이트 및 관련 Hyper-V 하이퍼바이저를 선택하여 필요한 호스트 매핑을 추가합니다.</block>
-  <block id="c4279251832024f5087e6cdc4a44b130" category="list-text">매핑이 완료되면 클러스터와 호스트 매핑을 선택합니다.</block>
-  <block id="d02a40a0ec54201d519eae96e0ea4dd9" category="paragraph"><block ref="d02a40a0ec54201d519eae96e0ea4dd9" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="1667ad07adcfce225bd46a20d1484c6e" category="list-text">리소스 그룹 세부 정보를 선택하고 "계속"을 클릭하세요.</block>
-  <block id="fba36a7de186c3953536988940b9e152" category="paragraph"><block ref="fba36a7de186c3953536988940b9e152" category="inline-image-macro-rx" type="image"></block></block>
   <block id="02e233cfaf931173f6e990b3c5e5f594" category="list-text">리소스 그룹에 대한 실행 순서를 설정합니다.  이 옵션을 사용하면 여러 리소스 그룹이 있는 경우 작업 순서를 선택할 수 있습니다.</block>
-  <block id="88bc7aaff0b543752e23e37495eabd9a" category="list-text">완료되면 적절한 가상 스위치에 대한 네트워크 매핑을 선택합니다.  가상 스위치는 이미 Hyper-V 내에 프로비저닝되어 있어야 합니다.</block>
-  <block id="12e2ac0bff4bd0a1e4dd67f617fdbdeb" category="paragraph"><block ref="12e2ac0bff4bd0a1e4dd67f617fdbdeb" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="841a4ea119b39ca82bfe3c5bebca86ff" category="admonition">Hyper-V 측에서는 가상 스위치 유형 "외부"가 네트워크 선택에 지원되는 유일한 옵션입니다.</block>
-  <block id="24b5c6829d233f9addf3836e462bfd38" category="admonition">테스트 마이그레이션의 경우 "네트워크 구성 안 함"이 기본 선택이며 Shift 툴킷은 IP 주소 할당을 수행하지 않습니다.  디스크가 변환되고 Hyper-V 측에서 가상 머신을 구매한 후에는 프로덕션 네트워크와 충돌을 피하기 위해 버블 네트워크 스위치를 수동으로 할당합니다.</block>
-  <block id="ef40624114e4bac64ab5ccbd595fcd27" category="paragraph"><block ref="ef40624114e4bac64ab5ccbd595fcd27" category="inline-image-macro-rx" type="image"></block></block>
   <block id="9bdc10d8d4a5901df3413cee6ecdb932" category="list-text">VM 선택에 따라 스토리지 매핑이 자동으로 선택됩니다.</block>
-  <block id="afd364f3ed80c24781e38d136983b7f3" category="admonition">가상 머신을 만들고 SMB 공유에서 전원을 켤 수 있도록 qtree가 미리 프로비저닝되고 필요한 권한이 할당되었는지 확인하세요.</block>
   <block id="ccd3f61d6f8d733ed41dde66b3c9479b" category="list-text">VM 세부 정보에서 각 OS 유형에 대한 서비스 계정과 유효한 사용자 자격 증명을 제공합니다.  이는 VMware 도구를 제거하고 IP 구성 세부 정보를 백업하는 데 필요한 특정 스크립트를 생성하고 실행하기 위해 가상 머신에 연결하는 데 사용됩니다.</block>
-  <block id="2b6394e4a09468d7fc0b326a48fe4610" category="list-text">Windows 기반 OS의 경우 로컬 관리자 권한이 있는 사용자를 사용하는 것이 좋습니다.  도메인 자격 증명도 사용할 수 있지만 변환하기 전에 VM에 사용자 프로필이 있는지 확인해야 합니다. 그렇지 않으면 네트워크에 연결되지 않은 경우 도메인 인증을 찾게 되므로 도메인 자격 증명이 작동하지 않습니다.</block>
-  <block id="046d54a349683e20ab090ae023d16b76" category="list-text">Linux 배포판 기반 게스트 VM의 경우 비밀번호 없이 sudo 명령을 실행할 수 있는 사용자를 제공해야 합니다. 즉, 사용자는 sudoers 목록에 포함되어야 하거나 /etc/sudoers.d/ 폴더에 새 구성 파일로 추가되어야 합니다.</block>
-  <block id="8013afe7930bf3e1313aabbeb28f10b3" category="paragraph"><block ref="8013afe7930bf3e1313aabbeb28f10b3" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="2c1ed3f5ba5b32f760b43c7b24e2d379" category="list-text">다시 VM 세부 정보에서 관련 IP 구성 옵션을 선택합니다.  기본적으로 "구성하지 않음"이 선택되어 있습니다.</block>
-  <block id="28328e060d27f6b948d79b6dbed3f63c" category="list-text">소스 시스템에서 동일한 IP를 가진 VM을 마이그레이션하려면 "IP 유지"를 선택합니다.</block>
-  <block id="615495fa238b5775409716a527d94ba2" category="list-text">소스 시스템에서 정적 IP를 사용하여 VM을 마이그레이션하고 대상 VM에 DHCP를 할당하려면 "DHCP"를 선택합니다.</block>
   <block id="d6ebaee9dd9ff0e16053c49912b79493" category="paragraph">이 기능이 작동하려면 다음 요구 사항을 충족해야 합니다.</block>
   <block id="3d3e936b1d1a273763cf3209ba155299" category="list-text">prepareVM 단계와 예약된 마이그레이션 시간까지 VM의 전원이 켜져 있는지 확인하세요.</block>
   <block id="55de458a08e72ff39461d90a80ca4517" category="list-text">VMware VM의 경우 VMware Tools가 설치되어 있는지 확인하세요.</block>
-  <block id="8f6f3e96bbd15f285006572f76c10318" category="list-text">Windows OS에서는 관리자 권한이 있는 계정으로 소스 VM에서 준비 스크립트를 실행하고, Linux 기반 배포판 OS에서는 암호 옵션 없이 sudo 권한이 있는 계정으로 실행하여 Cron 작업을 생성합니다.</block>
   <block id="e7bf6534a6014418d5aff15937e9b8e8" category="list-text">다음 단계는 VM 구성입니다.</block>
   <block id="86c3ad04e9cdfebf6eb2c6cdea548ded" category="list-text">선택적으로 VM CPU/RAM 매개변수의 크기를 조정할 수 있는데, 이는 크기 조정에 매우 유용합니다.</block>
   <block id="af0987364a129f1be736008ea53cf81b" category="list-text">부팅 순서 재정의: 리소스 그룹 전체에서 선택한 모든 VM에 대한 부팅 순서 및 부팅 지연(초)도 수정합니다.  이는 리소스 그룹 부팅 순서를 선택하는 동안 선택한 내용을 변경해야 할 경우 부팅 순서를 수정하기 위한 추가 옵션입니다.  기본적으로 리소스 그룹 선택 중에 선택된 부팅 순서가 사용되지만, 이 단계에서 모든 수정 작업을 수행할 수 있습니다.</block>
   <block id="224415ba5b7a8459d1e9e64e55df9071" category="list-text">전원 켜기: 워크플로가 가상 머신의 전원을 켜지 않도록 하려면 이 옵션의 선택을 취소하세요.  기본 옵션은 ON으로, VM의 전원이 켜져 있음을 의미합니다.</block>
-  <block id="bf26bcca64c2a800389c7c60447be797" category="list-text">VMware 도구 제거: Shift Toolkit은 변환 후 VMware 도구를 제거합니다.  이 옵션은 기본적으로 선택되어 있습니다.  고객의 맞춤형 스크립트를 실행하려는 경우 이 옵션을 선택 취소할 수 있습니다.</block>
   <block id="6efbff291c4a42375c8bf01b7df57992" category="list-text">세대: Shift 툴킷은 다음의 경험 법칙을 사용하며 적절한 세대를 기본값으로 지정합니다. Gen1 &gt; BIOS, Gen2 &gt; EFI.  이 옵션은 선택할 수 없습니다.</block>
   <block id="5183fed6108c7841520a66945da598bd" category="list-text">MAC 유지: MAC에 의존하는 애플리케이션의 라이선싱 문제를 극복하기 위해 각 VM의 MAC 주소를 유지할 수 있습니다.</block>
   <block id="1376a3e3c47809073f77ed708ba1561e" category="list-text">서비스 계정 재정의: 이 옵션을 사용하면 글로벌 계정을 사용할 수 없는 경우 별도의 서비스 계정을 지정할 수 있습니다.</block>
-  <block id="dcc7e57dd1c8aa2e0a63f0df3da17816" category="paragraph"><block ref="dcc7e57dd1c8aa2e0a63f0df3da17816" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c80a423945d006f8e77b02b4dbe79248" category="list-text">"계속"을 클릭하세요.</block>
-  <block id="3564c763cdf7da62153bd9d26fc23d15" category="list-text">다음 단계에서는 날짜와 시간을 설정하는 확인란을 선택하여 마이그레이션을 예약합니다.  예약된 날짜 전에 모든 가상 머신(VM)이 준비되고 전원이 꺼졌는지 확인하세요.  완료되면 "청사진 만들기"를 클릭하세요.</block>
-  <block id="81e6fb14abe08bc1c69737f9db997311" category="paragraph"><block ref="81e6fb14abe08bc1c69737f9db997311" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="76ae0a5fc2946f5657c1d3244c65ca41" category="admonition">일정을 예약할 때 현재 Shift VM 시간보다 최소 30분 전의 날짜를 선택하세요.  이는 워크플로가 리소스 그룹 내에서 VM을 준비할 수 있는 충분한 시간을 확보하도록 하기 위한 것입니다.</block>
   <block id="baa3dbe77f83e583fcfb9c4f5af48656" category="list-text">청사진이 생성되면 prepareVM 작업이 시작되고 소스 VM에서 스크립트가 자동으로 실행되어 마이그레이션을 준비합니다.</block>
-  <block id="3e34e0ad795df8838408e0c7a8d45bdf" category="paragraph"><block ref="3e34e0ad795df8838408e0c7a8d45bdf" category="inline-image-macro-rx" type="image"></block></block>
   <block id="282dee135211b86dca3b9030c5340438" category="paragraph">이 작업은 invoke-VMScript 메서드를 사용하여 VMware 도구를 제거하고 IP 주소, 경로, DNS 정보를 비롯한 네트워크 구성 세부 정보를 백업하는 데 필요한 스크립트를 복사하는 스크립트를 실행합니다. 이 정보는 대상 VM에서 동일한 설정을 유지하는 데 사용됩니다.</block>
-  <block id="12f5ab1a4de097bf40b21316eb467259" category="list-text">Windows 기반 운영 체제의 경우 준비 스크립트가 저장되는 기본 위치는 "C:\ NetApp" 폴더입니다.</block>
-  <block id="98106fafa4984b6587c806c8ef7623b1" category="paragraph"><block ref="98106fafa4984b6587c806c8ef7623b1" category="inline-image-macro-rx" type="image"></block></block>
   <block id="c6ec1c4d2e31ca9085292987e6b250ea" category="list-text">Linux 기반 VM의 경우 준비 스크립트가 저장되는 기본 위치는 / NetApp 및 /opt 디렉토리입니다.</block>
-  <block id="0b99816c2eb316b2d32e54ff0321846a" category="paragraph"><block ref="0b99816c2eb316b2d32e54ff0321846a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="4bb8c792f2a084a1a8a33fe6cb8d1e0c" category="admonition">CentOS 또는 Red Hat을 실행하는 Linux 소스 VM의 경우 Shift 툴킷은 필요한 Hyper-V 드라이버를 자동으로 설치합니다.  VM이 변환 후 성공적으로 부팅될 수 있도록 디스크 변환 전에 소스 VM에 이러한 드라이버가 있어야 합니다.</block>
   <block id="959b089f138ef124661d892405f75c85" category="inline-link-macro">RHEL VM을 Hyper-V로 마이그레이션한 후 시스템이 Dracut에 갇힘</block>
-  <block id="9326eb3a5f54d5a3e5a0a53d000e5fc4" category="admonition">자세한 내용은 다음을 참조하세요.<block ref="1c434828099aa70753997347cfb22762" category="inline-link-macro-rx"></block> .</block>
   <block id="25d2183aae79b9f02ac55281e88fc20d" category="paragraph">prepareVM 작업이 성공적으로 완료되면(아래 스크린샷 참조), VM을 마이그레이션할 준비가 되고 블루프린트 상태가 "활성"으로 업데이트됩니다.</block>
-  <block id="6e6188cb195fa4602216aa427edd9aee" category="paragraph"><block ref="6e6188cb195fa4602216aa427edd9aee" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a90f907a6281658f1902ee8718a6a7a8" category="paragraph"><block ref="a90f907a6281658f1902ee8718a6a7a8" category="inline-image-macro-rx" type="image"></block></block>
   <block id="dee58bdbbca423ad84f08dcc3d892e24" category="paragraph">이제 설정된 시간에 마이그레이션이 진행되거나 마이그레이션 옵션을 클릭하여 수동으로 시작할 수 있습니다.</block>
   <block id="1a7430f17e9c18c66dfc1e6ecc182b5c" category="section-title">모니터링 및 대시보드</block>
-  <block id="d475a7653383b239dcc5fab1c1cd9b60" category="paragraph">작업 모니터링을 사용하여 작업 상태를 모니터링합니다.</block>
-  <block id="5b28efc0d600e836035f6b01e7c865b2" category="paragraph"><block ref="5b28efc0d600e836035f6b01e7c865b2" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9aaf9eaf7116c7b5717eebc1b3874cff" category="paragraph">직관적인 UI로 마이그레이션, 변환 및 청사진의 상태를 확실하게 평가하세요.  이를 통해 관리자는 성공, 실패 또는 부분적으로 실패한 계획과 마이그레이션 또는 변환된 VM 수를 신속하게 파악할 수 있습니다.</block>
-  <block id="c1cb24f5a6fdfc23b8c5816847aa3650" category="paragraph"><block ref="c1cb24f5a6fdfc23b8c5816847aa3650" category="inline-image-macro-rx" type="image"></block></block>
   <block id="9ffc3ccc968a96d902af963c6d7b4e97" category="section-title">고급 설정</block>
-  <block id="bbf9946940f23e7bec3e2b7ccc191928" category="paragraph">Shift 툴킷은 상단 도구 모음의 설정 아이콘을 클릭하여 접근할 수 있는 고급 설정을 제공합니다.</block>
-  <block id="8282ac273f3f4179cd0a63f3410b03ab" category="paragraph"><block ref="8282ac273f3f4179cd0a63f3410b03ab" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="81b1caa060cf3cd1477d77c4e8de7329" category="section-title">크레드SSP</block>
-  <block id="83cd20a61a7bc39174097ef647b51d0a" category="paragraph">Shift는 자격 증명 보안 서비스 공급자(CredSSP)를 활용하여 자격 증명 전송을 관리합니다.  변환 프로세스 동안 Shift 서버는 변환되는 VM의 게스트 OS에서 여러 개의 스크립트를 실행합니다.  이러한 스크립트를 실행하기 위한 자격 증명은 Hyper-V 서버를 거쳐 Shift 서버에서 게스트 OS로 "더블 홉"을 통해 전달됩니다.</block>
-  <block id="4d7ee1055f830091c9feb7fc29f5cdca" category="paragraph"><block ref="4d7ee1055f830091c9feb7fc29f5cdca" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="bfb528f5763da39f847e105a7b7806db" category="paragraph">*Shift 서버를 CredSSP 클라이언트로 구성:*</block>
-  <block id="c329966a45ac0a0d4617aeaf95238dcf" category="paragraph">"고급 설정" 마법사는 자동으로 Shift 서버를 CredSSP 클라이언트로 구성합니다.  이렇게 하면 Shift 서버가 Hyper-V 서버에 자격 증명을 위임할 수 있습니다.</block>
-  <block id="7a7a0093b2d3e44b01fea700db9eaf23" category="paragraph">*무대 뒤에서 무슨 일이 일어나는가:*</block>
-  <block id="4e99a1c754ffe7872812f4fefd5351b5" category="paragraph">Shift 툴킷은 일련의 명령을 실행하여 자신을 클라이언트로 구성하고 Hyper-V 호스트를 관리할 수 있도록 합니다.  이 과정에는 필요한 구성을 설정하는 것이 포함됩니다.</block>
-  <block id="79f133f801d770735172370d5341f1c7" category="list-text">다음 명령을 실행합니다:</block>
-  <block id="c0d3953e0cf0785a6363e75d697f75a7" category="list-text">Set-Item WSMan:\localhost\Client\TrustedHosts -Value "fqdn-of-hyper-v-host"</block>
-  <block id="ec9d129e893e8f733f4f09b5f55b10c6" category="list-text">Enable-WSManCredSSP -Role 클라이언트 -DelegateComputer "fqdn-of-hyper-v-host"</block>
-  <block id="40ac36f2c1a1473562e4f73506f7b431" category="list-text">다음 그룹 정책을 구성합니다.</block>
   <block id="f8d289ab19e9e4e83d5fda61fb57039f" category="list-text">컴퓨터 구성 &gt; 관리 템플릿 &gt; 시스템 &gt; 자격 증명 위임 &gt; NTLM 전용 서버 인증을 사용하여 새 자격 증명 위임 허용</block>
-  <block id="9da4dc4295cd4def839e7b3060b3917d" category="paragraph">사용을 선택하고 wsman/fqdn-of-hyper-v-host를 추가합니다.</block>
-  <block id="5f97802b41dbfe3a5d553cd5dbe8dffa" category="paragraph">*Hyper-V 서버를 CredSSP 서버로 구성*</block>
-  <block id="0f1d37fa98cde89149c99ccc45c01408" category="paragraph">Hyper-V 서버에서 Enable-WSManCredSSP cmdlet을 사용하여 Hyper-V 서버를 CredSSP 서버로 구성합니다. 이렇게 하면 Hyper-V 서버가 Shift 서버로부터 자격 증명을 받을 수 있습니다.</block>
-  <block id="3db33065f4e0e9fcdb03356f65ee9151" category="paragraph">Shift 툴킷 서버에서 가상 머신을 프로비저닝할 Hyper-V 호스트에서 관리자 권한으로 Windows PowerShell 세션을 열고 다음 명령을 실행합니다.</block>
-  <block id="e3b6506abc8022d1c7a4650a5e9933c3" category="list-text">Enable-PSRemoting</block>
-  <block id="be88f37a4b358bab1135af1cb54d47c4" category="list-text">Enable-WSManCredSSP -역할 서버</block>
   <block id="336ff1e9aa6177ea7a71984fa8c241b9" category="section-title">멋진</block>
-  <block id="83f5f1d1179294a9ca42e002f73ae9b1" category="paragraph">고급 설정의 Swagger 페이지에서는 사용 가능한 API와 상호 작용할 수 있습니다.  Shift 툴킷 REST API를 통해 사용할 수 있는 리소스는 swagger API 문서 페이지에 표시된 대로 범주별로 정리되어 있습니다.  아래에는 기본 리소스 경로를 포함한 각 리소스에 대한 간략한 설명이 나와 있으며, 필요한 경우 추가 사용 고려 사항도 나와 있습니다.</block>
-  <block id="60ecc2556f499d5c50e954bcf442b6f1" category="paragraph"><block ref="60ecc2556f499d5c50e954bcf442b6f1" category="inline-image-macro-rx" type="image"></block></block>
   <block id="21fd9c8a438806f21dd8bc2c31686f38" category="paragraph">*세션*</block>
-  <block id="aa23cbafb1bb1de7ca5c8fed6e89db55" category="paragraph">이 API를 사용하여 Shift 툴킷 서버에 로그인할 수 있습니다.  이 API는 후속 요청을 인증하는 데 사용되는 사용자 인증 토큰을 반환합니다.</block>
   <block id="95a6c28475f9434c7f5c082225f6218f" category="list-text">세션을 시작하세요</block>
   <block id="c3508beb6281bd217d084f7e1b436bba" category="list-text">세션 검증</block>
-  <block id="bf4659b0fa21501e97aa7439ec501c38" category="list-text">모든 세션 ID 가져오기</block>
   <block id="6bf248adfc8e145f0a7178083a9839aa" category="list-text">세션 종료</block>
   <block id="731bc4e8eac89c2ed6a1d15e60c2ed54" category="paragraph">*커넥터*</block>
   <block id="86e86862a7cd5d891160488d52a74bc6" category="list-text">커넥터 추가</block>
   <block id="5b443630c452e360da609a3a2cde0737" category="list-text">모든 커넥터의 세부 정보를 얻으세요</block>
-  <block id="e310ac0c8f5d581d7531d02454f13ac2" category="list-text">ID로 커넥터 세부 정보 업데이트</block>
   <block id="7fc2c1ba1882d3847eb519623ffd8eac" category="list-text">ID로 커넥터 세부 정보 가져오기</block>
   <block id="8bcf56e7833c3d483266ef90ffb66d4b" category="paragraph">*거주자*</block>
-  <block id="4d46526019670e35a6fc7cacc4ac137c" category="paragraph">API를 사용하여 추가 및 가져오기 작업 수행</block>
-  <block id="6fda923ae546852b22e8cc116a7631fc" category="list-text">세입자 추가</block>
-  <block id="744225b2146582ade8c74648d8ed9c64" category="list-text">모든 세입자를 얻으세요</block>
   <block id="e01ca242f9b1bef82800de4c209149c7" category="paragraph">*사용자*</block>
-  <block id="36a96df29352b965ce9abaa03d0b0f62" category="paragraph">API를 사용하여 추가, 가져오기, 변경 및 수락 작업을 수행합니다.</block>
-  <block id="c2208ccd0104d97d8925713036d5cb57" category="list-text">사용자 추가</block>
-  <block id="8d38f96c0a3bf3730c549161603fad6b" category="list-text">모든 사용자 가져오기</block>
-  <block id="672dddf310304d5c51a378ff24ff029a" category="list-text">사용자의 비밀번호 변경</block>
   <block id="9ffbe169b7db1bee5ce86eb6d1e15a5f" category="list-text">EULA에 동의하세요</block>
   <block id="a5acacb4c79128c5af7ef7ac8ced0b01" category="paragraph">*크레딧SSP*</block>
-  <block id="8efb396b4ebf094bc16bfa705740a74b" category="paragraph">API를 사용하여 활성화 및 가져오기 작업을 수행합니다.</block>
-  <block id="9af222a27026f063f5465b1594e644d8" category="list-text">credssp 활성화</block>
-  <block id="500b20662673186ca0e8a923e82d5798" category="list-text">credssp 상태 가져오기</block>
   <block id="9361cc51a1024b47827266574d04b647" category="paragraph">*대지*</block>
-  <block id="521bbd5b0a2a85e4dbb6e8ad326576d3" category="paragraph">API를 사용하여 가져오기, 추가, 삭제 및 업데이트 작업 수행</block>
-  <block id="5a5f224b91bc1a2b02ebb2369ebb60bb" category="list-text">사이트 개수를 구하세요</block>
   <block id="b380669d8b9fccf18bc76df158f7f472" category="list-text">모든 사이트 세부 정보 가져오기</block>
   <block id="663ac415354a0662169e04ba51a80ee1" category="list-text">사이트 추가</block>
-  <block id="6f5329061d5de2e7faa71a9438df61ac" category="list-text">ID로 사이트 세부 정보 가져오기</block>
   <block id="6574e1ff54d0fe3c30be3748bf47fb60" category="list-text">ID로 사이트 삭제</block>
   <block id="8559d7c3b95e223fd418b4b8db11b402" category="list-text">사이트에 가상 환경 추가</block>
   <block id="09ef37d8ce4b29fd654155fcb9bcd765" category="list-text">사이트에 저장 환경 추가</block>
-  <block id="3af55cd7082eb9bb19b487ef7f50af8d" category="list-text">사이트의 가상 환경 세부 정보 가져오기</block>
-  <block id="7a2c6684f8d98029545ae128e1765a5c" category="list-text">사이트의 가상 환경 세부 정보 업데이트</block>
-  <block id="9fa55c513960d2f9e1ba137a0460bb9a" category="list-text">사이트의 가상 환경 세부 정보 삭제</block>
-  <block id="a108fffa6b5e62ec986c8f13003a1a30" category="list-text">사이트의 저장 환경 세부 정보 가져오기</block>
-  <block id="d693f1edba9d6d2e017baefffaa0c373" category="list-text">사이트의 스토리지 환경 세부 정보 업데이트</block>
-  <block id="a5b2e392a972ec4981231d7b169d888d" category="list-text">사이트의 스토리지 환경 세부 정보 삭제</block>
   <block id="547c5264e8efa81a83642382a062a1a5" category="paragraph">*발견*</block>
-  <block id="e1c070db8bb4ff24fb5e625aa0f32448" category="paragraph">API를 사용하여 검색 및 가져오기 작업을 수행합니다.</block>
   <block id="145e70cb827798b03011b383b3ed9891" category="list-text">소스 사이트 검색</block>
   <block id="91bb8ce23f060bf5100230712891a549" category="list-text">소스 사이트에 대한 모든 검색 요청을 받습니다.</block>
   <block id="70c64ddabe6e01e58e7489b8a6ab8c00" category="list-text">타겟 사이트를 발견하세요</block>
   <block id="8fdf4437997594294ea59e1941551d02" category="list-text">대상 사이트에 대한 모든 검색 요청을 가져옵니다.</block>
-  <block id="d1bf9d20ddf14763c305454d5dcd68f6" category="list-text">ID로 소스 사이트에 대한 검색 단계를 가져옵니다.</block>
-  <block id="ecad89c63a8ffc92f0f08256f93acf3b" category="list-text">ID로 대상 사이트에 대한 검색 단계를 가져옵니다.</block>
   <block id="aa6ad543d0b70e402b03f35585f4d9b4" category="paragraph">*VM*</block>
-  <block id="26c825b7926cdc6f17fdf24d1a5e6797" category="paragraph">API를 사용하여 get 작업 수행</block>
   <block id="d0c678f9116371bd9f6e024cb76ca0a7" category="list-text">소스에서 사이트 및 가상 환경에 대한 VM 가져오기</block>
   <block id="6bb96593519f8dce46fc11b2f78222ac" category="list-text">사이트 및 가상 환경에 대한 보호되지 않은 VM 가져오기</block>
   <block id="4dcea73a0f866de06d5fee405039b5b9" category="list-text">VM 개수 가져오기</block>
   <block id="75272d775fb163196be134e8f2f01d68" category="list-text">보호된 VM 수 가져오기</block>
   <block id="f1d53935d62a09c01a67441ad5cb4f20" category="paragraph">*의지*</block>
   <block id="e4126e8647b463079c3f09fff9d41c57" category="list-text">사이트 및 가상 환경에 대한 리소스 세부 정보 가져오기</block>
-  <block id="a5bb4a57f84948db1022bdc7f85cad11" category="list-text">소스 사이트 리소스 수 가져오기</block>
   <block id="93873ea747022091f2a9ce91633f3058" category="paragraph">*리소스 그룹*</block>
-  <block id="3d6f0f1ded05247b18744807a3423ed7" category="paragraph">API를 사용하여 추가, 업데이트 및 가져오기 작업을 수행합니다.</block>
   <block id="60799d81a4c72212dec8c91ea4e73ed8" category="list-text">보호 그룹 수를 얻으세요</block>
   <block id="e7c3c3d990881413fddca50d0e03df67" category="list-text">모든 보호 그룹 세부 정보를 얻으세요</block>
   <block id="6786a6373a72711c4004b921cf718a20" category="list-text">보호 그룹 추가</block>
-  <block id="5dc3f20dc28aaf39df6968236d8db64c" category="list-text">ID로 보호 그룹 세부 정보를 받으세요</block>
-  <block id="96e4429618e347ec0d8c1bc725d1be28" category="list-text">ID로 보호 그룹 삭제</block>
-  <block id="83de429b0b6ced4d14ea8029cf116d6e" category="list-text">ID로 보호 그룹 세부 정보 업데이트</block>
-  <block id="b2799694ac889a29be30ce4ad65f8306" category="list-text">ID로 보호 그룹의 VM 가져오기</block>
-  <block id="2fe2249a3f080e2e6764bafe59827c9f" category="list-text">보호 그룹이 포함된 청사진 가져오기</block>
   <block id="1d5ea1c71ca62a94c2cfc90c85440e4e" category="paragraph">*청사진*</block>
-  <block id="2b25b1ea67cb1437b322db77536dc890" category="list-text">청사진 개수 가져오기</block>
-  <block id="a55477034f5e9e34e7fe3fc223a28e7e" category="list-text">모든 청사진 세부 정보 가져오기</block>
-  <block id="43b0ef22895a59e2df714d93318653cd" category="list-text">청사진 추가</block>
-  <block id="c163d22b15dafb383f1f80acb0102b97" category="list-text">ID로 청사진 세부 정보 가져오기</block>
-  <block id="18d5af85136c2e2e82fc5716a241cc7a" category="list-text">ID로 청사진 삭제</block>
-  <block id="16d65e83e59662d646a17b8ed230ca10" category="list-text">ID에 대한 청사진 세부 정보 업데이트</block>
   <block id="6e2c0e0d55b9fc90ebc8cb41a0fad249" category="list-text">청사진의 VM을 가져옵니다</block>
   <block id="8ec2f1c1f66005c554367616209f35f3" category="list-text">블루프린트에 있는 VM의 전원 상태를 가져옵니다.</block>
-  <block id="a291ceb04637baa67c0a2f50cd662aae" category="list-text">청사진 개수 가져오기</block>
   <block id="8789cc9d5b3ef2629569615c0bbb0e74" category="list-text">모든 청사진 세부 정보를 얻으세요</block>
   <block id="c4fc4a5ce897100341c466ed1e57ed04" category="paragraph">*규정 준수*</block>
-  <block id="5e1f254ff66596fccfd0c1be28c9b0ac" category="paragraph">API를 사용하여 추가 및 가져오기 작업 수행</block>
   <block id="b8ecc18ae9b48220c454d05c6b98b24b" category="list-text">청사진에 대한 규정 준수 검사 결과 받기</block>
   <block id="75031199ba28de7ed9a2c1aba325811b" category="list-text">청사진에 대한 규정 준수 검사 최종 상태 확인</block>
-  <block id="b7aec90717d9efbdbdbfa2166c13a8ce" category="list-text">청사진에 대한 주문형 신규 규정 준수 검사 추가</block>
   <block id="74348e58046ebf13ced34cc036dda13d" category="paragraph">*실행*</block>
   <block id="e1b6fb50750986ffd4fb767630106064" category="list-text">모든 실행 세부 정보를 얻으세요</block>
   <block id="149b5554335dd173ee169dee666f49d2" category="list-text">진행 중인 실행에 대한 세부 정보를 얻으세요</block>
   <block id="61bb42d0e4242c4fda17e1c099428049" category="list-text">실행 횟수 가져오기</block>
   <block id="af739de6461b6d96e3355dd611c10f24" category="list-text">진행 중인 실행 횟수 가져오기</block>
-  <block id="c0dedf591fe0221df37358fdd2eab9a9" category="list-text">실행 ID에 대한 단계 가져오기</block>
   <block id="00aed5a48c8f5ac3a917761a2cc08704" category="paragraph">*회복*</block>
-  <block id="9e9618bf22cdb44c353a27f5d7794b3b" category="list-text">블루프린트에 대한 새로운 실행 요청 추가</block>
-  <block id="54e4d995aa5b2caa54781dfd49b52afd" category="list-text">블루프린트에 대한 실행 재시도 요청 추가</block>
-  <block id="5f5e70d5f14c7ea222f72067fa835014" category="list-text">모든 블루프린트의 실행 상태를 가져옵니다.</block>
-  <block id="948b39f49f98d76dc59eba007f230549" category="list-text">블루프린트 ID에 대한 실행 상태 가져오기</block>
   <block id="10cbbc62395d224fbfba8366be07d6a3" category="paragraph">*스크립트 블록*</block>
-  <block id="07b48dd14135070501814a968919ad5a" category="paragraph">API를 사용하여 가져오기 및 업데이트 작업 수행</block>
   <block id="77459500d37c1fb079098977166daa15" category="list-text">모든 스크립트 메타데이터 가져오기</block>
-  <block id="243d242ac43ff815e39883dcc1f926a4" category="list-text">ID로 스크립트 메타데이터 가져오기</block>
   <block id="f6dec4ba0cd91b356a000588e178ee97" category="list-text">모든 새로 고침 메타데이터 가져오기</block>
   <block id="d8a193c50b518b20a76e664b89e9245c" category="list-text">스크립트 실행</block>
-  <block id="29dca996a8a1fdf04d39ee6996116998" category="section-title">스크립트 블록</block>
-  <block id="45e976b6fdc7df176a5a382843c6ed30" category="paragraph">Shift 툴킷의 스크립트 블록은 내부 및 외부 API를 통해 기능을 자동화, 통합, 개발하는 데 도움이 되는 샘플 코드를 제공합니다.  스크립트 블록의 코드 샘플 섹션에서 Shift 툴킷 자동화 팀과 커뮤니티 멤버가 작성한 샘플을 찾아보고 다운로드하세요.  샘플을 사용하여 자동화, 관리 또는 통합 작업을 시작하세요.</block>
-  <block id="354f25b860703f58ae75c5dd6961ecd8" category="paragraph"><block ref="354f25b860703f58ae75c5dd6961ecd8" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3ce96631522820de74be6cd67c83a413" category="paragraph">다음은 Shift UI 내에서 특정 작업을 삭제하는 데 사용할 수 있는 샘플 PowerShell 스크립트의 예입니다.  이 기능은 워크플로를 통해서는 공개되지 않지만, 스크립트 블록을 통해서는 동일한 기능을 수행할 수 있습니다.  동일한 스크립트는 bat 스크립트로도 제공되며, 이를 다운로드하여 호출하면 쉽게 실행할 수 있습니다.</block>
-  <block id="2774ac56c74ee0172b2d713b9d3b5ef4" category="paragraph"><block ref="2774ac56c74ee0172b2d713b9d3b5ef4" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="bb38352e8176d76d90743ff2966a1be5" category="paragraph">여기서의 목적은 Shift 툴킷 API와 해당 하이퍼바이저에서 게시한 API를 사용하여 특정 하이퍼바이저에 대한 0일차 및 N일차 작업을 수행하는 샘플 스크립트를 제공하는 것입니다.</block>
-  <block id="b830459c4c1184a50227747604c54c02" category="section-title">SAN 환경</block>
-  <block id="c7e8c02738e2b8cfc6de448417b0d910" category="paragraph">Shift 툴킷의 핵심 요구 사항으로, 변환할 VM은 NAS 환경(ESX의 경우 NFS)에 있어야 합니다.  VM이 SAN 환경(iSCSI, FC, FCoE, NVMeFC)에 있는 경우 변환하기 전에 NAS 환경으로 마이그레이션해야 합니다.</block>
-  <block id="ef8ea49888c8f3f9eb3dded82d450ff1" category="paragraph"><block ref="ef8ea49888c8f3f9eb3dded82d450ff1" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="4e27f84efca43b855471ff23d1e36a12" category="paragraph">위의 접근 방식은 VM이 SAN 데이터 저장소에 저장되는 일반적인 SAN 환경을 보여줍니다.  ESX에서 Hyper-V로 변환할 VM과 해당 디스크는 먼저 VMware vSphere Storage vMotion을 사용하여 NFS 데이터 저장소로 마이그레이션됩니다.  Shift 툴킷은 FlexClone 사용하여 ESX에서 Hyper-V로 VM을 변환합니다. 변환된 VM과 해당 디스크는 CIFS 공유에 저장됩니다.  변환된 VM(디스크와 함께)은 Hyper-V 스토리지 라이브 마이그레이션을 통해 SAN이 활성화된 CSV로 다시 마이그레이션됩니다.</block>
-  <block id="677b93d912e95be3b9052fde0cbb751c" category="admonition">노드에 서로 다른 프로세스 기능 세트가 있는 경우 라이브 VM 마이그레이션이 실패할 수 있습니다.  "다른 프로세서가 있는 실제 컴퓨터로 마이그레이션"을 설정하면 이 문제를 해결할 수 있습니다.  이 스크립트는 스크립트 블록에서 사용할 수 있습니다.</block>
   <block id="4a37cfbb226d27fca2db1d9de9dff51e" category="doc">NetApp 스토리지와 Red Hat OpenShift Virtualization 통합에 대해 알아볼 수 있는 추가 리소스</block>
   <block id="2c991ff927be651e007be2a7337379e2" category="paragraph">다양한 플랫폼과 기술에서 ONTAP 사용하여 Red Hat OpenShift Virtualization을 배포, 관리 및 최적화하는 데 대한 자세한 정보를 제공하는 추가 리소스에 액세스하세요.</block>
   <block id="7a4e9cb5597c0c38152cde29a5ffea15" category="inline-link">NetApp 문서</block>
@@ -7734,4 +7387,896 @@
   <block id="d8b72d69741e3404fbbca9934e6e1693" category="sidebar">ONTAP 도구 배포 및 FC 데이터 저장소 프로비저닝</block>
   <block id="3c031b939f6ec312ee601d021e7a6644" category="inline-link-macro">NetApp Console</block>
   <block id="4a6d449241d20161e4eaa333c42fc179" category="paragraph">Cloud Insights 사용하려면 다음에서 가입해야 합니다. <block ref="04ae21d04d9a279324faf4ed210bd5b7" category="inline-link-macro-rx"></block>. 자세한 내용은 다음을 참조하세요. <block ref="3eafb0740656ee40f537cc91680fcad7" category="inline-link-macro-rx"></block></block>
+  <block id="0b4b22d8d6891c4ed145b12729a1f2dc" category="list-text">Microsoft Hyper-V에서 VMware ESX로(VHDX에서 VMDK로)</block>
+  <block id="e57a1e74c181488f76b8ec41c8780896" category="list-text">VMware ESX에서 Red Hat KVM으로(VMDK에서 RAW로)</block>
+  <block id="3173e5dfb176e66e58d8dd7221d713ae" category="paragraph">변환된 qcow2 파일은 모든 KVM 하이퍼바이저와 호환됩니다. 예를 들어, qcow2 파일은 virt-manager를 사용하여 RHEL 기반 KVM과 함께 활용될 수 있으며, Ubuntu KVM Rocky Linux 기반 KVM 등과도 활용할 수 있습니다. 동일한 기능을 Oracle Linux 가상화 관리자와 함께 사용할 수 있으며 NetApp Trident 사용하여 가져온 후 OpenShift 가상화와도 함께 사용할 수 있습니다. 목표는 조직에서 VM을 프로비저닝하고 네트워크를 할당하는 데 사용하는 기존 자동화 스크립트에 통합할 수 있는 디스크(초 단위에서 분 단위)를 제공하는 것입니다. 이 접근 방식은 Shift 툴킷 API가 디스크 변환을 처리하고 나머지 스크립트가 VM을 불러오므로 전체 마이그레이션 시간을 줄이는 데 도움이 됩니다.</block>
+  <block id="4d407050aa86ad48312affa8e43a67d7" category="paragraph">Shift 툴킷은 VMware에서 다른 호환 KVM 하이퍼바이저로의 엔드투엔드 마이그레이션을 지원합니다.  그러나 변환 옵션은 마이그레이션 관리자에게 이러한 변환 및 마이그레이션 API를 실행할 수 있는 기능을 제공합니다.</block>
+  <block id="623c44ac4b1228e38622f3eedc5061a8" category="list-text">하이퍼바이저로 KVM(변환 전용)을 지정하여 대상 사이트 유형을 만듭니다.</block>
+  <block id="7988bc3b706c65b838400d38c7373d3f" category="paragraph">참고: KVM에는 하이퍼바이저 세부 정보가 필요하지 않습니다.</block>
+  <block id="6fed993333f213fd751fe952dd9a1c6b" category="image-alt">대상 사이트 생성 단계에 대한 대화 상자</block>
+  <block id="8d05ac343d9e8675e947c40b11207891" category="image-alt">리소스 그룹 생성 단계에 대한 대화 상자</block>
+  <block id="2df1e028b15b06c600d5c22031c432c4" category="image-alt">청사진 생성 단계에 대한 대화 상자</block>
+  <block id="1c23b3f5918e968736f79a75ea1cfd18" category="image-alt">스케줄링 옵션 단계에 대한 대화 상자</block>
+  <block id="5a5b2261987139595487bdd1d21f3038" category="list-text">청사진이 생성된 후 prepareVM 작업이 트리거됩니다.  이 작업은 소스 VM에서 스크립트를 자동으로 실행하여 변환을 준비합니다.  이 스크립트는 VMware Tools를 제거하고 드라이버를 업데이트하여 대상 하이퍼바이저 요구 사항에 맞춥니다.</block>
+  <block id="936ad6c925f79485c43e80fca5f998d1" category="image-alt">VM 준비 단계에 대한 대화 상자</block>
+  <block id="ca0d6f5b915ba75473878b2e4a25f824" category="image-alt">VM 변환 단계에 대한 대화 상자</block>
+  <block id="e38469c1fc68ca83ddada045beacbb44" category="image-alt">VM 전원 끄기 검증 단계 대화 상자</block>
+  <block id="f2470fd9acfc01b9d830d498196090dc" category="image-alt">VM 변환 단계 결과에 대한 대화 상자</block>
+  <block id="f89321da95ef8c5c384ca202700624c4" category="image-alt">디스크를 수동으로 변환하기 위한 대화 상자</block>
+  <block id="50ac124a54b0bb7ea8520a81095d4d0f" category="paragraph">참고: Shift 툴킷은 qcow2 형식에 대한 디스크 변환만 지원합니다. VM 생성이나 등록을 지원하지 않습니다. 변환된 디스크를 사용하려면 수동으로 VM을 만들고 디스크를 연결하세요.</block>
+  <block id="4e175b4a0600a5af4a37d4c3b532492f" category="image-alt">변환 단계에 대한 대화 상자</block>
+  <block id="130b7c31b80e0a57e3cb85e6585d497d" category="paragraph">참고: 변환된 VHDX 디스크를 VM에서 사용하려면 Hyper-V 관리자나 PowerShell 명령을 통해 수동으로 VM을 만들고 디스크를 연결해야 합니다. 이와 함께 네트워크도 수동으로 매핑해야 합니다.</block>
+  <block id="5000274a2d3250acac3a676012898380" category="section-title">RAW 형식으로 변환</block>
+  <block id="17bce200723c9c733ec906c2e322e0cd" category="paragraph">NetApp Shift 툴킷을 사용하여 가상 디스크를 RAW 형식으로 변환하려면 다음과 같은 간단한 단계를 따르세요.</block>
+  <block id="50e8a71367194ed752207c6119258412" category="list-text">하이퍼바이저로 OpenShift 또는 OLVM을 지정하여 대상 사이트 유형을 만듭니다.</block>
+  <block id="9955c8dfad8b6f77871cc9aac47e4af7" category="list-text">가상 디스크를 RAW 형식으로 변환하기 위한 청사진을 만듭니다. 청사진이 생성되면 준비 작업이 자동으로 시작됩니다.</block>
+  <block id="7d15934387474623537625c7bf484e1b" category="list-text">변환 작업은 VM과 해당 디스크에 대해 각 작업을 실행하여 적절한 RAW 형식을 생성합니다.</block>
+  <block id="83f66f08bf60fa09db9963b155860b84" category="list-text">변환된 디스크를 사용하여 VM을 수동으로 생성합니다.</block>
+  <block id="b0de87156ffe112f5f8166152cae5519" category="list-text">OpenShift의 경우 tridentctl을 사용하여 볼륨을 PVC로 가져온 다음 가져온 디스크를 사용하여 VM을 만듭니다.</block>
+  <block id="a92b8813eb165b3c43549058ce1fa8db" category="list-text">OLVM의 경우 ovirt engine URL로 이동하여 Shift 툴킷으로 변환된 RAW 파일을 OS 디스크로 첨부하여 새 VM을 만듭니다.  적절한 인터페이스를 선택해야 합니다.</block>
+  <block id="9eeb2626626241fa30880b2de8304572" category="paragraph">참고: OLVM의 경우 qcow2 파일 형식도 사용할 수 있습니다.  이러한 선택은 청사진을 만드는 동안 이루어질 수 있습니다.</block>
+  <block id="6e9a29234e1028e876f938bdd5681bc1" category="image-alt">변환 계획 편집 단계에 대한 대화 상자</block>
+  <block id="2437c64c84dd38b17fc189250ddf7cab" category="paragraph">참고: VM에서 변환된 RAW 디스크 이미지를 사용하려면 OpenShift 콘솔을 통해 또는 OpenShift의 경우 YAML을 통한 OC 명령을 통해, OLVM의 경우 OLVM REST API/UI를 사용하여 VM을 수동으로 생성하고 디스크를 연결해야 합니다. 이와 함께 네트워크도 수동으로 매핑해야 합니다.</block>
+  <block id="4c819ee19ebd0991fa0314f20d36a548" category="paragraph">참고: VM을 수동으로 생성할 때 적절한 부팅 유형(EFI 또는 BIOS)을 지정했는지 확인하세요.</block>
+  <block id="2821fbb86c99471cbce6ecd8b3c1687d" category="doc">ONTAP 스토리지용 NetApp Shift Toolkit 설치</block>
+  <block id="bc4e03f0d73b062d4fb7ae1f6a827d4c" category="paragraph">툴킷을 시작하려면 지정된 가상 머신에서 Windows 운영 체제를 사용하고 필수 구성 요소를 충족하는지 확인한 다음 패키지를 설치하세요.</block>
+  <block id="67ce7b132a7144fc8cbaea4fad51e24f" category="paragraph">Shift 툴킷은 Windows 2019, 2022, 2025 버전에서 실행할 수 있습니다.  Shift 툴킷 패키지를 다운로드하세요<block ref="dd181abce2974d0dae870cc1951c581b" category="inline-link-macro-rx"></block> 그런 다음 패키지의 압축을 풀고 exe를 실행하여 서비스를 설치하고 시작합니다.  Shift 툴킷은 온라인(약 130MB 크기)과 오프라인(약 1.2GB 크기)의 두 가지 패키지를 제공합니다.  이름에서 알 수 있듯이 온라인 설치 패키지는 인터넷에서 필요한 사전 요구 사항을 다운로드하여 설치합니다.</block>
+  <block id="92f4abdcd256d7df6e79a1ad93294e19" category="image-alt">Shift Toolkit 다운로드 선택을 보여주는 다이어그램</block>
+  <block id="bf009931d4fdadd17dd14d83a27f2a21" category="paragraph">팁: 배포에 적합한 패키지를 사용하세요. 오프라인 모드에서는 모든 필수 구성 요소와 필수 파일이 포함되어 있으므로 프록시 설정을 수정할 필요가 없습니다.</block>
+  <block id="2ae052fbbc764cd4eeaebe29c1aba7c5" category="paragraph">참고: 전용 VM에 Shift 툴킷을 설치하세요.</block>
+  <block id="e11da9afe91d381489a365c86cc614ab" category="section-title">필수 조건</block>
+  <block id="84089c84fe635e93a571c8d2078685e2" category="list-text">CPU – 4개의 vCPU</block>
+  <block id="c25de1656f530fa9c0e02e589a99b0b2" category="list-text">메모리 – 최소 8GB</block>
+  <block id="01a9b91ccede03f628fdc87d2dadd2ca" category="list-text">디스크 공간 – 최소 100GB</block>
+  <block id="282e13fea6054e5c4d616c6fa05dc945" category="paragraph">참고: 설치하려면 900MB의 디스크 공간이 필요합니다.</block>
+  <block id="211fbf3c943803d1e8ee2d9028d397c8" category="list-text">Hyper-V 기반 마이그레이션의 경우 Shift 서버, Data ONTAP CIFS 서버 및 Hyper-V 서버는 동일한 Windows Active Directory 도메인에 있어야 합니다.</block>
+  <block id="5ee9ac4214347b231d90ec0fe04ec7da" category="list-text">Storage Virtual Machine에서 VM 변환을 수행할 때 CIFS 및 NFS용 여러 LIF를 사용할 수 있습니다. Hyper-V 서버와 ESXi 호스트는 이러한 LIF의 IP 주소를 사용하여 SVM(스토리지 가상 머신)에 액세스합니다.</block>
+  <block id="1a08679970ec521864f514134592b9e3" category="paragraph">이 링크에 제공된 단계에 따라 NFS와 SMB 프로토콜을 모두 허용하는 새로운 SVM을 프로비저닝하세요.</block>
+  <block id="3347f6bf3e8cab9408274a227d3c72f3" category="paragraph">참고: 운영 중인 SVM을 방해가 될 수 있는 방식으로 수정하지 않고도 SVM이 Shift 툴킷 요구 사항을 충족하는지 확인하려면 새로운 SVM을 만드는 것이 좋습니다.</block>
+  <block id="e2dbf54fe0eb6dc74487bee43ad08766" category="paragraph">참고: VMware에서 Hyper-V로 양방향 마이그레이션을 수행하려면 새 SVM에서 NFS와 SMB 프로토콜을 모두 활성화해야 합니다. 프로비저닝된 볼륨에는 NFS와 SMB가 모두 활성화되어 있어야 합니다.</block>
+  <block id="e4747dacfdeaf64a9f1da8c1e983cb88" category="list-text">ESX에서 Hyper-V로 변환하는 경우 Shift 툴킷은 변환된 VHDX를 동일한 볼륨 내의 qtree(NTFS 보안 스타일)에 배치합니다.</block>
+  <block id="3c9fc53f2afbc9694a4df01009b70d37" category="list-text">Hyper-V에서 ESX로 변환하는 경우 Shift 툴킷은 변환된 VMDK를 동일한 볼륨 내의 qtree(UNIX 보안 스타일)에 배치합니다.</block>
+  <block id="5b8cf77d4e68f3259aec8c8c523c07af" category="list-text">ESX VMDK에서 RAW로 변환하는 경우 UNIX 보안 스타일을 적용한 qtree를 사용해야 합니다.</block>
+  <block id="782281c56b4e89829f430b0e3a5be151" category="paragraph">Shift 툴킷은 qtree의 보안 스타일을 검증하지 않습니다.  따라서 대상 하이퍼바이저와 디스크 유형에 따라 적절한 보안 스타일을 갖춘 Qtree를 만드는 것이 중요합니다.</block>
+  <block id="8b4ce025817faabaa0617e7aa13e4cf2" category="paragraph">참고: 대상 경로는 소스 VM과 동일한 볼륨에 있어야 합니다.</block>
+  <block id="e426197e5ed7b611e44b6946ced57d2e" category="paragraph">참고: 대상 하이퍼바이저 유형 및 디스크 형식에 따라 qtree에 올바른 보안 스타일을 할당하세요.</block>
+  <block id="0960a401a7c74ce515f31aa33ba7f6bd" category="paragraph">참고: 변환된 qcow2 파일을 OpenShift 가상화와 함께 사용할 경우 예외가 있습니다. 이러한 파일은 qtree를 활용하지 않고도 볼륨에 직접 배치할 수 있습니다.  이를 달성하려면 Shift 툴킷 GUI를 사용하거나 Shift 툴킷 API를 활용하여 VMDK 파일을 qcow2 형식으로 변환하고 볼륨 내에 직접 배치합니다.</block>
+  <block id="e3d5a5ace968edfbd09962cfa0dee29f" category="image-alt">마이그레이션 유형에 따라 생성할 q-트리 유형의 다이어그램</block>
+  <block id="05e28166a1f92c3a776cf8a97a6b6ee9" category="image-alt">생성할 Q-트리 유형을 보여주는 대화 상자</block>
+  <block id="51f228208bf35769cace217e2c75b361" category="section-title">CIFS 공유 요구 사항</block>
+  <block id="4d191110824bda8df8aeb1a6e7b18c8e" category="paragraph">Hyper-V 마이그레이션의 경우 변환된 VM 데이터가 저장될 공유를 만듭니다. NFS 공유(변환할 VM을 저장하는 데 사용)와 대상 공유(변환된 VM을 저장하는 데 사용)가 동일한 볼륨에 있는지 확인하세요.</block>
+  <block id="495c34aa343437cb8f198cd862f90c81" category="image-alt">CIFS 공유를 생성하는 방법을 보여주는 대화 상자</block>
+  <block id="ba3fb9aceb0ac7c1eb94ffbeb452a225" category="image-alt">CIFS 공유 생성 결과를 보여주는 대화 상자</block>
+  <block id="55e50708d5593637dc5ac91cd853b0f7" category="paragraph">참고: SMB 3.0을 활성화해야 합니다. 이는 기본적으로 활성화되어 있습니다.</block>
+  <block id="728ab136002a6dc74f473e416573b625" category="paragraph">참고: 지속적으로 사용 가능한 속성이 활성화되어 있는지 확인하세요.</block>
+  <block id="682675114425e9735aa2e70a47f8ce30" category="paragraph">참고: SMB에 대한 내보내기 정책은 스토리지 가상 머신(SVM)에서 비활성화되어야 합니다.</block>
+  <block id="b4d8d61dfa520ade1afa686010c3e960" category="paragraph">참고: CIFS 서버와 Hyper-V 서버가 속한 도메인은 Kerberos와 NTLMv2 인증을 모두 허용해야 합니다.</block>
+  <block id="192e3564614d93f8d5df4d9058dbbe24" category="paragraph">참고: ONTAP Windows 기본 공유 권한인 모든 사람/모든 권한으로 공유를 생성합니다.</block>
+  <block id="7eab521ce07e2b1655041dc55cbbeede" category="section-title">지원되는 VM 게스트 운영 체제</block>
+  <block id="e87637b4c5507d05f5ab40e9b4f2ebeb" category="list-text">알마 리눅스 7.x</block>
+  <block id="61ae957360cbb9e779b4770da0706e03" category="list-text">수세 12</block>
+  <block id="d0a61b5dcacd7a98d6ea9528d63dcb93" category="list-text">수세 15</block>
+  <block id="eaa4eab53048f73b6261960ce0c2f1af" category="paragraph">참고: Red Hat Enterprise Linux 5 및 6용 CentOS Linux/RedHat은 지원되지 않습니다.</block>
+  <block id="2e8696e7652fb7511860b42ad6311740" category="paragraph">참고: Windows Server 2008은 지원되지 않지만 변환 과정은 정상적으로 작동할 것입니다. 모든 위험은 사용자에게 있습니다. 그러나 Shift 툴킷을 사용하여 Windows 2008 VM을 성공적으로 변환했다는 보고를 고객으로부터 받았습니다. 마이그레이션 후에는 IP 주소를 업데이트하는 것이 중요합니다. IP 할당을 자동화하는 데 사용되는 PowerShell 버전은 Windows Server 2008에서 실행되는 이전 버전과 호환되지 않기 때문입니다.</block>
+  <block id="6ad3fd15b4ece95a97a7bcb31427bec1" category="section-title">지원되는 ONTAP 버전</block>
+  <block id="01e9975649f2ec16d824f96c4fa7aeb8" category="section-title">지원되는 하이퍼바이저 버전</block>
+  <block id="95546e9760981229487527d6cf9a3d52" category="list-text">VMware - Shift 툴킷은 vSphere 7.0.3 이상에서 검증되었습니다.</block>
+  <block id="8ab50e84904fabba2aa923a86f8df826" category="list-text">Hyper-V – Shift 툴킷은 Windows Server 2019, Windows Server 2022 및 Windows Server 2025에서 실행되는 Hyper-V 역할에 대해 검증되었습니다.</block>
+  <block id="4548015f6d00a7f977186d6acc5f7902" category="list-text">OpenShift - Red Hat OpenShift 및 OpenShift Virtualization 4.17 이상 실행</block>
+  <block id="0d7435375bda68258e789bb228f91ebc" category="list-text">Oracle Linux KVM - Oracle Linux Virtualization Manager가 4.5 이상입니다.</block>
+  <block id="367c1e1c1b0fed55126cd44edcd92a67" category="list-text">ovirt-engine-4.5.4-1.el8 RPM 이상이 Oracle Linux Virtualization Manager 호스트에 설치되어 있습니다.</block>
+  <block id="da2ac70bce2d0ec6af2002c75cccc8d8" category="paragraph">참고: 현재 릴리스에서는 Hyper-V, VMware, OpenShift, Oracle Virtualization에서만 종단 간 가상 머신 마이그레이션이 지원됩니다.</block>
+  <block id="4c209b67ccc456b479fb83032a682caf" category="paragraph">참고: 현재 릴리스에서는 대상이 KVM인 경우 VMDK에서 qcow2 또는 RAW로의 변환이 유일하게 지원되는 워크플로입니다. 따라서 드롭다운에서 KVM을 선택하면 하이퍼바이저 세부 정보가 필요하지 않습니다. qcow2 디스크는 KVM 변형에서 가상 머신을 프로비저닝하는 데 사용할 수 있습니다.</block>
+  <block id="0201d970862cf35319ea23520c58226a" category="list-text">다운로드<block ref="007da9a550a8944648c282b612decf50" category="inline-link-macro-rx"></block> 패키지를 다운로드하고 압축을 풉니다.</block>
+  <block id="6572eb27b5c6086cdd5bcbc4d1667e7b" category="image-alt">Shift Toolkit 다운로드 옵션을 보여주는 대화 상자</block>
+  <block id="4ec292c048e8a4f9e319c6cb0de2483d" category="image-alt">실행할 Shift Toolkit 패키지를 보여주는 대화 상자</block>
+  <block id="9ba651c3c5f2463d30951495821d85c6" category="paragraph">참고: 모든 사전 검사가 수행되며 최소 요구 사항을 충족하지 못하면 해당 오류 또는 경고 메시지가 표시됩니다.</block>
+  <block id="c2892c9148b18c2c3e6d5b86db11172d" category="image-alt">Shift Toolkit 대상 폴더를 보여주는 대화 상자</block>
+  <block id="e60c7bb55f0d3c05c05bae40b25ce40d" category="image-alt">Shift Toolkit을 시작하기 위한 IP 주소를 보여주는 대화 상자</block>
+  <block id="4318bd8cdde40d55306f3502c0865b2b" category="paragraph">참고: VM에 여러 NIC가 할당된 경우 설정 과정에서 드롭다운 옵션을 사용하여 올바른 IP 주소를 선택할 수 있습니다.</block>
+  <block id="dcae96231bba4c35e94accf7724b8cea" category="paragraph">다음을 클릭하세요.</block>
+  <block id="7fa1f523d44084aabc1cd576f9320be1" category="image-alt">설치할 패키지를 보여주는 대화 상자</block>
+  <block id="ee579445f71f17020d064463efed8355" category="image-alt">Java 라이선스 정보를 보여주는 대화 상자</block>
+  <block id="51fe884902370ec53cd7acd7e6abed3a" category="image-alt">추가 Shift Toolkit 옵션을 보여주는 대화 상자</block>
+  <block id="422250d12ac22829224f1b621e63ac68" category="image-alt">Shift Toolkit 설치 옵션을 보여주는 대화 상자</block>
+  <block id="58cebf544833d2d2babd5e50c91061b1" category="image-alt">Shift Toolkit 설치 진행 상황을 보여주는 대화 상자</block>
+  <block id="9051840a1f4fd4f2bad1fc8681b84cad" category="list-text">Shift 툴킷은 기본적으로 자체 서명 인증서를 사용합니다.  인증서 프롬프트를 수락하고 다음을 클릭합니다.</block>
+  <block id="52de851295c6c158e4cb3c652c91ab8d" category="paragraph">참고: 인증서는 제3자 또는 CA에서 생성한 인증서로 쉽게 대체할 수 있습니다.  certs 폴더 내의 인증서를 교체하기만 하면 됩니다.  certs 폴더는 &lt;설치 디렉토리&gt;저장소&gt;Certs에 있습니다.</block>
+  <block id="b5cff33795d09607abcdb31ac9df352a" category="image-alt">Shift Toolkit SSL 인증서 선택을 보여주는 대화 상자</block>
+  <block id="99e092ab9321d3856d51f3e4e55af66a" category="list-text">완료되면 설치가 완료됩니다.</block>
+  <block id="0199e0f110ed08f00ecaa17084564276" category="paragraph">참고: Shift 툴킷 VM에 인터넷이 없는 경우 오프라인 설치 프로그램은 동일한 단계를 수행하지만 실행 파일에 포함된 패키지를 사용하여 구성 요소를 설치합니다.</block>
+  <block id="e63765367148f418cf687a4778e70038" category="image-alt">Shift Toolkit 마법사를 보여주는 대화 상자</block>
+  <block id="aee686fe73ad9a385c756152fb9cd868" category="paragraph">참고: 설치하는 데 10~15분이 걸릴 수 있습니다.</block>
+  <block id="16807519541f6a0f84b273fd8a3e9b70" category="paragraph">업그레이드는 이제 완전히 자동화되어 단 한 번의 클릭으로 완료할 수 있습니다.  추가 서비스를 이용하면 업그레이드가 더욱 간편해집니다.  포트 3002에서 수신하는 Shit 툴킷 업데이터 서비스는 다음 단계를 수행합니다.</block>
+  <block id="38243a8449ba1b8388f98f8617180f9a" category="list-text">업그레이드 패키지를 다운로드하세요.</block>
+  <block id="d7696bad80895fa3cb6a1f79064ac9e1" category="list-text">Shift 툴킷 서비스 중지</block>
+  <block id="5dd592d4d5a0330779cd0e975d5958b1" category="list-text">파일을 추출하고 필요한 파일을 덮어씁니다.</block>
+  <block id="0d83db94a6f793e24bc275947796d6ad" category="list-text">업데이트를 실행하고 동일한 IP 주소를 사용합니다(메타데이터는 그대로 유지).</block>
+  <block id="a081c9f4fbebfea5f37497319eeb3147" category="list-text">완료되면 UI는 포트 3001에서 수신하는 Shift 툴킷 UI로 리디렉션됩니다.</block>
+  <block id="8c57096463233c48527a2884538dc643" category="image-alt">Shift Toolkit 업그레이드 옵션을 보여주는 대화 상자</block>
+  <block id="f8b3364d2c3529025a5164f050b187ef" category="paragraph">참고: 인터넷 연결 없이 배포하는 경우 NetApp Toolchest에서 "update"로 시작하는 업그레이드 패키지를 수동으로 다운로드하여 지정된 폴더(C:\NetApp_Shift)에 넣으세요.  이 폴더 경로는 업데이트 프로세스 중에 생성되고 지정되어야 합니다.  다른 모든 단계는 온라인 업그레이드 절차와 동일합니다.</block>
+  <block id="000738c77e4719c5ca7216b3b1fd318c" category="summary">Shift Toolkit을 사용하여 VM을 준비하고, 디스크 형식을 변환하고, 대상 환경을 구성하여 VMware ESXi에서 Microsoft Hyper-V로 VM을 마이그레이션합니다.</block>
+  <block id="7c087000969c41966e005710d6aebb90" category="doc">Shift Toolkit을 사용하여 VMware ESXi에서 Microsoft Hyper-V로 VM 마이그레이션</block>
+  <block id="82f049c181190bec5fa5f8b4f44c198a" category="paragraph">Shift Toolkit은 대상 환경에서 디스크 포맷 변환과 네트워크 재구성을 통해 가상화 플랫폼 간에 VM 마이그레이션을 가능하게 합니다.</block>
+  <block id="4b515b397023a2aa565bb28cde776fd4" category="paragraph">마이그레이션을 시작하기 전에 다음 전제 조건이 충족되는지 확인하세요.</block>
+  <block id="debc2d1e757eda35d432085120c37d2f" category="list-title">Hyper-V 요구 사항</block>
+  <block id="7d99ee11073cedef94e09d0d4d2fe0d0" category="list-text">독립 실행형 호스트 또는 장애 조치 클러스터로 구성된 Hyper-V 호스트</block>
+  <block id="0d7fa616445ab93d9032606e2b715c05" category="list-text">관리자 권한이 있는 Hyper-V 사용자 계정</block>
+  <block id="74f746ad8d4532cd2a1c4d3922595d35" category="list-text">Hyper-V 호스트는 최신 DNS 항목을 사용하여 네트워크에 접속할 수 있습니다.</block>
+  <block id="946ee221b3d697efc0bae2f95760d3f7" category="list-text">적절한 트렁킹으로 구성된 가상 스위치</block>
+  <block id="d5782cc8ee8832f8949c7c2d7537215e" category="list-text">네트워크 선택을 위한 가상 스위치 유형 "외부"</block>
+  <block id="d602949ed90e93b3fb197560899c1c9a" category="list-text">동일한 볼륨에 있는 NFS 공유(변환될 VM용) 및 대상 공유(변환된 VM용)</block>
+  <block id="a845489830ee9176ef063933e3d6a5cf" category="list-text">SMB 제한 위임은 다음을 사용하여 구성되었습니다.<block ref="b9d95fa74c6bb7c7f00f936cc2e1a0a5" prefix=" " category="inline-code"></block> 접근 거부 오류를 방지하려면</block>
+  <block id="2578530c109a47f882269c507b9d8d81" category="list-text">SMB 3.0 활성화됨(기본값)</block>
+  <block id="aca85ffebe0869fb2c2ce0137ed40684" category="list-text">SMB 주식에 대해 지속적으로 사용 가능한 자산이 활성화되었습니다.</block>
+  <block id="aadc8681852b2ea5b3ba21c6e8d2c988" category="list-text">스토리지 가상 머신(SVM)에서 SMB에 대한 내보내기 정책이 비활성화되었습니다.</block>
+  <block id="4440bacbd592f44fd2d55befe312d5f4" category="admonition">SCVMM은 현재 릴리스에서 마이그레이션을 지원하는 엔드포인트가 아닙니다.</block>
+  <block id="dd5c9aaf7ce7c512abe1dac36ace1be5" category="list-text">Hyper-V FCI 및 호스트 검색은 DNS 확인에 의존합니다. Shift Toolkit VM에서 호스트 이름을 확인할 수 있는지 확인하세요.  해결에 실패하면 호스트 파일을 업데이트하세요.<block ref="803976de87f6862821bd3c4d94e0ff2b" prefix="(" category="inline-code"></block> )을 클릭하고 검색 작업을 다시 시도하세요.</block>
+  <block id="8aebcee2a60f58112f62cf5f2ebbd98c" category="list-title">VMware 요구 사항</block>
+  <block id="422dedd8cc1ce40e706c2dfe7cfc8539" category="list-text">VM VMDK는 NFSv3 볼륨에 배치됩니다(지정된 VM에 대한 모든 VMDK는 동일한 볼륨의 일부여야 함)</block>
+  <block id="ffb2b1058b7d0f59e42141e918136b38" category="list-text">VMware 도구는 게스트 VM에서 실행됩니다.</block>
+  <block id="37cb69e3984996f7b98ef948a8485d0d" category="list-text">마이그레이션할 VM은 준비를 위해 RUNNING 상태입니다.</block>
+  <block id="19e91161c255453e93fddb5906de0195" category="list-text">마이그레이션을 트리거하기 전에 VM의 전원을 꺼야 합니다.</block>
+  <block id="f9286b616b6602941144eaf201b96126" category="list-text">VMware 도구 제거는 VM이 전원이 켜지면 대상 하이퍼바이저에서 수행됩니다.</block>
+  <block id="429ffc9aaafb2951b52224e9a98afb76" category="list-title">게스트 VM 요구 사항</block>
+  <block id="7506e7137621848c81d6a4ec1f3b6950" category="list-text">Windows VM의 경우: 로컬 관리자 자격 증명을 사용하세요(도메인 자격 증명도 사용할 수 있지만 변환하기 전에 VM에 사용자 프로필이 있는지 확인하세요)</block>
+  <block id="b207ab9e8441c4c78653a0978d578fa2" category="list-text">Linux VM의 경우: 암호 프롬프트 없이 sudo 명령을 실행할 수 있는 권한이 있는 사용자를 사용합니다(사용자는 sudoers 목록에 있거나 추가되어야 함).<block ref="15160d21aa7f8cb0f751f17cf3a5cb0e" prefix=" " category="inline-code"></block> 접는 사람)</block>
+  <block id="ddf66ede3fd74fa4be14ccfb67638e6b" category="section-title">1단계: 대상 사이트 추가(Hyper-V)</block>
+  <block id="6af63d62ab97df2caa6f1d38d385de92" category="paragraph">Shift Toolkit에 대상 Hyper-V 환경을 추가합니다.</block>
+  <block id="188dd907ff144f4c1425076ef3fd827c" category="list-text">*새 사이트 추가*를 클릭하고 *대상*을 선택하세요.</block>
+  <block id="0cd543a8935599684a0dd9f8c69d87d7" category="image-alt">목적지 사이트 추가</block>
+  <block id="683d507d52edbf826ccfcdeb546ad781" category="list-text">목적지 사이트 세부 정보를 입력하세요:</block>
+  <block id="932d2ade46ff0b6c644980e500748f1c" category="list-text">*사이트 이름*: 사이트 이름을 입력하세요</block>
+  <block id="ce8e3079e956cf849727afa6b110e619" category="list-text">*하이퍼바이저*: 대상으로 Hyper-V를 선택하세요</block>
+  <block id="bd191f796486adcdac00253c29528963" category="list-text">*사이트 위치*: 기본 옵션을 선택하세요</block>
+  <block id="13343067bc3bab5c95b004b8c2ef5693" category="list-text">*커넥터*: 기본 선택을 선택하세요</block>
+  <block id="26983a904e0717c520032a2178795368" category="list-text">*계속*을 클릭하세요.</block>
+  <block id="5cafbdf05cba10a53b10baa9ab3216b5" category="image-alt">목적지 사이트 세부 정보</block>
+  <block id="4516463bf2c2bd75d4809b9edaceef11" category="list-text">대상 Hyper-V 세부 정보를 입력하세요.</block>
+  <block id="278e07da414ee09f9a40aab66edc5898" category="list-text">*Hyper-V 독립 실행형 또는 장애 조치 클러스터 관리자*: IP 주소 또는 FQDN</block>
+  <block id="715ac77e18b4b7c54a2ad8a6848df122" category="list-text">*사용자 이름*: 액세스할 사용자 이름(UPN 형식: username@domain.com 또는 domain\administrator)</block>
+  <block id="b0000b9243f4dae293a393814de799c0" category="list-text">*비밀번호*: 리소스 인벤토리를 수행하기 위해 Hyper-V 호스트 또는 FCI 인스턴스에 액세스하기 위한 비밀번호</block>
+  <block id="e8b404919252450ae874aa04fff84e85" category="list-text">*자체 서명된 인증서 수락*을 선택하고 *계속*을 클릭합니다.</block>
+  <block id="da8e22aa439d5ae1f7afd1eb1b2d0a23" category="image-alt">Hyper-V 세부 정보</block>
+  <block id="5296858fb0caa0a11f03202fcd7425e6" category="list-text">*사이트 만들기*를 클릭하세요.</block>
+  <block id="463e258f2c7159365bea1be5eef6ca77" category="image-alt">사이트 만들기</block>
+  <block id="1afb841fd4d5d2adf6c803fab92db59d" category="section-title">2단계: 리소스 그룹 만들기</block>
+  <block id="218158d2715fb88511abec805081cb45" category="paragraph">부팅 순서와 부팅 지연 구성을 보존하기 위해 VM을 리소스 그룹으로 구성합니다.</block>
+  <block id="efb77590502ee9549c0af49a4a2edb01" category="list-text">필수 구성 요소에 지정된 대로 Qtree가 프로비저닝되었는지 확인하십시오.</block>
+  <block id="56ae78932eeeb6eb021f1b76f74ef365" category="list-text">변환하기 전에 새로 생성된 ONTAP SVM의 지정된 데이터 저장소로 VM을 이동하여 스테이징 영역에서 프로덕션 NFS 데이터 저장소를 분리합니다.</block>
+  <block id="9eaf49a3d4d83929ac8f982d05bcfb4b" category="list-text">*리소스 그룹*으로 이동하여 *새 리소스 그룹 만들기*를 클릭합니다.</block>
+  <block id="081b5cbc9f16fabe5032fefd3bc5c899" category="image-alt">새 리소스 그룹 만들기</block>
+  <block id="25ae835aafa707f153e7980dd51c4263" category="list-text">드롭다운에서 *소스 사이트*를 선택하고 *만들기*를 클릭합니다.</block>
+  <block id="eedb21758deb9f6e5ced998a6d4d0383" category="list-text">리소스 그룹 세부 정보를 제공하고 워크플로를 선택합니다.</block>
+  <block id="95b0ec511f85c8a74fd4983a2f4ea5e7" category="list-text">*복제 기반 마이그레이션*: 소스 하이퍼바이저에서 대상 하이퍼바이저로 종단 간 마이그레이션을 수행합니다.</block>
+  <block id="d839a58a56d290ae2a4732590737cc22" category="list-text">*클론 기반 변환*: 디스크 형식을 선택한 하이퍼바이저 유형으로 변환합니다.</block>
+  <block id="8395ae923a1def41dbdbe217220a8450" category="image-alt">리소스 그룹 세부 정보</block>
+  <block id="7c8a3a33dfa0df93a4149d1943eb4a68" category="list-text">검색 옵션을 사용하여 VM을 선택합니다(기본 필터는 "데이터 저장소"입니다).</block>
+  <block id="abc8655807eefad811beeb9cec02fdf8" category="admonition">데이터 저장소 드롭다운에는 NFSv3 데이터 저장소만 표시됩니다.  NFSv4 데이터 저장소는 표시되지 않습니다.</block>
+  <block id="10a0fdd8024bbf4d77253daa63f716a9" category="image-alt">VM 선택</block>
+  <block id="f8af0b294b70d97a386c3ffbd5fe9ad2" category="image-alt">데이터 저장소 필터</block>
+  <block id="adf1e0a9cc7578b5fab4c22490b4add0" category="list-text">마이그레이션 세부 정보 업데이트:</block>
+  <block id="07696be6519ebad7d8390f8ad32dd152" category="list-text">*목적지* 선택</block>
+  <block id="6c1474529188b15fb25d919d094e1f67" category="list-text">*대상 Hyper-V 항목*을 선택하세요</block>
+  <block id="02f0526f2fcd4c1e2725ec5e2a18c2a8" category="list-text">Datastore에서 Qtree로의 매핑 구성</block>
+  <block id="9bbf5194c2e55d16f6d05723b1f3fdce" category="image-alt">마이그레이션 세부 정보</block>
+  <block id="d89b0087c53f1b372c1e87910674cda6" category="image-alt">Qtree 매핑</block>
+  <block id="34ba7a10c9ff970acaea8a43704864df" category="admonition">ESXi에서 Hyper-V로 VM을 변환할 때 대상 경로(변환된 VM이 저장되는 경로)가 Qtree로 설정되어 있는지 확인하십시오. 변환된 VM 디스크를 저장하는 데 여러 개의 Qtree를 생성하여 사용할 수 있습니다.</block>
+  <block id="8bdb0965afed4f91f57cd8f1c4013f2b" category="list-text">선택한 모든 VM에 대한 부팅 순서와 부팅 지연을 구성합니다.</block>
+  <block id="442b30ac474fe92c1fc38ba82814e1ec" category="list-text">*1*: 전원을 켜는 첫 번째 VM</block>
+  <block id="3a048e177e20eebf25b985edf313ba9e" category="list-text">*3*: 기본값</block>
+  <block id="7d360d4b8aaeea879554a7ed8029e5c8" category="list-text">*5*: 마지막으로 전원이 켜진 VM</block>
+  <block id="4a20e3deb7bb7c2961cffc43e390c88d" category="image-alt">부팅 순서 구성</block>
+  <block id="84a63bc4997af6ded1933281f4b8babb" category="list-text">*리소스 그룹 만들기*를 클릭합니다.</block>
+  <block id="694dca08cae7aa2aca4cc7c2cea397c9" category="paragraph">리소스 그룹이 생성되어 블루프린트 구성을 위한 준비가 되었습니다.</block>
+  <block id="93bf293a60fab5ab98db400eab352a83" category="section-title">3단계: 마이그레이션 청사진 만들기</block>
+  <block id="59563e918193eba7d0fd5835ccf0f59e" category="paragraph">플랫폼 매핑, 네트워크 구성, VM 설정을 포함하여 마이그레이션 계획을 정의하는 청사진을 만듭니다.</block>
+  <block id="736c84d3008b91a1e53a42c7ab274942" category="list-text">*청사진*으로 이동하여 *새 청사진 만들기*를 클릭합니다.</block>
+  <block id="56d8de6c48b0674fea7369e0f6ac1284" category="image-alt">새로운 청사진 만들기</block>
+  <block id="bf6f748c6c64245076001e4126479a63" category="list-text">청사진의 이름을 제공하고 호스트 매핑을 구성합니다.</block>
+  <block id="456eb4d4e54bf26cc2f12e30475bc4f5" category="list-text">*소스 사이트* 및 관련 vCenter 선택</block>
+  <block id="49ba70eb3ca11b7e6be19de421651955" category="list-text">*대상 사이트* 및 관련 Hyper-V 대상을 선택합니다.</block>
+  <block id="9f32d3ff7b8565db6b70f4cc8bf43199" category="list-text">클러스터 및 호스트 매핑 구성</block>
+  <block id="ff450e485e87ef1cf3b306493b1e4004" category="image-alt">호스트 매핑</block>
+  <block id="5a37d258e17fbe127917c7804b8e55b6" category="list-text">리소스 그룹 세부 정보를 선택하고 *계속*을 클릭합니다.</block>
+  <block id="8ae582a90742c16c6b8e511bcc61ec9e" category="image-alt">리소스 그룹 세부 정보</block>
+  <block id="10759af48a82e9dd4e5130728b263c49" category="list-text">여러 그룹이 있는 경우 리소스 그룹에 대한 실행 순서를 설정합니다.</block>
+  <block id="dc86700f5f4fadaaa6d83dea604d1c25" category="list-text">적절한 가상 스위치에 대한 네트워크 매핑을 구성합니다.</block>
+  <block id="c727e8036efac5c6e4c802e34d30f2d4" category="admonition">가상 스위치는 Hyper-V에 이미 프로비저닝되어 있어야 합니다. Hyper-V 측에서는 네트워크 선택 시 "외부" 가상 스위치 유형만 지원됩니다.  테스트 마이그레이션의 경우, 프로덕션 네트워크 충돌을 피하기 위해 "네트워크를 구성하지 않음"을 선택하세요. 변환 후 네트워크 설정을 수동으로 지정하세요.</block>
+  <block id="978dca810a01e1160a6fef9a4f0d143b" category="image-alt">네트워크 매핑</block>
+  <block id="f6c8e23c9231f8dc3df2ead671e40060" category="image-alt">네트워크 구성 옵션</block>
+  <block id="d4b2dee738ed5053b7b1e27c81b06950" category="list-text">스토리지 매핑을 검토합니다(VM 선택에 따라 자동으로 선택됨).</block>
+  <block id="be14149160c231864d10ef34d2523664" category="admonition">사전에 qtree가 프로비저닝되어 있고 필요한 권한이 할당되어 SMB 공유에서 가상 머신을 만들고 전원을 켤 수 있는지 확인하세요.</block>
+  <block id="725c36acef224022bbca92507c89576a" category="list-text">필요한 경우 prepareVM 재정의 옵션을 구성합니다.  이 옵션은 Shift Toolkit을 사용하여 VM 준비를 건너뛰고 대신 사용자 정의 스크립트를 사용하여 해당 작업을 수행해야 할 때 유용합니다.  또한 특정 환경 요구 사항을 충족하도록 IP 주소를 사용자 정의할 수도 있습니다.</block>
+  <block id="6d1b3ef057417ae12b5daeacf35b28de" category="image-alt">PrepareVM 재정의</block>
+  <block id="f372faded2a70167c24327206511e486" category="list-text">VM 세부 정보에서 구성 세부 정보를 선택하고 각 OS 유형에 대한 서비스 계정 자격 증명을 제공합니다.</block>
+  <block id="54d9267233ecfd749504c4daa00f9668" category="list-text">*Windows*: 로컬 관리자 권한이 있는 사용자를 사용하세요(도메인 자격 증명도 사용할 수 있지만 변환하기 전에 VM에 사용자 프로필이 있는지 확인하세요)</block>
+  <block id="a2c364bbcde256049ef11020f376c2d7" category="list-text">*Linux*: 암호 프롬프트 없이 sudo 명령을 실행할 수 있는 사용자를 사용합니다(사용자는 sudoers 목록에 있거나 추가되어야 함).<block ref="15160d21aa7f8cb0f751f17cf3a5cb0e" prefix=" " category="inline-code"></block> 접는 사람)</block>
+  <block id="a23ad715b2a07099d65a3571c551d84f" category="image-alt">VM 자격 증명</block>
+  <block id="24c2ba4415efa7f9fe0b92c6f598cf18" category="list-text">IP 설정 구성:</block>
+  <block id="9f95d5f892c4f89582db79fd8a3736ab" category="list-text">*구성하지 마세요*: 기본 옵션</block>
+  <block id="fd21714699cb9d810430abbf7c06fd68" category="list-text">*IP 유지*: 소스 시스템의 동일한 IP 유지</block>
+  <block id="68f484d130880305d0c6880349c3f07e" category="list-text">*DHCP*: 대상 VM에 DHCP를 할당합니다.</block>
+  <block id="ac2bb49f08637592b68ee7888451ff5e" category="paragraph">prepareVM 단계에서 VM의 전원이 켜져 있는지, VMware Tools가 설치되어 있는지, 준비 스크립트가 적절한 권한으로 실행되는지 확인하세요.</block>
+  <block id="9d24c7ca49cac9bb706575cba4b1b7aa" category="list-text">VM 설정 구성:</block>
+  <block id="c2e30115124958b24bf2c74b4c9d0a50" category="list-text">CPU/RAM 매개변수 크기 조정(선택 사항)</block>
+  <block id="63647e479040467e4306bcd959d534f6" category="list-text">부팅 순서 및 부팅 지연 수정</block>
+  <block id="59ed6f6bf7e05e6258a886182076381e" category="list-text">*전원 켜기*: 마이그레이션 후 VM 전원을 켜도록 선택합니다(기본값: 켜짐)</block>
+  <block id="13c4b745b5efc9cd25b1d0fcb86bed6e" category="list-text">*VMware Tools 제거*: 변환 후 VMware Tools 제거(기본값: 선택됨)</block>
+  <block id="3e96c9ee4e7c31bf3f0bb42022aef938" category="list-text">*VM 펌웨어*: Gen1 &gt; BIOS 및 Gen2 &gt; EFI(자동)</block>
+  <block id="4ec4883ce8c6236dd65b72bfdd8330c4" category="list-text">*MAC 유지*: 라이선스 요구 사항을 위해 MAC 주소를 유지합니다.</block>
+  <block id="712b22f1b4f107301b056d98f475d5c5" category="list-text">*서비스 계정 재정의*: 필요한 경우 별도의 서비스 계정을 지정하세요.</block>
+  <block id="81aa719692d784e035e154ea938b5af8" category="list-text">*VLAN 재정의*: 대상 하이퍼바이저가 다른 VLAN 이름을 사용하는 경우 올바른 태그가 지정된 VLAN 이름을 선택합니다.</block>
+  <block id="17126aef3e415713552604218f448967" category="image-alt">VM 구성</block>
+  <block id="251165f456d0c3cadcfa4bf117e27132" category="list-text">날짜와 시간을 선택하여 마이그레이션을 예약하세요.</block>
+  <block id="1ae13a1eab27650080a85152b43669e6" category="admonition">VM 준비 시간을 확보하기 위해 최소 30분 전에 마이그레이션 일정을 예약하세요.</block>
+  <block id="ab4f3bfe42c6ea2d5cd74cae753ee7c3" category="image-alt">마이그레이션 일정</block>
+  <block id="9bd7b7602710a0acb0e5dbe53056146f" category="list-text">*청사진 만들기*를 클릭하세요.</block>
+  <block id="49a991077c7bab79a2274561cbf8bb1f" category="paragraph">Shift Toolkit은 소스 VM에서 스크립트를 실행하여 마이그레이션을 준비하는 prepareVM 작업을 시작합니다.</block>
+  <block id="c29900bc76f2b9e03d782a75599a32bb" category="image-alt">PrepareVM 작업</block>
+  <block id="605a61b5084f3cc231864bcb4b876afa" category="paragraph">준비 과정:</block>
+  <block id="de69d0c151233a59b3fc720ee692f9a7" category="list-text">드라이버(RHEL/CentOS, Alma Linux)를 추가하고 VMware 도구를 제거하고 IP/경로/DNS 정보를 백업하기 위한 스크립트를 삽입합니다.</block>
+  <block id="02d728f83396a9f615fd79d21d8bf932" category="list-text">invoke-VMScript를 사용하여 게스트 VM에 연결하고 준비 작업을 실행합니다.</block>
+  <block id="a29beac6fb25617b02d2741b298a87ac" category="list-text">Windows VM의 경우: 스크립트를 저장합니다.<block ref="4a5d38b176835ab98a2cd25f83c18551" prefix=" " category="inline-code"></block></block>
+  <block id="97c621914b98c6c55c0e0237060adc7c" category="list-text">Linux VM의 경우: 스크립트를 저장합니다.<block ref="79bc03c7dd5e22c9c0c60bf8c396ef14" prefix=" " category="inline-code"></block> 그리고<block ref="68ab1268abb7e5f5688810968df97d6b" prefix=" " category="inline-code"></block></block>
+  <block id="b98207d4d21dbe7cc94a6a1174cc39fe" category="image-alt">Windows 준비 스크립트</block>
+  <block id="6ea2502d8e9dfed4d0bb087ad212a097" category="image-alt">Linux 준비 스크립트</block>
+  <block id="9b9a082bbd51e8862449721c909227b7" category="admonition">CentOS 또는 Red Hat을 실행하는 Linux 소스 VM의 경우 Shift Toolkit은 디스크 변환 전에 필요한 Hyper-V 드라이버를 자동으로 설치하여 변환 후 성공적인 부팅을 보장합니다.  자세한 내용은 다음을 참조하세요.<block ref="1c434828099aa70753997347cfb22762" category="inline-link-macro-rx"></block> .</block>
+  <block id="ac5a32c4911ffade56e2aee80bad975e" category="paragraph">prepareVM이 성공적으로 완료되면 블루프린트 상태가 "활성"으로 업데이트됩니다.  이제 예약된 시간에 마이그레이션이 진행되거나 *마이그레이션* 옵션을 클릭하여 수동으로 시작할 수 있습니다.</block>
+  <block id="4587ce60ebe935635993c9d2a23a0ba9" category="image-alt">PrepareVM 완료</block>
+  <block id="4e526249f1ae442f2a79d9a601d2b889" category="image-alt">활성 청사진</block>
+  <block id="ab9b50606f1ae91bea14e67ac68af15c" category="section-title">4단계: 마이그레이션 실행</block>
+  <block id="92978cab32c4b9dee92397cf13ba9261" category="paragraph">VMware ESXi에서 Microsoft Hyper-V로 VM을 변환하기 위한 마이그레이션 워크플로를 트리거합니다.</block>
+  <block id="240c7c64386e91feda1997ac756c4852" category="list-text">모든 VM은 계획된 유지 관리 일정에 따라 정상적으로 전원이 꺼집니다.</block>
+  <block id="7024fd08207e192007014332b736cdcf" category="list-text">마이그레이션 또는 변환에 사용되는 qtree에는 올바른 보안 스타일이 있습니다.</block>
+  <block id="c908f974bc7d361fabc4826f20cc144d" category="list-text">빠른 테스트로 클러스터 내의 모든 Hyper-V 호스트에서 Hyper-V 관리자를 사용하여 VM을 만들고 VHDX를 CIFS 공유에 배치해 보세요.</block>
+  <block id="0103d3cee6daf99d6f578e6ef2a0cce4" category="list-text">청사진에서 *마이그레이션*을 클릭합니다.</block>
+  <block id="6942cce858d9f64fda0ce7bca87ec8f3" category="image-alt">마이그레이션 옵션</block>
+  <block id="d9f05dd5f6aa99633aab0d1a224a2a10" category="list-text">VM의 전원이 꺼지지 않은 경우 Shift Toolkit은 계속 진행하기 전에 정상적으로 종료할지 묻습니다.</block>
+  <block id="9e9879d2fa43745b6dd63adc0248fca7" category="image-alt">종료 프롬프트</block>
+  <block id="096a9534ac966fff20eaa7b147c65781" category="list-text">Shift Toolkit은 다음과 같은 작업을 수행합니다.</block>
+  <block id="d21955638bb8cb2493ce1a749b76d364" category="list-text">블루프린트의 모든 VM에 대한 기존 스냅샷을 삭제합니다.</block>
+  <block id="e7fe3e34dd00e4344b7bad28844fd49f" category="list-text">소스에서 VM 스냅샷을 트리거합니다.</block>
+  <block id="51d4ae4f3715201399c673d6e8eea792" category="list-text">디스크 변환 전에 볼륨 스냅샷을 트리거합니다.</block>
+  <block id="2f3146b4e27b880c901fdc378ccb7c34" category="list-text">모든 VM에 대해 VMDK를 VHDx 형식으로 변환합니다.</block>
+  <block id="5bb093b4feb889eadc1ca28d566e01e1" category="paragraph">변환은 몇 초 만에 완료되므로 가장 빠른 마이그레이션 방식이며 VM 가동 중지 시간도 줄어듭니다.</block>
+  <block id="302b0ffc46fe3ddccc76666a6cc263ba" category="image-alt">마이그레이션 진행 중</block>
+  <block id="16a91e9147813c39b1c98f97477853af" category="image-alt">전환 진행 상황</block>
+  <block id="2931ade8bdbb9fb780ab42f6aa024bef" category="list-text">대상에서 VM 전원을 켭니다.</block>
+  <block id="3113d54dc7921f01bed8a21ce01759c9" category="list-text">각 VM에 네트워크를 등록합니다.</block>
+  <block id="c134dddbd59dea1de20c8a5844304b01" category="list-text">트리거 스크립트나 Cron 작업을 사용하여 VMware 도구를 제거하고 IP 주소를 할당합니다.</block>
+  <block id="0714c1a2e047a34cec5010d8e468738b" category="paragraph">작업이 완료되면 청사진 상태가 "마이그레이션 완료"로 변경됩니다.</block>
+  <block id="8f37af07e001a9dba63e9f916751ee83" category="image-alt">마이그레이션 완료</block>
+  <block id="459ba9f530a6de62e82098670a27d7cc" category="image-alt">Hyper-V 관리자의 VM</block>
+  <block id="662dd92ab1f66db5f9e7fd57283b3a32" category="image-alt">Hyper-V의 VM 세부 정보</block>
+  <block id="4a92bb32e42714a30948483b1a716c8a" category="admonition">동일한 ESXi 소스에서 동일한 Hyper-V 대상으로 최대 10개의 변환이 병렬로 트리거되어야 합니다.</block>
+  <block id="1d7ad913383c62fa559f41b8ed521ea2" category="admonition">마이그레이션 후 Windows VM이 켜지면 Shift Toolkit은 네트워크 구성이나 원격 관리 설정에 관계없이 PowerShell Direct를 사용하여 Windows 기반 게스트 VM에 연결합니다.</block>
+  <block id="ba0d2347b9cad32eeacc65d92a7bac93" category="admonition">변환 후 Windows OS의 모든 VM 디스크는 OS 디스크를 제외하고 오프라인 상태가 됩니다. 이는 VMware VM에서 NewDiskPolicy 매개변수가 기본적으로 offlineALL로 설정되어 있기 때문입니다.  다음 PowerShell 명령을 실행하여 문제를 해결하세요.<block ref="b1629e59f1a97f36fe42fc90d29a313c" prefix=" " category="inline-code"></block></block>
+  <block id="149560aa29e57d1887d6ab5ed9305d08" category="admonition">Shift Toolkit은 Linux 기반 배포판에서 부팅 시 실행되는 cron 작업을 사용합니다.  Linux 기반 VM을 Hyper-V 호스트에 연결하면 SSH 연결이 생성되지 않습니다.</block>
+  <block id="7ff787f5ff2b584a4721b56195e91926" category="section-title">비디오 데모</block>
+  <block id="9254fe173ecfc76b677e31140b5f9681" category="paragraph">다음 영상에서는 이 솔루션에 설명된 프로세스를 보여줍니다.</block>
+  <block id="485d3ba452669b08cc59d74a8b3b3b92" category="video-title">Shift Toolkit을 사용하여 ESXi에서 Hyper-V로 VM 마이그레이션</block>
+  <block id="af5f62e0e2b85ad35c22f2e732f7281e" category="summary">Shift Toolkit을 사용하여 VM을 준비하고, 디스크 형식을 변환하고, 대상 환경을 구성하여 VMware ESXi에서 Oracle Linux Virtualization Manager로 VM을 마이그레이션합니다.</block>
+  <block id="3071a2c819c7bfc563f8f5ba85c965a7" category="doc">VMware ESXi에서 Oracle Linux Virtualization Manager로 VM 마이그레이션</block>
+  <block id="5fb6ad5bcb1bbe3f3f6b69fddcc5ca73" category="paragraph">Shift Toolkit을 사용하여 VM을 준비하고, 디스크 형식을 변환하고, 대상 환경을 구성하여 VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로 VM을 마이그레이션합니다.</block>
+  <block id="da8887edb4a36c039f9940bfedc08b13" category="list-title">Oracle Linux Virtualization Manager 요구 사항</block>
+  <block id="740921aacce43f65a75e621ba42a2b0b" category="list-text">데이터 센터에 Oracle Linux KVM 호스트가 추가된 Oracle Linux Virtualization Manager</block>
+  <block id="e75a8693c197ce6854d6f34001bdb2ab" category="list-text">ONTAP NFS 스토리지가 스토리지 도메인으로 추가되었습니다.</block>
+  <block id="2ea276fe8e4b83c7416bfdb1db07c4e5" category="list-text">클러스터의 관리자 수준 권한</block>
+  <block id="9f6f1f322e133cf507056c90df9cc6bb" category="list-text">Oracle Linux Virtualization Manager 및 VDSM 릴리스는 &gt;= 4.5입니다.</block>
+  <block id="9f9bdc9ef0a6e994d05f946156e6d396" category="list-text">Oracle Linux Virtualization Manager(대상) 호스트는 네트워크에 접속 가능합니다.</block>
+  <block id="3523ae8d7409fb7098e396521dea5e2a" category="list-text">적절한 볼륨 및 Qtree로 구성된 NFSv3 스토리지 도메인</block>
+  <block id="b06d93cc8128d4ed8e0584749fe43390" category="list-text">vdsm 사용자(UID 36) 및 kvm 그룹(GID 36)에 대한 읽기-쓰기 액세스가 허용되는지 확인하십시오.</block>
+  <block id="127e1908fe7d709e380ed1082014b455" category="list-text">적절한 VLAN으로 구성된 네트워크</block>
+  <block id="114cb69fef6c6ea1e84b67120ac96d6a" category="list-text">Windows VM의 경우: 로컬 관리자 자격 증명을 사용하세요.</block>
+  <block id="e215855ac2020114962cb07946ecdcd5" category="list-text">Linux VM의 경우: 암호 입력 없이 sudo 명령을 실행할 수 있는 권한이 있는 사용자를 사용하세요.</block>
+  <block id="f4dc4f6eb8d9ce5f18248555f2152d12" category="list-text">Windows VM의 경우: VirtIO ISO를 VM에 마운트합니다(다음에서 다운로드).<block ref="a0c092fa69648d84887cd7b874e6d0bb" category="inline-link-macro-rx"></block> )</block>
+  <block id="fe47597a5ae491e79e777c4c2003e3da" category="admonition">준비 스크립트는 .msi 패키지를 사용하여 드라이버와 qemu-guest-agents를 설치합니다.</block>
+  <block id="4763f3af82c5c789236ec67b55eb573f" category="section-title">1단계: 대상 사이트(OLVM) 추가</block>
+  <block id="d8ad4f7069034d711d5d19b9c70de129" category="paragraph">Shift Toolkit에 대상 Oracle Linux Virtualization Manager 환경을 추가합니다.</block>
+  <block id="687b584d8ac86d7fe38e8e21d6a55fa7" category="image-alt">목적지를 선택하세요</block>
+  <block id="f7daf2f40f7c71fad2141d7ff4792683" category="list-text">*하이퍼바이저*: OLVM을 선택하세요</block>
+  <block id="d06296c694c9d53353a710f8990382da" category="list-text">OLVM 세부 정보를 입력하세요:</block>
+  <block id="778d015996073caf1e4a87b2b8161f28" category="list-text">*엔드포인트*: Virtualization Manager의 IP 주소 또는 FQDN</block>
+  <block id="09540370039eff4199d4e07540d5e96b" category="list-text">*사용자 이름*: username@profile 형식의 사용자 이름(예: admin@internal)</block>
+  <block id="da4cf67ef411aaff15c4f880272eb581" category="list-text">*비밀번호*: Virtualization Manager에 액세스하기 위한 비밀번호</block>
+  <block id="4c26203684ed9db6be17a60985473486" category="image-alt">대상 OLVM 세부 정보</block>
+  <block id="69e38d8c397184454d8d84149ec83431" category="image-alt">대상 OLVM 생성</block>
+  <block id="f183f80ba8a55844f8199ae7d0578038" category="admonition">디스크 포맷 변환은 동일한 볼륨 내의 볼륨 수준에서 발생하므로 소스 볼륨과 대상 볼륨은 동일합니다.</block>
+  <block id="0502ae5df1c4a6a555b99f5701a07661" category="list-text">드롭다운에서 소스 사이트를 선택하고 *만들기*를 클릭합니다.</block>
+  <block id="35dfaa22518b5ed47f06a291a65f4e98" category="list-text">*대상 OLVM 항목*을 선택하세요</block>
+  <block id="04ed241d628346142d88bf9578930a46" category="admonition">ESXi에서 OLVM으로 VM을 변환할 때 대상 경로(변환된 VM이 저장되는 경로)가 qtree로 설정되어 있는지 확인하세요.  또한 이 Qtree가 스토리지 도메인에 추가되었는지 확인하세요.  여러 개의 qtree를 만들어 변환된 VM 디스크를 저장하는 데 사용할 수 있습니다.</block>
+  <block id="f2915e85be0b9263291de94cac1cc7cf" category="list-text">*대상 사이트* 및 관련 OLVM 대상을 선택하세요.</block>
+  <block id="863e2d14f243b60450fb0abb684f95e5" category="image-alt">청사진 세부 정보</block>
+  <block id="d455e74cac3d0f50399e2bbc65db0ee4" category="list-text">적절한 논리 네트워크에 네트워크 매핑을 구성합니다.</block>
+  <block id="428c8f2d46e11c3fa6e0c3deac17f9dc" category="admonition">네트워크는 이미 적절한 VLAN 태그로 OLVM 내에 프로비저닝되어 있어야 합니다.  테스트 마이그레이션의 경우, 프로덕션 네트워크 충돌을 피하기 위해 "네트워크를 구성하지 않음"을 선택하세요. 변환 후 네트워크 설정을 수동으로 지정하세요.</block>
+  <block id="273adbefe4b238bc88bb045e90a731ec" category="admonition">사전에 qtree가 프로비저닝되어 있고 필요한 권한이 할당되어 NFS 볼륨에서 가상 머신을 만들고 전원을 켤 수 있는지 확인하세요.</block>
+  <block id="97439173961867c9b1fb024782247bf8" category="list-text">*Windows*: 로컬 관리자 권한이 있는 사용자를 사용하세요(도메인 자격 증명도 사용 가능)</block>
+  <block id="7f725bcb82fedf3961d84b1d1b69b43e" category="list-text">*Linux*: 비밀번호 입력 없이 sudo 명령을 실행할 수 있는 사용자를 사용하세요.</block>
+  <block id="90d93656669bb913e1f6023a4167d5f1" category="image-alt">구성 매핑 세부 정보</block>
+  <block id="cb39592d88be4231df41a2a698d4b793" category="admonition">구성 선택을 통해 디스크 이미지 형식을 선택하고 prepareVM 재정의를 건너뛸 수 있습니다.  워크플로는 기본적으로 QCOW2 형식으로 설정되어 있지만 필요한 경우 RAW 형식을 선택할 수 있습니다.  override prepareVM 옵션을 사용하면 관리자가 VM 준비를 건너뛰고 사용자 정의 스크립트를 실행할 수 있습니다.</block>
+  <block id="7f06e5e830a5394fbb6b2dd0c43c994f" category="paragraph">prepareVM 단계에서 VM의 전원이 켜져 있고 VMware Tools가 설치되어 있는지 확인하세요.</block>
+  <block id="b4cdc1a2ca711b13aca6a69379deff5e" category="list-text">*VM 펌웨어*: BIOS &gt; BIOS 및 EFI &gt; EFI(자동)</block>
+  <block id="6a473bbee38c898db6fbe95624ace9c0" category="image-alt">OLVM 준비 세부 정보</block>
+  <block id="2604060e222211a8bcd80a38cda740e6" category="list-text">VirtIO 드라이버 업데이트, qemu-agent 설치, VMware 도구 제거, IP 세부 정보 백업 및 fstab 업데이트를 위한 스크립트 삽입</block>
+  <block id="4bf35284b810cc9de92695627c6edf16" category="list-text">PowerCLI를 사용하여 게스트 VM(Linux 또는 Windows)에 연결하고 VirtIO 드라이버를 업데이트합니다.</block>
+  <block id="5bf614d1a1b07344430ef973b29126d7" category="admonition">지원되는 모든 VM OS의 경우 Shift Toolkit은 디스크 변환 전에 필요한 VirtIO 드라이버를 자동으로 설치하여 변환 후 성공적인 부팅을 보장합니다.</block>
+  <block id="8a7d704008c8a50f4b0678cde7e8596a" category="paragraph">prepareVM이 성공적으로 완료되면 블루프린트 상태가 "PrepareVM 완료"로 업데이트됩니다.  이제 예약된 시간에 마이그레이션이 진행되거나 *마이그레이션* 옵션을 클릭하여 수동으로 시작할 수 있습니다.</block>
+  <block id="1a3878e57b47d5f430216b21a73199ee" category="image-alt">마이그레이션 메뉴 선택</block>
+  <block id="cb773a07ff37eed3d38a74c600a3bcad" category="paragraph">VMware ESXi에서 Oracle Linux Virtualization Manager로 VM을 변환하기 위한 마이그레이션 워크플로를 트리거합니다.</block>
+  <block id="718408acc720f95395d3ec9de48194fd" category="paragraph">모든 VM은 계획된 유지 관리 일정에 따라 정상적으로 전원이 꺼집니다.</block>
+  <block id="1d1c81ed62a6ec0fe3cce8884238cf84" category="image-alt">마이그레이션 단계</block>
+  <block id="a715a2ba99796af5538591afc5df209b" category="list-text">모든 VM에 대해 VMDK를 QCOW2 또는 RAW 형식으로 변환합니다.</block>
+  <block id="a48a68401e6f3361cca3e060a8474d4f" category="paragraph">Shift Toolkit은 기본 부팅 디스크를 포함하여 각 VM에 연결된 모든 VMDK를 자동으로 찾습니다.</block>
+  <block id="d66d988a451ed63bb6411b9560f04aa6" category="admonition">VMDK 파일이 여러 개 있는 경우 각 VMDK가 변환됩니다.</block>
+  <block id="8471b1c7b5458dc974232c8c468e8124" category="list-text">QCOW2 또는 RAW 이미지를 OLVM 스토리지 도메인에 업로드합니다.</block>
+  <block id="daa7cd2f5bed377311e0cfd218965bc8" category="paragraph">가상 머신 디스크 이미지가 QCOW2 또는 RAW 형식으로 변환되면 Shift Toolkit은 해당 파일을 적절한 스토리지 도메인에 업로드하고 각 디스크를 추가합니다.</block>
+  <block id="4e0f1c8ff9661ba63dfb835322cb2ea9" category="list-text">가상 머신을 생성합니다</block>
+  <block id="10f3622259b0e8dea16d76b090c79e4e" category="paragraph">Shift Toolkit은 OS에 따라 각 VM을 생성하기 위해 REST API 호출을 수행합니다.</block>
+  <block id="0091c76a12bcdaf39ce8abf62be1551b" category="admonition">VM은 "기본" 클러스터 아래에 생성됩니다.</block>
+  <block id="a94e9048e58535cafb2b8e8ad5e2c2b6" category="paragraph">VM OS에 따라 Shift Toolkit은 스토리지 컨트롤러 인터페이스와 함께 VM 부팅 옵션을 자동으로 할당합니다.  Linux 배포판의 경우 VirtIO 또는 VirtIO SCSI가 사용됩니다.  Windows의 경우 VM은 SATA 인터페이스로 전원을 켠 다음 예약된 스크립트가 VirtIO 드라이버를 자동으로 설치하고 인터페이스를 VirtIO로 변경합니다.</block>
+  <block id="81075140969af93463b061cbd4a91d69" category="paragraph">네트워크는 청사진 선택에 따라 할당됩니다.</block>
+  <block id="b1063daf3b67a3f9438a0d4d66d49c6f" category="image-alt">Oracle에서 마이그레이션된 VM</block>
+  <block id="d186357ae2427ae4f4f9dfa67bd1df78" category="video-title">ESX에서 Oracle Linux Virtualization Manager(OLVM)로의 제로 터치 마이그레이션</block>
+  <block id="62cb2759f9ca355238f228954472679d" category="summary">Shift Toolkit을 사용하여 VM을 준비하고, 디스크 형식을 변환하고, 대상 환경을 구성하여 VMware ESXi에서 Red Hat OpenShift Virtualization으로 VM을 마이그레이션합니다.</block>
+  <block id="06ef0c632c6b691ae13685a310677890" category="doc">VMware ESXi에서 Red Hat OpenShift Virtualization으로 VM 마이그레이션</block>
+  <block id="3fb421d6700f4aafb30fcc355760e7f0" category="list-title">Red Hat OpenShift Virtualization 요구 사항</block>
+  <block id="81c9ba8432b5a4e841077b97c3be12eb" category="list-text">다음 연산자가 설치된 OpenShift 클러스터 엔드포인트:</block>
+  <block id="ce352f8cb42ba33ded6551cf875a3902" category="list-text">OpenShift 가상화 운영자</block>
+  <block id="cb733b3f256e1efed6dd9edd86c37971" category="list-text">NetApp Trident CSI 드라이버</block>
+  <block id="004da3d694f5fbf8778fda9a015db928" category="list-text">뉴멕시코주</block>
+  <block id="1c0b074e35d14d855a2123b93c513d79" category="list-text">적절한 백엔드 및 스토리지 클래스로 구성된 NetApp Trident CSI</block>
+  <block id="a337c0575fb0850d57838660dc08fb6b" category="list-text">적절한 VLAN으로 구성된 NodeNetworkConfigurationPolicy 및 NetworkAttachmentDefinitions(NAD)</block>
+  <block id="e54824158e69898ccca26a77c8674d83" category="list-text">OpenShift 클러스터는 현재 호스트 파일 항목으로 네트워크에 접속 가능합니다.</block>
+  <block id="23fb98ffd5f731df3575b1e2734c892d" category="list-text">Kubeconfig 파일이 다운로드되었습니다</block>
+  <block id="4b9bedf1805ba86fd555862c58e11f9c" category="list-text">VMDK는 svmotion을 사용하여 개별 볼륨에 배치됩니다(PVC/PV 구조에 대한 VMDK 모방).</block>
+  <block id="637fc88401a7520023c2d7a08bd3e7f7" category="admonition">이러한 제한은 PVC 프로비저닝에 NAS-economy 드라이버를 사용할 수 있는 다음 릴리스에서 제거될 예정입니다.</block>
+  <block id="390dd953003050f0609139653e9d28db" category="section-title">1단계: 대상 사이트 추가(OpenShift)</block>
+  <block id="a3bb5f6f2383551983f346517198b09b" category="paragraph">Shift Toolkit에 대상 OpenShift Virtualization 환경을 추가합니다.</block>
+  <block id="0013c497ef74e6c5fc1e9d5ccb87e485" category="list-text">*하이퍼바이저*: OpenShift를 선택하세요</block>
+  <block id="206c0c20346075fd8d0e723a8284cecd" category="list-text">OpenShift 세부 정보를 입력하세요.</block>
+  <block id="36ee643f84643a157242824c63b7a87e" category="list-text">*엔드포인트*: OpenShift 클러스터 엔드포인트의 FQDN(예: api.demomigsno.demoval.com)</block>
+  <block id="8eb41f24f1a27e6e331cf1c3c79ba667" category="list-text">*Kubeconfig 파일 업로드*: 최소한의 권한으로 kubeconfig 파일을 사용하세요.</block>
+  <block id="09ef5099da280be17c760a56b7331c2f" category="admonition">파일 확장자는 yaml이어야 합니다.</block>
+  <block id="88eb7d617ec76c7276d75af96b43943c" category="image-alt">목적지 OpenShift 세부 정보</block>
+  <block id="c7a238dfecaeb250fb78ef96874f80d4" category="image-alt">목적지 OpenShift 생성</block>
+  <block id="ee9b023ceb0c5e0b4635cb13eeff2ee4" category="paragraph">새로 생성된 ONTAP SVM의 개별 데이터 저장소 볼륨으로 VM VMDK가 이동되었는지 확인합니다.</block>
+  <block id="ca294cbda2feb86bba445d61a0ce20ce" category="list-text">검색 옵션을 사용하여 VM을 선택하세요.</block>
+  <block id="09de00a47bf067dee50e26e637df2589" category="admonition">리소스 그룹에 대한 VM 선택은 데이터 저장소 수준이 아닌 가상 머신을 기준으로 합니다.</block>
+  <block id="3f0e1ad88cfc40203c442d1c01387135" category="image-alt">가상 머신과 연결된 데이터 저장소</block>
+  <block id="80d75d02a6b5194f5f81c3431f6b4f14" category="image-alt">VM 데이터 저장소 세부 정보</block>
+  <block id="56f52b28824c21b9cc8bfa463e0f6ce4" category="list-text">*대상 OpenShift 항목*을 선택하세요</block>
+  <block id="5fa7604497256634c222b380dbd9a2cc" category="list-text">저장 클래스를 선택하세요</block>
+  <block id="d4ea20de5592f5c612359d3e6cc67fe9" category="admonition">TBC가 하나만 있는 경우 Trident 백엔드는 자동으로 소스 볼륨에 매핑됩니다. 하지만 TBC가 여러 개 있는 경우 백엔드를 선택할 수 있습니다.</block>
+  <block id="fa95b26a2cfa9130526df416165037e7" category="image-alt">마이그레이션 세부 정보 구성</block>
+  <block id="6701d06b66c3f5d49ff76afa8f2e4e24" category="list-text">*대상 사이트* 및 관련 OpenShift 대상을 선택하세요.</block>
+  <block id="bfe8063206ea025cfccd871a088106fa" category="admonition">네트워크 연결 정의는 적절한 VLAN 및 트렁크 옵션을 사용하여 OpenShift 클러스터 내에 이미 프로비저닝되어 있어야 합니다.  테스트 마이그레이션의 경우, 프로덕션 네트워크 충돌을 피하기 위해 "네트워크를 구성하지 않음"을 선택하세요. 변환 후 네트워크 설정을 수동으로 지정하세요.</block>
+  <block id="cd326c0adec9e0343a70e19c9f02c1c6" category="list-text">스토리지 클래스와 백엔드 매핑을 검토합니다(VM 선택에 따라 자동으로 선택됨).</block>
+  <block id="93cbfe253b346e91e8db3b91057c66ec" category="admonition">PVC에서 가상 머신을 생성하고 전원을 켤 수 있도록 VMDK가 개별 볼륨으로 미리 이동되었는지 확인하세요.</block>
+  <block id="99c94ec7b2280e752442b1b1691d9845" category="image-alt">구성 선택</block>
+  <block id="c12cf101d2a1a1002edd1cfd317410d3" category="admonition">구성 선택을 통해 디스크 이미지 형식을 선택하고, prepareVM 재정의를 건너뛰고, 부모에서 볼륨을 분할할지 여부를 선택할 수 있습니다.  기본적으로 분할 복제는 비활성화되어 있으며 워크플로는 기본적으로 RAW 형식으로 설정됩니다.</block>
+  <block id="7514deada9a9a8d0e1873faeedfc43fa" category="admonition">MAC 주소를 유지하는 동시에 인터페이스 이름도 유지해야 하는 경우, 소스 VM에 적절한 udev 규칙이 생성되었는지 확인하세요.</block>
+  <block id="a1d94ec38295c116097d408b495296ef" category="list-text">(선택 사항) 날짜와 시간을 선택하여 마이그레이션을 예약합니다.</block>
+  <block id="4f8c3be9160fe1b256a1f6dd701531a4" category="image-alt">마이그레이션을 위해 준비된 가상 머신</block>
+  <block id="fd50e3156f9cefe714bfe97563a55d5d" category="image-alt">PrepareVM 완료 상태</block>
+  <block id="0fd1d03caef31ca56d7c19aac5c07233" category="image-alt">마이그레이션을 위한 청사진 준비 완료</block>
+  <block id="6eb2e82cbfb9efcba44f19e0358cea14" category="paragraph">VMware ESXi에서 OpenShift Virtualization으로 VM을 변환하기 위한 마이그레이션 워크플로를 트리거합니다.</block>
+  <block id="65e373645c53e9c1cb8605faee1b66ba" category="list-text">Shift Toolkit은 다음 단계를 수행합니다.</block>
+  <block id="5e90aae963ef35b5ec5cb0387a034fa7" category="list-text">개별 볼륨을 복제합니다.</block>
+  <block id="c20ff75d83b61a3549e12e67572ac94d" category="list-text">각 VMDK에 대해 VMDK를 RAW 형식으로 변환합니다.</block>
+  <block id="148fb718465b8a2a684e6cc11473e73c" category="admonition">VMDK 파일이 여러 개 있는 경우 각 VMDK가 변환됩니다.  이 릴리스(v4.0)에서는 각 VMDK를 개별 볼륨/데이터 저장소에 배치해야 합니다.</block>
+  <block id="a06b52e4c2108069bd505ca1641bd18c" category="list-text">볼륨을 정리하여 disk.img 파일만 남깁니다.</block>
+  <block id="eeb58a927eea6b7b16bb8f62e422d0e0" category="paragraph">가상 머신 디스크 이미지가 RAW 형식으로 변환되면 Shift Toolkit은 볼륨을 정리하고, RAW 파일의 이름을 disk.img로 바꾸고, 필요한 권한을 할당합니다.</block>
+  <block id="ab9492276170195fd3194e0097ac0e86" category="list-text">Trident 가져오기를 사용하여 볼륨을 PVC로 가져옵니다.</block>
+  <block id="ccd1aceb14ee0681e80fd2a9ae31e324" category="paragraph">그런 다음 NetApp Trident API를 사용하여 볼륨을 PVC로 가져옵니다.</block>
+  <block id="1b47a540671ba061451611f3d0423511" category="list-text">VM별 yaml 파일을 사용하여 VM을 생성합니다.</block>
+  <block id="b7e3e744cabc394febbb5e855dd0c6cb" category="paragraph">PVC를 가져오고 PV를 배치하면 Shift Toolkit은 OC CLI를 사용하여 yaml 파일을 사용하여 OS에 따라 각 VM을 만듭니다.</block>
+  <block id="18cae1d1be5599b41482577b02f1defb" category="admonition">VM은 "기본" 네임스페이스에서 생성됩니다.</block>
+  <block id="ad68966c81f3655374588888489c4dbc" category="list-text">Cron 작업을 사용하여 VMware 도구를 제거하고 IP 주소를 할당합니다.</block>
+  <block id="57b4f03dd7bb60666ac7ee52988e7a70" category="image-alt">Red Hat OpenShift VM 마이그레이션</block>
+  <block id="8484961e970d557d5574eddec57e1dca" category="section-title">Shift Toolkit을 사용하여 가상화를 위한 마이그레이션 툴킷 사용</block>
+  <block id="6d1f69fc0c3f0bf198ec33708c69c1e8" category="paragraph">이 섹션에서는 NetApp Shift Toolkit과 함께 MTV(Migration Toolkit for Virtualization)를 사용하여 Red Hat OpenShift Virtualization으로 원활하게 마이그레이션하는 방법을 설명합니다.</block>
+  <block id="dd4ee610bd1d035c73bc0cbcd80e46da" category="paragraph">다음 전제 조건이 충족되는지 확인하세요.</block>
+  <block id="075351692a1e60c7c93efefcf8f202b4" category="list-text">OpenShift Virtualization 운영자와 NetApp Trident CSI 드라이버가 설치된 OpenShift 클러스터</block>
+  <block id="62af718dafdac747b9a8c93d244cebef" category="list-text">MTV 2.9.4(변환 모드 포함)</block>
+  <block id="a669ea3f3f12cea8753fbb52402583c4" category="list-text"><block ref="8f9f1b51cb31c428b1d20d42b996bda1" category="inline-link-macro-rx"></block>설치됨</block>
+  <block id="57d46182fb8d2a9fa64eac5d3f9d9da4" category="admonition">Shift Toolkit API만 사용되므로 Shift Toolkit 리소스 그룹이나 블루프린트를 구성할 필요가 없습니다.</block>
+  <block id="69a64b9f7cc895c19adf78a298196575" category="list-text">OpenShift 클러스터의 관리자 수준 권한</block>
+  <block id="89cdbaecbf44555ee5d12d57b8ed5562" category="list-text">tridentctl 및 OC 명령줄 도구가 설치된 Linux 인스턴스</block>
+  <block id="d9b6b230b081b7255f69569700039750" category="list-text">Kubeconfig가 내보내졌거나 OC 로그인이 실행되어 클러스터에 연결되었습니다.</block>
+  <block id="bd8ca956c8731469e434d723538e3d8c" category="list-text">Shift Toolkit UI(*설정 &gt; 개발자 액세스 &gt; 스크립트 차단기*)에서 "OpenShift-MTV"라는 스크립트를 다운로드합니다.</block>
+  <block id="416c6b5b9a3583ebc0e998e0c1cbb0b2" category="list-text">파일의 압축을 풉니다.<block ref="a546eb034f2424eac2d4fd17ffb91ee5" prefix=" " category="inline-code"></block></block>
+  <block id="e0242df2bb16a2f0ba17e711bfba6885" category="list-text">Python3이 설치되어 있는지 확인하세요.<block ref="2939da1977acc65c6024ace141a44b8d" prefix=" " category="inline-code"></block></block>
+  <block id="dac32c3ee00afddd906eb36777b056f0" category="list-text">OpenJDK 8 이상을 설치하세요:<block ref="35b382a04618cbad814d556c5389014b" prefix=" " category="inline-code"></block></block>
+  <block id="eee9f07b3774a69216af6a4ab291c088" category="list-text">설치 요구 사항:<block ref="ed479ebacddedec77a46c27cc0e6a94d" prefix=" " category="inline-code"></block></block>
+  <block id="2b4e996ca43cbc701ab84c367f5f505c" category="list-text">*MTV에 대한 가상 머신 요구 사항*: VM의 VMDK는 개별 볼륨에 배치되어야 합니다.  디스크가 3개인 VM의 경우 각 디스크는 개별 볼륨에 있어야 합니다(PVC 구조에 데이터 저장소를 매핑).  이 작업은 storage vmotion을 사용하여 수동으로 수행해야 합니다.</block>
+  <block id="c4f874f730151c61a5d9332f8fd9452f" category="list-text">MTV를 사용하여 마이그레이션 계획을 수립하세요.</block>
+  <block id="7c5c7662e6cf45f2a66b20f6894ff19a" category="paragraph">빠른 VMDK 변환을 활용하려면 VM에 대한 마이그레이션 계획을 만들고 다음 매개변수가 YAML에 있는지 확인하세요.</block>
+  <block id="bab0516e1a858a5aaa1684b50a13bc2e" category="list-text"><block ref="c890a1cad0b84a5de7465f3d9b7b9e36" prefix="" category="inline-code"></block></block>
+  <block id="1302dbbeaf79fd36e7cc40bfaedf4027" category="list-text"><block ref="e11e8548d30616ebe3fa63de585ef747" prefix="" category="inline-code"></block></block>
+  <block id="5381cdebb23458791e40217594866bd9" category="list-text"><block ref="33c53d4cce79c533f2668e1e5a90ff34" prefix="" category="inline-code"></block></block>
+  <block id="54ffaff9ad93c9605e05461b7a4a2935" category="admonition">MTV에서 IP 설정이 구성되도록 사전에 계획을 수립해야 합니다.</block>
+  <block id="75a6af656eb5d7fdfa72e41bcba3d084" category="list-text">ONTAP 스토리지의 vCenter 및 볼륨에서 VM을 매핑합니다.</block>
+  <block id="a4abcf4dc6fb9395ff6c7e9a3ec3860f" category="paragraph">스크립트를 사용하여 필요한 PVC를 만들고 이를 OpenShift 클러스터로 가져옵니다.  PVC에는 다음과 같은 라벨과 주석이 있어야 합니다.</block>
+  <block id="b4a420a0ed6e812868683f09a02e104a" category="paragraph">*레이블:*</block>
+  <block id="2b78f50f5535cd621f3f238b19636c53" category="list-text">PVC의 vmID 및 vmUUID(Forklift가 이러한 값을 찾습니다)</block>
+  <block id="e4cb78f95fb88a69890387bc1a5a7914" category="paragraph">*주석:*</block>
+  <block id="aa1f193591a6763ca1d07b1c1af8b866" category="list-text">vmdk 디스크 이름<block ref="cb27cfedbbe9e00f7510e3d37c24b606" prefix=" " category="inline-code"></block></block>
+  <block id="c845776d17a0f4e1275020b71a286a1e" category="paragraph">스크립트는 모든 PVC에 대해 이러한 속성이 설정되도록 하고 disk.img 권한을 업데이트합니다.</block>
+  <block id="ea5c330465e0006d0755466e23651e0f" category="list-text"><block ref="5f0f33afa2e34c14b247ae4c07c029e4" prefix="" category="inline-code"></block></block>
+  <block id="5ef6996dd904834cf247ae003792b78e" category="list-text"><block ref="ed0e56871f1f6449f5b147332931fc6e" prefix="" category="inline-code"></block></block>
+  <block id="dd564e54da9da8c53d8d967284698f9f" category="list-text"><block ref="1199453c4aadc085b37054b163c0bf30" prefix="" category="inline-code"></block></block>
+  <block id="446a2a3154f96b9c1b80ffbda552d043" category="list-text">다음 세부정보로 JSON 파일을 업데이트하세요.</block>
+  <block id="3bb863e780a55a5a69c4fc8809b582ff" category="list-text">* ONTAP 클러스터*: SVM이 될 수 있으며, vsadmin을 사용할 수 있습니다.  복제 볼륨에 즉각적인 분리가 필요하지 않으면 splitclone을 "False"로 설정합니다.</block>
+  <block id="0d0b285ae717cf647d4e2a9f04775520" category="list-text">*vCenter*: VM 및 관련 VMDK 파일을 검색하기 위한 최소 RBAC 권한</block>
+  <block id="df3bcf5861322d30c89f7b31ae4a5979" category="list-text">* Trident 스토리지 클래스*: YAML에 올바른 버전이 있는 NFS 백엔드여야 함</block>
+  <block id="a33b72c4abd8b42ae830f846efebc50b" category="list-text">*OpenShift*: 프로젝트 이름을 지정합니다(예시로 기본값을 사용함)</block>
+  <block id="566d4a3d332cb8e1565d5a645dc1f919" category="admonition">나머지 값은 기본값으로 유지합니다.</block>
+  <block id="172d9574311c68faf35aaeaee3962797" category="list-text">전제 조건이 충족되면 실행하세요.<block ref="c8d4d812081484b654c06405eb966ee4" prefix=" " category="inline-code"></block> PVC를 생성하고 이를 OpenShift 클러스터로 가져옵니다.</block>
+  <block id="5a592baeb74f63e7e70ca1f8b995f36a" category="list-text">PVC를 가져온 후 MTV를 사용하여 마이그레이션을 트리거하여 적절한 사양으로 VM을 생성합니다.</block>
+  <block id="c4ef9aa912cec8d15180ad7cfe2e5329" category="image-alt">Python 스크립트 실행</block>
+  <block id="44b5c5bdd9477b663081e8d9c2529f4c" category="image-alt">Shift Toolkit의 결과</block>
+  <block id="156f7f40f309480a7a21a4830f546937" category="list-text">VMDK를 MTV로 변환하세요.</block>
+  <block id="4137512b900d4006ac6c302cefdd8da0" category="paragraph">스크립트는 기본 부팅 디스크를 포함하여 각 VM에 연결된 모든 VMDK를 자동으로 찾습니다.</block>
+  <block id="b789911daee651bc489113d93b2d6cfc" category="list-text">OpenShift Virtualization에 RAW 이미지를 업로드합니다.</block>
+  <block id="5781a1eb0f6f12929b7786a794911234" category="paragraph">스크립트는 Trident CSI를 사용하여 볼륨을 PVC로 클러스터에 가져옵니다.  PVC yaml은 라벨과 주석으로 채워져 있습니다.</block>
+  <block id="2983a95c8aa3c7ce3f8c49352f87c882" category="list-text">MTV로 가상 머신을 생성하세요.</block>
+  <block id="09505832ca5e902624e043d759114753" category="paragraph">가져온 후 MTV 플랜에 전화하여 마이그레이션을 시작하세요.  UI는 "Cold"로 표시되지만, MTV는 변환의 YAML 사양을 기반으로 각 PVC와 vmID/vmUUID를 확인하고 매핑한 다음 마이그레이션을 초기화합니다.</block>
+  <block id="de148e96e9b5bcd1816bfd5b23f66afe" category="image-alt">이주 상태</block>
+  <block id="cb52b660b02bf31a3f67188b71d95837" category="admonition">VM은 가상 머신의 "기본" 프로젝트에서 생성되지만, 이는 MTV 마이그레이션 계획 YAML 내에서 수정할 수 있습니다.</block>
+  <block id="51a14e506a12d7bdf4b468125d4b8d73" category="list-text">MTV로 처음으로 VM을 부팅합니다.</block>
+  <block id="b0ae8cdcd13093eb515809f508d59d70" category="paragraph">VM OS에 따라 MTV는 스토리지 컨트롤러 인터페이스와 함께 VM 부팅 옵션을 자동으로 할당합니다.</block>
+  <block id="e55eec04dddf2d0944358c31064f6dd7" category="image-alt">이주 역사</block>
+  <block id="f5f5574a5c003ec9e6e236847549f17b" category="paragraph">1.5TB 데이터 디스크(3개의 PVC에 분산)가 있는 VM의 마이그레이션이 6분 만에 완료되었습니다.  이는 ONTAP 스토리지를 사용하여 VM을 재배치하는 간소화되고 영향이 적은 접근 방식을 보여줍니다.</block>
+  <block id="eb05bf59e44b70ea8a44ce8512f06bcc" category="admonition">이 특정 통합을 시작하기 전에 Red Hat 계정 팀에 문의하세요.</block>
+  <block id="07a748b9d94ed62efce5ea1947999d42" category="summary">Shift Toolkit을 사용하여 소스 및 대상 사이트를 구성하고, 리소스 그룹과 블루프린트를 만들고, 마이그레이션 워크플로를 실행하여 Microsoft Hyper-V에서 VMware ESXi로 VM을 마이그레이션합니다.</block>
+  <block id="cd22472bba782a8919dd031e00eae137" category="doc">Shift Toolkit을 사용하여 Microsoft Hyper-V에서 VMware ESXi로 VM 마이그레이션</block>
+  <block id="1bc4218ce884988bb9397d3f4ceeb1f2" category="paragraph">Shift Toolkit을 사용하면 추가 디스크 사본을 생성하지 않고도 하이퍼바이저 간에 직접 VM을 변환할 수 있으므로 Windows 및 Linux 가상 머신 모두에서 최소한의 다운타임으로 사본 없는 마이그레이션이 가능합니다.</block>
+  <block id="04adad8326737546456943057ae4c735" category="list-text">vCenter 및 ESXi 호스트가 구성되었습니다.</block>
+  <block id="20c5a787f315bc394bf343a6ccda8655" category="list-text">최소 필수 권한이 있는 vCenter 서버 계정(RBAC 사용자)</block>
+  <block id="ddecdebdbe12bea9da7badd70e057687" category="list-text">vCenter 및 ESXi 호스트는 Shift Toolkit에서 접근 가능하며 DNS 항목은 최신 상태입니다.</block>
+  <block id="e348a0d8c202cfedc9f19aa7bcb3760e" category="list-text">분산 포트 그룹은 적절한 VLAN ID로 구성됩니다(표준 포트 그룹은 지원되지 않음)</block>
+  <block id="bf24eccc2d166432779de7f4152fabe9" category="list-text">NFS 공유(마이그레이션된 VM 저장용) 및 소스 공유(마이그레이션될 VM용)는 동일한 볼륨에 있습니다.</block>
+  <block id="4fb76d08e2d09ae5c7587c3d0a5030da" category="list-text">VM VHDx 파일은 SMB 공유에 배치됩니다.</block>
+  <block id="4ec0899b4f39868d1680ad8f06d6751f" category="list-text">VM이 CSV(클러스터 공유 볼륨)에 있는 경우 SMB 공유로 라이브 마이그레이션을 수행합니다.</block>
+  <block id="10a6210e12cde2c34583efc73a39fcbe" category="list-text">Hyper-V 통합 서비스가 활성화되어 게스트 VM에서 실행 중입니다.</block>
+  <block id="99d24a9f253e70f80f96f7ebdacb95f5" category="list-text">Windows VM의 경우: VM의 기존 사용자 프로필과 함께 로컬 관리자 자격 증명 또는 도메인 자격 증명을 사용합니다.</block>
+  <block id="77b17dc156b6dc6b52d0f26e98a59797" category="list-text">Shift Toolkit은 Windows VM의 경우 PowerShell Direct를 사용하고 Linux VM의 경우 SSH를 사용합니다.</block>
+  <block id="fe5fd5aa3fc5c1f7049b42f0e0ba1ddf" category="section-title">1단계: 소스 사이트 추가(Hyper-V)</block>
+  <block id="6071891dfd377951f94d057b34bb0618" category="paragraph">Shift Toolkit에 소스 Hyper-V 환경을 추가합니다.</block>
+  <block id="d0539cb14c225d05639cb07a0ad18f54" category="list-text">지원되는 브라우저에서 Shift Toolkit을 열고 기본 자격 증명으로 로그인합니다.</block>
+  <block id="4840b7cb4b3783475922a75133fd7431" category="list-text">*검색 &gt; 사이트 추가*로 이동합니다.</block>
+  <block id="2c43e21a2d81c140a012a899705fd0b8" category="image-alt">사이트 추가 메뉴</block>
+  <block id="9bd6d1ecc632b6a37e4f6d83aa95631a" category="list-text">*새 사이트 추가*를 클릭하고 *소스*를 선택합니다.</block>
+  <block id="d9c5f9bdd2c74055cb82ce7aca1ccef2" category="list-text">출처 사이트 세부 정보를 입력하세요.</block>
+  <block id="5e611105e0f8160a6a6c4d1d939b8d9f" category="list-text">*하이퍼바이저*: Hyper-V를 선택하세요</block>
+  <block id="4944633252e0684a8b6eb2e243965303" category="image-alt">출처 사이트 세부 정보</block>
+  <block id="a9bb4fba7d594a28dab6337f618223d6" category="list-text">Hyper-V 세부 정보를 입력하세요.</block>
+  <block id="f76f70b10e8929e4a24dbab5b81fe361" category="list-text">*Hyper-V 독립 실행형 또는 장애 조치 클러스터 관리자*: IP 주소 또는 FQDN</block>
+  <block id="4f0f54a6e151d33ae4d7c5dd307bb926" category="list-text">*사용자 이름*: UPN 형식의 사용자 이름(username@domain.com 또는 domain\administrator)</block>
+  <block id="afce4ac9d61bd2ce00ba16b5e04eb7d9" category="list-text">*비밀번호*: Hyper-V 호스트 또는 FCI 인스턴스에 액세스하기 위한 비밀번호</block>
+  <block id="442016b49fc65331368bbe54dde207eb" category="image-alt">Hyper-V 자격 증명</block>
+  <block id="dedb769201e8abd09d07eed4410a4639" category="admonition">Hyper-V FCI 및 호스트 검색은 DNS 확인에 의존합니다. 해결에 실패하면 호스트 파일(C:\Windows\System32\drivers\etc\hosts)을 업데이트하고 검색 작업을 다시 시도하세요.</block>
+  <block id="34af2e5a883f6eb3063c548be88d4b57" category="list-text">ONTAP 스토리지 시스템 자격 증명을 입력하세요.</block>
+  <block id="823a6e1d7fe661be55dd3af05f972b11" category="image-alt">ONTAP 자격 증명</block>
+  <block id="76aa373249d393cbd4cdbf90852ded5f" category="paragraph">Shift Toolkit은 자동 검색을 수행하고 네트워크, 가상 스위치, VLAN ID를 포함한 메타데이터 정보와 함께 VM을 표시합니다.</block>
+  <block id="121a593d2b9b9e49a3457f9afaecfc87" category="image-alt">발견 결과</block>
+  <block id="f786ea7af748e4f1e0716fccad266edd" category="admonition">VM 인벤토리는 24시간마다 자동으로 새로 고쳐집니다.  수정 후 수동으로 새로 고침하려면 사이트 이름 옆에 있는 세 개의 점을 클릭하고 *사이트 검색*을 선택하세요.</block>
+  <block id="e57344dc7bdbf466f4ad045f6fea20c0" category="section-title">2단계: 대상 사이트 추가(VMware ESXi)</block>
+  <block id="5e7ff8aaf31fb685a9df7cbbb93de4d3" category="paragraph">Shift Toolkit에 대상 VMware 환경을 추가합니다.</block>
+  <block id="03dcc4493cae8e101dba9ef29fa32ab9" category="list-text">*하이퍼바이저*: VMware 선택</block>
+  <block id="f8067bd45ff7039b781f49bb68a2db22" category="list-text">VMware vCenter 세부 정보를 입력하세요.</block>
+  <block id="f10c6214e25e0807f47dc3498a383732" category="list-text">*엔드포인트*: vCenter 서버의 IP 주소 또는 FQDN</block>
+  <block id="b99aa4efa7025e641c3a126aa833be1b" category="list-text">*사용자 이름*: UPN 형식의 사용자 이름(username@domain.com)</block>
+  <block id="f319fc67d2812a0a66f52384c4b90fe2" category="list-text">*vCenter 비밀번호*: vCenter에 액세스하기 위한 비밀번호</block>
+  <block id="109de6222365377fb3c66a4c5ebf2347" category="list-text">*vCenter SSL 지문* (선택 사항)</block>
+  <block id="d6406636919a43a3cc11568d6aa7f559" category="image-alt">사이트 생성 확인</block>
+  <block id="bfe26a1547a147f6e19575442015c4dd" category="admonition">디스크 포맷 변환은 동일한 볼륨 내의 볼륨 수준에서 발생하므로 소스 및 대상 저장 시스템은 동일해야 합니다.</block>
+  <block id="56cfa2142095ed17338cb6f667f301bd" category="section-title">3단계: 리소스 그룹 만들기</block>
+  <block id="d632789ab50a3d549ceb93e0b9c9cb8d" category="paragraph">필수 구성 요소에 지정된 대로 qtree가 프로비저닝되었는지 확인하세요.</block>
+  <block id="d0377fa64a760177952a398f6a1d0157" category="image-alt">리소스 그룹 워크플로</block>
+  <block id="1281842a6c48fa015242afc4904cb73b" category="admonition">변환하기 전에 새로 생성된 ONTAP SVM의 지정된 SMB 공유로 VM을 이동하여 스테이징 영역에서 프로덕션 공유를 격리합니다.  데이터 저장소 드롭다운에는 SMB 공유만 표시되고 CSV는 표시되지 않습니다.</block>
+  <block id="4fc7ee6082e91191f537f7a3e9ba1d47" category="image-alt">데이터 저장소 선택</block>
+  <block id="f89e8e7112f1d4e27fad2e73c0abb9a7" category="list-text">*대상 VMware 항목*을 선택하세요</block>
+  <block id="233eaeda58027ccdd88789df725b10e8" category="list-text">볼륨을 Qtree 매핑으로 구성</block>
+  <block id="303e4844f6c395ede127337e10a69c50" category="admonition">Hyper-V에서 ESXi로 VM을 변환할 때 대상 경로를 적절한 qtree로 설정합니다.</block>
+  <block id="31ed4c27b7a7799eb32d302973ab58d3" category="section-title">4단계: 마이그레이션 청사진 만들기</block>
+  <block id="7e98f5642f780fba447ec3e9899a1a8e" category="list-text">*소스 사이트* 및 관련 Hyper-V 하이퍼바이저를 선택하세요.</block>
+  <block id="c166b4f0815a359ace869c01ad13cbde" category="list-text">*대상 사이트* 및 관련 vCenter를 선택하세요.</block>
+  <block id="9f86d391ecaf1e46fd54206cb8276ffc" category="list-text">호스트 및 클러스터 매핑 구성</block>
+  <block id="4e0f4329f797c8290c9165e850d07915" category="image-alt">블루프린트 호스트 매핑</block>
+  <block id="3ee7a0c17060dd831295d796920fb0ee" category="list-text">적절한 포트 그룹에 네트워크 매핑을 구성합니다.</block>
+  <block id="39b95964330606e7c74c22b0b5017133" category="admonition">VMware에서는 분산 포트 그룹만 지원되는 옵션입니다.  테스트 마이그레이션의 경우, 프로덕션 네트워크 충돌을 피하기 위해 "네트워크를 구성하지 않음"을 선택하세요. 변환 후 네트워크 설정을 수동으로 지정하세요.</block>
+  <block id="758d75f994d730984a45f10d31065f9f" category="admonition">필요한 권한이 미리 qtree에 제공되어 있는지 확인하세요.</block>
+  <block id="61cfc684d4096aa8ba9ee3ea39ce3eda" category="list-text">사용자 정의 스크립트나 IP 주소 사용자 정의에 필요한 경우 VM 준비 재정의를 구성합니다.</block>
+  <block id="0114f8109d7bc0deb668824ad1fc8e4b" category="image-alt">준비 무시</block>
+  <block id="cc0d2ccc19a82d7100d80a745d5fbe09" category="list-text">VM 세부 정보에서 각 OS 유형에 대한 서비스 계정과 자격 증명을 제공합니다.</block>
+  <block id="2e2971f8434a9fc3330332cf5b8f993e" category="list-text">*Windows*: 로컬 관리자 또는 도메인 자격 증명(VM에 사용자 프로필이 있는지 확인)</block>
+  <block id="cfa4a3b73f606dfb4af1d651b8ac1046" category="list-text">*Linux*: 비밀번호 입력 없이 sudo 권한이 있는 사용자</block>
+  <block id="1fe4eecee73ca167da07682eb98174dd" category="image-alt">서비스 계정 자격 증명</block>
+  <block id="83f38b0adf177c59028e65dc889c3db8" category="paragraph">prepareVM 단계에서 VM의 전원이 켜져 있고 통합 서비스가 활성화되어 있는지 확인하세요.</block>
+  <block id="043e0b250a7c4ea2bb940e332f9247d5" category="list-text">*VMware 도구 추가*: 변환 후 VMware 도구 설치(기본값: 선택됨)</block>
+  <block id="f958353d895c0e989d8a71c2955422cf" category="image-alt">이주 일정</block>
+  <block id="450fef79fe8b868a416969da857e9464" category="image-alt">PrepareVM 작업이 시작되었습니다.</block>
+  <block id="c4d7030842fb82b185a49da70c4970b7" category="admonition">CentOS 또는 Red Hat VM의 경우 Shift Toolkit은 디스크 변환 전에 필요한 드라이버를 자동으로 설치하여 변환 후 성공적인 부팅을 보장합니다.</block>
+  <block id="3627afe30e0663949d37f6e244f7aefc" category="paragraph">prepareVM이 성공적으로 완료되면 블루프린트 상태가 "활성"으로 업데이트됩니다.</block>
+  <block id="d892292a191d5d73745205a7d5ea4554" category="image-alt">청사진 활성 상태</block>
+  <block id="6d7f2d5a591423695ab5f5e9f69f897e" category="section-title">5단계: 마이그레이션 실행</block>
+  <block id="8e4f04459f2b4d942a2b139469911a6f" category="paragraph">Hyper-V에서 VMware ESXi로 VM을 변환하기 위한 마이그레이션 워크플로를 트리거합니다.</block>
+  <block id="9aacd1c1019dee79dda0796b90468484" category="list-text">Shift Toolkit VM은 도메인의 일부입니다.</block>
+  <block id="3d5a1ffa3715751d7acc17f832352464" category="list-text">CIFS 공유는 적절한 권한으로 구성되었습니다.</block>
+  <block id="7f8738c81c2c17fd68650a441fcf6a54" category="list-text">Qtree에는 올바른 보안 스타일이 있습니다.</block>
+  <block id="06c0afa218c790d183a7d8c3a982a76c" category="list-text">모든 게스트 VM에서 통합 서비스가 활성화됩니다.</block>
+  <block id="821604695855db167b0fcecea2851f32" category="list-text">Linux 기반 게스트 VM에서 SSH가 활성화되었습니다.</block>
+  <block id="0b77b99a22ebf73e4a4206337154d8c3" category="image-alt">마이그레이션 버튼</block>
+  <block id="f634df21ffa26a7e272e70b73c31a8e9" category="list-text">VM이 계속 켜져 있는 경우 정상적인 종료 프롬프트에 응답합니다.</block>
+  <block id="fbddd5d0b9c7f067440da92a4149250f" category="image-alt">종료 확인</block>
+  <block id="bfd3004a9078d3792b8969c970f9beaf" category="list-text">소스 VM의 전원을 끕니다.</block>
+  <block id="eab186bdd9f0c4c48baa0b590937b919" category="list-text">기존 체크포인트를 삭제합니다</block>
+  <block id="61ccc53f59371f9794cd7b04767870cc" category="list-text">소스에서 VM 체크포인트를 트리거합니다.</block>
+  <block id="0bbcb64c6bbab0a171a40420c48f4f47" category="list-text">VHDx 파일을 복제하고 VMDK 형식으로 변환합니다.</block>
+  <block id="caeecc176eb1e2989d341d0e80c013b6" category="list-text">대상 사이트에서 VM 전원을 켭니다.</block>
+  <block id="de55634d2171afb51de10def500d62b4" category="list-text">네트워크 설정을 등록합니다</block>
+  <block id="8a476f75371a8bcb4b2c133476821945" category="list-text">VMware Tools를 추가하고 IP 주소를 할당합니다.</block>
+  <block id="ad4d00c48aadbd4b159edf3d6a5d8ad2" category="paragraph">변환은 몇 초 안에 완료되므로 VM 가동 중지 시간이 최소화됩니다.</block>
+  <block id="4cd30a45036069fd234be1c78744f4bd" category="paragraph">마이그레이션이 완료되면 블루프린트 상태가 "마이그레이션 완료"로 변경됩니다.</block>
+  <block id="800c9198c1b300dd01e3ac9680a8c29b" category="section-title">6단계: 마이그레이션 검증</block>
+  <block id="48e0bcbf3ef4fe66ba05904786ea8b33" category="paragraph">VMware ESXi 호스트에서 VM이 성공적으로 실행되는지 확인합니다.</block>
+  <block id="9564f5d3ed94424d2cecef592e744373" category="list-text">vCenter 또는 ESXi 호스트에 로그인합니다.</block>
+  <block id="e6d939c32807a59deaf7a9a4bdedfe7a" category="list-text">지정된 ESXi 호스트에서 VM이 실행 중인지 확인합니다.</block>
+  <block id="c1754f31c92984327f209d623340f1f6" category="image-alt">ESXi에서 실행되는 VM</block>
+  <block id="5d9420ecca53e87f74a3a78d50146edd" category="list-text">VM 연결 및 애플리케이션 기능을 확인합니다.</block>
+  <block id="52d907c89a501afb44dbec5ffbdccaa3" category="list-text">(Windows VM만 해당) 필요한 경우 오프라인 디스크를 온라인으로 전환합니다.</block>
+  <block id="7f9c677b6b23320ed92ba41609db8c21" category="admonition">변환 후에는 기본 Microsoft Windows SAN 정책(offlineALL)으로 인해 Windows OS의 모든 VM 디스크(OS 디스크 제외)가 오프라인 상태가 됩니다.  이렇게 하면 여러 서버가 LUN에 액세스할 때 데이터 손상을 방지할 수 있습니다.</block>
+  <block id="80b7cdc0648f8f794fded4e9ee9e0f6f" category="paragraph">Hyper-V에서 VMware ESXi로의 마이그레이션이 완료되었습니다.</block>
+  <block id="5c3215f6b3285c7bb256e632af7adb68" category="admonition">Shift Toolkit은 마이그레이션 이후 작업을 위해 cron 작업(Linux)과 예약된 작업(Windows)을 사용합니다.  ESXi 호스트에서 VM이 실행된 후에는 SSH 연결이나 이와 동등한 연결이 생성되지 않습니다.</block>
+  <block id="d480af3355d365ad3e16856c40f5f8d3" category="summary">Shift Toolkit을 사용하여 가상화 플랫폼 간에 VM을 마이그레이션합니다.  이 프로세스에는 VM 준비, 디스크 형식 변환, 대상 환경의 네트워크 설정 구성이 포함됩니다.</block>
+  <block id="7095ee9f52e05d0097b2d7d494fca330" category="section-title">지원되는 마이그레이션</block>
+  <block id="cce8190097b21dfebd8e93099265d2d2" category="paragraph">Shift Toolkit은 다음 하이퍼바이저 간 양방향 마이그레이션을 지원하여 다중 하이퍼바이저 환경에서 유연성을 제공합니다.</block>
+  <block id="45f600755e82622b4a50cd6cfc29ca8b" category="list-text"><block ref="45f600755e82622b4a50cd6cfc29ca8b" category="inline-link-macro-rx"></block></block>
+  <block id="d56918fec48231936308ad7a29deabeb" category="inline-link-macro">Microsoft Hyper-V에서 VMware ESXi로</block>
+  <block id="c40171efd820016039b4d648fc525039" category="list-text"><block ref="c40171efd820016039b4d648fc525039" category="inline-link-macro-rx"></block></block>
+  <block id="6d1f3489a9f833c818f1620a8042e127" category="inline-link-macro">VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로</block>
+  <block id="8ba91854762e84be4ac941b1ae27b683" category="list-text"><block ref="8ba91854762e84be4ac941b1ae27b683" category="inline-link-macro-rx"></block></block>
+  <block id="f03c415831a436192b1b5d30dfd747d1" category="inline-link-macro">VMware ESXi에서 Red Hat OpenShift 가상화로</block>
+  <block id="00d09613bed14af5de8f89ce701a6c45" category="list-text"><block ref="00d09613bed14af5de8f89ce701a6c45" category="inline-link-macro-rx"></block></block>
+  <block id="ee5b035493cdde88f6472904ffe00677" category="section-title">마이그레이션 워크플로</block>
+  <block id="053fb35cfde28fdf3c31094fd4947779" category="paragraph">청사진을 만든 후 마이그레이션 프로세스를 시작할 수 있습니다.  마이그레이션 중에 Shift Toolkit은 일련의 단계를 수행하여 디스크 형식을 변환하고 블루프린트에 정의된 대로 대상 호스트에 가상 머신을 생성합니다.</block>
+  <block id="080f18aa384de7d5d7b575c44cfed924" category="paragraph">Shift Toolkit은 마이그레이션 중에 다음 단계를 수행합니다.</block>
+  <block id="1facd068da39e1bf7d7e5a544f626c65" category="list-text">소스에서 청사진에 대한 VM 스냅샷을 트리거합니다.</block>
+  <block id="29fd6f4750e7b933e938884fffc25da5" category="list-text">대상의 보호 그룹에 있는 VM의 전원을 켭니다.</block>
+  <block id="2a1a26bc619017344dc5b9b7e958804f" category="list-text">VMware Tools를 제거하고 OS 유형에 따라 트리거 스크립트나 Cron 작업을 사용하여 IP 주소를 할당합니다.</block>
+  <block id="c76ea8983c3a55a70b23de3fa5b413fd" category="paragraph">계획된 유지 관리 기간 동안에는 VM의 전원을 정상적으로 꺼야 합니다.  마이그레이션을 시작하기 전에 모든 전제 조건이 충족되었는지 확인하세요.</block>
+  <block id="99573373f032c22be6aa58ab65dff2d9" category="list-text">Shift Toolkit VM이 도메인의 일부인지 확인하세요.</block>
+  <block id="b8bd13b1cdb16bb62bd27dab0cc399d8" category="list-text">마이그레이션 또는 변환에 사용된 qtree에 올바른 보안 스타일이 있는지 확인하세요.</block>
+  <block id="2bc4cbd7afcf7c95865d637266313c07" category="list-text">클러스터 내의 모든 Hyper-V 호스트에서 Hyper-V 관리자를 사용하여 VM 생성을 테스트하고 VHDx를 CIFS 공유에 배치합니다.</block>
+  <block id="90e27a49f647299890af53c04b750b85" category="list-text">프로그램 및 기능 또는 PowerShell을 사용하여 Hyper-V 관리 도구를 추가하여 Shift Toolkit VM에서 VM 생성을 테스트합니다.<block ref="a0f83f1a0348c0e6f7032dc3b247ecbf" prefix=" " category="inline-code"></block></block>
+  <block id="15f5783455648e1798d7dfb81ef15b1e" category="section-title">네트워크 팁 및 고려 사항</block>
+  <block id="3f4c9c4460717d5de6edda4628be4030" category="paragraph">마이그레이션을 계획할 때 다음 네트워크 요구 사항과 동작을 고려하세요.  Shift Toolkit은 소스 VM에서 네트워크 설정을 자동으로 복사하여 마이그레이션된 VM에 다시 적용하지만, 인터페이스 명명 및 네트워크 어댑터 구성은 Windows와 Linux 시스템 간에 다를 수 있습니다.</block>
+  <block id="a12934d86bf9a6485e2118f57091c312" category="list-title">일반 요구 사항</block>
+  <block id="2f6fcff8a72cad9021f974310ebf9df4" category="list-text">정적 IP 주소가 사용 가능하고 다른 VM에 할당되지 않았는지 확인하세요.</block>
+  <block id="fb408e4c9f35ecb2ebd11088fc9dc4aa" category="list-title">Windows VM</block>
+  <block id="18a1821cae926c7747a9fdb3b6db72b7" category="list-text">준비 스크립트는 네트워크 구성 세부 정보(IP 주소 공간, 게이트웨이 주소, DNS 서버)를 복사합니다.</block>
+  <block id="2b863460606a543ea1ce4a46c1fb9e39" category="list-text">트리거 스크립트는 블루프린트 매핑을 기반으로 단일 또는 여러 NIC에 대한 마이그레이션 중에 네트워크 설정을 다시 적용합니다.</block>
+  <block id="5ce161e99cfc00fb24c105c1ad0a4fc8" category="list-text">마이그레이션 후 Windows 장치 관리자는 새 어댑터에 영향을 미치지 않거나 IP 충돌을 일으키지 않는 사전 마이그레이션의 이전 네트워크 어댑터 정보를 표시할 수 있습니다.</block>
+  <block id="258c686e98a1003e35fd38daf1c53e85" category="list-text">레지스트리와 장치 관리자에서 고아 네트워크 장치를 자동으로 제거하려면 v4.0으로 업그레이드하세요.</block>
+  <block id="5557a1270bb9f6b6043fb33d219cb8bd" category="list-title">Linux VM</block>
+  <block id="1f8bc89729be2af2463be5b2d81f5b76" category="list-text">준비 스크립트는 네트워크 구성 세부 정보(IP 주소 공간, 경로, DNS 서버, 네트워크 장치 이름)를 복사합니다.</block>
+  <block id="119d2092bd7401dc19ed6319888c48c3" category="list-text">스크립트는 Linux 배포판의 네트워킹 유형을 식별하고 그에 따라 IP 설정을 적용합니다.</block>
+  <block id="cc77f231e8767047f7e957077e24c39d" category="list-text">네트워크 재할당 스크립트는 crontab을 사용하여 cron 작업으로 구성되고 부팅 시 트리거됩니다.</block>
+  <block id="1bd1ab8fe51ad8726524362ca08ebc9b" category="list-text">스크립트는 블루프린트 매핑을 기반으로 단일 또는 여러 NIC에 대한 네트워크 설정을 다시 적용합니다.</block>
+  <block id="247f1ccd24c7931dcda6cf87265abc75" category="list-title">인터페이스 명명</block>
+  <block id="551819c7848cc24ebff3bc6f5dd14cf9" category="list-text">변환된 VM에는 다음과 같은 인터페이스 이름이 있을 수 있습니다.<block ref="a1a5b3d22e82bbd6f878d26feacc2c7d" prefix=" " category="inline-code"></block> 또는<block ref="0875a161df539bd58a1326b0638ffd62" prefix=" " category="inline-code"></block> 소스 인터페이스 이름 대신(예:<block ref="a64cf3024e09b87365861af0e5abe13b" prefix=" " category="inline-code"></block> 또는<block ref="f8748044b79589f2b38c3269da51024a" prefix=" " category="inline-code"></block> )</block>
+  <block id="b481fffabaa3f495356f9a249770503a" category="list-text">스크립트는 새 인터페이스 이름과 일치하도록 네트워크 구성 세부 정보를 업데이트합니다.</block>
+  <block id="b383c2862bcf06d14891105be9a966b6" category="list-text">예측 가능한 이름이 적절한 udev 매칭 규칙과 함께 사용되고 인터페이스 이름이 대상 하이퍼바이저에 유지되는 경우 스크립트는 네트워크 구성을 건너뛰고 VMware Tools를 제거하며 VM을 재부팅합니다.</block>
+  <block id="feb99f6f3a83054932aedaed1df9a07e" category="admonition">Shift Toolkit을 사용하면 네트워크 준비를 재정의하여 관리자가 IP 할당이나 기타 구성을 위한 사용자 정의 스크립트를 실행할 수 있습니다.</block>
+  <block id="587f95e8bcdeccf3b7e76e8e8e73a4fc" category="list-title">지원되는 네트워킹 메커니즘</block>
+  <block id="f844a4c804cb8404e0b00daaebc093c8" category="list-text">네트워크 관리자</block>
+  <block id="ec74fbdfc7bf2550779edb52613fd431" category="list-text">넷플랜</block>
+  <block id="db18c251598a58086700b3cf44a93938" category="list-text">ifconfig</block>
+  <block id="1c13465e24d91aca4d3ddaa1bc3e7027" category="list-text">사악한</block>
+  <block id="f8e5ddcff49b736538b76b68665aaf3e" category="paragraph">Shift Toolkit은 청사진에 지정된 대로 IP 주소를 유지합니다.</block>
+  <block id="743b41354f0bf5edcd30b4541b0af1b1" category="section-title">마이그레이션 단계</block>
+  <block id="42ba5874372e21e9ef1724eaa40d09bc" category="paragraph">Shift Toolkit을 사용하여 VM을 마이그레이션하는 데 따르는 마이그레이션 단계는 다음과 같습니다.</block>
+  <block id="feae0bac4c850080c4a5df828a539b6b" category="list-text">*VM 준비*: 마이그레이션을 위해 VM을 준비하고 모든 필수 조건이 충족되었는지 확인합니다.</block>
+  <block id="af5e62d31bd4d22502e759a576c7b656" category="list-text">*마이그레이션 및 검증*: 준비가 완료되면 VMware VM을 대상 하이퍼바이저로 마이그레이션합니다.</block>
+  <block id="c30d74e8f6f2aafd1e31f89d031bd7c9" category="paragraph">마이그레이션이 완료된 후 VM이 성공적으로 부팅되고 데이터가 올바르게 마이그레이션되었는지 확인합니다.</block>
+  <block id="65c0315541a0ffce7ffa39118e7f0fcb" category="list-text">*마이그레이션 테스트*: 테스트 마이그레이션은 VMDK를 적절한 형식으로 변환하고 qtree에서 변환된 가상 디스크 파일을 사용하여 VM을 생성하여 마이그레이션을 시뮬레이션합니다.</block>
+  <block id="3938b47866fdfbdb7f4e2533658cc29b" category="paragraph">테스트 마이그레이션에는 네트워크 매핑 구성이 포함되지 않으므로 테스트 네트워크에 수동으로 수행해야 합니다.</block>
+  <block id="ce48c51f1a203887a68fce1014b4b13c" category="admonition">Shift Toolkit은 VM 준비에 필요한 스크립트를 복사하는 것을 제외하고는 소스 VM을 변경하지 않습니다.  이를 통해 변환에 실패할 경우 신속하게 롤백할 수 있습니다.</block>
+  <block id="55f9542a567558babdcbd22d2f03adfa" category="section-title">마이그레이션 실행</block>
+  <block id="98bdc1196b3050cdbd37494cf12de6af" category="paragraph">블루프린트에 지정된 구성으로 마이그레이션 워크플로를 트리거하려면 *마이그레이션*을 클릭합니다.</block>
+  <block id="b32b47d8e1ad6a740bcf3537dce0b182" category="image-alt">VM 마이그레이션을 트리거하는 방법을 보여주는 대화 상자</block>
+  <block id="b6339547219afcb07f0e46117def4184" category="paragraph">워크플로가 시작되면 활성화되고 변환 프로세스는 설명된 단계에 따라 VM을 등록합니다.  블루프린트 내의 VM이 전원이 꺼지지 않은 경우 Shift Toolkit은 계속 진행하기 전에 정상적으로 종료할지 묻습니다.</block>
+  <block id="c30056acbce305bb138a3a25551de98d" category="image-alt">이민 프로세스 확인</block>
+  <block id="e786528d47632fc1a888a7d9a0948609" category="admonition">NetApp 동일한 소스에서 동일한 대상으로 최대 10개의 변환을 동시에 트리거할 것을 권장합니다.</block>
+  <block id="2d01945e95f894acf448bce3c1c87184" category="image-alt">이주 진행 상황</block>
+  <block id="11f62c379ec95e7ce9bf570d91a0c821" category="paragraph">VMDK를 모든 파일 형식으로 변환하는 데 몇 초 밖에 걸리지 않아 가장 빠른 옵션입니다.  이 접근 방식은 마이그레이션 중 VM 가동 중지 시간을 줄이는 데 도움이 됩니다.</block>
+  <block id="e5b2fb7acfb976c203a39ecdf59f0d4b" category="image-alt">디스크 변환 진행 상황</block>
+  <block id="054939860c6d11c402e61833fcf70ec0" category="paragraph">작업이 완료되면 청사진 상태가 "마이그레이션 완료"로 변경됩니다.</block>
+  <block id="d63e014a7e5a41a65a382b468f53c0b3" category="image-alt">마이그레이션 완료 상태</block>
+  <block id="78c50f766d1b4cc94ba0e78417dcb65d" category="summary">Shift Toolkit 작업 모니터링 대시보드를 사용하면 마이그레이션, 변환 및 청사진 작업을 실시간으로 추적하여 관리자가 작업 상태를 신속하게 파악하고 문제를 해결할 수 있습니다.</block>
+  <block id="787f4bc4e6c8b612b8a9487d3184ab11" category="doc">Shift Toolkit 대시보드로 마이그레이션 작업 모니터링</block>
+  <block id="6cc013933794c1410e41bdcf092c94b2" category="paragraph">Shift Toolkit 작업 모니터링 대시보드를 사용하면 마이그레이션, 변환 및 청사진 작업을 실시간으로 추적하여 작업 상태를 빠르게 파악하고 문제를 해결할 수 있습니다.</block>
+  <block id="9236f2d85c32b7af7b4a5de5d2ddee8b" category="section-title">작업 모니터링 대시보드</block>
+  <block id="daa8a66fc2e450fc73f1be5227a50531" category="paragraph">작업 모니터링 대시보드는 Shift Toolkit 내에서 활성화된 작업과 완료된 작업을 모두 중앙에서 볼 수 있는 기능을 제공합니다.  이 대시보드를 사용하여 마이그레이션, 변환 및 청사진 작업의 진행 상황을 모니터링하세요.</block>
+  <block id="a41e2dff72800a56fd0b748dd311fcb0" category="image-alt">Shift Toolkit에서 활성 작업을 보여주는 작업 모니터링 대시보드</block>
+  <block id="412633fbf4d990d310ce40dc041111bd" category="paragraph">대시보드에는 각 작업에 대한 주요 정보가 표시됩니다.</block>
+  <block id="d07763936a1b8dd354dd3f11fdaa1c4a" category="list-text">작업 유형(이주, 전환 또는 청사진)</block>
+  <block id="09c2fb059c6edc71503b320e2baf8f3d" category="list-text">현재 상태(실행 중, 성공, 실패 또는 부분 실패)</block>
+  <block id="c2d98186ea0152ac43e4ae72b6581c69" category="list-text">진행 지표 및 완료율</block>
+  <block id="c3e7d68908e288f61ee52756d3357a18" category="list-text">처리된 VM 수</block>
+  <block id="81db57de5f6ef1ea58eb10bbc8594b8b" category="list-text">시작 및 종료 시간</block>
+  <block id="cca7ca86f142de3fd723dd375ad486be" category="section-title">작업 상태 이해</block>
+  <block id="7d9dcabfb0537365b470e8968ca10727" category="paragraph">직관적인 인터페이스를 통해 모든 작업의 상태를 빠르게 평가하고 주의가 필요한 작업을 식별할 수 있습니다.</block>
+  <block id="3c803d1fc40e03ef5d86d814df85377a" category="image-alt">Shift Toolkit 대시보드의 작업 상태 세부 정보</block>
+  <block id="80119ba5442381c1ff57c5a21f4a0549" category="paragraph">작업 상태 표시기는 각 작업의 결과를 이해하는 데 도움이 됩니다.</block>
+  <block id="83c8b553b8ad0807a5a3b2722934edfc" category="list-text">*성공*: 작업의 모든 VM이 오류 없이 완료되었습니다.</block>
+  <block id="0c70b07afb69fa33e0c9d654b36ed9d9" category="list-text">*실패*: 작업에 오류가 발생하여 완료할 수 없습니다.</block>
+  <block id="39a3631433fdccfdf62b918c72e55e93" category="list-text">*부분적으로 실패*: 일부 VM은 성공적으로 완료되었지만 다른 VM은 오류가 발생했습니다.</block>
+  <block id="6c3439de35dad17008c0123d76979867" category="list-text">*실행 중*: 작업이 현재 진행 중입니다.</block>
+  <block id="237abd56a329450f5035d15366a28ae2" category="paragraph">상태 정보를 사용하여 문제 해결 노력의 우선순위를 정하고 원활한 마이그레이션 워크플로를 보장합니다.</block>
+  <block id="7bd2c11e0f5edac5735f64fab6c527f4" category="paragraph">NetApp Shift Toolkit은 VMware ESXi, Microsoft Hyper-V, Oracle Linux Virtualization Manager, Redhat OpenShift 등의 하이퍼바이저에서 VM 마이그레이션을 단순화하고 가속화하도록 설계된 독립형 제품입니다.  또한 다양한 가상 디스크 형식 간의 디스크 수준 변환도 지원합니다.</block>
+  <block id="53e5b6d35de6b8a5c79f0172e0b8c17b" category="paragraph">NetApp Shift 툴킷은 서로 다른 하이퍼바이저 간에 가상 머신(VM)을 마이그레이션하고 가상 디스크 형식을 변환할 수 있는 사용하기 쉬운 그래픽 사용자 인터페이스(GUI) 솔루션입니다. NetApp FlexClone® 기술을 활용하여 VM 하드 디스크를 빠르게 변환합니다. 또한, 툴킷은 대상 VM의 생성과 구성을 관리합니다.</block>
+  <block id="a04aacf6f851e2682a4da1bf98bf8629" category="list-text">VMWare ESXi에서 Oracle Linux Virtualization Manager(OLVM)로</block>
+  <block id="0a3befe72ba71e1ec8948e87237e668c" category="list-text">VMWare ESXi에서 Red Hat OpenShift 가상화로</block>
+  <block id="825860267b7a5d90b93823d783710214" category="list-text">Microsoft Hyper-V에서 VMware ESX로(가상 하드 디스크 포맷[VHDX]에서 가상 머신 디스크[VMDK]로)</block>
+  <block id="52567f9a4b927b569287a168c92c53e5" category="list-text">VMware ESX에서 KVM 호환 하이퍼바이저(VMDK에서 RAW로)</block>
+  <block id="0866755dc8e08dc4c5c4e9013f9d8dca" category="image-alt">NetApp Shift Toolkit 개요</block>
+  <block id="ac755b6de8efaf835ed5faa2810bf8f9" category="paragraph">Shift 툴킷을 다운로드할 수 있습니다<block ref="ce1999e8d7d946ea35ded70e868c8173" category="inline-link-macro-rx"></block> Windows 시스템에서만 사용 가능합니다.</block>
+  <block id="bad8794305fb794d7aac928ae93d8996" category="list-text">단일 볼륨 및 다중 프로토콜 NetApp ONTAP 사용하면 여러 프로토콜을 사용하여 단일 볼륨에 쉽게 액세스할 수 있습니다. 예를 들어, VMware ESXi는 NFS(네트워크 파일 시스템) 프로토콜을 사용하여 볼륨에 액세스할 수 있으며, Microsoft Hyper-V는 CIFS/SMB 프로토콜을 사용하여 동일한 볼륨에 액세스할 수 있습니다.</block>
+  <block id="928fe00758f1c39ffbdb44e3a26ea74d" category="list-text">FlexClone 기술 FlexClone 사용하면 데이터 복사 없이 전체 파일이나 볼륨을 빠르게 복제할 수 있습니다. 저장 시스템의 공통 블록은 여러 파일이나 볼륨에서 공유됩니다. 결과적으로 대용량 VM 디스크를 매우 빠르게 복제할 수 있습니다.</block>
+  <block id="b9ad3bd7739d623f3eb74f8191b44759" category="list-text">VM 디스크 변환 NetApp PowerShell Toolkit과 Shift Toolkit에는 NetApp 스토리지 컨트롤러에서 다양한 작업을 수행하는 데 사용할 수 있는 수많은 워크플로가 포함되어 있습니다. 가상 디스크를 다른 형식으로 변환하는 PowerShell cmdlet이 포함되어 있습니다. 예를 들어, VMware VMDK를 Microsoft VHDX로 변환할 수 있으며, 그 반대의 경우도 가능합니다. 이러한 변환은 FlexClone 통해 수행되며, 이를 통해 한 단계로 매우 빠른 복제 및 디스크 형식 변환이 가능합니다.</block>
+  <block id="d89c328120c9d351db26a3d3b4a5a74b" category="image-alt">NetApp Shift Toolkit 작동 방식 다이어그램</block>
+  <block id="61755af2e97209fe6523fa9208998cd8" category="paragraph">방화벽은 다음 포트를 통한 트래픽을 허용해야 합니다.</block>
+  <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">포트</block>
+  <block id="888a77f5ac0748b6c8001822417df8b6" category="cell">규약</block>
+  <block id="f31bbdd1b3e85bccd652680e16935819" category="cell">원천</block>
+  <block id="12007e1d59f4d09c87dbe2c438256244" category="cell">목적지</block>
+  <block id="261addf78c7b2c961032b3dd08ba0b1f" category="cell">목적</block>
+  <block id="13f3cf8c531952d72e5847c4183e6910" category="cell">443</block>
+  <block id="b136ef5f6a01d816991fe3cf7a6ac763" category="cell">TCP</block>
+  <block id="17f4add1f03d2cacc9642c9a318021fc" category="cell">Shift 툴킷 노드</block>
+  <block id="43e02e05b2879c1406a010bf6a28f8f7" category="cell">VMware vCenter</block>
+  <block id="d9f7f5e87a11e0192d663f9a7ad56c03" category="cell">VMware 인벤토리</block>
+  <block id="ba6a8fd827c7eb9668c0d0d096779962" category="cell">VMware ESXi 노드</block>
+  <block id="ec29de93b3e2f65884d11d508f41516a" category="cell">Invoke-vmscript 종속성(라우팅됨)</block>
+  <block id="5ce079b33194a9c35c69252a4c7ff216" category="cell">대상 하이퍼바이저</block>
+  <block id="d8d1dde752aed828750f8c62c877f019" category="cell">목표 재고</block>
+  <block id="afe751bc263aef0788cbf17a1014eb3e" category="cell">ONTAP 시스템</block>
+  <block id="868e294f4840b591269b3c8b0875bf39" category="cell">ONTAP 접근</block>
+  <block id="6dd3dd21b3b938c5538e1f4b4d5501d2" category="cell">5985/5986</block>
+  <block id="293c9ea246ff9985dc6f62a650f78986" category="cell">HTTP</block>
+  <block id="cd663cb8ae053c49b69eafcca6c47138" category="cell">Hyper-V 호스트</block>
+  <block id="a4cf45e2c02a19adf19bff8feeb8e21e" category="cell">윈RM</block>
+  <block id="09884d0794a52b5eaa16334c299f1769" category="summary">VMware Storage vMotion과 Hyper-V Storage Live Migration을 사용하여 SAN 기반 데이터 저장소에서 NAS로 VM을 마이그레이션한 다음 Shift Toolkit으로 변환하여 비즈니스 연속성을 유지합니다.</block>
+  <block id="793be9fa6daa583593e55a121b67f09b" category="doc">Shift Toolkit을 사용하여 SAN 환경에서 VM을 마이그레이션하여 변환합니다.</block>
+  <block id="0f5c266c2e0900f30599028bd01368b2" category="section-title">SAN 기반 VM에 대한 요구 사항</block>
+  <block id="55a078f02fd174db725e51748f73f60a" category="paragraph">Shift Toolkit을 사용하려면 변환하기 전에 VM이 NAS 환경(VMware ESXi의 경우 NFS)에 있어야 합니다.  현재 VM이 iSCSI, 파이버 채널(FC), 이더넷을 통한 파이버 채널(FCoE), 파이버 채널을 통한 NVMe(NVMe/FC)를 사용하는 SAN 기반 데이터 저장소에 저장되어 있는 경우 먼저 NFS 데이터 저장소로 마이그레이션해야 합니다.</block>
+  <block id="19cafc6ce47e8b477b4e73b5caab63b9" category="section-title">SAN 환경을 위한 마이그레이션 워크플로</block>
+  <block id="6f8fb0a98f1a5ce00a33fe46f14dadf3" category="paragraph">다음 다이어그램은 SAN 환경에 저장된 VM에 대한 전체 마이그레이션 워크플로를 보여줍니다.</block>
+  <block id="5a6713c6db95639be9360147457e362d" category="image-alt">SAN에서 NAS로, 그리고 다시 SAN으로 VM을 이동하는 것을 보여주는 마이그레이션 워크플로 다이어그램</block>
+  <block id="19e36a66de22c564af02cb3b376f2bdb" category="paragraph">마이그레이션 프로세스는 세 가지 주요 단계로 구성됩니다.</block>
+  <block id="7e8e2f36bf540ee01063cd8222584161" category="paragraph-title">SAN에서 NAS로 마이그레이션(VMware 환경)*</block>
+  <block id="5ba0cdc7d5b0343e9cab5b793f279a77" category="paragraph">VMware vSphere Storage vMotion을 사용하여 SAN 데이터 저장소에서 NFS 데이터 저장소로 VM과 해당 디스크를 마이그레이션합니다.  이 작업은 VM 가동 중지 없이 수행할 수 있습니다.</block>
+  <block id="c286b5e422075c01da80477de77489b5" category="paragraph-title">Shift Toolkit*을 사용하여 VM 변환</block>
+  <block id="18e24c111186a4241855f6cda6342917" category="paragraph">VM이 NFS 데이터 저장소에 상주하면 Shift Toolkit은 NetApp FlexClone 기술을 사용하여 VM을 VMware ESXi에서 Hyper-V로 변환합니다. 변환된 VM과 해당 디스크는 Hyper-V 호스트에서 액세스할 수 있는 CIFS 공유에 배치됩니다.</block>
+  <block id="be685bf5d2853279999d24ce20ae633e" category="paragraph-title">SAN(Hyper-V 환경)으로 다시 마이그레이션*</block>
+  <block id="3a1559f648048b6194473fff565382be" category="paragraph">변환 후 Hyper-V Storage Live Migration을 사용하여 변환된 VM과 해당 디스크를 CIFS 공유에서 SAN 지원 클러스터 공유 볼륨(CSV)으로 이동합니다.  이를 통해 Hyper-V 환경에서 SAN 인프라를 유지 관리할 수 있습니다.</block>
+  <block id="a55c5d632b929176a47d17980054a1e1" category="section-title">프로세서 호환성 문제 처리</block>
+  <block id="f22ef0f9f9009bf76cb5446738c5633f" category="paragraph">프로세서 성능이 서로 다른 노드 간에 라이브 VM 마이그레이션을 수행하는 경우 프로세서 호환성 검사로 인해 마이그레이션이 실패할 수 있습니다.</block>
+  <block id="4d76376d1fdfa802843702a2b8cfb46f" category="paragraph">이 문제를 해결하려면:</block>
+  <block id="669411023f35d6a538d7e20b7164ec3b" category="list-text">Hyper-V에서 "다른 프로세서가 있는 물리적 컴퓨터로 마이그레이션" 옵션을 활성화합니다.</block>
+  <block id="a9505448e9f49200800ac524c927af3d" category="list-text">Shift Toolkit 스크립트 블록에서 제공되는 프로세서 호환성 스크립트를 사용하여 프로세서 간 마이그레이션을 위한 VM을 구성합니다.</block>
+  <block id="00d80d8f4863adca85ea17778c259aca" category="paragraph">이 설정을 사용하면 호환성을 유지하면서 VM이 서로 다른 프로세서 기능 세트를 갖춘 호스트 간에 마이그레이션할 수 있습니다.</block>
+  <block id="48c87f4a12b4e4ba3fc656e4256b99f5" category="summary">Shift Toolkit에서 고급 설정을 구성하여 CredSSP 인증을 관리하고, 로깅 및 디버깅을 활성화하고, REST API에 액세스하고, 마이그레이션 작업에 대한 이메일 알림을 설정합니다.</block>
+  <block id="638de52bda3bbb7aaf81078d85f1dd87" category="doc">Shift Toolkit에서 고급 설정 구성</block>
+  <block id="c0c365f013e980521070aae89c9c0878" category="paragraph">상단 도구 모음에서 *설정* 아이콘을 클릭하여 고급 설정에 액세스하세요.</block>
+  <block id="485b7b49604ebc00b530cae2d5a4e96e" category="image-alt">Shift Toolkit 도구 모음의 설정 아이콘</block>
+  <block id="9b56c051e9c7d5348510bb56e9120f24" category="section-title">자격 증명 보안 서비스 제공업체(CredSSP)</block>
+  <block id="4c8f8435cb2f6afea3072426d6879b71" category="paragraph">Shift Toolkit은 CredSSP(Credential Security Service Provider)를 사용하여 변환 프로세스 중에 자격 증명 전송을 관리합니다.  Shift 서버는 변환되는 VM의 게스트 운영 체제에서 스크립트를 실행하여 Hyper-V 서버를 거쳐 Shift 서버에서 게스트 OS로 "더블홉"을 통해 자격 증명을 전달합니다.</block>
+  <block id="aa0d24db1b988a25c012a89e26ee39f7" category="image-alt">CredSSP 구성 설정</block>
+  <block id="3e06922d56c270adcbc43d9519a27675" category="section-title">Shift 서버를 CredSSP 클라이언트로 구성</block>
+  <block id="9e9e4598a7648c6a4aa696c37f6a2bbe" category="paragraph">고급 설정 마법사는 Shift 서버를 CredSSP 클라이언트로 자동 구성하여 Hyper-V 서버에 자격 증명을 위임할 수 있도록 합니다.</block>
+  <block id="bec8fd4bd7bb2a8dc19535a99a4289de" category="section-title">비하인드 스토리</block>
+  <block id="947f0876d5d1bfaa2524b62cf97390b5" category="paragraph">Shift Toolkit은 다음 명령과 정책 구성을 실행하여 자신을 클라이언트로 설정합니다.</block>
+  <block id="3877bfa9126abb372f280439054cf12c" category="paragraph">*실행된 명령:*</block>
+  <block id="f1e14e7a953896752b43aed12b49db7a" category="list-text"><block ref="c0d3953e0cf0785a6363e75d697f75a7" prefix="" category="inline-code"></block></block>
+  <block id="36f684d224fe3515f3b60211954a7ccc" category="list-text"><block ref="ec9d129e893e8f733f4f09b5f55b10c6" prefix="" category="inline-code"></block></block>
+  <block id="333085f0339a7e8d6e557f0f6876a7d2" category="paragraph">*그룹 정책이 구성됨:*</block>
+  <block id="e088c8761175de87a1aa3c3a6b9adf19" category="paragraph">이 정책을 활성화하고 추가하세요<block ref="32b334ed67db69dbdd88fb330804bbd2" prefix=" " category="inline-code"></block> .</block>
+  <block id="cb15f5ffa11d1fb7c7e0c20b1398a5c0" category="section-title">Hyper-V 서버를 CredSSP 서버로 구성</block>
+  <block id="e5dc5538472060cf71765ce84d374ace" category="paragraph">사용하다<block ref="a7a6232846c0237254f60932767b54ca" prefix=" " category="inline-code"></block> Hyper-V 서버에서 cmdlet을 사용하여 CredSSP 서버로 구성하면 Shift 서버에서 자격 증명을 받을 수 있습니다.</block>
+  <block id="206982f22759758274e946cc7779a482" category="list-text">Shift Toolkit 서버에서 VM을 프로비저닝할 Hyper-V 호스트에서 관리자 권한으로 Windows PowerShell 세션을 엽니다.</block>
+  <block id="62e3899fe2adfc651dc44b617edd0895" category="list-text">다음 명령을 실행하세요.</block>
+  <block id="4ac433b8064d6e64b6a96a7288497f0e" category="section-title">로깅 및 디버깅</block>
+  <block id="c522f840c97e5acc04c1cebb520359b5" category="paragraph">Shift Toolkit에는 30일 보관 기간이 있는 기본 로깅이 포함되어 있습니다.  문제 해결을 위해 지원팀에 요청하면 로깅을 디버그 모드로 전환할 수 있습니다.</block>
+  <block id="8d1251d486dfe07e51f78c8b7fccae3a" category="image-alt">로깅 구성 설정</block>
+  <block id="74175e0d325402a1662a45463b3868bf" category="paragraph">고급 설정의 Swagger 페이지를 사용하면 Shift Toolkit REST API와 상호 작용할 수 있습니다.</block>
+  <block id="532267858d4def56842b900d2faafca4" category="image-alt">Swagger API 문서 인터페이스</block>
+  <block id="06ca623478b944d6190bfcef08bd5c96" category="paragraph">Shift Toolkit REST API는 마이그레이션, 변환 및 자동화 기능에 대한 프로그래밍 방식 액세스를 제공합니다.  API는 기능적 워크플로별로 구성되어 있어 특정 작업에 필요한 리소스를 빠르게 찾을 수 있습니다.</block>
+  <block id="a10c9243a20331f24c44b08e37377d3e" category="image-alt">API 리소스 범주</block>
+  <block id="52158cffa7fdc814d5bccbf1aa908d99" category="section-title">인증 및 설정 API</block>
+  <block id="bdd9183eea07166b7194cce8f2765516" category="paragraph">이러한 API를 사용하여 Shift Toolkit 서버에 대한 연결을 설정하고, 사용자를 관리하고, 인증을 구성합니다.</block>
+  <block id="8d3294b6c24d984de0e3e390482342d7" category="paragraph">API 요청에 대한 사용자 인증을 관리하고 승인 토큰을 얻습니다.</block>
+  <block id="c583f56705b927687d52dda906274b92" category="list-text">모든 세션 ID 가져오기</block>
+  <block id="6e80b8deec0e284464b41dcf647dc7cb" category="paragraph">사용자 계정 및 권한 관리:</block>
+  <block id="1dab057ddc4cf188939abb2ad8167642" category="list-text">사용자 추가</block>
+  <block id="fe8c4b2e419b20c745584ac3356ef8e7" category="list-text">모든 사용자 가져오기</block>
+  <block id="1a4aac3a78dde4b7c0a81683abe5b2a2" category="list-text">사용자 비밀번호 변경</block>
+  <block id="f0a6e8fa83cb9263eb024c8b1b60391d" category="paragraph">자격 증명 위임을 위한 자격 증명 보안 서비스 공급자 구성:</block>
+  <block id="6755bf39046cae43d13d08441404cbb0" category="list-text">CredSSP 활성화</block>
+  <block id="0f28d4e9b472b6afe8e0cfb38e7b8c95" category="list-text">CredSSP 상태 받기</block>
+  <block id="ef0b75508c08ff9d5dd862d5a05245fb" category="paragraph">인프라 구성 요소에 대한 연결 관리:</block>
+  <block id="c97bce24d779e8b559aac93e59abe2f6" category="list-text">ID로 커넥터 세부 정보 업데이트</block>
+  <block id="4b50d400c8bd5832104218d90d6d0461" category="paragraph">다중 테넌트 구성 관리:</block>
+  <block id="6fa009ec6eccb2d821a176d84791f070" category="list-text">세입자 추가</block>
+  <block id="f29b7adf03104ba4b4649016441449a8" category="list-text">모든 세입자를 얻으세요</block>
+  <block id="50f1d22698598bb7157c035c5015f7c3" category="section-title">인프라 관리 API</block>
+  <block id="ffcd386b291375158b9ca98f23bd6f48" category="paragraph">이러한 API를 사용하여 소스 및 대상 환경을 구성하고 검색하세요.</block>
+  <block id="b7e86bcab5c7a1071f87f57088065d57" category="paragraph">마이그레이션 사이트와 관련 가상 및 스토리지 환경을 관리합니다.</block>
+  <block id="60bf481d70b92842e46d7235b28260f7" category="list-text">사이트 수를 구하세요</block>
+  <block id="004bcbe6a059c33070e9624192dc638f" category="list-text">ID로 사이트 세부 정보 가져오기</block>
+  <block id="20f0dcf7ca68c47f2df19b83e1199497" category="list-text">사이트의 가상 환경 세부 정보 가져오기</block>
+  <block id="33ddd1a74d17dea0c0d282b9d54d74c5" category="list-text">사이트의 가상 환경 세부 정보 업데이트</block>
+  <block id="8c84f0da54c12d11c57d53f5d977002f" category="list-text">사이트의 가상 환경 세부 정보 삭제</block>
+  <block id="6fefe1fd98dbb97a05e6382f29e562f8" category="list-text">사이트의 저장 환경 세부 정보 가져오기</block>
+  <block id="9b62063d1d1029bbecdb20b2f1998de5" category="list-text">사이트의 스토리지 환경 세부 정보 업데이트</block>
+  <block id="6515101e8015754be13581ebf02a0132" category="list-text">사이트의 스토리지 환경 세부 정보 삭제</block>
+  <block id="8703a9e681e1f8393f6e12b78fa49bf5" category="paragraph">소스 및 대상 사이트에서 VM과 리소스를 검색하고 인벤토리를 작성합니다.</block>
+  <block id="e7a29752b7c78cca623e2772f6ec1141" category="list-text">ID로 소스 사이트에 대한 검색 단계 가져오기</block>
+  <block id="d6ff106f3059bc0aba3de2e8f0ac4efd" category="list-text">ID로 대상 사이트의 검색 단계 가져오기</block>
+  <block id="be0843d1b10cc286e398f61c510e28c8" category="section-title">VM 및 리소스 관리 API</block>
+  <block id="c93f30754246820db32e8885cbf8b701" category="paragraph">이러한 API를 사용하여 마이그레이션을 위한 VM 및 리소스의 인벤토리를 작성, 구성 및 관리합니다.</block>
+  <block id="0bbabb8776fbd6a5e8c282e0ecbba3ad" category="paragraph">가상 머신 쿼리 및 관리:</block>
+  <block id="ec86214b1fbdaed34116734188d45665" category="paragraph">리소스 활용도 및 가용성 보기:</block>
+  <block id="4b6949802873d86fd56c50fedb4ed0fd" category="list-text">소스 사이트 리소스 수 가져오기</block>
+  <block id="e6c68cc0024943ca3111912c1427bd75" category="paragraph">마이그레이션을 위해 VM을 보호 그룹으로 구성합니다.</block>
+  <block id="9527e8c11e3aff2279b38136ecfaba4c" category="list-text">ID로 보호 그룹 세부 정보 가져오기</block>
+  <block id="1a7092b64316b8ac06de5c51625b776b" category="list-text">ID로 보호 그룹 삭제</block>
+  <block id="31c8b3d0773dc3dc3bc152f80d5010ed" category="list-text">ID로 보호 그룹 세부 정보 업데이트</block>
+  <block id="2173d2f4467d58edd92fa12828f17939" category="list-text">ID로 보호 그룹의 VM 가져오기</block>
+  <block id="6d57a67423b6c59e6ae8fe9cf9446c1e" category="list-text">보호 그룹이 포함된 청사진을 얻으세요</block>
+  <block id="ec5aa83fa48f901b1d55c2851d7c03aa" category="section-title">마이그레이션 및 복구 API</block>
+  <block id="d3df4cf2cf5ba03178fe898fcc12f469" category="paragraph">이러한 API를 사용하여 마이그레이션을 실행하고, 규정 준수를 모니터링하고, 복구 작업을 관리하세요.</block>
+  <block id="a03f05a697819323f0f7a7611f8271db" category="paragraph">마이그레이션 청사진 정의 및 관리:</block>
+  <block id="fefd19edf95f79c291637f4c63fd9ece" category="list-text">청사진 개수 가져오기</block>
+  <block id="6afdef58664f370b1d7d71ef814e591e" category="list-text">청사진 추가</block>
+  <block id="60448b23eb926a4964ba11e07a06f3f6" category="list-text">ID로 청사진 세부 정보 가져오기</block>
+  <block id="2e56078f4a728e0d03c8d515a12f0ffd" category="list-text">ID로 청사진 삭제</block>
+  <block id="2a226022f5be8d377c5e03ffb284b34f" category="list-text">ID에 대한 청사진 세부 정보 업데이트</block>
+  <block id="8d2f8db80ffcdb2c27969c91c9c28e46" category="paragraph">마이그레이션 전에 준비 상태와 호환성을 확인하세요.</block>
+  <block id="1e02f5f8837cb15a0347818d37de0ceb" category="list-text">청사진에 대한 주문형 규정 준수 확인 추가</block>
+  <block id="83e3a96006054a931e3328a2f564528a" category="paragraph">마이그레이션 및 변환 작업 실행을 모니터링합니다.</block>
+  <block id="d8f49e754742e8c91ed311f42859c537" category="list-text">실행 ID에 대한 단계 가져오기</block>
+  <block id="fc08e588d69ed3e1190216216a2797c4" category="paragraph">마이그레이션 및 복구 작업을 실행하고 관리합니다.</block>
+  <block id="67b0ca9d10c799b7e43ca3ff0b7d9411" category="list-text">청사진에 대한 새로운 실행 요청 추가</block>
+  <block id="f24ffec60559a18f99505570c656effb" category="list-text">청사진에 대한 실행 재시도 요청 추가</block>
+  <block id="e145707befefa4664b47ab87afa20e3f" category="list-text">모든 청사진의 실행 상태를 가져옵니다.</block>
+  <block id="5a30ff4a0ad4916cf9ca7d2b0167fcbe" category="list-text">블루프린트 ID에 대한 실행 상태 가져오기</block>
+  <block id="bf906099c60a99e13c08e240a66bd2f5" category="section-title">자동화 API</block>
+  <block id="b959cdef86785207a3d8d6e35479b91d" category="paragraph">이러한 API를 사용하여 Shift Toolkit 기능을 확장하고 자동화하세요.</block>
+  <block id="8cca4de3423418131db173e3f0661658" category="paragraph">자동화 스크립트에 액세스하고 실행합니다.</block>
+  <block id="b9d9724264c71e447f0855622d70ec58" category="list-text">ID로 스크립트 메타데이터 가져오기</block>
+  <block id="a4bd583f38fcd5e811d78a328a00ae22" category="section-title">스크립트 블록 및 자동화</block>
+  <block id="df00b68288762c5438c9bf332fe8fd30" category="paragraph">Shift Toolkit 내의 스크립트 블록은 내부 및 외부 API를 사용하여 기능을 자동화, 통합 및 개발하는 데 도움이 되는 샘플 코드를 제공합니다.  Shift Toolkit 자동화 팀과 커뮤니티 멤버가 작성한 코드 샘플 섹션에서 샘플을 탐색하고 다운로드하세요.  이러한 샘플을 사용하여 자동화, 관리 또는 통합 작업을 시작하세요.</block>
+  <block id="ea65b0965fe2dcf1808d552801882d82" category="image-alt">스크립트 블록 인터페이스</block>
+  <block id="c1a38314f4d9f89ed58ce5e6734d041d" category="image-alt">사용 가능한 코드 샘플</block>
+  <block id="9232acb5671840213c04ec93a8921534" category="paragraph">다음 예제에서는 Shift Toolkit UI 내에서 특정 작업을 삭제하는 PowerShell 스크립트를 보여줍니다.  이 기능은 표준 워크플로를 통해서는 제공되지 않지만 스크립트 블록을 사용하여 구현할 수 있습니다.  이 스크립트는 쉽게 다운로드하여 실행할 수 있는 일괄 스크립트로도 제공됩니다.</block>
+  <block id="5a4f7cb2ea110ed6835ab51452479cbb" category="image-alt">작업 삭제를 위한 PowerShell 스크립트 예시</block>
+  <block id="0d8ca0a338aefcfe2c1482d76cce015b" category="paragraph">스크립트 블록의 목적은 Shift Toolkit API와 해당 하이퍼바이저에서 게시한 API를 사용하여 특정 하이퍼바이저에서 0일차 및 진행 중인 작업에 대한 샘플 스크립트를 제공하는 것입니다.</block>
+  <block id="e4f54429655d239fde210962ae8fd233" category="section-title">이메일 알림 및 경고</block>
+  <block id="ff640a55f373ea23f8b94b40e6c2d85d" category="paragraph">검색, 변환 또는 마이그레이션 작업에 대한 알림을 지정된 수신자에게 보내도록 이메일 알림을 구성합니다.  UI 알림(인터페이스 내 알림)도 사용 가능하며 7일 동안 저장됩니다.</block>
+  <block id="373f3df8003a90204561658735b23c02" category="paragraph">설정 &gt; 플랫폼 설정 &gt; 이메일 구성에서 이메일 알림 설정에 액세스하세요.</block>
+  <block id="291c6c2ae5e302b875b0919319c0e008" category="list-text">Shift Toolkit UI에 로그인합니다.</block>
+  <block id="4c7867b26d0a306643699983614a7e08" category="list-text">설정 &gt; 플랫폼 설정으로 이동합니다.</block>
+  <block id="e563f7ef06cf5000fb653ad9d5dc19c1" category="list-text">이메일 알림 선택 및 SMTP 세부 정보 업데이트:</block>
+  <block id="c6bc689d6f8659853400bfdf8bb5815e" category="list-text">SMTP 서버 주소</block>
+  <block id="f6039d44b29456b20f8f373155ae4973" category="list-text">사용자 이름</block>
+  <block id="935d17990c633acd41239d251f2da02e" category="list-text">수신자 필드를 업데이트하고 사용 가능한 카테고리에서 이벤트를 선택하세요.</block>
+  <block id="400fae8e788b3721b9ac25fe01f04f50" category="list-text">*적용*을 클릭하세요.</block>
+  <block id="39c47bf46e014c6535c287f5cb730113" category="image-alt">이메일 알림 구성 설정</block>
+  <block id="4d1171d8e46db7b6e7328e4a16bf83c8" category="paragraph">스크린샷은 각 알림 범주와 이벤트에 대한 세부 정보를 보여줍니다.</block>
+  <block id="d20aa6df44b3b64be8abc2f6f3e3763e" category="admonition">이 릴리스에서는 이메일 알림에 기본 SMTP 인증과 SendGrid가 사용됩니다.  향후 릴리스에서는 최신 인증을 지원할 예정입니다.</block>
+  <block id="45857f431505759e27a66ca55e8becf3" category="section-title">중단 및 되돌리기 기능</block>
+  <block id="cfb5d3bed9d9798a5431ec3c4b5a2103" category="paragraph">Shift Toolkit은 워크플로 내의 모든 단계에서 실행 중인 작업을 취소하는 옵션을 제공합니다.  작업이 취소되면 다음을 포함하여 모든 버려진 구성 요소가 자동으로 정리됩니다.</block>
+  <block id="c2c424e2f1b7b5a864b125db6965b140" category="list-text">하이퍼바이저에서 전원이 켜져 있는 경우 VM 전원 끄기</block>
+  <block id="4816771298954f0b6f9bd8fd360052e6" category="list-text">적절한 Qtree에서 디스크 항목 제거</block>
+  <block id="635d773e4f1e24ed73ca6f068dc86639" category="list-text">영구 볼륨 클레임(PVC) 삭제</block>
+  <block id="a73927c8751b2ee647fe31a8ed32f235" category="paragraph">Shift Toolkit은 소스 VM을 어떤 식으로도 수정하지 않으므로 롤백이 간단합니다. 소스 VM의 전원을 켜기만 하면 됩니다.  다른 롤백 작업은 필요하지 않습니다.</block>
+  <block id="a2bbba53223387a421234d9342ccc733" category="doc">NetApp Shift Toolkit 구성</block>
+  <block id="ec708a42a9ff28123eaadaed0db59204" category="list-text">브라우저를 사용하여 다음을 입력하여 Shift 툴킷 UI에 액세스하세요.<block ref="fa2a7ebf8fb904eb6f7c5d874576f5d4" prefix=" " category="inline-code"></block></block>
+  <block id="bf88709461043d4da8838007e1d75655" category="paragraph">참고: 최상의 환경을 위해 Google Chrome이나 Internet Explorer를 사용하세요.</block>
+  <block id="8cfa087cb4994e870de3db6612fc7d74" category="list-text">아래와 같이 기본 자격 증명을 사용하여 UI에 액세스하세요. 사용자 이름: admin 비밀번호: admin</block>
+  <block id="e0c6326cab09b0415bb3265571d7ea76" category="image-alt">NetApp Shift Toolkit 로그인 화면 다이어그램</block>
+  <block id="b1cbe4f7d738373c18af705412d9932f" category="paragraph">참고: 관리자는 최초 로그인 시 자격 증명을 변경해야 합니다.</block>
+  <block id="d54c8b222c5fcccaab0d5b0fe1c81b73" category="paragraph">참고: 필수 비밀번호 변경 후, GUI에 로그인한 후 "비밀번호 변경" 옵션을 사용하여 관리자 자격 증명을 변경할 수도 있습니다.</block>
+  <block id="5e9ca049373bbf5988030ed386e7437e" category="image-alt">NetApp Shift Toolkit 암호 변경 화면 다이어그램</block>
+  <block id="a51355c80fb19c33f35c7c179f8c4859" category="paragraph">완료되면 "동의 및 계속"을 클릭하여 법적 EULA에 동의합니다.</block>
+  <block id="2884ceffaf25b250c9354e098be5d19e" category="image-alt">NetApp 최종 사용자 라이선스 계약(EULA) 스크린샷</block>
+  <block id="2a26b62413a9e4c4be91fb7f6b394fe4" category="paragraph">소스 및 대상 하이퍼바이저에 대한 저장소와 연결이 올바르게 구성되면 FlexClone 기능을 활용하여 가상 머신을 적절한 형식으로 마이그레이션하거나 변환하는 작업을 자동화하기 위해 Shift 툴킷을 구성하기 시작합니다.</block>
+  <block id="972f20fcebf79202d265cc4f29958724" category="paragraph">첫 번째 단계는 소스를 검색하여 추가한 다음 대상 하이퍼바이저 세부 정보(하이퍼바이저와 스토리지 모두)를 Shift 툴킷에 추가하는 것입니다.  지원되는 브라우저에서 Shift 툴킷을 열고 기본 사용자 이름과 비밀번호를 사용하여 "사이트 추가"를 클릭합니다.</block>
+  <block id="1f1c16f6b1640df2ea3645c8db1d347a" category="image-alt">Shift Toolkit 사이트 추가 대화 상자의 대화 상자</block>
+  <block id="91fd9090c3e4a55c5e35a7409fe51482" category="paragraph">참고: Discover 옵션을 사용하여 사이트를 추가할 수도 있습니다.</block>
+  <block id="5b1423e0889bd5cfb73324db7ae51737" category="list-text">하이퍼바이저 - 소스로 VMware 또는 Hyper-V를 선택하세요.</block>
+  <block id="c4d23706529fa00f5f93137bd32185f3" category="image-alt">Shift Toolkit 새 사이트 추가 대화 상자의 대화 상자</block>
+  <block id="65c98bc08a137025b38319eaea8bee1f" category="list-text">VMware를 선택한 경우 소스 vCenter 세부 정보를 입력합니다.</block>
+  <block id="f2525a72b1c6ba7ab276c22c2c6632fc" category="list-text">Hyper-V를 선택한 경우 소스 Hyper-V 세부 정보를 입력합니다.</block>
+  <block id="8292384e15ba6b4aeda1cb21cdd836c4" category="list-text">엔드포인트 - 독립 실행형 호스트 또는 장애 조치 클러스터 엔드포인트의 IP 주소나 FQDN을 입력합니다.</block>
+  <block id="e176331f87fbc1be1aae2537ff661b85" category="list-text">Hyper-V 사용자 이름 - Hyper-V에 액세스하기 위한 사용자 이름(하위 로그인(도메인\사용자 이름) 또는 UPN 형식)</block>
+  <block id="78d2d0eb32308ae30092873f0b0250e0" category="list-text">Hyper-V 암호 – 리소스 인벤토리를 수행하기 위해 Hyper-V에 액세스하는 데 사용되는 암호입니다.</block>
+  <block id="b72787ab7b5b0367786710c20b96fcf6" category="paragraph">Shift 툴킷을 추가하면 자동으로 검색이 수행되어 관련 메타데이터 정보와 함께 VM이 표시됩니다. Shift 툴킷은 VM에서 사용하는 네트워크와 vLAN을 자동으로 감지하여 채웁니다.</block>
+  <block id="8ab8d096b39e8bc95dc520c2e4af1b50" category="paragraph">참고: 소스 사이트에 수정 사항이 있는 경우 검색을 실행하여 최신 정보를 가져오세요.  사이트 이름 옆에 있는 3개의 점을 클릭하고 "사이트 검색"을 클릭하면 됩니다.</block>
+  <block id="a43c6f7b8e4f71b9cad7b004adfdeada" category="paragraph">참고: VM 인벤토리는 24시간마다 자동으로 새로 고쳐집니다.</block>
+  <block id="b6f22cf039b9f68af3ff1eefe06be0cb" category="image-alt">Shift Toolkit의 새 사이트 추가 대화 상자를 사용하여 사이트를 검색합니다.</block>
+  <block id="bb84f51b5f803ce39d67a2e8e3ffa1c3" category="paragraph">특정 소스 하이퍼바이저에 대한 검색 데이터를 보려면 대시보드로 이동하여 해당 사이트 이름에 대해 "VM 목록 보기"를 클릭합니다. 이 페이지에는 VM 속성과 함께 VM 인벤토리가 표시됩니다.</block>
+  <block id="f7bb07bfcc2c0abfa4745aef3541eb28" category="image-alt">Shift Toolkit의 대화에서 발견된 사이트</block>
+  <block id="6ca209c68a4f99d16ef5e39f4296ae26" category="paragraph">다음 단계는 대상 하이퍼바이저를 추가하는 것입니다. 추가하려면 "새 사이트 추가"를 클릭하고 "대상"을 선택하세요.</block>
+  <block id="4f11a02e3b405ac87fec9210ef09ee85" category="image-alt">대상에 대한 Shift Toolkit 사이트 추가 대화 상자의 대화 상자</block>
+  <block id="23350fb9ba000c53b7655dd9e3b8b602" category="list-text">하이퍼바이저 – 다음 옵션에서 적절한 대상 플랫폼을 선택하세요.</block>
+  <block id="56079badd056a19303cc26e6a4fcc7e0" category="list-text">VMware</block>
+  <block id="c5865855c43d734069987786177edd98" category="list-text">하이퍼-V</block>
+  <block id="ca988e68e82cbabbd81d5c8fe6c458c2" category="list-text">오픈시프트</block>
+  <block id="22981a48154732ced10d11e11ed77e76" category="list-text">올브엠</block>
+  <block id="fa5d3025164f90a8006a6a173b8e2e79" category="list-text">KVM(변환만 가능)</block>
+  <block id="8e9d3955e4dfcb1e339c6098ad477ab8" category="image-alt">목적지 세부 정보를 위한 Shift Toolkit 사이트 추가 대화 상자의 대화 상자</block>
+  <block id="2189135bcf21db1f5a2f232072f897f3" category="list-text">대상 하이퍼바이저 세부 정보</block>
+  <block id="18f5de2b8fb7d49c4caecab8a29a4c3c" category="list-text">각 하이퍼바이저 관리자 Endpoint IP 주소 또는 FQDN</block>
+  <block id="cc6f6f0ee55ab7a7604dc20284de1e8a" category="list-text">사용자 이름 - 액세스할 사용자 이름(UPN 형식: username@domain.com 또는 domain\administrator) 비밀번호 - 리소스 인벤토리를 수행하기 위해 액세스할 비밀번호.</block>
+  <block id="efe335e5b4298c43ef6dfc89924726b7" category="paragraph">"자체 서명된 인증서 수락"을 선택하세요.</block>
+  <block id="e8d8be3a6b7678c0e66e18c75eb9b3c5" category="list-text">완료되면 "사이트 만들기"를 클릭하세요.</block>
+  <block id="9f1f35bffc262c91c77f29b315fe54ae" category="paragraph">참고: 디스크 포맷 변환은 볼륨 수준에서 동일한 볼륨 내에서 발생하므로 소스 및 대상 저장 시스템은 동일해야 합니다.</block>
+  <block id="6efc6df08a0ce190c362537e7eefbd5a" category="paragraph">참고: 리소스 그룹을 만들기 전에 Qtree가 프로비저닝되었는지 확인하세요(필수 조건 섹션에 언급된 대로).</block>
+  <block id="e8ecd8bb6fceb72a871da3f301a5f756" category="paragraph">리소스 그룹 생성을 시작하려면 "새 리소스 그룹 생성" 메뉴 항목을 클릭하세요.</block>
+  <block id="67ecef0f6e2ca24138f8f486a68fb404" category="list-text">리소스 그룹에 액세스하려면 "새 리소스 그룹 만들기"를 클릭합니다.</block>
+  <block id="f20a56ede8550c8ce29de20acdbb9141" category="image-alt">새 리소스 그룹 만들기 사용자 인터페이스의 대화 상자</block>
+  <block id="cde5646828c35d0e5a97983cd133a8d1" category="list-text">"새 리소스 그룹"에서 드롭다운에서 소스 사이트를 선택하고 "만들기"를 클릭합니다.</block>
+  <block id="e0644dc4bde5b77f3f4f458429bc4336" category="list-text">"계속"을 클릭하세요</block>
+  <block id="61bb60929fd4c9396d2a8431800d34a4" category="list-text">검색 옵션을 사용하여 적절한 VM을 선택하세요. 기본 필터 옵션은 "데이터 저장소"입니다.</block>
+  <block id="3a3e61d2badf7d7016e681dea5480519" category="paragraph">참고: 변환하기 전에 새로 생성된 ONTAP SVM의 지정된 데이터 저장소로 변환하거나 마이그레이션할 VM을 이동합니다. 이를 통해 프로덕션 NFS 데이터 저장소를 격리하고 지정된 데이터 저장소를 사용하여 가상 머신을 스테이징할 수 있습니다.</block>
+  <block id="a670ce289a181d0b410025eec5cd08b8" category="paragraph">참고: OpenShift 환경의 경우 ONTAP NAS 스토리지 드라이버를 사용하여 PVC(영구 볼륨 클레임) 구조를 복제하려면 VMDK를 해당 볼륨으로 다시 배치해야 합니다.  향후 릴리스에서는 ONTAP NAS 경제 드라이버를 활용하기 위한 추가적인 개선 사항이 통합될 예정입니다.</block>
+  <block id="c1848bd79b15595617b2f9103c8a2456" category="paragraph">참고: 이 컨텍스트의 데이터 저장소 드롭다운에는 NFSv3 데이터 저장소만 표시됩니다. NFSv4 데이터 저장소는 표시되지 않습니다.</block>
+  <block id="93241e3f4b91e553e0bb780fc10137fa" category="list-text">"대상 사이트", "대상 하이퍼바이저 항목" 및 데이터 저장소에서 Qtree 또는 스토리지 클래스 매핑을 선택하여 마이그레이션 세부 정보를 업데이트합니다.</block>
+  <block id="bdebe6642cc49dd34d9ec69535bf4d59" category="paragraph">참고: VM을 변환할 때 대상 경로(변환된 VM이 저장되는 경로)가 qtree로 설정되어 있는지 확인하세요.  대상 경로를 적절한 qtree로 설정합니다.</block>
+  <block id="4f17428d60ddbcbf6698947b7565c1ef" category="paragraph">참고: 여러 개의 qtree를 만들어서 변환된 VM 디스크를 적절히 저장하는 데 사용할 수 있습니다.</block>
+  <block id="a665af903725c840d8255d1d9526de9a" category="paragraph">참고: 가상 머신은 확장된 데이터 저장소에서 실행될 수 있으며 Shit 툴킷은 이를 자동으로 감지하지만, 각 볼륨에 대해 Q트리를 매핑해야 합니다.</block>
+  <block id="f82c4417135bcf1ea9ac114ca6bc5627" category="paragraph">여러 볼륨에 걸쳐 확장된 VMDK가 있는 VM을 마이그레이션하는 기능 Shift 툴킷 UI는 특정 RG에 대해 선택된 VM 또는 VM의 일부인 모든 확장된 볼륨을 자동으로 선택합니다.  이렇게 하면 데이터 저장소-Qtree 매핑을 수행하는 RG 페이지의 모든 볼륨이 나열됩니다.</block>
+  <block id="7923419d5a4b20b90b38a39229e75d68" category="list-text">선택한 모든 VM에 대한 부팅 순서와 부팅 지연(초)을 선택합니다. 각 가상 머신을 선택하고 우선순위를 설정하여 전원 켜기 순서를 정합니다. 모든 가상 머신의 기본값은 3입니다. 옵션은 다음과 같습니다. 1 – 전원을 켜는 첫 번째 가상 머신 3 – 기본값 5 – 전원을 켜는 마지막 가상 머신</block>
+  <block id="9b2aa8da7dacbd4da4b8326b026b4d40" category="list-text">"리소스 그룹 만들기"를 클릭하세요.</block>
+  <block id="cebe40079363ad85c9e00e8e380da918" category="paragraph">참고: 가상 머신을 추가하거나 제거하기 위해 리소스 그룹을 수정해야 하는 경우, 리소스 그룹 이름에 대해 이 옵션을 사용하고 "리소스 그룹 편집"을 선택하세요.</block>
+  <block id="b8008a125d23cd3fe064457bfac88688" category="paragraph">가상 머신을 마이그레이션하거나 변환하려면 계획이 필요합니다. 드롭다운에서 소스 및 대상 하이퍼바이저 플랫폼을 선택하고 이 청사진에 포함될 리소스 그룹을 선택하고, 애플리케이션의 전원을 켜는 방법(예: 도메인 컨트롤러, 그 다음 1계층, 2계층 등)을 그룹화합니다. 이러한 계획은 종종 마이그레이션 계획이라고도 불립니다. 청사진을 정의하려면 "청사진" 탭으로 이동하여 "새 청사진 만들기"를 클릭합니다.</block>
+  <block id="ec5750e44d9a1c9271d3c75402b0583c" category="paragraph">청사진 만들기를 시작하려면 "새 청사진 만들기"를 클릭하세요.</block>
+  <block id="214c49fbbbcbf5078732bf17494b0bfa" category="list-text">청사진에 액세스하여 "새 청사진 만들기"를 클릭합니다.</block>
+  <block id="e1b052760885b8e5234faf0ac1f93302" category="image-alt">Access Blueprints 사용자 인터페이스 대화 상자</block>
+  <block id="9fb100e39fb45c1c59ccd66c2e6c3bb3" category="list-text">"새 청사진"에서 계획의 이름을 제공하고 소스 사이트 &gt; 관련 vCenter, 대상 사이트 및 관련 하이퍼바이저를 선택하여 필요한 호스트 매핑을 추가합니다.</block>
+  <block id="35ffa580ce1a705e815683a8fee9b789" category="list-text">매핑이 완료되면 클러스터와 호스트 매핑을 선택합니다. 아래 예에서는 Hyper-V가 대상으로 표시됩니다.  표시되는 하이퍼바이저 옵션은 선택한 소스 사이트에 따라 달라집니다.</block>
+  <block id="e7542fa0c1b66a6c656b019b76fba3ca" category="image-alt">새 청사진 만들기 사용자 인터페이스 대화 상자</block>
+  <block id="b25d6492372ce6afc7b60c6d28829b7f" category="list-text">리소스 그룹 세부 정보를 선택하고 "계속"을 클릭하세요.</block>
+  <block id="1aa59c506e4ddafe74406a5fba0b2589" category="list-text">이전 단계를 완료한 후 네트워크 매핑을 선택하여 적절한 네트워크 맵에 할당합니다.  가상 스위치, 네트워크 프로필 또는 운영자가 이미 대상 하이퍼바이저에 프로비저닝되어 있는지 확인하세요.</block>
+  <block id="e76e59ef3ac79fa6845aff23abbc868a" category="paragraph">참고: 테스트 마이그레이션의 경우 "네트워크 구성 안 함"이 기본 선택이며 Shift 툴킷은 IP 주소 할당을 수행하지 않습니다.  디스크가 변환되고 각 하이퍼바이저 측에서 가상 머신이 구매되면 프로덕션 네트워크와 충돌을 피하기 위해 버블 네트워크 스위치를 수동으로 할당합니다.</block>
+  <block id="ed08affc931c014ed8fc1841a953b0e6" category="paragraph">참고: 가상 머신을 만들고 전원을 켤 수 있도록 사전에 qtree가 프로비저닝되고 필요한 권한이 할당되었는지 확인하세요.  참고: OpenShift의 경우 PVC는 Trident CSI를 사용하여 생성되므로 qtree를 미리 생성할 필요가 없습니다.</block>
+  <block id="7e9900298f29110f6aff4be593bf2d30" category="list-text">Windows 기반 OS의 경우 로컬 관리자 권한이 있는 사용자를 사용하는 것이 좋습니다. 도메인 자격 증명도 사용할 수 있지만 변환하기 전에 VM에 사용자 프로필이 있는지 확인하세요. 그렇지 않으면 도메인 자격 증명이 작동하지 않습니다. 네트워크에 연결되지 않은 경우 도메인 인증을 찾기 때문입니다.</block>
+  <block id="459a5b60d16fe5574414a30d02f67ca1" category="list-text">Linux 배포판 기반 게스트 VM의 경우 비밀번호 없이 sudo 명령을 실행할 수 있는 사용자를 제공해야 합니다. 즉, 사용자는 sudoers 목록에 포함되어야 하거나 /etc/sudoers.d/ 폴더에 새 구성 파일로 추가되어야 합니다.</block>
+  <block id="681b2ae21be7c2d31c78c3e4759bd4f8" category="paragraph">최근 릴리스에서 Shift Toolkit은 가상 머신 준비에 있어 더 큰 유연성을 제공했습니다.  기본적으로 툴킷은 다음을 위해 OS별 스크립트를 배포하여 VM 준비를 자동화합니다. * VMware Tools 제거 * 선택한 블루프린트에 따라 재할당을 위한 IP 설정 백업</block>
+  <block id="196cb7688bd901b8f95cd042d8802536" category="paragraph">+ 새로운 기능 향상을 통해 사용자는 이제 기본 prepareVM 작업을 재정의하여 IP 할당을 포함한 수동 VM 준비를 위한 사용자 정의 스크립트를 실행할 수 있습니다.  이를 통해 고유한 구성이나 규정 준수 요구 사항이 있는 환경에 대한 제어력이 향상됩니다.</block>
+  <block id="9b1e52233e1f7e6d5ca67d640c19e71c" category="list-text">다시 VM 세부 정보에서 관련 IP 구성 옵션을 선택합니다. 기본적으로 "구성하지 않음"이 선택되어 있습니다.</block>
+  <block id="e8d1899d1383347a9ba9bc6afb1dd3d7" category="list-text">소스 시스템에서 동일한 IP를 가진 VM을 마이그레이션하려면 "IP 유지"를 선택합니다.</block>
+  <block id="ad117f0b399e9448d5a2f1c69668c4fe" category="list-text">소스 시스템에서 정적 IP를 사용하여 VM을 마이그레이션하고 대상 VM에 DHCP를 할당하려면 "DHCP"를 선택합니다.</block>
+  <block id="5117c27379400aea975e6bf703762486" category="list-text">소스 하이퍼바이저로 Hyper-v를 사용하는 경우 통합 서비스가 활성화되고 구성되어 있는지 확인하세요.</block>
+  <block id="9d3461c9ebf3aab8d01c8f575864c72a" category="list-text">OLVM 및 OpenShift를 대상 하이퍼바이저로 사용하는 경우 virtIO ISO 파일을 Windows VM에 마운트해야 합니다.</block>
+  <block id="bc7205ef2240497da30b64f819b62f63" category="list-text">Windows OS에서는 관리자 권한이 있는 계정으로 소스 VM에서 준비 스크립트를 실행하고, Linux 기반 배포 OS에서는 암호 옵션 없이 sudo 권한이 있는 계정으로 크론 작업을 생성해야 합니다.</block>
+  <block id="3cb4be540d4c7921268b5cba4f186b8a" category="list-text">VMware 도구 제거: Shift Toolkit은 변환 후 VMware 도구를 제거합니다. 이 옵션은 기본적으로 선택되어 있습니다. 고객의 맞춤형 스크립트를 실행하는 것이 계획인 경우 이 옵션을 선택 취소해야 합니다.</block>
+  <block id="479102a123aa909325a356e45ed16505" category="image-alt">리소스 그룹 사용자 인터페이스의 대화 상자</block>
+  <block id="308c34c22f59ad98cf6151e5a1153d64" category="list-text">"계속"을 클릭하세요.</block>
+  <block id="11dfbeb04ea5f6393403e0fbbf9dec26" category="list-text">다음 단계에서는 날짜와 시간을 설정하는 확인란을 선택하여 마이그레이션을 예약합니다. 예약된 날짜 전에 모든 가상 머신(VM)이 준비되고 전원이 꺼졌는지 확인하세요. 완료되면 "청사진 만들기"를 클릭하세요.</block>
+  <block id="5874f6880c924e1aff0dc4802958a185" category="paragraph">참고: 일정을 예약할 때 현재 Shift VM 시간보다 최소 30분 전의 날짜를 선택하세요. 이는 워크플로가 리소스 그룹 내에서 VM을 준비할 수 있는 충분한 시간을 확보하도록 하기 위한 것입니다.</block>
+  <block id="3b6771871906cf26dcebde8f4caaab1f" category="list-text">Windows 기반 운영 체제의 경우 준비 스크립트가 저장되는 기본 위치는 "C:\ NetApp" 폴더입니다.</block>
+  <block id="c56f7467ffeebd26f8c1df1883c72f30" category="paragraph">참고: CentOS 또는 Red Hat을 실행하는 Linux 소스 VM의 경우 Shift 툴킷은 필요한 Hyper-V 드라이버를 자동으로 설치합니다. VM이 변환 후 성공적으로 부팅될 수 있도록 디스크 변환 전에 소스 VM에 이러한 드라이버가 있어야 합니다.</block>
+  <block id="b27f456e9a958e2c2303d8d093f25292" category="paragraph">참고: 자세한 내용은 다음을 참조하세요.<block ref="1c434828099aa70753997347cfb22762" category="inline-link-macro-rx"></block> .</block>
+  <block id="1fb0d1b74e516b59121dd7a5a6455843" category="sidebar">Shift Toolkit 사용자 가이드</block>
+  <block id="1642c5824792f34a9c9b218c8fbf6864" category="sidebar">VMware ESXi에서 Microsoft Hyper-V로 VM 마이그레이션</block>
+  <block id="d7f9de7cb5fe22a40ff549c178d80480" category="sidebar">Microsoft Hyper-V에서 VMware ESXi로 VM 마이그레이션</block>
+  <block id="c0863c498eaa64dd2a5c733b6398ee72" category="sidebar">VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로 VM 마이그레이션</block>
+  <block id="08220a43248d1ba1b88418efb8f95640" category="sidebar">모니터링 및 대시보드</block>
+  <block id="820e55a9dc8a6560f61b34f7fcfb3044" category="sidebar">SAN 환경에서 마이그레이션</block>
 </blocks>

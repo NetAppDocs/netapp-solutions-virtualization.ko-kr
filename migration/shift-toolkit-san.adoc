@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: migration/shift-toolkit-san.html 
+keywords: netapp, vmware, esxi, vm, migration, openshift, virtualization, hyper-v, proxmox 
+summary: VMware Storage vMotion과 Hyper-V Storage Live Migration을 사용하여 SAN 기반 데이터 저장소에서 NAS로 VM을 마이그레이션한 다음 Shift Toolkit으로 변환하여 비즈니스 연속성을 유지합니다. 
+---
+= Shift Toolkit을 사용하여 SAN 환경에서 VM을 마이그레이션하여 변환합니다.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware Storage vMotion과 Hyper-V Storage Live Migration을 사용하여 SAN 기반 데이터 저장소에서 NAS로 VM을 마이그레이션한 다음 Shift Toolkit으로 변환하여 비즈니스 연속성을 유지합니다.
+
+
+
+== SAN 기반 VM에 대한 요구 사항
+
+Shift Toolkit을 사용하려면 변환하기 전에 VM이 NAS 환경(VMware ESXi의 경우 NFS)에 있어야 합니다.  현재 VM이 iSCSI, 파이버 채널(FC), 이더넷을 통한 파이버 채널(FCoE), 파이버 채널을 통한 NVMe(NVMe/FC)를 사용하는 SAN 기반 데이터 저장소에 저장되어 있는 경우 먼저 NFS 데이터 저장소로 마이그레이션해야 합니다.
+
+
+
+== SAN 환경을 위한 마이그레이션 워크플로
+
+다음 다이어그램은 SAN 환경에 저장된 VM에 대한 전체 마이그레이션 워크플로를 보여줍니다.
+
+image::shift-toolkit-260.png[SAN에서 NAS로, 그리고 다시 SAN으로 VM을 이동하는 것을 보여주는 마이그레이션 워크플로 다이어그램]
+
+마이그레이션 프로세스는 세 가지 주요 단계로 구성됩니다.
+
+.SAN에서 NAS로 마이그레이션(VMware 환경)*
+VMware vSphere Storage vMotion을 사용하여 SAN 데이터 저장소에서 NFS 데이터 저장소로 VM과 해당 디스크를 마이그레이션합니다.  이 작업은 VM 가동 중지 없이 수행할 수 있습니다.
+
+.Shift Toolkit*을 사용하여 VM 변환
+VM이 NFS 데이터 저장소에 상주하면 Shift Toolkit은 NetApp FlexClone 기술을 사용하여 VM을 VMware ESXi에서 Hyper-V로 변환합니다. 변환된 VM과 해당 디스크는 Hyper-V 호스트에서 액세스할 수 있는 CIFS 공유에 배치됩니다.
+
+.SAN(Hyper-V 환경)으로 다시 마이그레이션*
+변환 후 Hyper-V Storage Live Migration을 사용하여 변환된 VM과 해당 디스크를 CIFS 공유에서 SAN 지원 클러스터 공유 볼륨(CSV)으로 이동합니다.  이를 통해 Hyper-V 환경에서 SAN 인프라를 유지 관리할 수 있습니다.
+
+
+
+== 프로세서 호환성 문제 처리
+
+프로세서 성능이 서로 다른 노드 간에 라이브 VM 마이그레이션을 수행하는 경우 프로세서 호환성 검사로 인해 마이그레이션이 실패할 수 있습니다.
+
+이 문제를 해결하려면:
+
+. Hyper-V에서 "다른 프로세서가 있는 물리적 컴퓨터로 마이그레이션" 옵션을 활성화합니다.
+. Shift Toolkit 스크립트 블록에서 제공되는 프로세서 호환성 스크립트를 사용하여 프로세서 간 마이그레이션을 위한 VM을 구성합니다.
+
+
+이 설정을 사용하면 호환성을 유지하면서 VM이 서로 다른 프로세서 기능 세트를 갖춘 호스트 간에 마이그레이션할 수 있습니다.
