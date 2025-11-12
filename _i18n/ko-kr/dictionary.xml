@@ -7946,11 +7946,6 @@
   <block id="1facd068da39e1bf7d7e5a544f626c65" category="list-text">소스에서 청사진에 대한 VM 스냅샷을 트리거합니다.</block>
   <block id="29fd6f4750e7b933e938884fffc25da5" category="list-text">대상의 보호 그룹에 있는 VM의 전원을 켭니다.</block>
   <block id="2a1a26bc619017344dc5b9b7e958804f" category="list-text">VMware Tools를 제거하고 OS 유형에 따라 트리거 스크립트나 Cron 작업을 사용하여 IP 주소를 할당합니다.</block>
-  <block id="c76ea8983c3a55a70b23de3fa5b413fd" category="paragraph">계획된 유지 관리 기간 동안에는 VM의 전원을 정상적으로 꺼야 합니다.  마이그레이션을 시작하기 전에 모든 전제 조건이 충족되었는지 확인하세요.</block>
-  <block id="99573373f032c22be6aa58ab65dff2d9" category="list-text">Shift Toolkit VM이 도메인의 일부인지 확인하세요.</block>
-  <block id="b8bd13b1cdb16bb62bd27dab0cc399d8" category="list-text">마이그레이션 또는 변환에 사용된 qtree에 올바른 보안 스타일이 있는지 확인하세요.</block>
-  <block id="2bc4cbd7afcf7c95865d637266313c07" category="list-text">클러스터 내의 모든 Hyper-V 호스트에서 Hyper-V 관리자를 사용하여 VM 생성을 테스트하고 VHDx를 CIFS 공유에 배치합니다.</block>
-  <block id="90e27a49f647299890af53c04b750b85" category="list-text">프로그램 및 기능 또는 PowerShell을 사용하여 Hyper-V 관리 도구를 추가하여 Shift Toolkit VM에서 VM 생성을 테스트합니다.<block ref="a0f83f1a0348c0e6f7032dc3b247ecbf" prefix=" " category="inline-code"></block></block>
   <block id="15f5783455648e1798d7dfb81ef15b1e" category="section-title">네트워크 팁 및 고려 사항</block>
   <block id="3f4c9c4460717d5de6edda4628be4030" category="paragraph">마이그레이션을 계획할 때 다음 네트워크 요구 사항과 동작을 고려하세요.  Shift Toolkit은 소스 VM에서 네트워크 설정을 자동으로 복사하여 마이그레이션된 VM에 다시 적용하지만, 인터페이스 명명 및 네트워크 어댑터 구성은 Windows와 Linux 시스템 간에 다를 수 있습니다.</block>
   <block id="a12934d86bf9a6485e2118f57091c312" category="list-title">일반 요구 사항</block>
@@ -8057,12 +8052,7 @@
   <block id="6f8fb0a98f1a5ce00a33fe46f14dadf3" category="paragraph">다음 다이어그램은 SAN 환경에 저장된 VM에 대한 전체 마이그레이션 워크플로를 보여줍니다.</block>
   <block id="5a6713c6db95639be9360147457e362d" category="image-alt">SAN에서 NAS로, 그리고 다시 SAN으로 VM을 이동하는 것을 보여주는 마이그레이션 워크플로 다이어그램</block>
   <block id="19e36a66de22c564af02cb3b376f2bdb" category="paragraph">마이그레이션 프로세스는 세 가지 주요 단계로 구성됩니다.</block>
-  <block id="7e8e2f36bf540ee01063cd8222584161" category="paragraph-title">SAN에서 NAS로 마이그레이션(VMware 환경)*</block>
   <block id="5ba0cdc7d5b0343e9cab5b793f279a77" category="paragraph">VMware vSphere Storage vMotion을 사용하여 SAN 데이터 저장소에서 NFS 데이터 저장소로 VM과 해당 디스크를 마이그레이션합니다.  이 작업은 VM 가동 중지 없이 수행할 수 있습니다.</block>
-  <block id="c286b5e422075c01da80477de77489b5" category="paragraph-title">Shift Toolkit*을 사용하여 VM 변환</block>
-  <block id="18e24c111186a4241855f6cda6342917" category="paragraph">VM이 NFS 데이터 저장소에 상주하면 Shift Toolkit은 NetApp FlexClone 기술을 사용하여 VM을 VMware ESXi에서 Hyper-V로 변환합니다. 변환된 VM과 해당 디스크는 Hyper-V 호스트에서 액세스할 수 있는 CIFS 공유에 배치됩니다.</block>
-  <block id="be685bf5d2853279999d24ce20ae633e" category="paragraph-title">SAN(Hyper-V 환경)으로 다시 마이그레이션*</block>
-  <block id="3a1559f648048b6194473fff565382be" category="paragraph">변환 후 Hyper-V Storage Live Migration을 사용하여 변환된 VM과 해당 디스크를 CIFS 공유에서 SAN 지원 클러스터 공유 볼륨(CSV)으로 이동합니다.  이를 통해 Hyper-V 환경에서 SAN 인프라를 유지 관리할 수 있습니다.</block>
   <block id="a55c5d632b929176a47d17980054a1e1" category="section-title">프로세서 호환성 문제 처리</block>
   <block id="f22ef0f9f9009bf76cb5446738c5633f" category="paragraph">프로세서 성능이 서로 다른 노드 간에 라이브 VM 마이그레이션을 수행하는 경우 프로세서 호환성 검사로 인해 마이그레이션이 실패할 수 있습니다.</block>
   <block id="4d76376d1fdfa802843702a2b8cfb46f" category="paragraph">이 문제를 해결하려면:</block>
@@ -8279,4 +8269,10 @@
   <block id="c0863c498eaa64dd2a5c733b6398ee72" category="sidebar">VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로 VM 마이그레이션</block>
   <block id="08220a43248d1ba1b88418efb8f95640" category="sidebar">모니터링 및 대시보드</block>
   <block id="820e55a9dc8a6560f61b34f7fcfb3044" category="sidebar">SAN 환경에서 마이그레이션</block>
+  <block id="849beccf26e1a892be3294671fc9091c" category="paragraph">VMware Storage vMotion과 Storage Live Migration을 사용하여 SAN 기반 데이터 저장소에서 NAS로 VM을 마이그레이션한 후 Shift Toolkit으로 변환하여 비즈니스 연속성을 유지합니다.</block>
+  <block id="332d5a3a53b682cf522efd104929f670" category="paragraph-title">SAN에서 NAS로 마이그레이션(VMware 환경)</block>
+  <block id="82909e7cc2324a036d56875ad4616492" category="paragraph-title">Shift Toolkit을 사용하여 VM 변환</block>
+  <block id="b03b448779a771783f7b05ae88457a85" category="paragraph">VM이 NFS 데이터 저장소에 상주하면 Shift Toolkit은 NetApp FlexClone 기술을 사용하여 VM을 VMware ESXi에서 모든 하이퍼바이저로 변환합니다. 변환된 VM과 해당 디스크는 해당 하이퍼바이저 호스트에서 액세스할 수 있는 qtree에 배치됩니다.</block>
+  <block id="28bed22cb4d0030cf58eb18a11ba3f8e" category="paragraph-title">SAN으로 다시 마이그레이션</block>
+  <block id="8fb14a772174f772115b35707d3c4a41" category="paragraph">변환 후 스토리지 마이그레이션을 사용하여 변환된 VM과 해당 디스크를 qtree에서 SAN 지원 볼륨으로 이동합니다. 이를 통해 해당 하이퍼바이저 환경에서 SAN 인프라를 유지 관리할 수 있습니다.</block>
 </blocks>

@@ -14,7 +14,7 @@ summary: VMware Storage vMotion과 Hyper-V Storage Live Migration을 사용하�
 
 
 [role="lead"]
-VMware Storage vMotion과 Hyper-V Storage Live Migration을 사용하여 SAN 기반 데이터 저장소에서 NAS로 VM을 마이그레이션한 다음 Shift Toolkit으로 변환하여 비즈니스 연속성을 유지합니다.
+VMware Storage vMotion과 Storage Live Migration을 사용하여 SAN 기반 데이터 저장소에서 NAS로 VM을 마이그레이션한 후 Shift Toolkit으로 변환하여 비즈니스 연속성을 유지합니다.
 
 
 
@@ -32,14 +32,14 @@ image::shift-toolkit-260.png[SAN에서 NAS로, 그리고 다시 SAN으로 VM을 
 
 마이그레이션 프로세스는 세 가지 주요 단계로 구성됩니다.
 
-.SAN에서 NAS로 마이그레이션(VMware 환경)*
+.SAN에서 NAS로 마이그레이션(VMware 환경)
 VMware vSphere Storage vMotion을 사용하여 SAN 데이터 저장소에서 NFS 데이터 저장소로 VM과 해당 디스크를 마이그레이션합니다.  이 작업은 VM 가동 중지 없이 수행할 수 있습니다.
 
-.Shift Toolkit*을 사용하여 VM 변환
-VM이 NFS 데이터 저장소에 상주하면 Shift Toolkit은 NetApp FlexClone 기술을 사용하여 VM을 VMware ESXi에서 Hyper-V로 변환합니다. 변환된 VM과 해당 디스크는 Hyper-V 호스트에서 액세스할 수 있는 CIFS 공유에 배치됩니다.
+.Shift Toolkit을 사용하여 VM 변환
+VM이 NFS 데이터 저장소에 상주하면 Shift Toolkit은 NetApp FlexClone 기술을 사용하여 VM을 VMware ESXi에서 모든 하이퍼바이저로 변환합니다. 변환된 VM과 해당 디스크는 해당 하이퍼바이저 호스트에서 액세스할 수 있는 qtree에 배치됩니다.
 
-.SAN(Hyper-V 환경)으로 다시 마이그레이션*
-변환 후 Hyper-V Storage Live Migration을 사용하여 변환된 VM과 해당 디스크를 CIFS 공유에서 SAN 지원 클러스터 공유 볼륨(CSV)으로 이동합니다.  이를 통해 Hyper-V 환경에서 SAN 인프라를 유지 관리할 수 있습니다.
+.SAN으로 다시 마이그레이션
+변환 후 스토리지 마이그레이션을 사용하여 변환된 VM과 해당 디스크를 qtree에서 SAN 지원 볼륨으로 이동합니다. 이를 통해 해당 하이퍼바이저 환경에서 SAN 인프라를 유지 관리할 수 있습니다.
 
 
 

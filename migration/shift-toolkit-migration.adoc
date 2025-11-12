@@ -26,7 +26,6 @@ Shift Toolkit은 다음 하이퍼바이저 간 양방향 마이그레이션을 �
 * link:shift-toolkit-migrate-hyperv2esxi.html["Microsoft Hyper-V에서 VMware ESXi로"]
 * link:shift-toolkit-migrate-esxi2olvm.html["VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로"]
 * link:shift-toolkit-migrate-esxi2osv.html["VMware ESXi에서 Red Hat OpenShift 가상화로"]
-* link:shift-toolkit-migrate-esxi2osv.html["VMware ESXi에서 Red Hat OpenShift 가상화로"]
 
 
 
@@ -45,22 +44,6 @@ Shift Toolkit은 마이그레이션 중에 다음 단계를 수행합니다.
 . 각 VM에 네트워크를 등록합니다.
 . VMware Tools를 제거하고 OS 유형에 따라 트리거 스크립트나 Cron 작업을 사용하여 IP 주소를 할당합니다.
 
-
-
-
-== 필수 조건
-
-계획된 유지 관리 기간 동안에는 VM의 전원을 정상적으로 꺼야 합니다.  마이그레이션을 시작하기 전에 모든 전제 조건이 충족되었는지 확인하세요.
-
-* Shift Toolkit VM이 도메인의 일부인지 확인하세요.
-* CIFS 공유가 적절한 권한으로 구성되었는지 확인하세요.
-* 마이그레이션 또는 변환에 사용된 qtree에 올바른 보안 스타일이 있는지 확인하세요.
-* 클러스터 내의 모든 Hyper-V 호스트에서 Hyper-V 관리자를 사용하여 VM 생성을 테스트하고 VHDx를 CIFS 공유에 배치합니다.
-* 프로그램 및 기능 또는 PowerShell을 사용하여 Hyper-V 관리 도구를 추가하여 Shift Toolkit VM에서 VM 생성을 테스트합니다. `add-windowsfeature rsat-hyper-v-tools`
-
-
-
-NOTE: 실패가 있으면,link:https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/remotely-manage-hyper-v-hosts["모든 인증 프로토콜을 사용하여 위임을 활성화합니다."] .
 
 
 
