@@ -48,7 +48,7 @@ Shift 툴킷은 다음 디스크 형식에 대해 하이퍼바이저 간 가상 
 
 image::shift-toolkit-001.png[NetApp Shift Toolkit 개요]
 
-Shift 툴킷을 다운로드할 수 있습니다link:https://mysupport.netapp.com/site/tools/tool-eula/vm-data-collector["여기"] Windows 시스템에서만 사용 가능합니다.
+Shift 툴킷을 다운로드할 수 있습니다link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["여기"] Windows 시스템에서만 사용 가능합니다.
 
 
 

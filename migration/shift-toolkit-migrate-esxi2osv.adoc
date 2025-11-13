@@ -405,7 +405,7 @@ image::shift-toolkit-115.png[Red Hat OpenShift VM 마이그레이션]
 
 * OpenShift Virtualization 운영자와 NetApp Trident CSI 드라이버가 설치된 OpenShift 클러스터
 * MTV 2.9.4(변환 모드 포함)
-* link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit/download["시프트 툴킷"]설치됨
+* link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["시프트 툴킷"]설치됨
 +
 
 NOTE: Shift Toolkit API만 사용되므로 Shift Toolkit 리소스 그룹이나 블루프린트를 구성할 필요가 없습니다.
