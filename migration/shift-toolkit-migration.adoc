@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: migration/shift-toolkit-migration.html 
-keywords: netapp, vmware, esxi, vm, migration, openshift, virtualization, hyper-v, proxmox 
+keywords: netapp, vmware, esxi, vm, migration, openshift, virtualization, hyper-v, proxmox, shift, toolkit 
 summary: Shift Toolkit을 사용하여 가상화 플랫폼 간에 VM을 마이그레이션합니다.  이 프로세스에는 VM 준비, 디스크 형식 변환, 대상 환경의 네트워크 설정 구성이 포함됩니다. 
 ---
 = Shift Toolkit을 사용하여 VM 마이그레이션

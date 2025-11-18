@@ -6,10 +6,18 @@ entries:
 - title: Shift Toolkit을 사용하여 VM을 마이그레이션하거나 변환합니다.
   pdf-filename: Shift Toolkit 사용자 가이드
   entries:
-  - title: Shift Toolkit 소개
+  - title: NetApp Shift Toolkit에 대하여
     url: "/migration/shift-toolkit-overview.html"
+  - title: Shift Toolkit에서 지원하는 버전
+    url: "/migration/shift-toolkit-supported-versions.html"
   - title: Shift Toolkit 설치
-    url: "/migration/shift-toolkit-install.html"
+    entries:
+    - title: 설치 준비
+      url: "/migration/shift-toolkit-install-prepare.html"
+    - title: 설치 요구 사항 검토
+      url: "/migration/shift-toolkit-install-prereqs.html"
+    - title: Shift Toolkit 설치 또는 업그레이드
+      url: "/migration/shift-toolkit-install.html"
   - title: Shift Toolkit 구성
     url: "/migration/shift-toolkit-ui.html"
   - title: Shift Toolkit을 사용하여 VM 마이그레이션
