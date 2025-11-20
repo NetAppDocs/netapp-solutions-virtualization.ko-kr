@@ -831,7 +831,6 @@
   <block id="a7e944e3b289a0cc40fa523d2f309b3d" category="list-text">자율적인 랜섬웨어 보호.</block>
   <block id="e349d95af5f86ccf74a9346800e3f55d" category="list-text">파일 시스템 분석.</block>
   <block id="54d1b3917151f3d89ddbd7aef9f811dd" category="paragraph">*산*</block>
-  <block id="3f1ebac34c257ad0e2052f6fe693b898" category="list-text">SnapMirror 액티브 동기화를 통해 오류 도메인 전반에 걸쳐 클러스터를 확장합니다.</block>
   <block id="b307eeff4972f33ddee68641c599e7fd" category="list-text">ASA 모델은 액티브/액티브 멀티패스와 빠른 경로 장애 조치를 제공합니다.</block>
   <block id="717b83d4b077b1876a8833779607ac19" category="list-text">FC, iSCSI, NVMe-oF 프로토콜 지원.</block>
   <block id="f7c9512e8b2751806d55c35032ad9c1b" category="list-text">iSCSI CHAP 상호 인증 지원.</block>
@@ -2572,12 +2571,6 @@
   <block id="806aaadb95e3a8393823ebee62a2be27" category="list-text">세부 정보를 입력하고, 서버 정보를 제공하면 NFS 내보내기가 채워지고 목록에서 선택됩니다.  콘텐츠 옵션을 선택하는 것을 잊지 마세요.</block>
   <block id="b6713e4a099d16458859b6f724dd584f" category="inline-image-macro">NFS 스토리지 추가</block>
   <block id="9f359905197ffa4ab648a9185a236838" category="paragraph"><block ref="9f359905197ffa4ab648a9185a236838" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="089679585327c9a752c54982a68a19e1" category="list-text">세션 트렁킹의 경우, 모든 Proxmox VE 호스트에서 /etc/fstab 파일을 업데이트하여 max_connect 및 NFS 버전 옵션과 함께 다른 lif 주소를 사용하여 동일한 NFS 내보내기를 마운트합니다.</block>
-  <block id="e0368c95980a497a397d1ba864ef07c6" category="inline-image-macro">세션 트렁크에 대한 fstab 항목</block>
-  <block id="310cfc3952419b0bce4cefdb2dd56f4b" category="paragraph"><block ref="310cfc3952419b0bce4cefdb2dd56f4b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="56210fc6ca5cd165a3679bdc3f9aed5b" category="list-text">NFS의 /etc/pve/storage.cfg 내용은 다음과 같습니다.</block>
-  <block id="b53457dfc571fe98017812a0f84ef394" category="inline-image-macro">NFS용 저장소 구성 파일</block>
-  <block id="82de9417812917d25da3862eb8206ebb" category="paragraph"><block ref="82de9417812917d25da3862eb8206ebb" category="inline-image-macro-rx" type="image"></block></block>
   <block id="21b3bf9403041f9d09b0e69368b9b151" category="section-title">iSCSI를 사용한 LVM</block>
   <block id="37eed020511d831c82db16bf1a62cce6" category="video-title">ONTAP 사용하여 iSCSI와 LVM 공유 풀</block>
   <block id="ab39921a24a29c2606bf32bd0ebece00" category="paragraph">Proxmox 호스트 간 공유 스토리지에 대한 논리 볼륨 관리자를 구성하려면 다음 작업을 완료하세요.</block>
@@ -8322,4 +8315,6 @@
   <block id="f76aaf3aaa7b30238e7a3e2b1a04493b" category="sidebar">설치 준비</block>
   <block id="beec6318942ca08bdda507299633ce3d" category="sidebar">설치 요구 사항 검토</block>
   <block id="b6eec573aa3c42f73db5c0d756b8af5a" category="sidebar">Shift Toolkit 설치 또는 업그레이드</block>
+  <block id="752e67a6b4916807acf40a3d0f4d607d" category="list-text">SnapMirror 액티브 동기화를 통해 오류 도메인 전반에 걸쳐 클러스터를 확장합니다. 항상 확인하세요<block ref="8d006c87830f7172fd7400f1c17c0928" category="inline-link-rx"></block> 지원되는 구성에 대해서는.</block>
+  <block id="0fa5490665357157f44ef8e560981bff" category="list-text">nConnect 옵션을 활성화하려면 클러스터의 노드 중 하나에서 셸로 이동하여 pvesm set pvenfs01 --options nconnect=4를 입력합니다. 여기서 pvenfs01은 위 단계에서 만든 스토리지 ID입니다. 트렁킹 기능을 사용하려는 경우 최소한 NFS v4.1을 사용하고 trunkdiscovery 옵션을 설정해야 합니다. pvesm set pvenfs01 --options vers=4.1,trunkdiscovery</block>
 </blocks>

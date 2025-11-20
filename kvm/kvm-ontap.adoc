@@ -63,7 +63,7 @@ KVM 호스트에는 스위치에 케이블로 연결된 FC, 이더넷 또는 기
 
 *산*
 
-* SnapMirror 액티브 동기화를 통해 오류 도메인 전반에 걸쳐 클러스터를 확장합니다.
+* SnapMirror 액티브 동기화를 통해 오류 도메인 전반에 걸쳐 클러스터를 확장합니다. 항상 확인하세요 https://mysupport.netapp.com/matrix/#welcome["상호 운용성 매트릭스 도구"] 지원되는 구성에 대해서는.
 * ASA 모델은 액티브/액티브 멀티패스와 빠른 경로 장애 조치를 제공합니다.
 * FC, iSCSI, NVMe-oF 프로토콜 지원.
 * iSCSI CHAP 상호 인증 지원.

@@ -60,7 +60,7 @@ Proxmox VE 호스트에는 스위치에 케이블로 연결된 FC, 이더넷 또
 
 *산*
 
-* SnapMirror 액티브 동기화를 통해 오류 도메인 전반에 걸쳐 클러스터를 확장합니다.
+* SnapMirror 액티브 동기화를 통해 오류 도메인 전반에 걸쳐 클러스터를 확장합니다. 항상 확인하세요 https://mysupport.netapp.com/matrix/#welcome["상호 운용성 매트릭스 도구"] 지원되는 구성에 대해서는.
 * ASA 모델은 액티브/액티브 멀티패스와 빠른 경로 장애 조치를 제공합니다.
 * FC, iSCSI, NVMe-oF 프로토콜 지원.
 * iSCSI CHAP 상호 인증 지원.
@@ -237,14 +237,7 @@ image:proxmox-ontap-009.png["NFS 스토리지 탐색"]
 +
 image:proxmox-ontap-010.png["NFS 스토리지 추가"]
 
-. 세션 트렁킹의 경우, 모든 Proxmox VE 호스트에서 /etc/fstab 파일을 업데이트하여 max_connect 및 NFS 버전 옵션과 함께 다른 lif 주소를 사용하여 동일한 NFS 내보내기를 마운트합니다.
-+
-image:proxmox-ontap-011.png["세션 트렁크에 대한 fstab 항목"]
-
-. NFS의 /etc/pve/storage.cfg 내용은 다음과 같습니다.
-+
-image:proxmox-ontap-012.png["NFS용 저장소 구성 파일"]
-
+. nConnect 옵션을 활성화하려면 클러스터의 노드 중 하나에서 셸로 이동하여 pvesm set pvenfs01 --options nconnect=4를 입력합니다. 여기서 pvenfs01은 위 단계에서 만든 스토리지 ID입니다. 트렁킹 기능을 사용하려는 경우 최소한 NFS v4.1을 사용하고 trunkdiscovery 옵션을 설정해야 합니다. pvesm set pvenfs01 --options vers=4.1,trunkdiscovery
 
 
 ====
