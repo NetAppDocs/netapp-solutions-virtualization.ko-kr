@@ -425,7 +425,7 @@ MAV에 대해 자세히 알아보고 보호 기능을 구성하는 방법을 알
 
 === 온프레미스 사이트 간 재해 복구
 
-자세한 내용은 다음을 방문하세요.link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-hybrid-dr-vmfs.html["VMFS 데이터 저장소에 BlueXP DRaaS를 사용한 DR"^]
+더 자세한 내용은 다음을 참조하세요. link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-hybrid-dr-vmfs.html["VMFS 데이터스토어용 NetApp Disaster Recovery 사용한 재해 복구(DR)"^]
 
 
 

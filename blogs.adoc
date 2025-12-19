@@ -24,8 +24,7 @@ ONTAP 스토리지를 NetApp 가상화 솔루션과 통합하기 위한 실용�
 ** link:https://www.netapp.com/blog/netapp-vmware-cloud-foundation-supplemental-storage["4부: VMware 및 보조 스토리지용 ONTAP 도구"]
 
 
-* link:https://cloud.netapp.com/blog/azure-blg-optimize-storage-for-cloud-based-vmware-deployments["클라우드 기반 VMware 배포를 위한 스토리지 최적화"]
-* link:https://cloud.netapp.com/blog/azure-blg-netapp-cloud-offerings-with-azure-vmware-solution["NetApp 기반 클라우드 제품을 사용하여 Azure VMware 솔루션 시작"]
+* link:https://www.netapp.com/blog/vmware-optimize-storage-workloads/["모든 클라우드 환경에서 스토리지 및 데이터 집약적인 VMware 워크로드를 최적화하세요."]
+* link:https://www.netapp.com/blog/vmware-migrate-workloads-azure/["스토리지 용량이 큰 VMware 워크로드를 Azure VMware 솔루션으로 마이그레이션하시겠습니까? 먼저 이 글을 읽어보세요."]
 * link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/NetApp-and-VMware-Better-than-ever/ba-p/445780["NetApp 과 VMware – 그 어느 때보다 더 뛰어납니다"]
-* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/3-2-1-Data-Protection-for-VMware-with-SnapCenter-Plug-in-and-BlueXP-Backup-and/ba-p/446180["SnapCenter 플러그인과 BlueXP Backup and Recovery for VM을 통한 VMware용 3-2-1 데이터 보호"]
 

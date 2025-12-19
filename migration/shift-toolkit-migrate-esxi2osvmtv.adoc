@@ -1,0 +1,336 @@
+---
+sidebar: sidebar 
+permalink: migration/shift-toolkit-migrate-esxi2osvmtv.html 
+keywords: netapp, vmware, esxi, vm, migration, openshift, virtualization, redhat, osv, mtv 
+summary: Shift Toolkit 및 가상화용 마이그레이션 툴킷을 사용하여 VMware ESXi에서 Red Hat OpenShift Virtualization으로 VM을 마이그레이션합니다. 
+---
+= Shift 툴킷과 가상화 마이그레이션 툴킷을 사용하여 VMware ESXi에서 Red Hat OpenShift Virtualization으로 가상 머신을 마이그레이션합니다.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+이 섹션에서는 가상화용 마이그레이션 툴킷(MTV)과 NetApp Shift Toolkit이 Red Hat OpenShift Virtualization으로의 원활한 마이그레이션 환경을 제공하는 방법을 설명하고, 가상화용 마이그레이션 툴킷과 Shift Toolkit의 변환 기능을 사용하여 OpenShift Virtualization으로 전환하는 단계별 가이드를 제공합니다.
+
+
+
+== 시작하기 전에
+
+마이그레이션을 시작하기 전에 다음 전제 조건이 충족되는지 확인하세요.
+
+.Red Hat OpenShift Virtualization 요구 사항
+* OpenShift 클러스터는 네트워크에서 접근 가능합니다.
+* 다음 연산자가 설치된 OpenShift 클러스터 엔드포인트:
++
+** OpenShift 가상화 운영자
+** NetApp Trident 운영자
+
+
+* 적절한 백엔드 및 스토리지 클래스로 구성된 NetApp Trident CSI
+* 적절한 VLAN으로 구성된 NodeNetworkConfigurationPolicy 및 NetworkAttachmentDefinitions(NAD)
+* MTV 2.9.4 이상 버전(변환 모드 포함)
+* 클러스터 관리자 권한이 있는 서비스 계정 토큰
+
+
+.VMware 요구 사항
+* 최소한의 권한만 있는 계정입니다. 이 부분을 참조하세요link:https://docs.netapp.com/us-en/netapp-solutions-virtualization/migration/shift-toolkit-summary.html#minimum-permissions-role-required-on-vmware["최소한의 필요한 권한"]
+* VMDK 파일은 svmotion을 사용하여 개별 볼륨에 배치해야 합니다(VMDK를 PVC/PV 구조와 유사하게).
+
+
+
+NOTE: 이러한 제한은 PVC 프로비저닝에 NAS-economy 드라이버를 사용할 수 있는 다음 릴리스에서 제거될 예정입니다.
+
+
+NOTE: 스크립트 블록(설정 > 개발자 액세스 > 스크립트 블록)에서 제공되는 스크립트를 사용하여 qtree에 PVC를 배치하거나, 볼륨을 있는 그대로 가져오거나, 볼륨을 복제하여 가져올 수 있으므로 수동 vMotion 작업이 필요하지 않습니다.
+
+* VMware 도구는 게스트 VM에서 실행됩니다.
+* 각 VM의 운영 체제는 변환을 위한 게스트 운영 체제로 인증 및 지원됩니다.
+* IP 주소, VLAN 및 기타 네트워크 구성 설정은 마이그레이션 전이나 마이그레이션 도중에 변경해서는 안 됩니다. 가상 머신의 MAC 주소는 마이그레이션 과정에서 보존됩니다.
+
+
+
+
+== 1단계: 가상화용 마이그레이션 툴킷을 사용하여 마이그레이션 계획을 생성합니다.
+
+. VM의 초고속 변환을 활용하려면 먼저 MTV를 사용하여 VM 마이그레이션 계획을 수립해야 합니다.link:https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.3/html/installing_and_using_the_migration_toolkit_for_virtualization/migrating-vms-web-console["웹 콘솔"] 또는link:https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.0/html/installing_and_using_the_migration_toolkit_for_virtualization/migrating-virtual-machines-to-virt_mtv#migrating-virtual-machines-cli_mtv["명령줄"] .
++
+
+NOTE: MTV에서 IP 보호 설정을 구성하도록 하려면 사전에 계획을 세워야 합니다.
+
++
+.절차
+.. MTV 웹 콘솔에 로그인하세요.
+.. 출발지 및 도착지 공급자를 추가하세요
+.. 대상 네임스페이스에 마이그레이션 계획을 생성합니다.
++
+*** 공급자 구성이 완료되면 마이그레이션 계획을 생성하고 대상 네임스페이스 내에서 적절한 소스 및 대상 공급자를 선택합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-400.png[마이그레이션 계획 수립]
+
+====
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-401.png[소스 및 대상 공급업체]
+
+====
+
+
+.. 마이그레이션할 VM을 선택하세요
++
+*** 마이그레이션에 포함할 가상 머신을 식별하고 선택합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-402.png[VM을 선택하세요]
+
+====
+
+
+.. 네트워크 및 스토리지 매핑 구성
++
+*** 기존 매핑을 선택하거나 새 매핑을 생성하여 소스 네트워크 및 스토리지를 대상 환경에 맞추십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-403.png[네트워크 맵]
+
+====
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-404.png[저장 맵]
+
+====
+
+
+.. 마이그레이션 유형을 선택하세요
++
+*** 초기에는 기본 마이그레이션 유형을 유지하십시오. 마이그레이션 프로세스 중에 변환 유형을 반영하여 자동으로 업데이트됩니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-405.png[마이그레이션 유형]
+
+====
+
+
+.. 기본 옵션 유지
++
+*** 기본 설정을 그대로 유지하세요. 또한, 고정 IP를 유지하는 옵션을 선택하고 마이그레이션 후 VM의 원하는 상태를 지정하십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-406.png[추가 설정]
+
+====
+
+
+.. 검토 및 마무리
++
+*** 모든 설정을 꼼꼼히 검토한 후, 마침을 클릭하여 마이그레이션 계획을 생성하세요.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-407.png[검토 및 생성]
+
+====
+
+
+
+
+. 마이그레이션 계획이 생성되면 마이그레이션 계획의 이름을 복사하고 Shift 툴킷 UI로 이동합니다.
+. 소스 및 대상 하이퍼바이저를 추가합니다. 이 링크를 따라가세요link:https://docs.netapp.com/us-en/netapp-solutions-virtualization/migration/shift-toolkit-migrate-esxi2osv.html#step-1-add-the-destination-site-openshift["사이트를 만들기 위해"]
++
+
+NOTE: Shift Toolkit에 구성된 엔드포인트는 MTV 콘솔을 통해 추가할 때 사용한 형식과 일치해야 합니다. 예를 들어, 소스 또는 대상 엔드포인트를 FQDN을 사용하여 추가한 경우 Shift Toolkit에서도 동일한 FQDN을 사용해야 합니다.
+
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-408.png[Shift 툴킷 사이트 표시]
+
+====
+. 설계도로 이동하여 새 설계도를 생성하세요.
++
+** 이전 단계를 완료한 후, [청사진]으로 이동하여 [MTV 플랜을 사용하여 새 청사진 만들기]를 선택하십시오.
++
+
+NOTE: Shift Toolkit의 표준 워크플로와 달리 MTV 플랜 기반 마이그레이션을 사용할 때는 리소스 그룹을 수동으로 생성할 필요가 없습니다. Shift Toolkit은 마이그레이션 계획 YAML을 기반으로 리소스 그룹을 자동으로 생성하고 필요한 매핑을 적용합니다.
+
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-409.png[MTV 플랜을 사용하여 설계도를 작성하세요]
+
+====
+
+
+. 목적지와 이주 계획을 선택하십시오.
++
+** 대상 사이트와 해당 OpenShift 엔드포인트를 선택하십시오. 그 후, 마이그레이션할 VM이 포함된 지정된 클러스터에서 가져온 마이그레이션 계획을 선택합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-410.png[청사진 세부 정보]
+
+====
+
+
+. 리소스 그룹과 매핑은 마이그레이션 계획 YAML 파일을 기반으로 자동으로 구성됩니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-411.png[마이그레이션 세부 정보]
+
+====
+. PVC 수입 옵션을 선택하세요. 기본 설정은 볼륨을 복제하고 가져오는 것입니다.
++
+
+NOTE: 볼륨은 복제본을 만들지 않고도 직접 가져올 수 있습니다.
+
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-412.png[VM 세부 정보]
+
+====
+. 완료되면 설계도를 만드세요.
+. 블루프린트에서 마이그레이션을 클릭하여 마이그레이션을 시작하세요.
++
+
+NOTE: 마이그레이션을 시작하기 전에 VM의 전원을 꺼야 합니다. MTV는 VM 대상 전원 상태 속성을 기반으로 VM을 시작합니다.
+
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-413.png[트리거 마이그레이션]
+
+====
+. Shift 툴킷은 OpenShift API를 사용하여 디스크 형식을 변환하고, PVC를 가져오고, VM을 생성하는 워크플로 단계를 실행합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-414.png[마이그레이션 단계]
+
+====
+. 지정된 대로 모든 PVC가 설정되고 Shift Toolkit이 MTV를 트리거하면 MTV 마이그레이션 워크플로가 시작됩니다.
++
+.. 마이그레이션 컨트롤러는 각 소스 VM에 대해 VirtualMachineImport(VMI) 사용자 지정 리소스(CR)를 생성합니다.
+.. Shift Toolkit에서 이미 PVC를 가져왔으므로 가상 머신 가져오기 컨트롤러는 PVC가 연결된 변환 포드를 실행합니다.
+.. 변환 포드는 virt-v2v를 실행하여 대상 VM의 PVC에 장치 드라이버를 설치하고 구성합니다.
+.. 그러면 가상 머신 가져오기 컨트롤러가 VirtualMachineInstance(VMI) CR을 생성합니다.
+.. 대상 VM이 켜지면 KubeVirt 컨트롤러는 VM Pod를 생성하고, 이 Pod는 PVC가 VM 디스크로 연결된 상태에서 QEMU-KVM을 실행합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-415.png[MTV 트리거]
+
+====
+
+
+. 모든 VM 마이그레이션이 완료되면 마이그레이션 컨트롤러는 마이그레이션 계획 상태를 완료됨으로 업데이트합니다. 마이그레이션 후 각 소스 VM의 원래 전원 상태가 유지됩니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-416.png[MTV 완료 상태]
+
+====
++
+.예를 보여주세요
+[%collapsible]
+====
+image::shift-toolkit-417.png[마이그레이션 후 Windows VM]
+
+image::shift-toolkit-418.png[마이그레이션 후 Linux VM]
+
+====
++
+
+NOTE: 이 그림은 Shift 툴킷과 MTV를 함께 사용하여 마이그레이션을 매우 빠른 속도로 간소화하는 방법을 보여줍니다. 이 예시에서는 총 12TB 용량의 가상 머신 2개를 마이그레이션했습니다. 전체 과정은 약 8~10분 만에 완료되었습니다.
+
++
+.무대 뒤에서 무슨 일이 벌어지고 있을까요?
+다음 섹션에서는 Shift Toolkit API 및 MTV를 사용하여 VMDK 파일을 변환하고 OpenShift 플랫폼에서 가상 머신을 생성하는 단계를 설명합니다. 이 워크플로는 Shift Toolkit UI를 통해 시작하든 Shift Toolkit 스크립트 블록에 제공된 스크립트를 통해 시작하든 일관성을 유지합니다.
+
+
+
+.VMDK 변환
+Shift 툴킷은 기본 부팅 디스크를 포함하여 각 VM과 연결된 VMDK 파일을 자동으로 찾습니다.
+
+
+NOTE: VMDK 파일이 여러 개 있는 경우 각 VMDK가 변환됩니다.
+
+.볼륨 가져오기 및 마이그레이션 계획 구성
+Shift Toolkit은 Trident CSI를 사용하여 볼륨을 PVC로 클러스터에 가져옵니다. 각 PVC 매니페스트에는 MTV가 이를 인식할 수 있도록 특정 레이블과 주석이 포함되어 있습니다.
+
+* 라벨
++
+** vmID
+** vmUUID
+
+
+* 주석:
++
+** vmdk 디스크 경로
+
+
+
+
+또한 disk.img 파일의 권한이 업데이트됩니다. 권한은 가져온 PVC를 마운트하고 다음과 같이 권한을 설정하기 위해 즉시 배포되는 POD를 사용하여 수정됩니다.
+
+* "소유자": { "id": 107 },"그룹": { "id": 107 },"모드": "0655"
+
+
+중요 참고 사항:
+
+* 지게차는 PVC에서 vmID와 vmUUID를 확인합니다.
+* Forklift는 forklift.konveyor.io/disk-source에 디스크 이름(VMDK 경로)을 사용합니다.
+* 가져온 PVC의 수는 소스 VM과 연결된 디스크 수와 일치해야 합니다. 예를 들어 VM에 VMDK 파일이 3개 있지만 ID가 일치하는 PVC 파일이 4개 가져온 경우 MTV는 마이그레이션 계획 상태를 "시작 준비 완료"로 업데이트하지 않습니다.
+
+
+이러한 단계가 완료되면 Shift Toolkit은 마이그레이션 계획 YAML을 패치하여 MTV가 PVC를 직접 사용해야 하며 일반적으로 시간이 많이 소요되는 데이터 채우기 pod 프로세스를 건너뛰어야 함을 이해하도록 합니다. 수정된 YAML 파일에는 다음 내용이 포함됩니다.
+
+* 대상 네임스페이스: 기본값
+* 유형: 변환
+* 저장: {}
+
+
+.마이그레이션 프로세스 시작
+구성이 완료되면 MTV가 실행되어 마이그레이션이 시작됩니다. UI에는 마이그레이션 유형이 콜드(Cold)로 표시되지만, 변환을 위한 YAML 사양에 따라 MTV는 각 PVC를 연결된 vmID 및 vmUUID와 비교하여 유효성을 검사하고, 그에 따라 매핑한 다음 마이그레이션을 초기화합니다. 예시를 보여주세요
+
+[%collapsible]
+====
+image::shift-toolkit-419.png[MTV 콘솔 완료 시간]
+
+====
+
+NOTE: VM은 가상 머신의 경우 "기본" 프로젝트 아래에 생성되지만, MTV 마이그레이션 계획 YAML 파일 내에서 수정할 수 있습니다.
+
+Shift Toolkit은 프로세스를 간소화하고 다운타임을 최소화하며 ESXi 호스트 액세스 또는 VDDK 기반 접근 방식의 필요성을 없애 마이그레이션 속도를 높입니다.
+
+
+NOTE: 이 특정 통합을 시작하기 전에 Red Hat 계정 팀에 문의하세요.

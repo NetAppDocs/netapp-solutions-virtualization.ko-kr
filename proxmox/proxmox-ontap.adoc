@@ -37,7 +37,7 @@ Proxmox VE 호스트에는 스위치에 케이블로 연결된 FC, 이더넷 또
 * 변조 방지 스냅샷 복사 잠금
 * 암호화 지원
 * FabricPool 사용하여 콜드 데이터를 객체 저장소로 계층화합니다.
-* BlueXP 와 CloudInsights 통합.
+* NetApp Console 과 Data Infrastructure Insights 통합.
 * Microsoft 오프로드 데이터 전송(ODX)
 
 

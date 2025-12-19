@@ -51,7 +51,7 @@ image:vmware-dii.png["Data Infrastructure Insights"]
 
 . ONTAP 9.13이 탑재된 NetApp All-Flash SAN 어레이 A400.
 . VMware vSphere 8.0 클러스터.
-. NetApp BlueXP 계정.
+. NetApp Console 계정.
 . 로컬 VM에 설치되고 자산에 네트워크로 연결되어 데이터 수집이 가능한 NetApp Data Infrastructure Insights Acquisition Unit 소프트웨어입니다.
 
 
@@ -253,6 +253,7 @@ image:vmware-asa-053.png["ONTAP 에센셜 - VMware"]
 
 이 솔루션에 제시된 기술에 대해 자세히 알아보려면 다음 추가 정보를 참조하세요.
 
-* https://bluexp.netapp.com/cloud-insights["NetApp BlueXP 및 Data Infrastructure Insights 랜딩 페이지"]
+* https://www.netapp.com/console/["NetApp Console 랜딩 페이지"]
+* https://www.netapp.com/data-infrastructure-insights/["NetApp Data Infrastructure Insights 랜딩 페이지"]
 * https://docs.netapp.com/us-en/data-infrastructure-insights/index.html/["NetApp Data Infrastructure Insights 설명서"]
 

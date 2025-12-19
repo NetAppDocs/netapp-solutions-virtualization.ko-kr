@@ -60,7 +60,7 @@ ONTAP 9.10.1 이상 버전에서는 NetApp AFF 와 ASA NVMe over TCP를 지원�
 
 image:vmware-vcf-aff-050.png["SCV를 사용한 VCF 다중 작업 도메인"]
 
-3-2-1 백업 규칙은 데이터 사본을 세 개 만들어 두 가지 유형의 미디어에 저장하고, 사본 한 개를 오프사이트에 보관하는 데이터 보호 전략입니다. BlueXP backup and recovery 온프레미스와 클라우드 환경 모두에서 광범위한 백업 및 복구 작업에 대한 단일 제어 평면을 제공하는 클라우드 기반 데이터 관리 도구입니다.  NetApp BlueXP backup and recovery 제품군의 일부인 기능은 SCV(온프레미스)와 통합되어 데이터 사본을 클라우드의 개체 스토리지로 확장하는 기능입니다. 이를 통해 1차 또는 2차 저장소 백업에서 가져온 데이터의 세 번째 사본이 오프사이트에 생성됩니다. BlueXP backup and recovery 사용하면 이 두 온프레미스 위치 중 하나에서 데이터 사본을 전송하는 저장 정책을 쉽게 설정할 수 있습니다.  자세한 내용은 다음을 확인하세요.link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-hybrid-321-dp-scv.html["SnapCenter 플러그인과 BlueXP backup and recovery 통한 VMware용 3-2-1 데이터 보호"^] .
+3-2-1 백업 규칙은 데이터를 세 번 복사하여 서로 다른 두 종류의 저장 매체에 저장하고, 한 번은 외부 장소에 보관하는 데이터 보호 전략입니다. NetApp Backup and Recovery 는 클라우드 기반 데이터 관리 도구로, 온프레미스 및 클라우드 환경 전반에 걸쳐 다양한 백업 및 복구 작업을 위한 단일 제어 플랫폼을 제공합니다. 더 자세한 내용은 다음을 확인하세요.link:https://docs.netapp.com/us-en/data-services-backup-recovery/index.html["NetApp Backup and Recovery 설명서"^] .
 
 
 

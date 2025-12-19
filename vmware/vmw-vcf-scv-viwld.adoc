@@ -49,7 +49,7 @@ summary:
 iSCSI VMFS 데이터 저장소를 보조 저장소로 구성하는 방법에 대한 정보는 다음을 참조하세요.link:vmw-vcf-mgmt-supplemental-iscsi.html["*VMware용 ONTAP 도구를 사용하여 관리 도메인의 보조 스토리지로 iSCSI 사용*"] 이 문서에서.  OTV를 사용하여 데이터 저장소를 배포하는 프로세스는 관리 및 워크로드 도메인에서 동일합니다.
 
 
-TIP: SCV로 백업을 보조 저장소에 복제하는 것 외에도, NetApp BlueXP backup and recovery 사용하여 3대(3) 클라우드 공급업체 중 하나의 개체 저장소에 데이터의 오프사이트 복사본을 만들 수 있습니다.  자세한 내용은 솔루션을 참조하세요.link:vmw-vcf-321-data-protection.html["SnapCenter 플러그인과 BlueXP backup and recovery 통한 VMware용 3-2-1 데이터 보호"] .
+TIP: SCV를 사용하여 수행한 백업을 보조 스토리지에 복제하는 것 외에도 NetApp Backup and Recovery for VMs를 사용하면 3대 클라우드 제공업체 중 하나의 객체 스토리지에 데이터의 오프사이트 복사본을 만들 수 있습니다. 자세한 내용은 본 자료를 참조하십시오.link:https://docs.netapp.com/us-en/data-services-backup-recovery/index.html["NetApp Backup and Recovery 설명서"] .
 
 image:vmware-vcf-asa-108.png["3-2-1 백업 전략"]
 

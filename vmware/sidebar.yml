@@ -36,7 +36,7 @@ entries:
     entries:
     - title: SnapCenter Plug-in for VMware vSphere
       url: "/vmware/vmw-getting-started-snapcenter.html"
-    - title: BlueXP disaster recovery
+    - title: NetApp Disaster Recovery
       url: "/vmware/vmw-dr-gs.html"
 - title: NetApp 의 VMware Cloud Foundation
   pdf-filename: NetApp 의 VMware Cloud Foundation
@@ -47,32 +47,16 @@ entries:
     url: "/vmware/vmw-vcf-design.html"
   - title: ONTAP 사용한 VCF 9 배포
     url: "/vmware/vmw-vcf-deployment.html"
-  - title: BlueXP 탑재된 VCF 9 DR
-    url: "/vmware/vmw-vcf-dr-bxp-nfs.html"
+  - title: NetApp Disaster Recovery 을 갖춘 VCF 9 DR
+    url: "/vmware/vmw-vcf-disaster-recovery-nfs.html"
   - title: 기존 vSphere 클러스터를 VCF로 변환
     entries:
-    - title: vSphere 클러스터 변환에 대해 알아보세요
+    - title: 기존 vSphere 클러스터를 VCF로 변환하는 방법에 대한 정보
       url: "/vmware/vmw-vcf-migrate.html"
-    - title: NFS 데이터 저장소로 vSphere 클러스터 변환
-      entries:
-      - title: 배포 워크플로
-        url: "/vmware/vmw-vcf-mgmt-nfs.html"
-      - title: 검토 요구 사항
-        url: "/vmware/vmw-vcf-mgmt-nfs-requirements.html"
-      - title: ONTAP 도구 배포 및 NFS 데이터 저장소 프로비저닝
-        url: "/vmware/vmw-vcf-mgmt-nfs-deploy.html"
-      - title: vSphere 클러스터를 VCF로 변환
-        url: "/vmware/vmw-vcf-mgmt-nfs-conversion.html"
-    - title: FC 데이터 저장소로 vSphere 클러스터 변환
-      entries:
-      - title: 배포 워크플로
-        url: "/vmware/vmw-vcf-mgmt-fc.html"
-      - title: 검토 요구 사항
-        url: "/vmware/vmw-vcf-mgmt-fc-requirements.html"
-      - title: ONTAP 도구 배포 및 FC 데이터 저장소 프로비저닝
-        url: "/vmware/vmw-vcf-mgmt-fc-deploy.html"
-      - title: vSphere 클러스터를 VCF로 변환
-        url: "/vmware/vmw-vcf-mgmt-fc-conversion.html"
+    - title: NFS 데이터스토어를 사용하는 기존 vSphere 클러스터를 변환합니다.
+      url: "/vmware/vmw-vcf-mgmt-nfs.html"
+    - title: FC 데이터스토어를 사용하는 기존 vSphere 클러스터를 변환합니다.
+      url: "/vmware/vmw-vcf-mgmt-fc.html"
   - title: 주요 저장소를 사용하여 VCF 제공
     entries:
     - title: 주 저장소 프로비저닝에 관하여
@@ -151,16 +135,6 @@ entries:
       url: "/vmware/vmw-vcf-scv-multiwkld-protection.html"
     - title: NVMe를 사용하여 VCF 워크로드 도메인 보호
       url: "/vmware/vmw-vcf-scv-nvme.html"
-  - title: BlueXP 로 VMware 데이터 저장소 보호
-    entries:
-    - title: BlueXP 사용하여 VMware 데이터 저장소 보호에 관하여
-      url: "/vmware/vmw-vcf-disaster-recovery.html"
-    - title: SnapCenter 및 BlueXP 사용하여 데이터 보호 구성
-      url: "/vmware/vmw-vcf-321-data-protection.html"
-    - title: VMFS 데이터 저장소에 대한 재해 복구 설정
-      url: "/vmware/vmw-disaster-recovery-vmfs.html"
-    - title: NFS 데이터 저장소에 대한 재해 복구 설정
-      url: "/vmware/vmw-disaster-recovery-nfs.html"
   - title: vSphere Metro Storage Cluster로 워크로드 보호
     entries:
     - title: ONTAP 고가용성 통합에 관하여

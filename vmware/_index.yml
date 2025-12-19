@@ -26,8 +26,8 @@ indexpage:
       url: vmw-vcf-deployment.html
     - title: SnapCenter 로 VCF 워크로드 보호
       url: vmw-vcf-protect-sc.html
-    - title: BlueXP 로 VMware 데이터 저장소 보호
-      url: vmw-vcf-disaster-recovery.html
+    - title: NetApp Disaster Recovery 사용하여 VMware 데이터 저장소를 보호하세요.
+      url: vmw-vcf-disaster-recovery-nfs.html
     - title: vMSC와 ONTAP 고가용성 통합
       url: vmw-vcf-protect-vmsc.html
     - title: 랜섬웨어로부터 데이터를 보호하고 복구하세요

@@ -158,4 +158,29 @@ ONTAP 시스템 관리자에서 다음 단계를 수행합니다.
 
 Shift 툴킷을 사용하여 VMware vSphere에서 가상 머신을 마이그레이션하려면 관리 > 액세스 제어 > 역할을 사용하여 아래 언급된 권한이 있는 RBAC 사용자를 만듭니다.
 
-image:shift-toolkit-085.png["입력/출력 대화 상자 또는 서면 내용을 나타내는 그림"]
+*권한* 탭을 선택하세요:
+
+[listing]
+----
+Datastore
+•	Browse datastore
+•	Update virtual machine files
+
+Virtual machine
+•	Edit inventory
+    o	Register
+    o	Unregister
+•	Interaction
+    o	Answer question
+    o	Console interaction
+    o	Power off
+    o	Power on
+•	Snapshot management
+    o	Create snapshot
+    o	Remove snapshot
+    o	Rename snapshot
+•	Guest operations
+    o	Guest operation modifications
+    o	Guest operation program execution
+    o	Guest operation queries
+----

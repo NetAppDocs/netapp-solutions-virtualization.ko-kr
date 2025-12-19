@@ -72,7 +72,7 @@ image:hyperv-deploy-011.png["IntelliSnap 활성화 옵션을 표시하는 이미
 
 
 
-배열 구성에 대한 자세한 단계는 다음을 참조하세요.link:https://documentation.commvault.com/11.20/configuring_netapp_array_using_array_management.html["NetApp 어레이 구성"] 그리고link:https://documentation.commvault.com/11.20/configure_storage_virtual_machine_on_netapp_storage_array.html["NetApp 어레이에서 스토리지 가상 머신 구성"]
+어레이 구성에 대한 자세한 단계는 다음을 참조하십시오. link:https://documentation.commvault.com/v11/commcell-console/configuring_netapp_array_using_array_management.html["NetApp 어레이 구성"] 그리고 link:https://documentation.commvault.com/v11/commcell-console/configure_storage_virtual_machine_on_netapp_storage_array.html["NetApp 어레이에서 스토리지 가상 머신 구성"]
 
 *Hyper-V를 하이퍼바이저로 추가*
 

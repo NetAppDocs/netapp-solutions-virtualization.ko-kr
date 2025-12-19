@@ -199,9 +199,9 @@ SnapCenter 플러그인은 NetApp 스토리지 어레이의 하드웨어 기반 
 
 자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere["SnapCenter Plug-in for VMware vSphere 설명서"] .
 
-BlueXP 통합을 통해 데이터 사본을 클라우드의 개체 스토리지로 확장하는 3-2-1 백업 전략이 가능합니다.
+NetApp Backup and Recovery 클라우드의 객체 스토리지에 데이터 복사본을 확장하는 백업 전략을 지원합니다.
 
-BlueXP 사용한 3-2-1 백업 전략에 대한 자세한 내용은 다음을 방문하세요.link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-hybrid-321-dp-scv.html["SnapCenter 플러그인과 BlueXP backup and recovery 통한 VMware용 3-2-1 데이터 보호"^] .
+NetApp Backup and Recovery 사용한 백업 전략에 대한 자세한 내용은 다음을 참조하십시오.link:https://docs.netapp.com/us-en/data-services-backup-recovery/index.html["NetApp Backup and Recovery 설명서"^] .
 
 SnapCenter 플러그인에 대한 단계별 배포 지침은 솔루션을 참조하세요.link:vmw-vcf-scv-viwld.html["SnapCenter Plug-in for VMware vSphere 사용하여 VCF 워크로드 도메인의 VM을 보호하세요."] .
 
@@ -249,9 +249,9 @@ NetApp 세계에서 가장 안전한 스토리지를 제공합니다.  NetApp �
 
 NetApps 솔루션 문서 센터에서 전체 솔루션을 확인하세요.link:vmw-nfs-vlsr.html["NFS 스토리지를 위한 자율형 랜섬웨어 보호"]
 
-* NFS용 BlueXP DRaaS*(서비스형 재해 복구)는 NFS 데이터 저장소가 있는 온프레미스 ONTAP 시스템에서 실행되는 VMware 워크로드를 위해 설계된 비용 효율적인 재해 복구 솔루션입니다.  랜섬웨어 공격과 같은 사이트 중단 및 데이터 손상 사건으로부터 보호하기 위해 NetApp SnapMirror 복제를 활용합니다.  NetApp BlueXP 콘솔과 통합된 이 서비스를 사용하면 VMware vCenter 및 ONTAP 스토리지를 쉽게 관리하고 자동으로 검색할 수 있습니다.  조직은 재해 복구 계획을 만들고 테스트하여 블록 수준 복제를 통해 최대 5분의 복구 지점 목표(RPO)를 달성할 수 있습니다.  BlueXP DRaaS는 ONTAP의 FlexClone 기술을 활용하여 프로덕션 리소스에 영향을 주지 않고 공간 효율적인 테스트를 수행합니다.  이 서비스는 장애 조치(failover) 및 장애 복구(failback) 프로세스를 조정하여 보호된 가상 머신을 최소한의 노력으로 지정된 재해 복구 사이트로 가져올 수 있도록 합니다.  BlueXP DRaaS는 다른 잘 알려진 대안과 비교했을 때 훨씬 저렴한 비용으로 이러한 기능을 제공하므로 조직이 ONTAP 스토리지 시스템을 사용하여 VMware 환경에 대한 재해 복구 작업을 설정, 테스트 및 실행할 수 있는 효율적인 솔루션입니다.
+* NetApp Disaster Recovery NFS 데이터스토어를 사용하는 온프레미스 ONTAP 시스템에서 실행되는 VMware 워크로드를 위해 설계된 비용 효율적인 재해 복구 솔루션입니다.  NetApp Console 과 통합된 이 서비스는 VMware vCenter 및 ONTAP 스토리지를 쉽게 관리하고 자동으로 검색할 수 있도록 지원합니다.  NetApp Disaster Recovery ONTAP의 FlexClone 기술을 활용하여 프로덕션 리소스에 영향을 주지 않고 공간 효율적인 테스트를 수행합니다.  다른 잘 알려진 대안들과 비교했을 때, NetApp Disaster Recovery 훨씬 저렴한 비용으로 이러한 기능을 제공하므로, ONTAP 스토리지 시스템을 사용하는 VMware 환경에 대한 재해 복구 작업을 설정, 테스트 및 실행하는 데 있어 조직에 효율적인 솔루션입니다. 이 시스템은 NetApp SnapMirror 복제 기능을 활용하여 랜섬웨어 공격과 같은 사이트 장애 및 데이터 손상 이벤트로부터 보호합니다. NetApp Console과 통합된 이 서비스를 사용하면 VMware vCenter 및 ONTAP 스토리지를 자동으로 검색하고 쉽게 관리할 수 있습니다. 조직은 블록 수준 복제를 통해 재해 복구 계획을 수립하고 테스트하여 최대 5분의 복구 시점 목표(RPO)를 달성할 수 있습니다. NetApp Disaster Recovery는 운영 리소스에 영향을 주지 않고 공간 효율적인 테스트를 위해 ONTAP의 FlexClone 기술을 활용합니다. 이 서비스는 장애 조치 및 복구 프로세스를 조정하여 보호된 가상 머신을 최소한의 노력으로 지정된 재해 복구 사이트에서 시작할 수 있도록 합니다. 잘 알려진 다른 대안에 비해 NetApp Disaster Recovery는 적은 비용으로 이러한 기능을 제공하므로 조직에서 ONTAP 스토리지 시스템을 사용하여 VMware 환경에 대한 재해 복구 작업을 설정, 테스트 및 실행할 수 있는 효율적인 솔루션입니다.
 
-NetApps 솔루션 문서 센터에서 전체 솔루션을 확인하세요.link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-hybrid-dr-nfs.html["NFS 데이터 저장소에 BlueXP DRaaS를 사용한 DR"^]
+NetApps 솔루션 문서 센터에서 전체 솔루션을 확인하세요. link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-hybrid-dr-nfs.html["NetApp Disaster Recovery NFS 데이터스토어를 사용한 재해 복구(DR)"^]
 
 
 

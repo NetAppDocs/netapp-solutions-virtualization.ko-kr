@@ -401,7 +401,7 @@ $targetvm, $targetvmdisk | Get-SPBMEntityConfiguration
 * https://docs.vmware.com/en/Site-Recovery-Manager/index.html["사이트 복구 관리자(SRM)"]일반적으로 재해 복구 목적으로 사용되며 스토리지 어레이 기반 복제를 활용한 계획된 마이그레이션에도 자주 사용됩니다.
 * CDP(Continuous Data Protection) 제품 사용 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-storage-7-0/filtering-virtual-machine-i-o-in-vsphere/about-i-o-filters/classes-of-vaio-filters.html["IO용 vSphere API(VAIO)"] 데이터를 가로채서 원격 위치로 사본을 보내는 RPO 솔루션으로 거의 0에 가깝습니다.
 * 백업 및 복구 제품도 활용할 수 있습니다.  하지만 종종 RTO가 길어집니다.
-* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["BlueXP 재해 복구 서비스(DRaaS)"]스토리지 어레이 기반 복제를 활용하고 특정 작업을 자동화하여 대상 사이트에서 VM을 복구합니다.
+* https://docs.netapp.com/us-en/data-services-disaster-recovery/get-started/dr-intro.html["NetApp 재해 복구"] 스토리지 어레이 기반 복제를 활용하고 특정 작업을 자동화하여 대상 사이트에서 VM을 복구합니다.
 
 
 ====
@@ -416,7 +416,7 @@ $targetvm, $targetvmdisk | Get-SPBMEntityConfiguration
 ** link:https://docs.netapp.com/us-en/netapp-solutions-cloud/vmware/vmw-gcp-gcve-migrate-hcx.html["VMware HCX를 사용하여 Google Cloud NetApp Volumes 데이터 저장소로 워크로드 마이그레이션 - 빠른 시작 가이드"^]
 
 
-* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["BlueXP 재해 복구 서비스(DRaaS)"]스토리지 어레이 기반 복제를 활용하고 특정 작업을 자동화하여 대상 사이트에서 VM을 복구합니다.
+* https://docs.netapp.com/us-en/data-services-disaster-recovery/get-started/dr-intro.html["NetApp Disaster Recovery"] 스토리지 어레이 기반 복제를 활용하고 특정 작업을 자동화하여 대상 사이트에서 VM을 복구합니다.
 * 지원되는 CDP(Continous Data Protection) 제품을 사용하는 경우 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-storage-7-0/filtering-virtual-machine-i-o-in-vsphere/about-i-o-filters/classes-of-vaio-filters.html["IO용 vSphere API(VAIO)"] 데이터를 가로채서 원격 위치로 사본을 보내는 RPO 솔루션으로 거의 0에 가깝습니다.
 
 
@@ -548,5 +548,5 @@ NOTE: 소스 vCenter의 다른 클러스터에 있는 기존 VM과 네트워크 
 * https://techdocs.broadcom.com/us/en/vmware-cis/nsx/vmware-nsx/4-2/administration-guide/managing-nsx-t-in-multiple-locations/nsx-t-federation/networking-topologies-in-nsx-federation/tier-0-in-federation.html["NSX 페더레이션의 Tier-0 게이트웨이 구성"]
 * https://techdocs.broadcom.com/us/en/vmware-cis/hcx/vmware-hcx/4-11/vmware-hcx-user-guide-4-11.html["HCX 4.8 사용자 가이드"]
 * https://techdocs.broadcom.com/us/en/vmware-cis/live-recovery.html["VMware Live Recovery 설명서"]
-* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["VMware용 BlueXP disaster recovery"]
+* https://docs.netapp.com/us-en/data-services-disaster-recovery/get-started/dr-intro.html["VMware용 NetApp Disaster Recovery"]
 

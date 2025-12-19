@@ -100,7 +100,7 @@ VM 및 데이터 저장소를 보호하려면 각 vCenter 인스턴스에 SnapCe
 
 VMFS 데이터 저장소의 경우 SnapMirror Active Sync는 vSphere Metro Storage Cluster와 함께 사용할 수 있는 액티브-액티브 스토리지 유닛을 제공합니다.  균일 액세스 모드는 투명한 스토리지 장애 조치를 제공하는 반면, 비균일 액세스 모드는 장애 도메인 장애 발생 시 VM을 다시 시작해야 합니다.
 
-NFS 데이터 저장소의 경우, vSphere Metro Storage Cluster를 탑재한 ONTAP MetroCluster 높은 가용성을 보장합니다.  중재자는 분할 두뇌 시나리오를 피하고 이제 BlueXP 에서 호스팅될 수 있습니다.
+NFS 데이터 저장소의 경우, vSphere Metro Storage Cluster를 탑재한 ONTAP MetroCluster 높은 가용성을 보장합니다. 중재자는 스플릿 브레인 시나리오를 방지하며 이제 NetApp Console 에서 호스팅할 수 있습니다.
 
 VM 배치 규칙은 관리 도메인 구성 요소에 대해 동일한 장애 도메인 내의 VM을 제어합니다.
 
@@ -108,9 +108,9 @@ image::vmw-vcf-design-003.png[단일 지역에 여러 사이트가 있는 VCF �
 
 ONTAP 도구는 SnapMirror 활성 동기화 관계를 설정하는 UI를 제공합니다.  두 장애 도메인의 스토리지 시스템은 ONTAP 도구와 SnapCenter Plug-in for VMware vSphere 에 등록되어야 합니다.
 
-SnapMirror 및 SnapMirror to Cloud를 통해 VM용 BlueXP Backup and Recovery를 사용하여 3-2-1 백업 정책을 구현할 수 있습니다.  세 위치 중 어느 곳에서나 복원을 수행할 수 있습니다.
+SnapMirror 및 SnapMirror to Cloud를 통해 NetApp Backup and Recovery for VM을 사용하면 3-2-1 백업 정책을 구현할 수 있습니다. 세 위치 중 어느 곳에서나 복원을 수행할 수 있습니다.
 
-Kubernetes용 Trident Protect 또는 BlueXP Backup and Recovery는 VKS 클러스터 애플리케이션을 보호합니다.
+Trident Protect 또는 NetApp Backup and Recovery for Kubernetes는 VKS 클러스터 애플리케이션을 보호합니다.
 
 자세한 내용은 다음을 확인하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/design/blueprints/vsphere-only-to-vcf-fleet-upgrade-blueprint.html["단일 지역에 여러 사이트가 있는 VCF 함대에 대한 Broadcom 기술 문서"] .
 
@@ -120,7 +120,7 @@ Kubernetes용 Trident Protect 또는 BlueXP Backup and Recovery는 VKS 클러스
 
 이 디자인은 전 세계에 퍼져 있는 고객을 대상으로 하며, 근접 서비스와 재해 복구 솔루션을 제공합니다.
 
-VMware Live Site Recovery 또는 BlueXP Disaster Recovery as a Service를 사용하여 VM의 재해 복구를 관리할 수 있습니다.  ONTAP 도구는 ONTAP 사용하여 스토리지 작업을 조율하기 위한 SRA(스토리지 복제 어댑터)를 제공합니다.
+VMware Live Site Recovery 또는 NetApp Disaster Recovery 를 사용하여 VM의 재해 복구를 관리할 수 있습니다. ONTAP 도구는 ONTAP 사용하여 스토리지 작업을 조율하기 위한 SRA(스토리지 복제 어댑터)를 제공합니다.
 
 [cols="4,2,2"]
 |===
@@ -137,7 +137,7 @@ VMware Live Site Recovery 또는 BlueXP Disaster Recovery as a Service를 사용
 |===
 image::vmw-vcf-design-004.png[여러 지역에 걸쳐 여러 사이트를 갖춘 VCF 함대]
 
-ONTAP 도구는 데이터 저장소 복제 설정을 위한 UI를 제공합니다.  BlueXP 스토리지 어레이 간 복제에도 사용할 수 있습니다.  SnapCenter Plug-in for VMware vSphere SnapShots에 대한 기존 SnapMirror 관계를 활용합니다.
+ONTAP 도구는 데이터 저장소 복제 설정을 위한 UI를 제공합니다. NetApp Console 스토리지 어레이 간 복제에도 사용할 수 있습니다. SnapCenter Plug-in for VMware vSphere SnapShots에 대한 기존 SnapMirror 관계를 활용합니다.
 
 자세한 내용은 다음을 확인하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/design/blueprints/blueprint-4.html["여러 지역에 걸쳐 여러 사이트를 보유한 VCF 함대에 대한 Broadcom 기술 문서"] .
 
@@ -151,6 +151,6 @@ ASA, AFF, FAS 이 디자인 옵션을 지원합니다.
 
 image::vmw-vcf-design-005.png[단일 지역에 여러 사이트가 있는 VCF 함대 및 추가 지역]
 
-ONTAP 도구나 BlueXP 사용하여 복제 관계를 설정할 수 있습니다.
+ONTAP 도구 또는 NetApp Console 사용하여 복제 관계를 설정할 수 있습니다.
 
 자세한 내용은 다음을 참조하십시오. link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/design/blueprints/blueprint-5.html["단일 지역 내 여러 사이트와 추가 지역이 있는 VCF 함대에 대한 Broadcom 기술 문서"] .

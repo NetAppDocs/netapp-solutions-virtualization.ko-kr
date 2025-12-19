@@ -82,16 +82,16 @@ NOTE: 그만큼 `nConnect` 세션 수는 호스트당입니다.  필요에 따�
 *** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_resource_groups.html["리소스 그룹 생성"] .
 
 
-.. BlueXP 커넥터 배포
+.. NetApp Console 에이전트를 배포합니다.
 +
-*** link:https://docs.netapp.com/us-en/bluexp-setup-admin/concept-connectors.html#what-you-can-do-without-a-connector["커넥터 없이 할 수 있는 일을 검토하세요"] .
-*** link:https://docs.netapp.com/us-en/bluexp-setup-admin/concept-modes.html#overview["커넥터 배포"] .
+*** link:https://docs.netapp.com/us-en/console-setup-admin/concept-agents.html["콘솔 에이전트 없이 수행할 수 있는 작업을 검토하세요."].
+*** link:https://docs.netapp.com/us-en/console-setup-admin/concept-modes.html#overview["에이전트 배포 모드"].
 
 
-.. 백업 및 복구에 BlueXP 사용하세요
+.. NetApp Backup and Recovery 사용
 +
-*** link:https://docs.netapp.com/us-en/bluexp-backup-recovery/prev-vmware-protect-overview.html["VM 워크로드 보호"] .
-*** link:https://docs.netapp.com/us-en/bluexp-backup-recovery/br-use-kubernetes-protect-overview.html["VKS 워크로드 보호"] .
+*** link:https://docs.netapp.com/us-en/data-services-backup-recovery/prev-vmware-protect-overview.html["VM 워크로드 보호"].
+*** link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-kubernetes-protect-overview.html["VKS 워크로드 보호"].
 
 
 
@@ -113,10 +113,10 @@ NOTE: 그만큼 `nConnect` 세션 수는 호스트당입니다.  필요에 따�
 *** link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_resource_groups.html["리소스 그룹 생성"] .
 
 
-.. 백업 및 복구에 BlueXP 사용하세요
+.. NetApp Backup and Recovery 사용
 +
-*** link:https://docs.netapp.com/us-en/bluexp-backup-recovery/prev-vmware-protect-overview.html["VM 워크로드 보호"] .
-*** link:https://docs.netapp.com/us-en/bluexp-backup-recovery/br-use-kubernetes-protect-overview.html["VKS 워크로드 보호"] .
+*** link:https://docs.netapp.com/us-en/data-services-backup-recovery/prev-vmware-protect-overview.html["VM 워크로드 보호"].
+*** link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-kubernetes-protect-overview.html["VKS 워크로드 보호"].
 
 
 

@@ -108,7 +108,7 @@ image:why-ontap-for-vmware-002.png["VCF에 ONTAP 이유"]
 * link:vmw-getting-started-hmc.html["VMware와 NetApp 활용한 하이브리드 멀티클라우드"]
 * link:vmw-getting-started-security.html["보안 및 랜섬웨어 보호"]
 * link:vmw-getting-started-migration.html["VMware 워크로드를 NetApp 으로 쉽게 마이그레이션"]
-* link:vmw-dr-gs.html["BlueXP 재해 복구"]
+* link:vmw-dr-gs.html["NetApp Disaster Recovery"]
 * link:vmw-getting-started-dii.html["데이터 인프라 통찰력"]
 * link:vmw-getting-started-vmdc.html["VM 데이터 수집기"]
 

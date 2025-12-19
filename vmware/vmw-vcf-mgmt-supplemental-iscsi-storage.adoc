@@ -171,7 +171,7 @@ image:vmware-vcf-asa-021.png["vSphere 클라이언트 최근 작업 창"]
 == 추가 정보
 
 * ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"^] .
-* VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us-en/vmware-cis/vcf.html["VMware Cloud Foundation 문서"^] .
+* VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf.html["VMware Cloud Foundation 문서"^] .
 * VMware에서 VMFS iSCSI 데이터 저장소를 사용하는 방법에 대한 자세한 내용은 다음을 참조하세요.link:vmw-vmfs-iscsi.html["vSphere VMFS 데이터스토어 - ONTAP 사용한 iSCSI 스토리지 백엔드"] .
 * 이 솔루션의 비디오 데모는 다음을 참조하세요.link:../videos/vmware-videos.html#vmware-datastore-provisioning-with-ontap["VMware 데이터스토어 프로비저닝"] .
 

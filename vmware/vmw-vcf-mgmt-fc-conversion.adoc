@@ -94,7 +94,7 @@ VCF 관리 도메인으로 변환하려는 동일한 vSphere 클러스터에 SDD
 . JSON 파일을 SDDC 관리자의 디렉토리에 복사합니다.
 +
 
-NOTE: 변환 또는 가져오기 작업에서 NSX Manager 클러스터를 배포하는 경우 NSX-VLAN 네트워킹이 활용됩니다. NSX-VLAN 네트워킹 제한 사항에 대한 정보는 다음을 참조하세요. https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/considerations-before-converting-or-importing-existing-vsphere-environments-into-vcf-admin.html["기존 vSphere 환경을 VMware Cloud Foundation으로 변환하거나 가져오기 전 고려 사항"] .
+NOTE: 변환 또는 가져오기 작업에서 NSX Manager 클러스터를 배포할 때 NSX-VLAN 네트워킹이 사용됩니다. NSX-VLAN 네트워킹 제한 사항에 대한 자세한 내용은 다음을 참조하십시오. https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/map-for-administering-vcf-5-2/importing-existing-vsphere-environments-admin/considerations-before-converting-or-importing-existing-vsphere-environments-into-vcf-admin.html["기존 vSphere 환경을 VMware Cloud Foundation으로 변환하거나 가져오기 전 고려 사항"].
 
 
 
