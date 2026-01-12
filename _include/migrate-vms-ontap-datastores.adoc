@@ -13,7 +13,7 @@ ONTAP 데이터스토어에 호스팅된 VM은 VMware vSphere(SCV)용 SnapCenter
 고객은 ONTAP Tools vCenter 플러그인이나 API를 사용하여 데이터스토어를 쉽게 프로비저닝할 수 있으며, 전원이 켜져 있는 동안에도 VM을 ONTAP 데이터스토어로 마이그레이션할 수 있습니다.
 
 
-NOTE: Aria Automation, Tanzu(또는 기타 Kubernetes 플레이버)와 같은 외부 관리 도구를 사용하여 배포된 일부 VM은 일반적으로 VM 스토리지 정책에 따라 달라집니다.  동일한 VM 스토리지 정책 내에서 데이터 저장소 간에 마이그레이션하는 경우 애플리케이션에 미치는 영향이 적어야 합니다.  애플리케이션 소유자에게 문의하여 해당 VM을 새 데이터 저장소로 올바르게 마이그레이션하세요. vSphere 8이 도입되었습니다. https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/how-to-prepare-an-application-for-vsphere-vmotion.html#:~:text=vSphere%208.0%20introduces%20a%20notification,the%20necessary%20steps%20to%20prepare.["지연 시간에 민감한 애플리케이션을 위한 vSphere vMotion 알림"] vMotion에 대한 애플리케이션을 준비합니다.
+NOTE: VCF Automation, vSphere Supervisor(또는 기타 Kubernetes 버전)와 같은 외부 관리 도구를 사용하여 배포된 일부 VM은 일반적으로 VM 스토리지 정책에 따라 달라집니다. 동일한 VM 스토리지 정책 내의 데이터 저장소 간에 마이그레이션하는 경우 애플리케이션에 미치는 영향은 최소화됩니다. 해당 VM을 새 데이터스토어로 올바르게 마이그레이션하려면 애플리케이션 소유자에게 문의하십시오. vSphere 8에서 도입되었습니다. https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/how-to-prepare-an-application-for-vsphere-vmotion.html#:~:text=vSphere%208.0%20introduces%20a%20notification,the%20necessary%20steps%20to%20prepare.["지연 시간에 민감한 애플리케이션을 위한 vSphere vMotion 알림"] vMotion용 애플리케이션을 준비합니다.
 
 
 

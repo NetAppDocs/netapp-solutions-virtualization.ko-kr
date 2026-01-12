@@ -29,8 +29,6 @@ indexpage:
       url: vmware-videos.html#azure-vmware-solutions
     - title: NetApp ONTAP 활용한 VMware Cloud Foundation
       url: vmware-videos.html#vmware-cloud-foundation-with-netapp-ontap
-    - title: VMware Tanzu를 사용한 NetApp
-      url: vmware-videos.html#netapp-with-vmware-tanzu
     - title: NetApp Cloud Insights
       url: vmware-videos.html#netapp-cloud-insights
   - title: 하이브리드 멀티클라우드 가상화

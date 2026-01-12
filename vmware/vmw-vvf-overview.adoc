@@ -65,7 +65,7 @@ VVF 솔루션은 기본 Kubernetes와 가상 머신 기반 워크로드를 모�
 * VMware vSphere
 * VMware vSAN
 * 아리아 스탠다드
-* vSphere용 VMware Tanzu Kubernetes Grid 서비스
+* VMware vSphere Kubernetes vSphere
 * vSphere 분산 스위치
 
 
