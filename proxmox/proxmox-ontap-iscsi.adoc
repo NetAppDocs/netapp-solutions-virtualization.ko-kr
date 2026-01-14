@@ -1,0 +1,97 @@
+---
+sidebar: sidebar 
+permalink: proxmox/proxmox-ontap-iscsi.html 
+keywords: netapp, proxmox, proxmox ve, iscsi, lvm, ontap, storage 
+summary: 'ONTAP 사용하여 Proxmox 가상 환경에서 iSCSI를 통해 LVM(논리 볼륨 관리자)을 구성합니다. 이 절차에는 멀티패스 구성, LUN 프로비저닝, iGroup 설정 및 공유 스토리지용 볼륨 그룹 생성이 포함됩니다.' 
+---
+= Proxmox VE용 iSCSI를 사용하여 LVM 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp ONTAP 사용하여 iSCSI 프로토콜로 Proxmox 가상 환경(VE) 호스트 간에 공유 스토리지를 위한 논리 볼륨 관리자(LVM)를 구성합니다. 이 구성은 멀티패스를 지원하는 표준 이더넷 네트워크를 통해 블록 수준 스토리지 액세스를 가능하게 합니다.
+
+.ONTAP 사용하여 iSCSI와 LVM 공유 풀
+video::d66ef67f-bcc2-4ced-848e-b22e01588e8c[panopto,width=360]
+
+
+== 초기 가상화 관리자 작업
+
+Proxmox VE 호스트의 iSCSI 연결을 준비하고 스토리지 관리자에게 필요한 정보를 수집하려면 다음 초기 작업을 완료하십시오.
+
+. Linux VLAN 인터페이스 두 개가 사용 가능한지 확인하십시오.
+. multipath-tools가 모든 Proxmox VE 호스트에 설치되어 있고 부팅 시 자동으로 시작되는지 확인하십시오.
++
+[source, shell]
+----
+apt list | grep multipath-tools
+# If need to install, execute the following line.
+apt-get install multipath-tools
+systemctl enable multipathd
+----
+. 모든 Proxmox VE 호스트의 iSCSI 호스트 IQN을 수집하여 스토리지 관리자에게 제공하십시오.
++
+[source, shell]
+----
+cat /etc/iscsi/initiator.name
+----
+
+
+
+
+== 스토리지 관리자 작업
+
+ONTAP 처음 사용하시는 경우, 시스템 관리자를 이용하시면 더욱 편리하게 사용하실 수 있습니다.
+
+. iSCSI 프로토콜이 활성화된 상태로 SVM에 액세스할 수 있는지 확인하십시오. 따르다 link:https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["ONTAP 9 문서"].
+. iSCSI 전용으로 컨트롤러당 두 개의 LIF를 생성합니다.
++
+image:proxmox-ontap-iscsi-001.png["iSCSI 인터페이스 세부 정보"]
+
+. igroup을 생성하고 호스트 iSCSI 이니시에이터를 채웁니다.
+. 원하는 크기의 LUN을 SVM에 생성하고 이전 단계에서 생성한 igroup에 제공합니다. ASA 시스템의 보안 탭에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오. AFF/ FAS 시스템의 경우 볼륨의 보안 탭에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.
++
+image:proxmox-ontap-iscsi-002.png["iSCSI LUN 세부 정보"]
+
+. LUN이 생성되었음을 가상화 관리자에게 알리십시오.
+
+
+
+
+== 가상화 관리자 최종 작업
+
+Proxmox VE에서 iSCSI LUN을 공유 LVM 스토리지로 구성하려면 다음 작업을 완료하십시오.
+
+. 관리 UI를 사용하여 `https:<proxmox node>:8006`데이터센터를 클릭하고 스토리지를 선택한 다음 추가를 클릭하고 iSCSI를 선택합니다.
++
+image:proxmox-ontap-iscsi-003.png["iSCSI 스토리지 탐색"]
+
+. 저장소 ID 이름을 제공하십시오. ONTAP 의 iSCSI LIF 주소는 통신 문제가 없을 경우 대상을 선택할 수 있어야 합니다. 게스트 VM에 LUN 액세스 권한을 직접 제공하지 않으려면 해당 옵션의 체크를 해제하십시오.
++
+image:proxmox-ontap-iscsi-004.png["iSCSI 스토리지 유형 생성"]
+
+. 추가를 클릭하고 LVM을 선택하세요.
++
+image:proxmox-ontap-iscsi-005.png["LVM 스토리지 탐색"]
+
+. 스토리지 ID 이름을 입력하고 이전 단계에서 생성한 iSCSI 스토리지와 일치하는 기본 스토리지를 선택하십시오. 기본 볼륨에 사용할 LUN을 선택하고 볼륨 그룹 이름을 입력하십시오. 공유 옵션이 선택되어 있는지 확인하십시오. Proxmox VE 9 이상 버전에서는 다음을 활성화하십시오. `Allow Snapshots as Volume-Chain` 고급 확인란을 활성화하면 표시되는 옵션입니다.
++
+image:proxmox-ontap-iscsi-006.png["lvm 스토리지 생성"]
+
+. 다음은 iSCSI를 사용하는 LVM용 샘플 스토리지 구성 파일입니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-iscsi-007.png["lvm iscsi 구성"]
+
+====
++
+Proxmox VE 9 이상 버전에서는 스토리지 구성 파일에 추가 옵션이 포함되어 있습니다. `snapshot-as-volume-chain 1` 언제 `Allow Snapshots as Volume-Chain` 활성화되어 있습니다.
+
+

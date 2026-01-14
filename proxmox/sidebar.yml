@@ -8,4 +8,35 @@ entries:
   url: "/proxmox/proxmox-overview.html"
 - title: Proxmox VE에 대한 ONTAP 스토리지 제공
   pdf-filename: Proxmox VE용 NetApp 스토리지
-  url: "/proxmox/proxmox-ontap.html"
+  entries:
+  - title: 솔루션 아키텍처
+    url: "/proxmox/proxmox-ontap-architecture.html"
+  - title: 지원되는 저장 유형
+    url: "/proxmox/proxmox-storage-types.html"
+  - title: 배포 지침
+    url: "/proxmox/proxmox-deploy-guidelines.html"
+  - title: Proxmox VE용 ONTAP 사용하여 스토리지 프로토콜을 구성합니다.
+    entries:
+    - title: 스토리지 프로토콜 개요
+      url: "/proxmox/proxmox-ontap.html"
+    - title: SMB/CIFS 스토리지 구성
+      url: "/proxmox/proxmox-ontap-smb.html"
+    - title: NFS 스토리지 구성
+      url: "/proxmox/proxmox-ontap-nfs.html"
+    - title: FC를 사용하여 LVM을 구성합니다.
+      url: "/proxmox/proxmox-ontap-fc.html"
+    - title: iSCSI를 사용하여 LVM 구성
+      url: "/proxmox/proxmox-ontap-iscsi.html"
+    - title: NVMe/FC를 사용하여 LVM 구성
+      url: "/proxmox/proxmox-ontap-nvme-fc.html"
+    - title: NVMe/TCP를 사용하여 LVM 구성
+      url: "/proxmox/proxmox-ontap-nvme-tcp.html"
+- title: Proxmox VE 워크로드를 보호합니다.
+  pdf-filename: Proxmox VE 워크로드 데이터 보호(Proxmox Backup Server 및 NetApp ONTAP)
+  entries:
+  - title: 솔루션 아키텍처
+    url: "/proxmox/proxmox-pbs-architecture.html"
+  - title: 배포 요구 사항
+    url: "/proxmox/proxmox-pbs-requirements.html"
+  - title: Proxmox Backup Server를 사용하여 데이터 보호를 구성하세요.
+    url: "/proxmox/proxmox-wkld-dp-pbs.html"

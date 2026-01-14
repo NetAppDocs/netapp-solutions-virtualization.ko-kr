@@ -1,0 +1,94 @@
+---
+sidebar: sidebar 
+permalink: proxmox/proxmox-storage-types.html 
+keywords: netapp, proxmox, proxmox ve, ontap, storage, nfs, smb, cifs, iscsi, fc, nvme, content types, vm disks, backups, templates 
+summary: Proxmox VE는 NAS 프로토콜의 경우 NFS 및 SMB를, SAN 프로토콜의 경우 FC, iSCSI 및 NVMe-oF를 포함한 다양한 스토리지 유형을 ONTAP 에서 지원합니다. 각 프로토콜은 VM 디스크, 백업, 컨테이너 볼륨, ISO 이미지 및 템플릿을 포함한 다양한 콘텐츠 유형을 지원합니다. 
+---
+= Proxmox 가상 환경에서 지원되는 스토리지 유형
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Proxmox Virtual Environment(VE)는 NetApp ONTAP 사용하여 NAS용 NFS 및 SMB, FC용 iSCSI 및 SAN용 NVMe-oF를 포함한 다양한 스토리지 프로토콜을 지원합니다. 각 프로토콜은 VM 디스크, 백업, 컨테이너 볼륨, ISO 이미지 및 템플릿을 포함하여 다양한 Proxmox VE 콘텐츠 유형을 지원합니다.
+
+
+
+== NAS 프로토콜 지원
+
+NAS 프로토콜(NFS 및 SMB)은 모든 Proxmox VE 콘텐츠 유형을 지원하며 일반적으로 데이터센터 수준에서 한 번만 구성됩니다. 게스트 VM은 NAS 스토리지에서 raw, qcow2 또는 VMDK 디스크 형식을 사용할 수 있습니다. ONTAP 스냅샷은 클라이언트가 특정 시점의 데이터 복사본에 액세스할 수 있도록 표시할 수 있습니다.
+
+
+
+== SAN 프로토콜 지원
+
+SAN 프로토콜(FC, iSCSI 및 NVMe-oF)은 일반적으로 호스트별로 구성되며 Proxmox VE에서 VM 디스크 및 컨테이너 이미지 콘텐츠 유형을 지원합니다. 게스트 VM은 블록 스토리지에서 raw, VMDK 또는 qcow2 디스크 형식을 사용할 수 있습니다.
+
+
+
+== 저장 장치 유형 호환성 매트릭스
+
+[cols="25% 15% 15% 15% 15% 15%"]
+|===
+| 콘텐츠 유형 | NFS | SMB/CIFS | FC | iSCSI | NVMe-oF 
+
+
+| 백업 | 예 | 예  a| 
+아니요^1^
+ a| 
+아니요^1^
+ a| 
+아니요^1^
+
+
+
+| VM 디스크 | 예 | 예  a| 
+네^2^
+ a| 
+네^2^
+ a| 
+네^2^
+
+
+
+| CT 볼륨 | 예 | 예  a| 
+네^2^
+ a| 
+네^2^
+ a| 
+네^2^
+
+
+
+| ISO 이미지 | 예 | 예  a| 
+아니요^1^
+ a| 
+아니요^1^
+ a| 
+아니요^1^
+
+
+
+| CT 템플릿 | 예 | 예  a| 
+아니요^1^
+ a| 
+아니요^1^
+ a| 
+아니요^1^
+
+
+
+| 짧은 발췌 | 예 | 예  a| 
+아니요^1^
+ a| 
+아니요^1^
+ a| 
+아니요^1^
+
+|===
+*참고사항:*
+
+. 공유 폴더를 생성하려면 클러스터 파일 시스템이 필요하며 디렉터리 저장 유형을 사용해야 합니다.
+. LVM 스토리지 유형을 사용하십시오.
+

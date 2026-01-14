@@ -2478,12 +2478,7 @@
   <block id="4460d8fd66206202680336abfed77dcd" category="paragraph">마이그레이션 계획은 ImageConversion 단계를 완료하고 마지막으로 VirtualMachineCreation 단계를 완료합니다.  VM은 OpenShift Virtualization에서 실행 상태가 됩니다.</block>
   <block id="c9f0f895fb98ab9159f51fd0297e236d" category="inline-image-macro">8</block>
   <block id="0857af525a84b794970c3d5af0038668" category="paragraph"><block ref="0857af525a84b794970c3d5af0038668" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="09c3b8910f060186ee4cb74a3cbc7fc0" category="summary">Proxmox Virtual Environment(VE)의 공유 스토리지는 VM 라이브 마이그레이션에 소요되는 시간을 줄이고, 환경 전반에 걸쳐 백업과 일관된 템플릿을 위한 더 나은 대상을 제공합니다.  ONTAP 스토리지는 Proxmox VE 호스트 환경의 요구 사항뿐만 아니라 게스트 파일, 블록 및 개체 스토리지 요구 사항도 충족할 수 있습니다.</block>
   <block id="488c7ca3bc4568c13763a0005aec6c5d" category="doc">Proxmox 가상 환경에 대한 ONTAP 스토리지 프로비저닝</block>
-  <block id="8ec54b39b7dd9ec6666c9bcb3419fe56" category="paragraph">NAS, SAN, SMB/CIFS 프로토콜을 사용하여 Proxmox 가상 환경(VE)으로 ONTAP 스토리지를 구성합니다.  Proxmox VE의 공유 스토리지는 라이브 VM 마이그레이션에 소요되는 시간을 줄이고, 환경 전반에 걸쳐 백업을 위한 더 나은 대상과 일관된 템플릿을 제공합니다.</block>
-  <block id="1c89e1a1285f0138c1151e89bdaa40ed" category="paragraph">Proxmox VE 호스트에는 스위치에 케이블로 연결된 FC, 이더넷 또는 기타 지원 인터페이스가 있어야 하며 ONTAP 논리 인터페이스와 통신할 수 있어야 합니다.  항상 확인하세요<block ref="8d006c87830f7172fd7400f1c17c0928" category="inline-link-rx"></block> 지원되는 구성에 대해서는.</block>
-  <block id="01a0f704243685bc0e3b2ffcad16b0f0" category="section-title">ONTAP 에서 지원되는 Proxmox VE 스토리지 유형</block>
-  <block id="0b8bdb61396ecfae3befa3a7086dedc5" category="paragraph">NAS 프로토콜(NFS/SMB)은 Proxmox VE의 모든 콘텐츠 유형을 지원하며 일반적으로 데이터 센터 수준에서 한 번 구성됩니다.  게스트 VM은 NAS 스토리지에서 raw, qcow2 또는 VMDK 유형의 디스크를 사용할 수 있습니다.  ONTAP 스냅샷을 표시하여 클라이언트의 데이터 사본을 특정 시점에 액세스할 수 있습니다.  SAN 프로토콜(FC/iSCSI/NVMe-oF)을 사용하는 블록 스토리지는 일반적으로 호스트별로 구성되며 Proxmox VE에서 지원하는 VM 디스크 및 컨테이너 이미지 콘텐츠 유형으로 제한됩니다.  게스트 VM과 컨테이너는 블록 스토리지를 원시 장치로 사용합니다.</block>
   <block id="2effa58f13159d138a634233e246713d" category="cell">콘텐츠 유형</block>
   <block id="1414cdc093d39dd56d0b0d20049e17fc" category="cell">백업</block>
   <block id="98ea182faf857dd13aec65453e431e95" category="cell">VM 디스크</block>
@@ -2492,126 +2487,44 @@
   <block id="fcd68080313e22bbe3353a573f46d36a" category="cell">ISO 이미지</block>
   <block id="ed7995b30acfad6baf98a12416d639cc" category="cell">CT 템플릿</block>
   <block id="b2accffe28bb4f4b596c9be64a28d281" category="cell">짧은 발췌</block>
-  <block id="2744c55be62f785846b7734ab2f6dfdf" category="paragraph">*참고:* 1 - 공유 폴더를 생성하고 디렉토리 저장 유형을 사용하려면 클러스터 파일 시스템이 필요합니다.  2 - LVM 저장 유형을 사용합니다.</block>
-  <block id="199fcff7b54f68f25e63e387922143cc" category="section-title">SMB/CIFS 스토리지</block>
   <block id="5478c30e0b1be399effe00a073535eee" category="inline-link-macro">TR4740 - SMB 3.0 멀티채널</block>
-  <block id="480dde71aed40f659e7a749a5ff7ef90" category="paragraph">SMB/CIFS 파일 공유를 활용하려면 스토리지 관리자가 수행해야 하는 특정 작업이 있으며, 가상화 관리자는 Proxmox VE UI나 셸을 사용하여 공유를 마운트할 수 있습니다.  SMB 다중채널은 장애 내구성을 제공하고 성능을 향상시킵니다.  자세한 내용은 다음을 참조하세요.<block ref="6375b984c70daf4d4201c589c399ea61" category="inline-link-macro-rx"></block></block>
   <block id="0d5d6fc0ca3b32c48fb23afb7a95eedd" category="inline-link-macro">Proxmox VE 문서</block>
-  <block id="a791f143e380c7c4b314e0eb8cfea350" category="admonition">비밀번호는 일반 텍스트 파일로 저장되며 루트 사용자만 접근할 수 있습니다. <block ref="8bd73bdf88f27d5527b75b8952644346" category="inline-link-macro-rx"></block> .</block>
   <block id="b2222967310ae411da791ff693f92bd2" category="video-title">ONTAP 사용한 SMB 공유 스토리지 풀</block>
-  <block id="eec5de5114fb9e61444950953613ec2d" category="example-title">&lt;strong&gt;저장소 관리 작업&lt;/strong&gt;</block>
-  <block id="75e407841e30935e2d070812391de440" category="paragraph">ONTAP 처음 사용하는 경우 시스템 관리자 인터페이스를 사용하여 이러한 작업을 완료하면 더 나은 환경을 경험할 수 있습니다.</block>
   <block id="c09b5be4c2da04f4040eef1878f258aa" category="inline-link-macro">ONTAP 9 문서</block>
-  <block id="6bccccceefd05a2ea348cd43e7a26687" category="list-text">SMB에 대해 SVM이 활성화되어 있는지 확인하세요.  따르다<block ref="229aa9d5f3d3b9a2dc53784d0a93d1c3" category="inline-link-macro-rx"></block> 자세한 내용은.</block>
-  <block id="29e83b58c17126c29eeb0c2fb3fc3876" category="list-text">컨트롤러당 최소 2개의 생명을 가져야 합니다.  위 링크의 단계를 따르세요.  참고로, 이 솔루션에 사용된 lifs의 스크린샷은 다음과 같습니다.</block>
   <block id="2805592d5d8726e8ddb21f453e843127" category="inline-image-macro">NAS 인터페이스 세부 정보</block>
-  <block id="5970d5718b098516b8de4d33960bfb11" category="paragraph"><block ref="5970d5718b098516b8de4d33960bfb11" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="1078b3ae1ad3e4ef9560614a6fcfb2bd" category="list-text">Active Directory 또는 작업 그룹 기반 인증을 사용하세요.  위 링크의 단계를 따르세요.</block>
   <block id="aba5f0b1d178181653f546def0be1cc1" category="inline-image-macro">도메인 정보 가입</block>
-  <block id="d41f58c426e70f6b64bfa0dde331b47d" category="paragraph"><block ref="d41f58c426e70f6b64bfa0dde331b47d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="59a06216fc60442790d6b9b4a1fca3b7" category="list-text">볼륨을 생성합니다.  FlexGroup 사용하려면 클러스터 전체에 데이터를 분산하는 옵션을 선택하는 것을 잊지 마세요.</block>
   <block id="95161394245a273db58ad63c75ace391" category="inline-image-macro">FlexGroup 옵션</block>
-  <block id="24721eee804a33abf6052e369b285dd6" category="paragraph"><block ref="24721eee804a33abf6052e369b285dd6" category="inline-image-macro-rx" type="image"></block></block>
   <block id="a669eb43248f654b05cb732c546c8fcc" category="list-text">SMB 공유를 만들고 권한을 조정합니다.  따르다<block ref="952ceec20fd74017c5c486f233dccb1d" category="inline-link-macro-rx"></block> 자세한 내용은.</block>
   <block id="3877d408a5b3ce5b9413823f2d0e01d4" category="inline-image-macro">SMB 공유 정보</block>
-  <block id="657e046261b7db41158a7b3d72b42f56" category="paragraph"><block ref="657e046261b7db41158a7b3d72b42f56" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="8a2e680de8f3710e88f26983a32d6df5" category="list-text">가상화 관리자가 작업을 완료할 수 있도록 SMB 서버, 공유 이름 및 자격 증명을 제공합니다.</block>
-  <block id="08e4dcd9547e4be8b2a7d8ce2ac9926d" category="example-title">&lt;strong&gt;가상화 관리 작업&lt;/strong&gt;</block>
-  <block id="d9d43a61bd70781dabf3d0623c2a1a9c" category="list-text">공유 인증에 사용할 SMB 서버, 공유 이름 및 자격 증명을 수집합니다.</block>
-  <block id="32c60eb6b7be6e17f7ae16f83562f7cd" category="list-text">최소 두 개의 인터페이스가 서로 다른 VLAN에 구성되어 있고(장애 허용을 위해) NIC가 RSS를 지원하는지 확인하세요.</block>
-  <block id="59567f2ced32c7416cd1174d375fb2cc" category="list-text">관리 UI를 사용하는 경우<block ref="1d8a0c481f504f690c316fdd4a102c54" prefix=" " category="inline-code"></block> , 데이터 센터를 클릭하고, 저장소를 선택하고, 추가를 클릭한 다음 SMB/CIFS를 선택합니다.</block>
   <block id="d9d6c144bf9621e27b709c786fd30c4e" category="inline-image-macro">SMB 스토리지 탐색</block>
-  <block id="1f9faf8e8c0e65b2249cdbf0c8d0e4dd" category="paragraph"><block ref="1f9faf8e8c0e65b2249cdbf0c8d0e4dd" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d7b1ae05c383ae4b1f94f1ab57645fd4" category="list-text">세부 정보를 입력하면 공유 이름이 자동으로 채워집니다.  모든 콘텐츠가 선택되었는지 확인하세요.  추가를 클릭하세요.</block>
   <block id="f7e94408957dc45bae6b083ca1eec664" category="inline-image-macro">SMB 스토리지 추가</block>
-  <block id="3b60fcf4159b5d8ba234ddaf26596dfa" category="paragraph"><block ref="3b60fcf4159b5d8ba234ddaf26596dfa" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="10c9a3364ec85441d8112ade5e465ac2" category="list-text">다중 채널 옵션을 활성화하려면 클러스터의 노드 중 하나에서 셸로 이동하여 pvesm set pvesmb01 --options multichannel,max_channels=4를 입력합니다.</block>
   <block id="b827a78d8c6750faaeb488500a1fc386" category="inline-image-macro">다중 채널 설정</block>
-  <block id="2a84accd5aecdf4b67f474fb4950e67c" category="paragraph"><block ref="2a84accd5aecdf4b67f474fb4950e67c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a826fb2a08f804bb4bb04be919d4de45" category="list-text">위 작업에 대한 /etc/pve/storage.cfg의 내용은 다음과 같습니다.</block>
   <block id="cdbb8af9461242237582dbc7edcceec6" category="inline-image-macro">SMB용 스토리지 구성 파일</block>
-  <block id="2d7ad98f5776dcd49f8b438daeeeff12" category="paragraph"><block ref="2d7ad98f5776dcd49f8b438daeeeff12" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="0c8305775fc98678766952f62374f030" category="section-title">NFS 스토리지</block>
   <block id="60049d5d3bce453821a7e407082b62f3" category="inline-link-macro">세션 트렁킹</block>
-  <block id="2baeafd7333d1ce89cebca175f07f8c2" category="paragraph">ONTAP Proxmox VE가 지원하는 모든 NFS 버전을 지원합니다.  결함 허용성과 성능 향상을 제공하려면 다음을 확인하십시오.<block ref="be091303111d9932d160becb02a7fe79" category="inline-link-macro-rx"></block> 활용됩니다.  세션 트렁킹을 사용하려면 최소 NFS v4.1이 필요합니다.</block>
   <block id="6965578988829420665baee2effe46bf" category="video-title">ONTAP 사용한 NFS nconnect 옵션</block>
-  <block id="925cf7ca2c282677ac0e7e47b3447de4" category="list-text">NFS에 대해 SVM이 활성화되어 있는지 확인하세요. 다음을 참조하세요. <block ref="4558e9caf9018526f2d14e6401a7eb7a" category="inline-link-macro-rx"></block></block>
-  <block id="4d6aba897050360be62f31484947230a" category="list-text">컨트롤러당 최소 2개의 생명을 가져야 합니다.  위 링크의 단계를 따르세요.  참고로, 우리 연구실에서 사용하는 lifes의 스크린샷을 올려드립니다.</block>
   <block id="4d00cda68175bffb6afcd7c9213896ad" category="inline-link-macro">수출 정책 생성</block>
   <block id="bd2fb236997a67a617c5f3b148dc4ac8" category="inline-link-macro">내보내기 정책에 규칙 추가</block>
-  <block id="872b20f891f1cb336015335dcaccfeec" category="list-text">Proxmox VE 호스트 IP 주소 또는 서브넷에 대한 액세스를 제공하는 NFS 내보내기 정책을 만들거나 업데이트합니다. 참조하다<block ref="b6cdedc51193f9caaca77e2632283688" category="inline-link-macro-rx"></block> 그리고<block ref="b5d322c6e909917ad1a552e8b76cf85d" category="inline-link-macro-rx"></block> .</block>
   <block id="dc88dce8ec264777b2f90ec0af744f43" category="inline-link-macro">볼륨을 생성합니다</block>
-  <block id="68f4fc2e858b7ce2db3ad356dbbc1b14" category="list-text"><block ref="4f9b59515117e496741261619ceb2f90" category="inline-link-macro-rx"></block> . FlexGroup 사용하려면 클러스터 전체에 데이터를 분산하는 옵션을 선택하는 것을 잊지 마세요.</block>
-  <block id="488649b6b8c5d7ae62afd080d50d7ef1" category="inline-link-macro">볼륨에 내보내기 정책 할당</block>
-  <block id="33c66cd613dfd7ee5a0ad0cd0a9bc242" category="list-text"><block ref="33c66cd613dfd7ee5a0ad0cd0a9bc242" category="inline-link-macro-rx"></block></block>
   <block id="9f61f75e319aeb9fc3c3020c75eb1c35" category="inline-image-macro">NFS 볼륨 정보</block>
-  <block id="10c24b4f0d66de26ed4d143fd3efaa2e" category="paragraph"><block ref="10c24b4f0d66de26ed4d143fd3efaa2e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ad9241a8f17003697ff7d8d37aaa7b43" category="list-text">가상화 관리자에게 NFS 볼륨이 준비되었음을 알립니다.</block>
-  <block id="f27cabdacc173d6e6f12792047f63323" category="list-text">최소 두 개의 인터페이스가 서로 다른 VLAN에 구성되어 있는지 확인하세요(장애 허용을 위해).  NIC 본딩을 사용하세요.</block>
-  <block id="ed7f806d074f327a25b400d2600ad266" category="list-text">관리 UI를 사용하는 경우<block ref="1d8a0c481f504f690c316fdd4a102c54" prefix=" " category="inline-code"></block> , 데이터 센터를 클릭하고, 저장소를 선택하고, 추가를 클릭한 다음 NFS를 선택합니다.</block>
   <block id="bcd55aeb3bddd6308d5a269dc5e6cbcd" category="inline-image-macro">NFS 스토리지 탐색</block>
-  <block id="96b80f0bad36edaa1994a30fee496999" category="paragraph"><block ref="96b80f0bad36edaa1994a30fee496999" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="806aaadb95e3a8393823ebee62a2be27" category="list-text">세부 정보를 입력하고, 서버 정보를 제공하면 NFS 내보내기가 채워지고 목록에서 선택됩니다.  콘텐츠 옵션을 선택하는 것을 잊지 마세요.</block>
   <block id="b6713e4a099d16458859b6f724dd584f" category="inline-image-macro">NFS 스토리지 추가</block>
-  <block id="9f359905197ffa4ab648a9185a236838" category="paragraph"><block ref="9f359905197ffa4ab648a9185a236838" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="21b3bf9403041f9d09b0e69368b9b151" category="section-title">iSCSI를 사용한 LVM</block>
   <block id="37eed020511d831c82db16bf1a62cce6" category="video-title">ONTAP 사용하여 iSCSI와 LVM 공유 풀</block>
-  <block id="ab39921a24a29c2606bf32bd0ebece00" category="paragraph">Proxmox 호스트 간 공유 스토리지에 대한 논리 볼륨 관리자를 구성하려면 다음 작업을 완료하세요.</block>
-  <block id="81eb4d4d83a747d9a025f5b0f35e61c0" category="list-text">두 개의 Linux VLAN 인터페이스를 사용할 수 있는지 확인하세요.</block>
-  <block id="996d0675258e791cee6917037579a0e3" category="list-text">모든 Proxmox VE 호스트에 multipath-tools가 설치되어 있는지 확인하세요.  부팅 시 시작되는지 확인하세요.</block>
-  <block id="3e3e93f976fc3a5e29413b143287a117" category="list-text">모든 Proxmox VE 호스트에 대한 iSCSI 호스트 IQN을 수집하여 스토리지 관리자에게 제공합니다.</block>
-  <block id="ac455887789e62ec6d4a11a46959d7a0" category="paragraph">ONTAP 처음 사용하는 경우 System Manager를 사용하면 더 나은 환경을 경험할 수 있습니다.</block>
-  <block id="230de7aea17b893e0905f7b99a6368e7" category="list-text">iSCSI 프로토콜이 활성화된 상태에서 SVM을 사용할 수 있는지 확인하세요.  따르다<block ref="7c79a8d96ccab5e00ffe5a51372cb5c5" category="inline-link-macro-rx"></block></block>
-  <block id="b9894c1add720b6d6c072739c052ee09" category="list-text">컨트롤러당 iSCSI에 전용된 두 개의 life를 갖습니다.</block>
   <block id="8c8c689c539647d8a3f8cca88845e30c" category="inline-image-macro">iSCSI 인터페이스 세부 정보</block>
-  <block id="e638495b4828296076f52aa9cf4ee96b" category="paragraph"><block ref="e638495b4828296076f52aa9cf4ee96b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="bf7717dd9e9ff9e0af6b1a69787651c2" category="list-text">igroup을 생성하고 호스트 iSCSI 이니시에이터를 채웁니다.</block>
-  <block id="aa0b8a3132a8a54ea79e50fb9b6fc424" category="list-text">SVM에서 원하는 크기의 LUN을 생성하고 위 단계에서 생성한 igroup에 표시합니다.</block>
   <block id="80b87edc0b6e4a23bf5a49fe65d51f34" category="inline-image-macro">iSCSI LUN 세부 정보</block>
-  <block id="775a0c3616e8732e2737eb6ad3a592cc" category="paragraph"><block ref="775a0c3616e8732e2737eb6ad3a592cc" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="44833e1e08f11f4b4b93cb92bb4b7a80" category="list-text">LUN이 생성되었음을 가상화 관리자에게 알립니다.</block>
-  <block id="68d2788870141d9efe13a09ef7de7c47" category="list-text">관리 UI로 이동<block ref="386c071bd7898138d6219d21f97e168d" prefix=" " category="inline-code"></block> , 데이터 센터를 클릭하고, 스토리지를 선택하고, 추가를 클릭한 다음 iSCSI를 선택합니다.</block>
   <block id="804e3791e84012ca103c4896558a7de9" category="inline-image-macro">iSCSI 스토리지 탐색</block>
-  <block id="9569c59c62b09b9bc670fa158aeefc78" category="paragraph"><block ref="9569c59c62b09b9bc670fa158aeefc78" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="bcc2cb2aeb97fa565e3a584193fa5661" category="list-text">저장소 ID 이름을 제공하세요.  ONTAP 의 iSCSI life 주소는 통신 문제가 없을 때 대상을 선택할 수 있어야 합니다.  게스트 VM에 LUN 액세스를 직접 제공하지 않으려는 의도이므로 해당 설정을 해제하세요.</block>
   <block id="e5926bc2b5a8a8894df40ff0fe90139f" category="inline-image-macro">iSCSI 스토리지 유형 생성</block>
-  <block id="509d093d483dccdcec816266b53f93b0" category="paragraph"><block ref="509d093d483dccdcec816266b53f93b0" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9f2edb6e6d194b9308b694dd274650b4" category="list-text">이제 추가를 클릭하고 LVM을 선택하세요.</block>
   <block id="7de6de94f137081d021d2f0d993b4c7a" category="inline-image-macro">LVM 스토리지 탐색</block>
-  <block id="161e029310025490bc81304e87622b0f" category="paragraph"><block ref="161e029310025490bc81304e87622b0f" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6d28af532bf0580b8b06fe658520dcf6" category="list-text">저장소 ID 이름을 제공하고, 위 단계에서 생성한 iSCSI 저장소와 일치해야 하는 기본 저장소를 선택합니다.  기본 볼륨에 대한 LUN을 선택합니다.  볼륨 그룹 이름을 제공합니다.  공유가 선택되어 있는지 확인하세요.</block>
   <block id="33a508107b11996d51d20406a9ba970d" category="inline-image-macro">lvm 스토리지 생성</block>
-  <block id="6b3ed5486505019f5289994a364344d7" category="paragraph"><block ref="6b3ed5486505019f5289994a364344d7" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="7701474f52abb8b892d468bc916b0aad" category="list-text">iSCSI 볼륨을 사용하는 LVM에 대한 샘플 스토리지 구성 파일은 다음과 같습니다.</block>
   <block id="f3dc38a48fcb5b32e5a03d1da80a5dcd" category="inline-image-macro">lvm iscsi 구성</block>
-  <block id="1a5ce8202218d0249a5713ad6120e1ab" category="paragraph"><block ref="1a5ce8202218d0249a5713ad6120e1ab" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="41b8e1d5479d7d0709f5a7ad3e44e0f3" category="section-title">NVMe/TCP를 사용한 LVM</block>
   <block id="31f424bffc934af42af36d33224cee2b" category="video-title">ONTAP 사용하여 NVMe/TCP와 LVM 공유 풀을 생성합니다.</block>
-  <block id="65feee12c48ea8adc7ae4edc9826d23d" category="paragraph">Proxmox 호스트 간 공유 스토리지에 대한 논리 볼륨 관리자를 구성하려면 다음 작업을 완료하세요.</block>
-  <block id="38397788f2a0ed3c2547c324c91ee4d0" category="list-text">클러스터의 모든 Proxmox 호스트에서 다음 명령을 실행하여 호스트 개시자 정보를 수집합니다.</block>
-  <block id="bed78e3a182d136e262293d32094f9fe" category="list-text">수집된 호스트 nqn 정보를 스토리지 관리자에게 제공하고 필요한 크기의 nvme 네임스페이스를 요청합니다.</block>
-  <block id="b68590ab9bc3ad9b45b2331a1069f841" category="paragraph">ONTAP 처음 사용하는 경우 System Manager를 사용하면 더 나은 환경을 경험할 수 있습니다.</block>
   <block id="45955403dbb9f0c424c9c778ec32ce80" category="inline-link-macro">ONTAP 9 문서의 NVMe 작업</block>
-  <block id="3acd30abca10eeb58b82d7ebfcfc785a" category="list-text">NVMe 프로토콜이 활성화된 상태에서 SVM을 사용할 수 있는지 확인하세요.  나타내다<block ref="dff9a6cc2313f520177d7aee32699621" category="inline-link-macro-rx"></block> .</block>
   <block id="bb2c4be563ca93b621dd546e70a271ea" category="list-text">NVMe 네임스페이스를 생성합니다.</block>
   <block id="6b5871cb09526dfaac84bdbf3468cbab" category="inline-image-macro">nvme 네임스페이스 생성</block>
-  <block id="c89ec241ae8aff0730da9d603af27993" category="paragraph"><block ref="c89ec241ae8aff0730da9d603af27993" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="4dd154454ea8260d4cb26fb2c1466ee3" category="list-text">하위 시스템을 생성하고 호스트 nqns를 할당합니다(CLI를 사용하는 경우).  위의 참조 링크를 따라가세요.</block>
-  <block id="d2391c609eb64b903ce34bf279f505d2" category="list-text">가상화 관리자에게 NVME 네임스페이스가 생성되었음을 알립니다.</block>
-  <block id="b8b3b31b6b94a80134679feeb5dc310b" category="list-text">클러스터의 각 Proxmox VE 호스트에서 셸로 이동하여 /etc/nvme/discovery.conf 파일을 만들고 사용자 환경에 맞게 콘텐츠를 업데이트합니다.</block>
-  <block id="39fc13becc6cfafbe3418fddcd0d7517" category="list-text">NVMe 서브시스템에 로그인</block>
   <block id="60606d5a9f557fac59b8befc3d9bc826" category="list-text">장치 세부 정보를 검사하고 수집합니다.</block>
-  <block id="ecd5b19e377ea09681cc3033516727ef" category="list-text">볼륨 그룹 생성</block>
-  <block id="03b70f5b5011cfd0a9b7d642ca7785be" category="list-text">관리 UI로 이동<block ref="386c071bd7898138d6219d21f97e168d" prefix=" " category="inline-code"></block> , 데이터 센터를 클릭하고, 스토리지를 선택하고, 추가를 클릭한 다음 LVM을 선택합니다.</block>
-  <block id="55d8f3aabcf7da0337ac0f95df47beb7" category="list-text">저장소 ID 이름을 제공하고, 기존 볼륨 그룹을 선택한 다음, CLI로 방금 만든 볼륨 그룹을 선택합니다.  공유 옵션을 확인하세요.</block>
   <block id="be369a927f5d017b9bca3a87547bae34" category="inline-image-macro">기존 vg에 lvm 설치</block>
-  <block id="0f3198105635af871a83a8027d3a371b" category="paragraph"><block ref="0f3198105635af871a83a8027d3a371b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="4d0ec738c37e8ea383c7be4c283d376d" category="list-text">다음은 NVMe/TCP를 사용하는 LVM에 대한 샘플 스토리지 구성 파일입니다.</block>
   <block id="098868f555e1fdbd16bd8f9dd44e6371" category="inline-image-macro">NVMe TCP 구성의 LVM</block>
-  <block id="aedda99226107e458c8059c9730b641c" category="paragraph"><block ref="aedda99226107e458c8059c9730b641c" category="inline-image-macro-rx" type="image"></block></block>
   <block id="e4bc777fcd5873eb9a265fbc87aafcc1" category="doc">Proxmox 가상 환경에 대해 알아보세요</block>
   <block id="f90672fbf637aaa3d84163346bc73504" category="paragraph">Proxmox 가상 환경(VE)은 Debian Linux를 기반으로 하는 오픈 소스 Type-1 하이퍼바이저로, VM과 Linux 컨테이너(LXC)를 모두 호스팅할 수 있습니다.  Proxmox VE에 대해 알아보세요. 여기에는 전체 VM 및 컨테이너 기반 가상화, 클러스터 관리, 컴퓨팅 및 스토리지 옵션, 네트워킹 기능, 모니터링 도구, 데이터 보호 전략에 대한 지원이 포함됩니다.</block>
-  <block id="b6c6c0e5fa08f9228a133c962559f137" category="paragraph">Proxmox 가상 환경(VE)은 동일한 호스트에서 전체 VM 가상화와 컨테이너 기반 가상화를 모두 지원합니다.  전체 VM 가상화에는 커널 기반 가상 머신(KVM)과 빠른 에뮬레이터(QEMU)가 활용됩니다.  QEMU는 오픈소스 머신 에뮬레이터이자 가상화 프로그램으로, KVM 커널 모듈을 사용하여 호스트 CPU에서 직접 게스트 코드를 실행합니다.  Linux 컨테이너(LXC)를 사용하면 재부팅 후에도 데이터가 지속되도록 컨테이너를 VM처럼 관리할 수 있습니다.</block>
   <block id="b03c42f4f431aac5851917fb06aaa78e" category="inline-image-macro">Proxmox 호스트의 VM 및 LXC</block>
   <block id="035272690f13748a7a1b7b244f680c7e" category="paragraph"><block ref="035272690f13748a7a1b7b244f680c7e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="8dca78f8473e3dcb0a0681b591745a79" category="inline-link-macro">Proxmox VE API 뷰어</block>
@@ -2621,7 +2534,6 @@
   <block id="8a907a15e3d3be0c513a99fb281239dd" category="inline-image-macro">관리 인터페이스</block>
   <block id="3df786d125c733994149fde0df7066f5" category="paragraph"><block ref="3df786d125c733994149fde0df7066f5" category="inline-image-macro-rx" type="image"></block></block>
   <block id="43d7592f38915466c65d991ca4894479" category="inline-link-macro">HA 관리자</block>
-  <block id="8a2eb02d7b1076dddea7261b8d9e23ca" category="paragraph">클러스터를 사용하면 호스팅 노드에 장애가 발생하면 다른 노드에서 VM과 컨테이너를 모니터링하고 다시 시작할 수 있습니다.  VM과 컨테이너는 고가용성(HA)을 위해 구성되어야 합니다.  그룹을 생성하면 VM과 컨테이너를 특정 호스트 하위 집합에 호스팅할 수 있습니다.  VM 또는 컨테이너는 가장 높은 우선순위를 가진 호스트에 호스팅됩니다.  자세한 내용은 다음을 확인하세요.<block ref="fdacaf81a34c2d0312d03f6cdb2b9d17" category="inline-link-macro-rx"></block></block>
   <block id="744277faea6898a14635dcc0dab33c63" category="inline-image-macro">HA 그룹 우선 순위</block>
   <block id="c586cac811cad3cbda5731bad80db138" category="paragraph"><block ref="c586cac811cad3cbda5731bad80db138" category="inline-image-macro-rx" type="image"></block></block>
   <block id="388a404a44d9c65940e21db460774445" category="inline-link-macro">Proxmox 사용자 관리</block>
@@ -2645,18 +2557,14 @@
   <block id="db0cb721d9e20427020f9c9c4ef19552" category="paragraph"><block ref="db0cb721d9e20427020f9c9c4ef19552" category="inline-image-macro-rx" type="image"></block></block>
   <block id="52f7c59184e0bb0605b4bc55d878f137" category="inline-link-macro">Proxmox VE 스토리지</block>
   <block id="4619b1ab80ec27f35725cb6df6da1153" category="paragraph">지원되는 스토리지 유형에는 로컬 디스크, NAS(SMB 및 NFS), SAN(FC, iSCSI, NVMe-oF 등)이 있습니다.  자세한 내용은 다음을 참조하세요.<block ref="afde0246d397d819a2d97e6b3b63c2b7" category="inline-link-macro-rx"></block></block>
-  <block id="2e10fb2c50336dd90043f2be1421f94c" category="paragraph">모든 저장 볼륨은 허용된 콘텐츠 유형으로 구성됩니다.  NAS 볼륨은 모든 콘텐츠 유형을 지원하는 반면, SAN 지원은 VM 및 컨테이너 이미지로 제한됩니다.</block>
-  <block id="bb16b72a0b75b97c87e8054ad7039dbf" category="admonition">디렉토리 저장 유형은 모든 콘텐츠 유형도 지원합니다.  SMB 연결 자격 증명은 일반 텍스트로 저장되며 루트만 접근할 수 있습니다.</block>
   <block id="7bad07871b54f1f498683b2e233cb45f" category="inline-image-macro">NAS를 사용한 콘텐츠 유형</block>
   <block id="8d6bb273e9f8b17ba2da0befcb359f1d" category="paragraph"><block ref="8d6bb273e9f8b17ba2da0befcb359f1d" category="inline-image-macro-rx" type="image"></block></block>
   <block id="a051848acad588b8060b9d9945f602a0" category="inline-image-macro">SAN을 사용한 콘텐츠 유형</block>
   <block id="f3cb6f07c63c24bdde9edad248f0018e" category="paragraph"><block ref="f3cb6f07c63c24bdde9edad248f0018e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="75f6e72657354eed7168aea0e5894ef6" category="paragraph">Broadcom vSphere 환경에서 VM을 가져오려면 vSphere 호스트를 스토리지 장치로 포함할 수도 있습니다.</block>
-  <block id="eefc3ea59c2b75b587676944283c321a" category="paragraph">Proxmox VE는 Linux 브리지나 Open vSwitch와 같은 기본 Linux 네트워킹 기능을 지원하여 소프트웨어 정의 네트워킹(SDN)을 구현합니다.  호스트의 이더넷 인터페이스를 결합하여 중복성과 높은 가용성을 제공할 수 있습니다.  다른 옵션은 다음을 참조하세요.<block ref="9763a7d4d26e9dea41679cb36cae802c" category="inline-link-macro-rx"></block></block>
   <block id="f413bcc154ce42952c836318ebb89df2" category="inline-image-macro">보세망</block>
   <block id="6f7df3e6fe98c7bfbc45731d6cd5e2a4" category="paragraph"><block ref="6f7df3e6fe98c7bfbc45731d6cd5e2a4" category="inline-image-macro-rx" type="image"></block></block>
   <block id="b3ff996fe5c77610359114835baf9b38" category="inline-link-macro">존</block>
-  <block id="7e948d7e444e6350031acbd6045d8b78" category="paragraph">게스트 네트워크는 클러스터 수준에서 구성될 수 있으며, 변경 사항은 멤버 호스트에 푸시됩니다.  분리는 Zones, VNets, Subnets을 통해 관리됩니다. <block ref="24658c95512d4a42c47249a958bb1795" category="inline-link-macro-rx"></block> 단순, VLAN, VLAN 스태킹, VXLAN, EVPN 등의 네트워크 유형을 정의합니다.</block>
   <block id="12c36d047171a81e88db9805f5d685e4" category="paragraph">네트워크는 존의 유형에 따라 다르게 동작하며 특정 기능, 장점, 제한 사항을 제공합니다.</block>
   <block id="5e440154babfbc138bb100d381a9d8fe" category="paragraph">SDN의 사용 사례는 각 개별 노드의 격리된 개인 네트워크부터 서로 다른 위치에 있는 여러 PVE 클러스터에 걸친 복잡한 오버레이 네트워크까지 다양합니다.</block>
   <block id="ed1291649ec868149f105c9194277d74" category="paragraph">클러스터 전체 데이터 센터 SDN 관리 인터페이스에서 VNet을 구성하면 각 노드에서 로컬로 공통 Linux 브리지로 사용할 수 있어 VM과 컨테이너에 할당할 수 있습니다.</block>
@@ -5778,7 +5686,6 @@
   <block id="14048a9c6906a16a80b3850c6d9c0bbd" category="sidebar">NetApp Proxmox 가상화 솔루션</block>
   <block id="87246572800d6be8b79795d62479f633" category="sidebar">Proxmox VE에 대하여</block>
   <block id="87e1155beb88272d1505fcb5e4c74fdf" category="sidebar">Proxmox VE에 대한 ONTAP 스토리지 제공</block>
-  <block id="5dcf348ef2288572257cea3632184be0" category="sidebar">Proxmox 가상화 환경에서 획기적인 성능을 제공하는 NetApp 스토리지 및 NVMe-oF</block>
   <block id="115419981e2d6ecb42de59e03e41d1e4" category="sidebar">Proxmox VE 백업 및 복원</block>
   <block id="d062595c73dd717e2a57ae177e9737f6" category="sidebar">Proxmox VE용 보관</block>
   <block id="0828ed497dac0ff026d2636b40867344" category="sidebar">OpenShift, VMware 및 하이브리드 멀티클라우드 플랫폼 전반의 가상화 솔루션을 선보이는 NetApp의 포괄적인 비디오 라이브러리를 확인해보세요. 각 컬렉션은 특정 사용 사례와 통합 시나리오에 초점을 맞춥니다.</block>
@@ -7679,7 +7586,6 @@
   <block id="beec6318942ca08bdda507299633ce3d" category="sidebar">설치 요구 사항 검토</block>
   <block id="b6eec573aa3c42f73db5c0d756b8af5a" category="sidebar">Shift Toolkit 설치 또는 업그레이드</block>
   <block id="752e67a6b4916807acf40a3d0f4d607d" category="list-text">SnapMirror 액티브 동기화를 통해 오류 도메인 전반에 걸쳐 클러스터를 확장합니다. 항상 확인하세요<block ref="8d006c87830f7172fd7400f1c17c0928" category="inline-link-rx"></block> 지원되는 구성에 대해서는.</block>
-  <block id="0fa5490665357157f44ef8e560981bff" category="list-text">nConnect 옵션을 활성화하려면 클러스터의 노드 중 하나에서 셸로 이동하여 pvesm set pvenfs01 --options nconnect=4를 입력합니다. 여기서 pvenfs01은 위 단계에서 만든 스토리지 ID입니다. 트렁킹 기능을 사용하려는 경우 최소한 NFS v4.1을 사용하고 trunkdiscovery 옵션을 설정해야 합니다. pvesm set pvenfs01 --options vers=4.1,trunkdiscovery</block>
   <block id="1111f5f0bc889ddbe7d1108746f500f7" category="inline-link">NetApp 재해 복구</block>
   <block id="d53bea8cf04ac89e5a75253200a11c37" category="list-text"><block ref="642cb144ab5a89803899933b2b356ba6" category="inline-link-rx"></block> 스토리지 어레이 기반 복제를 활용하고 특정 작업을 자동화하여 대상 사이트에서 VM을 복구합니다.</block>
   <block id="19cbafc0246850c97323cac4fb786794" category="inline-link">NetApp Disaster Recovery</block>
@@ -7942,4 +7848,441 @@
   <block id="fb1e3bc5ab58ae3d4480d4354223e858" category="paragraph">VCF는 컴퓨팅, 네트워크 및 스토리지 제품을 VMware 제품 및 타사 통합과 통합하여 네이티브 Kubernetes 워크로드와 가상 머신 기반 워크로드 모두를 지원합니다. 이 소프트웨어 플랫폼에는 VMware vSphere, NSX, Aria Suite Enterprise, VMware vSphere Kubernetes Service, HCX Enterprise, SDDC Manager와 같은 주요 구성 요소와 vSAN을 통해 호스트 CPU 코어에 연결된 스토리지 용량이 포함됩니다. NetApp ONTAP 온프레미스와 퍼블릭 클라우드 모두에서 다양한 VCF 배포 모델과 원활하게 통합됩니다.</block>
   <block id="d9b568558c3f68007c62a09b36720af3" category="list-text">VMware vSphere Kubernetes vSphere</block>
   <block id="dea7b388e6618290a6273870588a73d9" category="paragraph">vSphere API for Storage Awareness(VASA)를 사용하면 VM 관리자가 스토리지 팀과 상호 작용하지 않고도 VM을 프로비저닝하는 데 필요한 모든 스토리지 기능을 쉽게 사용할 수 있습니다. VASA 이전에는 VM 관리자가 VM 스토리지 정책을 정의할 수 있었지만, 스토리지 관리자와 협력하여 문서나 명명 규칙을 활용해 적절한 데이터 저장소를 식별해야 했습니다. VASA를 사용하면 적절한 권한을 가진 vCenter 관리자가 vCenter 사용자가 가상 ​​머신을 프로비저닝하는 데 사용할 수 있는 스토리지 기능 범위를 정의할 수 있습니다. VM 스토리지 정책과 데이터스토어 스토리지 기능 프로필 간의 매핑을 통해 vCenter는 선택할 수 있는 호환 데이터스토어 목록을 표시할 뿐만 아니라 VCF 자동화(이전 명칭: Aria 또는 vRealize) 또는 VMware vSphere Kubernetes Service와 같은 다른 기술에서 할당된 정책에서 스토리지를 자동으로 선택할 수 있도록 합니다. 이러한 접근 방식을 스토리지 정책 기반 관리라고 합니다. 스토리지 기능 프로필 및 정책은 기존 데이터스토어에서도 사용할 수 있지만, 여기서는 vVols 데이터스토어에 초점을 맞추겠습니다. ONTAP 용 VASA 공급자는 ONTAP tools for VMware vSphere 의 일부로 포함되어 있습니다.</block>
+  <block id="717153cec4e1f985a5646d5665c3e466" category="summary">Proxmox Virtual Environment(VE)는 NetApp ONTAP 스토리지와 통합되어 가상 머신 및 컨테이너를 위한 공유 스토리지를 제공하므로 더욱 빠른 라이브 마이그레이션, 일관된 템플릿 및 중앙 집중식 백업이 가능합니다. ONTAP 스토리지 시스템을 사용하여 Proxmox VE 클러스터를 배포하고 최적화하기 위한 아키텍처, 네트워크 및 스토리지 구성, 그리고 모범 사례에 대해 알아보세요.</block>
+  <block id="71912d54173e63868ff39f3d57ddd4a7" category="doc">NetApp ONTAP 스토리지를 사용하는 Proxmox 가상 환경 배포 지침</block>
+  <block id="6b955e5e3277238a0599bb83afe494dd" category="paragraph">Proxmox Virtual Environment(VE)는 NetApp ONTAP 스토리지와 통합되어 가상 머신 및 컨테이너를 위한 공유 스토리지를 제공하므로 더욱 빠른 라이브 마이그레이션, 일관된 템플릿 및 중앙 집중식 백업이 가능합니다. ONTAP 스토리지 시스템을 사용하여 Proxmox VE 클러스터를 배포하고 최적화하기 위한 네트워크 및 스토리지 구성 지침과 모범 사례에 대해 알아보세요.</block>
+  <block id="06b27aefecbca100399e6c4150a592d9" category="inline-link-macro">Proxmox VE에서 지원하는 스토리지 유형에 대해 알아보세요.</block>
+  <block id="cf77b842b04752d66a6b43280ba1fab4" category="paragraph">지원되는 스토리지 유형 및 콘텐츠 호환성에 대한 자세한 내용은 다음을 참조하세요. <block ref="94316c76e20549e18f485c31f8b23fef" category="inline-link-macro-rx"></block>.</block>
+  <block id="3659aa3793375dcfec74fe4ee74cce30" category="section-title">네트워크 구성 지침</block>
+  <block id="ae533bcca67ba454b2ac6df18f487713" category="paragraph">네트워크 성능과 안정성을 최적화하려면 다음 지침을 따르십시오.</block>
+  <block id="6092b24dc338729c325ebf4a00c933cf" category="list-text">Proxmox VE 노드와 ONTAP 스토리지 간에 이중화된 네트워크 경로를 확보하십시오.</block>
+  <block id="54856ff6a966d9a61533f659b2d094cc" category="list-text">대역폭 및 내결함성 향상을 위해 링크 집합(LACP)을 사용하십시오.</block>
+  <block id="b9f9a0ee6b66b62e83e99b172d949ea9" category="list-text">스패닝 트리 문제를 방지하도록 네트워크 토폴로지를 설계하십시오. 필요한 경우 RSTP 또는 MSTP와 같은 기능을 사용하십시오.</block>
+  <block id="b797da49e56a5d8db82cd1d668a6c23d" category="list-text">VLAN을 구현하여 다양한 유형의 트래픽을 분리하고 보안을 강화하십시오.</block>
+  <block id="8a65be5328957d4c1bc7b59d97f396b5" category="list-text">스토리지 트래픽 성능 향상을 위해 모든 네트워크 장치에 점보 프레임(MTU 9000)을 구성하십시오.</block>
+  <block id="a9a3eaff04f2d36f6ab2184a3193917f" category="list-text">VLAN 영역을 구성할 때 Linux Bridge를 통한 Open vSwitch(OVS) 사용을 고려하십시오.</block>
+  <block id="5c9a0f826c633a161d6473cdc96d473b" category="section-title">스토리지 구성 모범 사례</block>
+  <block id="9da43746dcc74ef137825748aaa1292f" category="paragraph">스토리지 성능 및 확장성을 최적화하려면 다음 모범 사례를 따르십시오.</block>
+  <block id="f4c34ce580bddc6544b49f1d695b97d1" category="list-text">ONTAP의 스냅샷 및 클론 생성과 같은 고급 데이터 관리 기능을 활용하여 데이터 보호 및 복구를 강화하십시오.</block>
+  <block id="7bd72a8326beb3d456018eb00743a236" category="list-text">대용량 요구 사항에는 FlexGroup 볼륨을 사용하여 ONTAP 확장성의 잠재력을 최대한 활용하십시오.</block>
+  <block id="5677a6af37791dddd09565df95dda70d" category="list-text">지리적으로 분산된 환경에서는 FlexCache 사용하여 이미지와 템플릿을 Proxmox VE 노드에 더 가깝게 배포함으로써 배포 시간을 단축하고 중앙에서 관리할 수 있습니다.</block>
+  <block id="f66a10e50ab5dc4b0f43af126936bae4" category="list-text">FlexGroup NFS와 함께 사용할 때는 nConnect 또는 세션 트렁킹과 pNFS를 조합하여 성능과 가용성을 최적화하십시오.</block>
+  <block id="7bf8685f906efbcdf52298b083787772" category="list-text">블록 프로토콜의 경우, 승인된 Proxmox VE 노드만 접근할 수 있도록 적절한 영역 설정 및 LUN 마스킹을 적용해야 합니다.</block>
+  <block id="1469f1a87592ad516e124f2164e2bc80" category="list-text">가상 머신의 성장과 데이터 요구 사항을 수용할 수 있도록 충분한 저장 용량을 할당하십시오.</block>
+  <block id="47a9c41745de1dd1bca322a8ef1e689a" category="list-text">스토리지 계층화를 구현하여 성능과 비용 효율성을 최적화하십시오.</block>
+  <block id="2eaa330c50346948da259e343d717c9d" category="list-text">NetApp 관리 도구를 사용하여 스토리지 성능 및 상태를 정기적으로 모니터링하십시오.</block>
+  <block id="866f1429bf4e284b31ef2af45a224e78" category="list-text">NetApp Console 사용하여 여러 ONTAP 시스템을 중앙에서 관리하십시오.</block>
+  <block id="3cccaedc95a55142f79b090e5b087d4b" category="list-text">ONTAP 에서 랜섬웨어 공격으로부터 보호하기 위해 랜섬웨어 방지 기능을 활성화하십시오.</block>
+  <block id="f6201ba3660f7df6ee6a3f90775efd7d" category="section-title">Proxmox VE 구성 지침</block>
+  <block id="fa50c2f833bccda76876d28e372e1933" category="paragraph">NetApp ONTAP 스토리지를 사용하여 Proxmox VE를 최적화하려면 다음 지침을 따르십시오.</block>
+  <block id="529fa1810835d02be86a27f248a776c7" category="list-text">최신 기능 및 버그 수정 사항을 활용하려면 Proxmox VE를 최신 안정 버전으로 업데이트하십시오.</block>
+  <block id="7e0eb63682f72d07857dbee11da52eae" category="list-text">Proxmox VE를 구성하여 VM 스토리지로 NetApp ONTAP 의 공유 스토리지를 사용하도록 설정합니다.</block>
+  <block id="b55887e925b56d891c1e735fa9abd4fb" category="list-text">Proxmox VE 클러스터를 설정하여 고가용성과 VM의 실시간 마이그레이션을 지원합니다.</block>
+  <block id="6d0346ad41bb7695e70e89376da0b0a3" category="list-text">클러스터 통신에는 이중화된 네트워크를 사용하고, 라이브 마이그레이션을 위해서는 별도의 네트워크를 사용하십시오.</block>
+  <block id="63ee5b8ddb11e74060009404cae4b0b0" category="list-text">충돌을 방지하기 위해 클러스터 간에 동일한 VM 또는 컨테이너 ID를 재사용하지 마십시오.</block>
+  <block id="da5b2ddeacf0fb60edc87d0400e7a829" category="list-text">가상 머신에서 더 나은 성능과 기능을 얻으려면 VirtIO SCSI 단일 컨트롤러를 사용하십시오.</block>
+  <block id="35286030fb1509b87556c0edc74aefe1" category="list-text">I/O 요구량이 높은 가상 머신의 경우 I/O 스레드 옵션을 활성화하십시오.</block>
+  <block id="4364135a205bdaa38a681c60ab1e243a" category="list-text">VM 디스크에서 폐기/TRIM 지원을 활성화하여 스토리지 사용량을 최적화하십시오.</block>
+  <block id="19fc99af3132015e5522e795fa2d1c79" category="summary">NetApp ONTAP Proxmox 가상 환경과 통합되어 NAS 및 SAN 프로토콜을 통해 엔터프라이즈급 스토리지 기능을 제공합니다. ONTAP 가상화된 워크로드에 스냅샷, 클로닝, 복제 및 랜섬웨어 보호를 포함한 고급 데이터 관리 기능을 제공합니다.</block>
+  <block id="10ab558054403b68ef73602719750791" category="doc">Proxmox 가상 환경을 위한 ONTAP 스토리지 아키텍처에 대해 알아보세요.</block>
+  <block id="a36349faff697489f6d389c6fe7d1435" category="paragraph">NetApp ONTAP Proxmox 가상 환경(VE)과 통합되어 NAS 및 SAN 프로토콜을 통해 엔터프라이즈급 스토리지 기능을 제공합니다. ONTAP Proxmox VE 클러스터에서 실행되는 가상화된 워크로드에 스냅샷, 클로닝, 복제 및 랜섬웨어 보호를 포함한 고급 데이터 관리 기능을 제공합니다.</block>
+  <block id="a40893fa754ed62d5268702b023fea91" category="section-title">솔루션 아키텍처</block>
+  <block id="b50baaaf765eecd864e92ce4b7298794" category="paragraph">솔루션 아키텍처는 다음과 같은 주요 구성 요소를 포함합니다.</block>
+  <block id="ca5e9645f3d6e7af9b20afdc8c951b38" category="list-text">*Proxmox VE 클러스터:* 가상화 기능을 제공하고 가상 머신(VM) 및 컨테이너를 관리하는 Proxmox VE 노드 클러스터입니다.</block>
+  <block id="3acd13592f3c3e083374c84bdf15f3a7" category="list-text">* NetApp ONTAP 스토리지: * Proxmox VE 클러스터에 공유 스토리지를 제공하는 고성능의 확장 가능한 스토리지 시스템입니다.</block>
+  <block id="79bd4db95c4915423668908f40c84eb9" category="list-text">*네트워크 인프라:* Proxmox VE 노드와 ONTAP 스토리지 간의 연결을 낮은 지연 시간과 높은 처리량으로 보장하는 견고한 네트워크 구성.</block>
+  <block id="9320226a9d5150be0bcd6a28a5cb01ae" category="list-text">* NetApp Console:* 여러 NetApp 스토리지 시스템 및 데이터 서비스를 관리하기 위한 중앙 집중식 관리 인터페이스입니다.</block>
+  <block id="9154378cfd63edc965e54bbe43f5d382" category="list-text">*Proxmox Backup Server:* Proxmox VE 전용 백업 솔루션으로, 효율적인 데이터 보호를 위해 ONTAP 스토리지와 통합됩니다.</block>
+  <block id="907a5037f1d2a2fae4387fb193e5cf40" category="paragraph">다음 다이어그램은 실험실 구성의 상위 수준 아키텍처를 보여줍니다.</block>
+  <block id="f4f21cad59d81408db204d5933b732e0" category="image-alt">NetApp ONTAP 아키텍처를 사용하는 Proxmox VE</block>
+  <block id="441bf2417abbf6edcfdbcefc3df7cfa1" category="section-title">Proxmox VE용 ONTAP 기능</block>
+  <block id="ae980ce8885fbf7acf1d88c8bc33564b" category="paragraph">ONTAP Proxmox VE 구축을 향상시키는 포괄적인 엔터프라이즈 스토리지 기능 세트를 제공합니다. 이러한 기능은 NAS 및 SAN 스토리지 아키텍처 전반에 걸쳐 데이터 관리, 보호, 효율성 및 프로토콜 지원을 포괄합니다.</block>
+  <block id="8190660e09ea1e45b457dba506960e2a" category="section-title">핵심 데이터 관리 기능</block>
+  <block id="2a01a755e6ce4e1d1c71737a9aa3f94a" category="list-text">확장형 클러스터 아키텍처</block>
+  <block id="3504287d744343fbab57bf3c9eb837e3" category="list-text">안전한 인증 및 RBAC 지원</block>
+  <block id="e357dcd608d0999f4fd0d22d628c1e42" category="list-text">제로 트러스트 다중 관리자 지원</block>
+  <block id="4edf6e698ad5654f9f977c350d7b388d" category="list-text">안전한 멀티테넌트</block>
+  <block id="d462ee5e556e8a6f52aadccd6a44408f" category="list-text">SnapMirror 이용한 데이터 복제</block>
+  <block id="52b217f3b30701b07e050588e0dcf436" category="list-text">스냅샷을 이용한 특정 시점의 복사본</block>
+  <block id="c0569198fd4d07f3ee0db660c2a449a6" category="list-text">공간 효율적인 클론</block>
+  <block id="cd19ac5dd40fc04e395a1194f4c67358" category="list-text">데이터 중복 제거 및 압축을 포함한 스토리지 효율성 기능</block>
+  <block id="26522dabb1c20a80012843c18a450179" category="list-text">규정 준수를 위한 SnapLock</block>
+  <block id="bf2c4d1b6f250e1025706c8b26745256" category="list-text">변조 방지 스냅샷 복사본 잠금</block>
+  <block id="2f29242c67162059c47a636445acfe45" category="list-text">자율적인 위협 탐지 기능을 갖춘 랜섬웨어 보호</block>
+  <block id="3a60320908bec6cf04cc5af1a40becc7" category="list-text">저장 데이터 및 전송 데이터 암호화</block>
+  <block id="19fb140ec3a4697f691495c1d229cc08" category="list-text">FabricPool 사용하여 콜드 데이터를 객체 스토리지에 계층화합니다.</block>
+  <block id="ca8b7361121b2aa4beff244ffa637ed7" category="list-text">NetApp Console 과 Data Infrastructure Insights 통합</block>
+  <block id="13fca977f4741f68ca28bea421b6a874" category="list-text">Microsoft 오프로드 데이터 전송(ODX)</block>
+  <block id="96c2595f2b929ca121990caf732e88aa" category="section-title">NAS 프로토콜 기능</block>
+  <block id="ac56804d5b8dbc71166d1248bc8aa836" category="list-text">FlexGroup 볼륨은 고성능, 부하 분산 및 확장성을 갖춘 스케일아웃 NAS 컨테이너를 제공합니다.</block>
+  <block id="f677130b07607e93623cce1c909b60e7" category="list-text">FlexCache 로컬 읽기 및 쓰기 액세스를 제공하면서 데이터를 전 세계적으로 분산합니다.</block>
+  <block id="bdca0eff3367a6a92f85131ea7f09dad" category="list-text">멀티프로토콜 지원을 통해 동일한 데이터에 SMB와 NFS를 모두 사용하여 접근할 수 있습니다.</block>
+  <block id="8f90ad773ee7f9456f94d6d0cc78c438" category="list-text">NFS nConnect는 연결당 여러 TCP 세션을 허용하여 네트워크 처리량을 높이고 고속 NIC를 활용할 수 있도록 합니다.</block>
+  <block id="463f8d4e4d4926dac7e9794b9936f945" category="list-text">NFS 세션 트렁킹은 데이터 전송 속도 향상, 고가용성 및 내결함성을 제공합니다.</block>
+  <block id="02055e91e6b212bcaedf6e806564e680" category="list-text">SMB 멀티채널은 향상된 데이터 전송 속도, 높은 가용성 및 내결함성을 제공합니다.</block>
+  <block id="d20af3c93373c8356839838c7d6403db" category="list-text">파일 권한 관리를 위한 Active Directory 및 LDAP와의 통합</block>
+  <block id="d3d74309e3547e60cd6d74d5e1987b84" category="list-text">TLS를 통한 NFS 보안 연결</block>
+  <block id="a37651b30416370f0a4195b088ea354d" category="list-text">NFS 케르베로스 인증 지원</block>
+  <block id="0b83b86e4ee5649805436ac8c8f6d6e8" category="list-text">저지연 액세스를 위한 RDMA 기반 NFS</block>
+  <block id="a25d25417244e82a38135471b34856ad" category="list-text">Windows와 Unix ID 간의 이름 매핑</block>
+  <block id="0d0bfa6500fbeb5f41beb15d74b8ce91" category="list-text">내장된 위협 탐지 기능을 갖춘 자율형 랜섬웨어 보호 기능</block>
+  <block id="5733b70b60062bc7e61a0045b0cfab23" category="list-text">파일 시스템 분석을 통한 용량 및 사용량 파악</block>
+  <block id="a98bace54e6eacffd1fc34c924459cd6" category="section-title">SAN 프로토콜 기능</block>
+  <block id="142a345fb07b965fdd28758df1aa724e" category="list-text">SnapMirror 활성 동기화를 사용하여 장애 도메인 간에 클러스터를 확장합니다(항상 확인하십시오).<block ref="8d006c87830f7172fd7400f1c17c0928" category="inline-link-rx"></block> 지원되는 구성의 경우)</block>
+  <block id="56eb96d0112fcf96ec2eec1d4c445216" category="list-text">ASA 모델은 액티브-액티브 멀티패싱 및 고속 경로 페일오버를 제공합니다.</block>
+  <block id="993fe9f506f39001b2c74d6796d15ff6" category="list-text">FC, iSCSI 및 NVMe-oF 프로토콜 지원</block>
+  <block id="2a359e047ac0c25d74012f97948daa66" category="list-text">iSCSI CHAP 상호 인증</block>
+  <block id="1a3e87714845807b8327b4dbc2172726" category="list-text">보안 강화를 위한 선택적 LUN 매핑 및 포트셋</block>
+  <block id="be0590d55642ec144128418d213d5fa8" category="summary">ONTAP 사용하여 Proxmox 가상 환경에 파이버 채널을 지원하는 LVM(논리 볼륨 관리자)을 구성합니다. 이 절차에는 멀티패스 구성, LUN 프로비저닝, iGroup 설정 및 공유 스토리지용 볼륨 그룹 생성이 포함됩니다.</block>
+  <block id="1eb9e6e4b2414e229ba2dbcd39fe4796" category="doc">Proxmox VE용 FC를 사용하여 LVM 구성</block>
+  <block id="76f37e0996dab69145742e2a75986056" category="paragraph">NetApp ONTAP 사용하여 파이버 채널 프로토콜로 Proxmox 가상 환경(VE) 호스트 간의 공유 스토리지를 위해 논리 볼륨 관리자(LVM)를 구성합니다. 이 구성은 고성능 및 낮은 지연 시간으로 블록 수준 스토리지 액세스를 가능하게 합니다.</block>
+  <block id="aa80161d712190fd4adf442955343f47" category="section-title">초기 가상화 관리자 작업</block>
+  <block id="1e6a8381a9047107cf613d278aba2095" category="paragraph">FC 연결을 위해 Proxmox VE 호스트를 준비하려면 다음 초기 작업을 완료하고 스토리지 관리자에게 필요한 정보를 수집하십시오.</block>
+  <block id="04adb6570d294bffbf6bd9d64d241568" category="list-text">두 개의 HBA 인터페이스가 사용 가능한지 확인하십시오.</block>
+  <block id="5e8ffc8a37bffc4319f9502608ff0d09" category="list-text">multipath-tools가 모든 Proxmox VE 호스트에 설치되어 있고 부팅 시 자동으로 시작되는지 확인하십시오.</block>
+  <block id="f7c12ea1f0cb3e57d137b2e5cce711e1" category="list-text">모든 Proxmox VE 호스트의 WWPN을 수집하여 스토리지 관리자에게 제공하십시오.</block>
+  <block id="23eebb1148810d58d22f0f1dde752583" category="section-title">스토리지 관리자 작업</block>
+  <block id="ae042a5618679644a819ac58a28114ef" category="paragraph">ONTAP 처음 사용하시는 경우, 시스템 관리자를 이용하시면 더욱 편리하게 사용하실 수 있습니다.</block>
+  <block id="763fc3dfd4ea8300672ae7948a1a9fca" category="list-text">SVM이 FC 프로토콜이 활성화된 상태로 사용 가능한지 확인하십시오. 따르다 <block ref="7c79a8d96ccab5e00ffe5a51372cb5c5" category="inline-link-macro-rx"></block>.</block>
+  <block id="0a6a83d62edac699a685a5110adc5b5a" category="list-text">FC 전용으로 컨트롤러당 두 개의 LIF를 생성합니다.</block>
+  <block id="4a5e89db07ee92045ddc5ac57264b75b" category="inline-image-macro">FC 인터페이스 세부 정보</block>
+  <block id="9ca441070522dd2f1d54b6ab432b7332" category="paragraph"><block ref="9ca441070522dd2f1d54b6ab432b7332" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d55490705ccca6cce7810fa807fc74cd" category="list-text">igroup을 생성하고 호스트 FC 이니시에이터를 채웁니다.</block>
+  <block id="1247a43611c0d600007445125567c7d8" category="list-text">원하는 크기의 LUN을 SVM에 생성하고 이전 단계에서 생성한 igroup에 제공합니다. ASA 시스템의 경우 보안 탭에서, AFF/ FAS 시스템의 경우 볼륨 보안 탭에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.</block>
+  <block id="4d96faf61f4af2b33014302c604ee549" category="inline-image-macro">달의 세부 정보</block>
+  <block id="c9546f4d399f52fa0fbc3b1d384bbe38" category="paragraph"><block ref="c9546f4d399f52fa0fbc3b1d384bbe38" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="52a9fe54f6f0987d57244a9e9a584326" category="list-text">LUN이 생성되었음을 가상화 관리자에게 알리십시오.</block>
+  <block id="fff3b3f890629573291036c47675fb51" category="section-title">가상화 관리자 최종 작업</block>
+  <block id="0b9966cc61b48fefb89683e03665283b" category="paragraph">Proxmox VE에서 LUN을 공유 LVM 스토리지로 구성하려면 다음 작업을 완료하십시오.</block>
+  <block id="bef481c56d44669542f9592dbc93a220" category="list-text">클러스터에 있는 각 Proxmox VE 호스트의 셸로 이동하여 디스크가 보이는지 확인하십시오.</block>
+  <block id="bd00383a7201e36456d1f590d62e0044" category="list-text">장치가 멀티패스 목록에 나타나는지 확인하십시오.</block>
+  <block id="6d510c6922b25c5f62ecc6283da0444c" category="list-text">볼륨 그룹을 생성합니다.</block>
+  <block id="36fae2df11fedcbc9c916a9bb5557217" category="list-text">관리 UI를 사용하여<block ref="386c071bd7898138d6219d21f97e168d" prefix=" " category="inline-code"></block>데이터센터를 클릭하고 스토리지를 선택한 다음 추가를 클릭하고 LVM을 선택합니다.</block>
+  <block id="d7d5844de5806307ad0b548bbef798ae" category="paragraph"><block ref="d7d5844de5806307ad0b548bbef798ae" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="95d11b5b041fc941e8e2f0ea2d594698" category="list-text">스토리지 ID 이름을 입력하고, 기존 볼륨 그룹을 선택한 다음, CLI를 사용하여 방금 생성한 볼륨 그룹을 선택하십시오. 공유 옵션을 선택하세요. Proxmox VE 9 이상 버전에서는 다음을 활성화하십시오.<block ref="e4ea2fd9716d27c38026f7d0f3d6e930" prefix=" " category="inline-code"></block> 고급 확인란을 활성화하면 표시되는 옵션입니다.</block>
+  <block id="061e765cafe99eabc6be2f0478c129a9" category="paragraph"><block ref="061e765cafe99eabc6be2f0478c129a9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="19950f6e3bc3de2aaad56c5e8fa5220e" category="list-text">다음은 FC를 사용하는 LVM용 샘플 스토리지 구성 파일입니다.</block>
+  <block id="697a69a5e75f0202c145f389c7535a05" category="inline-image-macro">LVM FC 구성</block>
+  <block id="ea932a09c9e28c737efda1ae0504754c" category="paragraph"><block ref="ea932a09c9e28c737efda1ae0504754c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9d9c1fddf3c9e4922686e88fa2258289" category="paragraph">Proxmox VE 9 이상 버전에서는 스토리지 구성 파일에 추가 옵션이 포함되어 있습니다.<block ref="98929f151ad41bfc2a1e84411987a9ee" prefix=" " category="inline-code"></block> 언제<block ref="e4ea2fd9716d27c38026f7d0f3d6e930" prefix=" " category="inline-code"></block> 활성화되어 있습니다.</block>
+  <block id="4a8999b9648324b45ad2e400627fc656" category="summary">ONTAP 사용하여 Proxmox 가상 환경에서 iSCSI를 통해 LVM(논리 볼륨 관리자)을 구성합니다. 이 절차에는 멀티패스 구성, LUN 프로비저닝, iGroup 설정 및 공유 스토리지용 볼륨 그룹 생성이 포함됩니다.</block>
+  <block id="146f3c6e0be468f57c4faed2d4ecc77d" category="doc">Proxmox VE용 iSCSI를 사용하여 LVM 구성</block>
+  <block id="c89e85c39782dcb55033785f58cf956d" category="paragraph">NetApp ONTAP 사용하여 iSCSI 프로토콜로 Proxmox 가상 환경(VE) 호스트 간에 공유 스토리지를 위한 논리 볼륨 관리자(LVM)를 구성합니다. 이 구성은 멀티패스를 지원하는 표준 이더넷 네트워크를 통해 블록 수준 스토리지 액세스를 가능하게 합니다.</block>
+  <block id="5981d4de8543a8791c6bceeefb2165ac" category="paragraph">Proxmox VE 호스트의 iSCSI 연결을 준비하고 스토리지 관리자에게 필요한 정보를 수집하려면 다음 초기 작업을 완료하십시오.</block>
+  <block id="7cdb9b45234d285318cb986d4d2a593f" category="list-text">Linux VLAN 인터페이스 두 개가 사용 가능한지 확인하십시오.</block>
+  <block id="86e07f0d4894901e801e1ec993f71964" category="list-text">모든 Proxmox VE 호스트의 iSCSI 호스트 IQN을 수집하여 스토리지 관리자에게 제공하십시오.</block>
+  <block id="2122c33556de1dbae33223ccafc71df3" category="list-text">iSCSI 프로토콜이 활성화된 상태로 SVM에 액세스할 수 있는지 확인하십시오. 따르다 <block ref="7c79a8d96ccab5e00ffe5a51372cb5c5" category="inline-link-macro-rx"></block>.</block>
+  <block id="48590fe3408a0ed194b7d763a5f58b44" category="list-text">iSCSI 전용으로 컨트롤러당 두 개의 LIF를 생성합니다.</block>
+  <block id="851413bf6fa6ef971ec8791be965f7e9" category="paragraph"><block ref="851413bf6fa6ef971ec8791be965f7e9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e2975f34bb0c193ad8c157c8c19f7a1a" category="list-text">igroup을 생성하고 호스트 iSCSI 이니시에이터를 채웁니다.</block>
+  <block id="022ff6b8a2a7f0f8a870dcecfe149e64" category="list-text">원하는 크기의 LUN을 SVM에 생성하고 이전 단계에서 생성한 igroup에 제공합니다. ASA 시스템의 보안 탭에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오. AFF/ FAS 시스템의 경우 볼륨의 보안 탭에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.</block>
+  <block id="508651d2a8dc6c48c0b3acac0462c605" category="paragraph"><block ref="508651d2a8dc6c48c0b3acac0462c605" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cd76c01fc90f38590f1723a0e3b6c5e3" category="paragraph">Proxmox VE에서 iSCSI LUN을 공유 LVM 스토리지로 구성하려면 다음 작업을 완료하십시오.</block>
+  <block id="30f170d7ac8b903032f54b8a8a70fb1a" category="list-text">관리 UI를 사용하여<block ref="386c071bd7898138d6219d21f97e168d" prefix=" " category="inline-code"></block>데이터센터를 클릭하고 스토리지를 선택한 다음 추가를 클릭하고 iSCSI를 선택합니다.</block>
+  <block id="0012d2cd0a2a8a1dbb0aef51dc4f23ad" category="paragraph"><block ref="0012d2cd0a2a8a1dbb0aef51dc4f23ad" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f0a22f2f132728d81db5437dee23bfa8" category="list-text">저장소 ID 이름을 제공하십시오. ONTAP 의 iSCSI LIF 주소는 통신 문제가 없을 경우 대상을 선택할 수 있어야 합니다. 게스트 VM에 LUN 액세스 권한을 직접 제공하지 않으려면 해당 옵션의 체크를 해제하십시오.</block>
+  <block id="5ba91924ef364d38fecaf216c8dab9e4" category="paragraph"><block ref="5ba91924ef364d38fecaf216c8dab9e4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1577a3615ca616fed53572720ac6bd50" category="list-text">추가를 클릭하고 LVM을 선택하세요.</block>
+  <block id="bc036189fb80155d7f4f1f2c46fc63f3" category="paragraph"><block ref="bc036189fb80155d7f4f1f2c46fc63f3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c98a8eed0f0100099abc956f91b7a778" category="list-text">스토리지 ID 이름을 입력하고 이전 단계에서 생성한 iSCSI 스토리지와 일치하는 기본 스토리지를 선택하십시오. 기본 볼륨에 사용할 LUN을 선택하고 볼륨 그룹 이름을 입력하십시오. 공유 옵션이 선택되어 있는지 확인하십시오. Proxmox VE 9 이상 버전에서는 다음을 활성화하십시오.<block ref="e4ea2fd9716d27c38026f7d0f3d6e930" prefix=" " category="inline-code"></block> 고급 확인란을 활성화하면 표시되는 옵션입니다.</block>
+  <block id="832db4bde43bc86202aac28903f6ad92" category="paragraph"><block ref="832db4bde43bc86202aac28903f6ad92" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b1444c57e983d7ad5d6a4e77d854a17d" category="list-text">다음은 iSCSI를 사용하는 LVM용 샘플 스토리지 구성 파일입니다.</block>
+  <block id="a528f7490023ea29b4669401b45ee9ac" category="paragraph"><block ref="a528f7490023ea29b4669401b45ee9ac" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="64ccc22e2bdf3bbf557cb20759f28938" category="summary">ONTAP 사용하여 Proxmox 가상 환경에 대한 NFS 스토리지를 구성합니다. 이 절차에는 SVM 활성화, LIF 생성, 내보내기 정책 구성, 볼륨 생성, 그리고 내결함성 및 성능 향상을 위한 nConnect 또는 세션 트렁킹 설정이 포함됩니다.</block>
+  <block id="5408a39bf56f122d960a359ee9d6e87c" category="doc">Proxmox VE용 NFS 스토리지를 구성합니다.</block>
+  <block id="a12cea73407c9f25953e7a79a87c4cee" category="paragraph">NetApp ONTAP 사용하여 Proxmox 가상 환경(VE)용 NFS 스토리지를 구성합니다. 스토리지 시스템에 대한 여러 네트워크 연결에서 내결함성과 성능 향상을 위해 NFS v4.1 이상에서 세션 트렁킹을 사용하십시오.</block>
+  <block id="ffe16d29c4eb0209e7b18407a1993121" category="paragraph">ONTAP Proxmox VE에서 지원하는 모든 NFS 버전을 지원합니다. 사용 <block ref="be091303111d9932d160becb02a7fe79" category="inline-link-macro-rx"></block> 내결함성 및 성능 향상을 위해서입니다. 세션 트렁킹을 사용하려면 NFS v4.1 이상이 필요합니다.</block>
+  <block id="3955ef04aa51c2e0e6fde4194ac0504d" category="paragraph">ONTAP 처음 사용하는 경우 시스템 관리자 인터페이스를 사용하여 이러한 작업을 완료하십시오.</block>
+  <block id="7f12cfc27b26c0f4b3c2c2e43847345e" category="paragraph">Proxmox VE에서 사용할 ONTAP 의 NFS 스토리지를 프로비저닝하려면 다음 작업을 완료하십시오.</block>
+  <block id="4ad05868a0348bf5d9786bb674ba267a" category="list-text">NFS용 SVM을 활성화하세요. 참조하다 <block ref="4558e9caf9018526f2d14e6401a7eb7a" category="inline-link-macro-rx"></block>.</block>
+  <block id="dc4e54f2917ad1cc41f5b674f0e1d0e6" category="list-text">컨트롤러당 최소 2개의 LIF를 생성하십시오. 설명서에 나와 있는 단계를 따르십시오. 참고로, 실험실에서 사용되는 LIF의 스크린샷을 첨부합니다.</block>
+  <block id="f7ec57376cf78753cb0c6d09e09ce076" category="paragraph"><block ref="f7ec57376cf78753cb0c6d09e09ce076" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="03c112a6a6f1c95bc7e361b519044f43" category="list-text">Proxmox VE 호스트 IP 주소 또는 서브넷에 대한 액세스를 제공하도록 NFS 내보내기 정책을 생성하거나 업데이트합니다. 참조하다 <block ref="b6cdedc51193f9caaca77e2632283688" category="inline-link-macro-rx"></block> 그리고 <block ref="b5d322c6e909917ad1a552e8b76cf85d" category="inline-link-macro-rx"></block>.</block>
+  <block id="f07336c866bbd0097ec629a2de9e9bc9" category="inline-link-macro">SVM에서 pNFS를 활성화합니다.</block>
+  <block id="f2053e4f5886865cad53ad58fdb07c9a" category="list-text"><block ref="4f9b59515117e496741261619ceb2f90" category="inline-link-macro-rx"></block>. 대용량(&gt;100TB)이 필요한 경우 FlexGroup 사용하여 클러스터 전체에 데이터를 분산하는 옵션을 확인하십시오. FlexGroup 사용하는 경우, 성능 향상을 위해 SVM에서 pNFS를 활성화하는 것을 고려해 보세요. 자세한 내용은 다음 단계를 따르세요. <block ref="854bcee8457651505ac814a9db484771" category="inline-link-macro-rx"></block>. pNFS를 사용할 때는 Proxmox VE 호스트가 모든 컨트롤러(데이터 LIF)에 데이터에 접근할 수 있도록 해야 합니다. 해당 볼륨에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.</block>
+  <block id="5b85bd34b87b21479d3b54bb923ed667" category="paragraph"><block ref="5b85bd34b87b21479d3b54bb923ed667" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="390ac9fcfe700a0c3e942b08f13017b0" category="inline-link-macro">볼륨에 내보내기 정책을 할당합니다.</block>
+  <block id="130b4f41b86a78faa9dc8db12c0acfec" category="list-text"><block ref="0c3e7cf7e6336e2084bd23c8ab5c2567" category="inline-link-macro-rx"></block>.</block>
+  <block id="d9451a178b819db5d63461f8c116f894" category="paragraph"><block ref="d9451a178b819db5d63461f8c116f894" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0819326a32eac239cb2051b416669759" category="list-text">가상화 관리자에게 NFS 볼륨이 준비되었음을 알리십시오.</block>
+  <block id="9042dead9e6401289295bcf9bcd6f3f3" category="section-title">가상화 관리자 작업</block>
+  <block id="f914c440ed52b7ac6ff15edb4c4ba1c0" category="paragraph">Proxmox VE에 NFS 볼륨을 스토리지로 추가하고 성능 향상을 위해 nConnect 또는 세션 트렁킹을 구성하려면 다음 작업을 완료하십시오.</block>
+  <block id="af26d6b3b68b8b576668f1c08c7907dc" category="list-text">장애 복구를 위해 최소 두 개의 인터페이스가 서로 다른 VLAN에 구성되어 있는지 확인하십시오. NIC 본딩을 사용하십시오.</block>
+  <block id="ac30168229098c3bc48cfb800034c5ff" category="list-text">관리 UI를 사용하여<block ref="1d8a0c481f504f690c316fdd4a102c54" prefix=" " category="inline-code"></block>데이터센터를 클릭하고 스토리지를 선택한 다음 추가를 클릭하고 NFS를 선택합니다.</block>
+  <block id="13758d2a861c6420de8503e54adad2b1" category="paragraph"><block ref="13758d2a861c6420de8503e54adad2b1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="881e6d44602be20f82da4f9e1bf023b9" category="list-text">세부 정보를 입력하세요. 서버 정보를 제공하면 NFS 내보내기 목록이 표시됩니다. 목록에서 선택하고 콘텐츠 옵션을 고르세요.</block>
+  <block id="c9fb66acfa38ff4a2372f359eea5862a" category="paragraph"><block ref="c9fb66acfa38ff4a2372f359eea5862a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d15a5eb195dc35c517b605a1293a0fe2" category="list-text">nConnect 옵션을 활성화하려면 클러스터 노드에서 셸을 열고 다음 명령을 실행하십시오.<block ref="37f01c384681246b3a9bb8b414e7a8e8" prefix=" " category="inline-code"></block> 이전 단계에서 생성된 스토리지 ID입니다.</block>
+  <block id="f33b0855e0c38d4b2bc243e1d4a29e85" category="paragraph">세션 트렁킹을 사용하려면 NFS v4.1을 사용하고 trunkdiscovery 및 max_connect 옵션을 설정해야 합니다.</block>
+  <block id="c597679b63f5b76246b0333c64834e00" category="list-text">다음은 구성된 스토리지에 대한 /etc/pve/storage.cfg 파일의 내용입니다.</block>
+  <block id="b53457dfc571fe98017812a0f84ef394" category="inline-image-macro">NFS용 스토리지 구성 파일</block>
+  <block id="f37cf4f6d6dbb753b768f3143991098e" category="paragraph"><block ref="f37cf4f6d6dbb753b768f3143991098e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f36d39485c1b62b6f80b179132f1dd7e" category="list-text">nConnect 옵션이 설정되었는지 확인하려면 다음 명령을 실행하세요.<block ref="e2ceece4f96cddcbbae5e7b846bbd74f" prefix=" " category="inline-code"></block> Proxmox VE 호스트에서 NFS 서버 IP에 대한 다중 연결이 있는지 확인하십시오. pNFS가 활성화되었는지 확인하려면 다음 명령을 실행하세요.<block ref="8a92f0e754bc887dcd9163230c1af4a1" prefix=" " category="inline-code"></block> 레이아웃 관련 지표를 확인하세요. 데이터 트래픽을 기반으로 데이터 LIF에 대한 여러 연결이 표시되어야 합니다.</block>
+  <block id="92e11e6a0e0514cf2736d21e47660a16" category="admonition">세션 트렁킹에서 nconnect 옵션은 트렁크 인터페이스 중 하나에만 설정됩니다. pNFS에서는 메타데이터 및 데이터 인터페이스에 nconnect 옵션이 설정됩니다. 실제 운영 환경에서는 nConnect 또는 세션 트렁킹 중 하나만 사용하고 둘 다 사용하지 마십시오.</block>
+  <block id="5ac66d74b38ed8fdb2f45edd84da1992" category="summary">ONTAP 사용하여 Proxmox 가상 환경에 Fibre Channel을 통한 NVMe로 논리 볼륨 관리자(LVM)를 구성합니다. 이 절차에는 nvme-cli 설치, 네임스페이스 프로비저닝, 서브시스템 설정 및 공유 스토리지용 볼륨 그룹 생성이 포함됩니다.</block>
+  <block id="41f55f0296c7b4511fffdd08b47da70f" category="doc">Proxmox VE용 NVMe/FC를 사용하여 LVM 구성</block>
+  <block id="f42395709dfd878fc481d11a9053d6b0" category="paragraph">NetApp ONTAP 사용하여 Fibre Channel 프로토콜을 통해 NVMe를 이용해 Proxmox 가상 환경(VE) 호스트 간 공유 스토리지를 위한 논리 볼륨 관리자(LVM)를 구성합니다. 이 구성은 최신 NVMe 프로토콜을 사용하여 낮은 지연 시간으로 고성능 블록 수준 스토리지 액세스를 제공합니다.</block>
+  <block id="8b21c3e0a14b44eb7ff3c31a24459b93" category="paragraph">Proxmox VE 호스트를 NVMe/FC 연결에 맞게 준비하고 스토리지 관리자에게 필요한 정보를 수집하려면 다음 초기 작업을 완료하십시오.</block>
+  <block id="ca705d2f0368c95e5079da04e62bde83" category="list-text">클러스터의 모든 Proxmox 호스트에서 다음 명령을 실행하여 WWPN 정보를 수집하고 nvme-cli 패키지가 설치되었는지 확인하십시오.</block>
+  <block id="d985a6fbcfbe393df03f57368e7f04fd" category="list-text">수집한 호스트 NQN 및 WWPN 정보를 스토리지 관리자에게 제공하고 필요한 크기의 NVMe 네임스페이스를 요청하십시오.</block>
+  <block id="2ec446f10b7b466ea6a7401bc4407402" category="list-text">SVM이 NVMe 프로토콜이 활성화된 상태로 사용 가능한지 확인하십시오. 참조하다 <block ref="dff9a6cc2313f520177d7aee32699621" category="inline-link-macro-rx"></block>.</block>
+  <block id="c8bbdfd862a2945db0df1f19e39be37f" category="paragraph"><block ref="c8bbdfd862a2945db0df1f19e39be37f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3e81c631da00b7287028256b42d7f3c0" category="list-text">(CLI를 사용하는 경우) 서브시스템을 생성하고 호스트 NQN을 할당합니다. 위의 참조 링크를 따라가세요.</block>
+  <block id="b20376398e0425f815da0c982b56b96b" category="list-text">보안 탭에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.</block>
+  <block id="8d9e6709bc2c4a996ae2505a1837dd74" category="inline-image-macro">랜섬웨어 방지 상태</block>
+  <block id="7e3d11ff5a9754f504115873fa5b8542" category="paragraph"><block ref="7e3d11ff5a9754f504115873fa5b8542" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8e1915f160c665abb406f1d69d7ae8b8" category="list-text">가상화 관리자에게 NVMe 네임스페이스가 생성되었음을 알리십시오.</block>
+  <block id="0aa2cfdeb5bc4ab56d6ea2029cc23ab2" category="paragraph">Proxmox VE에서 NVMe 네임스페이스를 공유 LVM 스토리지로 구성하려면 다음 작업을 완료하십시오.</block>
+  <block id="0f93bacf666d562f31b0f48d7dd89b6c" category="list-text">클러스터에 있는 각 Proxmox VE 호스트에서 셸에 접속하여 새 네임스페이스가 표시되는지 확인하십시오.</block>
+  <block id="9d114ffdfecca566cc7ee4fc4888f2ec" category="list-text">네임스페이스 세부 정보를 확인하세요.</block>
+  <block id="10c6aa066caa502e8483f90016865ed9" category="paragraph"><block ref="10c6aa066caa502e8483f90016865ed9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9087e47a74029bf1bb0870c502fd2833" category="paragraph"><block ref="9087e47a74029bf1bb0870c502fd2833" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a5581c5b277b9844438e59ab8e05e126" category="list-text">다음은 NVMe/FC를 사용하는 LVM용 스토리지 구성 파일의 예입니다.</block>
+  <block id="bed86c62d796031a76280544b8c976e3" category="inline-image-macro">NVMe FC 구성의 LVM</block>
+  <block id="a417c8e7306c5ccc1d8104c78d525704" category="paragraph"><block ref="a417c8e7306c5ccc1d8104c78d525704" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="102ce65e93c70b9a094e38698500b8de" category="summary">ONTAP 사용하여 Proxmox 가상 환경에 TCP를 통한 NVMe를 사용하는 논리 볼륨 관리자(LVM)를 구성합니다. 이 절차에는 nvme-cli 설치, 검색 구성, 네임스페이스 프로비저닝, 서브시스템 설정 및 공유 스토리지용 볼륨 그룹 생성이 포함됩니다.</block>
+  <block id="609fae5f682bba5d87688cb321bc692a" category="doc">Proxmox VE용 NVMe/TCP를 사용하여 LVM 구성</block>
+  <block id="83e7752199eb40500b84061e33eb0459" category="paragraph">NetApp ONTAP 사용하여 TCP 프로토콜을 통해 NVMe를 이용해 Proxmox 가상 환경(VE) 호스트 간 공유 스토리지를 위한 논리 볼륨 관리자(LVM)를 구성합니다. 이 구성은 최신 NVMe 프로토콜을 사용하여 표준 이더넷 네트워크를 통해 고성능 블록 수준 스토리지 액세스를 제공합니다.</block>
+  <block id="d4fdf4bace26ec8756d1b6844d31e249" category="paragraph">Proxmox VE 호스트의 NVMe/TCP 연결을 준비하고 스토리지 관리자에게 필요한 정보를 수집하려면 다음 초기 작업을 완료하십시오.</block>
+  <block id="0a7426811b0537a09a1fe8eb8377c003" category="list-text">클러스터의 모든 Proxmox 호스트에서 다음 명령을 실행하여 호스트 이니시에이터 정보를 수집하십시오.</block>
+  <block id="5c9b16d8bdb8eb978d870e6c1c29d3fd" category="list-text">수집한 호스트 NQN 정보를 스토리지 관리자에게 제공하고 필요한 크기의 NVMe 네임스페이스를 요청하십시오.</block>
+  <block id="03e56e78a2d47700eb736d3487f96a5b" category="paragraph"><block ref="03e56e78a2d47700eb736d3487f96a5b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="52a8a3811616e625ec996637915ed52b" category="list-text">클러스터에 있는 각 Proxmox VE 호스트의 셸로 이동하여 /etc/nvme/discovery.conf 파일을 생성합니다. 사용 환경에 맞게 콘텐츠를 업데이트하세요.</block>
+  <block id="5751e95397fd76bbebd02b4eba337fb9" category="list-text">NVMe 서브시스템에 로그인합니다.</block>
+  <block id="11c3e030856062ed170af892dbd948c6" category="paragraph"><block ref="11c3e030856062ed170af892dbd948c6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="eb553b46b5eb4740fa8261f0dcff8c70" category="paragraph"><block ref="eb553b46b5eb4740fa8261f0dcff8c70" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="24c0cde095ae8d69f868dc697633a3a9" category="list-text">다음은 NVMe/TCP를 사용하는 LVM용 스토리지 구성 파일의 예입니다.</block>
+  <block id="87a33b6a34faa6e50997fb4f8530cf39" category="paragraph"><block ref="87a33b6a34faa6e50997fb4f8530cf39" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dd7628eba8dd2194cea5d0bbb3e629e8" category="admonition">nvme-cli 패키지에는 nvmef-autoconnect.service가 포함되어 있으며, 이를 활성화하면 부팅 시 대상 장치에 자동으로 연결할 수 있습니다. 자세한 내용은 nvme-cli 설명서를 참조하십시오.</block>
+  <block id="9e46355f7564cd0b0f3affb995f0ce4a" category="summary">ONTAP 사용하여 Proxmox 가상 환경에 대한 SMB/CIFS 스토리지를 구성합니다. 이 절차에는 SVM 활성화, LIF 생성, Active Directory 구성, 볼륨 생성 및 내결함성과 성능 향상을 위한 멀티채널 설정이 포함됩니다.</block>
+  <block id="7a0b9f92cd7a96bd6c3c95d8412b4805" category="doc">Proxmox VE용 SMB/CIFS 스토리지를 구성합니다.</block>
+  <block id="8ea80c4b77d6561da3558bb1920f868f" category="paragraph">NetApp ONTAP 사용하여 Proxmox 가상 환경(VE)용 SMB/CIFS 스토리지를 구성합니다. SMB 멀티채널은 스토리지 시스템에 대한 다중 네트워크 연결을 통해 내결함성을 제공하고 성능을 향상시킵니다.</block>
+  <block id="295134aacf9704826b68cae1848eee05" category="paragraph">SMB/CIFS 파일 공유는 스토리지 관리자와 가상화 관리자 모두의 구성 작업이 필요합니다. 자세한 내용은 다음을 참조하십시오. <block ref="6375b984c70daf4d4201c589c399ea61" category="inline-link-macro-rx"></block>.</block>
+  <block id="23f88a7ef22e5c68b69cccf050a42465" category="admonition">비밀번호는 평문 파일에 저장되며 루트 사용자만 접근할 수 있습니다. 참조하다 <block ref="8bd73bdf88f27d5527b75b8952644346" category="inline-link-macro-rx"></block>.</block>
+  <block id="906309de03e2cb6b0664a262f0b03dff" category="list-text">SMB에 대해 SVM을 활성화하십시오. 따르다 <block ref="229aa9d5f3d3b9a2dc53784d0a93d1c3" category="inline-link-macro-rx"></block> 더 자세한 정보를 원하시면.</block>
+  <block id="8cf66da667fb908f78b8325ec63baaf9" category="list-text">컨트롤러당 최소 2개의 LIF를 생성하십시오. 설명서에 나와 있는 단계를 따르십시오. 참고로, 이 솔루션에서 사용된 LIF의 스크린샷을 아래에 첨부합니다.</block>
+  <block id="0982370bb3e60e4a98723ad18b1d76f5" category="paragraph"><block ref="0982370bb3e60e4a98723ad18b1d76f5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="41a98967ddbba66dcd568a2a2c3023d0" category="list-text">Active Directory 또는 작업 그룹 기반 인증을 구성합니다. 설명서에 나와 있는 단계를 따르십시오.</block>
+  <block id="0bb345beecefa1bce0e364cc561dc678" category="paragraph"><block ref="0bb345beecefa1bce0e364cc561dc678" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="30676277aaaf48cb88b3bcc24cc61649" category="list-text">볼륨을 생성합니다. FlexGroup 사용하려면 클러스터 전체에 데이터를 분산하는 옵션을 선택하십시오. 해당 볼륨에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.</block>
+  <block id="8225e8890d9d8a29f5f5adfa0e430256" category="paragraph"><block ref="8225e8890d9d8a29f5f5adfa0e430256" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c94bd5b87bec7281cc01a592e3020e86" category="paragraph"><block ref="c94bd5b87bec7281cc01a592e3020e86" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9a9010634e8be1de754152d4c2a81d4e" category="list-text">가상화 관리자에게 SMB 서버, 공유 이름 및 자격 증명을 제공하십시오.</block>
+  <block id="f3b67c19ea9ebb252007974637c01fd4" category="paragraph">Proxmox VE에 SMB 공유를 스토리지로 추가하고 성능 향상 및 내결함성을 위해 멀티채널을 활성화하려면 다음 작업을 완료하십시오.</block>
+  <block id="821aa8d98591db1acab8f4de0df00cbb" category="list-text">공유 인증을 위해 SMB 서버, 공유 이름 및 자격 증명을 수집합니다.</block>
+  <block id="7e43ab28e5e37f90aee8e86494f21642" category="list-text">장애 복구를 위해 최소 두 개의 인터페이스가 서로 다른 VLAN에 구성되어 있는지 확인하십시오. NIC가 RSS를 지원하는지 확인하십시오.</block>
+  <block id="764574652f3695b0c5e875db312571f3" category="list-text">관리 UI를 사용하여<block ref="1d8a0c481f504f690c316fdd4a102c54" prefix=" " category="inline-code"></block>데이터센터를 클릭하고 스토리지를 선택한 다음 추가를 클릭하고 SMB/CIFS를 선택합니다.</block>
+  <block id="cd7285bdaa838b39b0443d35379ed7eb" category="paragraph"><block ref="cd7285bdaa838b39b0443d35379ed7eb" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4881f8566cbda1b0fb6432af7e77ef59" category="list-text">세부 정보를 입력하세요. 주식 이름은 자동으로 입력되어야 합니다. 모든 콘텐츠 유형을 선택하고 추가를 클릭합니다.</block>
+  <block id="0184159f1acf42f13b08c65212a0b91d" category="paragraph"><block ref="0184159f1acf42f13b08c65212a0b91d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="29defc5047e8c90b7e204df6d35aa0c8" category="list-text">멀티채널 옵션을 활성화하려면 클러스터 노드에서 셸을 열고 다음 명령을 실행하십시오.<block ref="37f01c384681246b3a9bb8b414e7a8e8" prefix=" " category="inline-code"></block> 이전 단계에서 생성된 스토리지 ID입니다.</block>
+  <block id="c2bbcde21c2adacecf05d362ead16942" category="paragraph"><block ref="c2bbcde21c2adacecf05d362ead16942" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8b73be484cf4e706b6e10bb76171874f" category="paragraph"><block ref="8b73be484cf4e706b6e10bb76171874f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6e658ed941818cba5d886abb6019e719" category="summary">NAS 프로토콜(NFS, SMB) 및 SAN 프로토콜(FC, iSCSI, NVMe)을 사용하여 Proxmox 가상 환경(VE)용 ONTAP 스토리지를 프로비저닝합니다. Proxmox VE 클러스터의 공유 스토리지를 구성하려면 프로토콜별 적절한 절차를 선택하십시오.</block>
+  <block id="96137f90fac3cbde9d00d592152fc76a" category="doc">NetApp ONTAP 사용한 Proxmox VE용 스토리지 프로토콜에 대해 알아보세요.</block>
+  <block id="6527280d422ef04479aa43ab1ea5da9d" category="paragraph">Proxmox VE 호스트가 FC, 이더넷 또는 기타 지원되는 인터페이스를 ONTAP 논리 인터페이스와 통신할 수 있는 스위치에 케이블로 연결했는지 확인하십시오. 항상 확인하세요<block ref="8d006c87830f7172fd7400f1c17c0928" category="inline-link-rx"></block> 지원되는 구성의 경우. 예시 시나리오는 각 Proxmox VE 호스트에 두 개의 고속 네트워크 인터페이스 카드가 있고, 이 카드들이 서로 연결되어 내결함성과 성능 향상을 위한 본딩 인터페이스를 구성한다는 가정하에 작성되었습니다. 호스트 관리, VM/컨테이너 트래픽, 스토리지 액세스를 포함한 모든 네트워크 트래픽에 동일한 업링크 연결이 사용됩니다. 사용 가능한 네트워크 인터페이스가 더 많을 경우, 스토리지 트래픽을 다른 유형의 트래픽과 분리하는 것을 고려하십시오.</block>
+  <block id="e2a66906f9d3994bc3fa9ae36d784d75" category="inline-link-macro">Proxmox VE용 ONTAP 스토리지 아키텍처에 대해 알아보세요.</block>
+  <block id="f084e36d4e9fdb12a7b4309ffc29d65d" category="paragraph">ONTAP 스토리지 아키텍처 및 지원되는 스토리지 유형에 대한 자세한 내용은 다음을 참조하십시오. <block ref="a66068d7a1b0fc2e652cfb1c1f1e4fca" category="inline-link-macro-rx"></block> 그리고 <block ref="94316c76e20549e18f485c31f8b23fef" category="inline-link-macro-rx"></block>.</block>
+  <block id="0d1477d236cf89083fdcdf2e1a60f232" category="admonition">LVM을 SAN 프로토콜(FC, iSCSI, NVMe-oF)과 함께 사용할 경우, 볼륨 그룹에는 여러 개의 LUN 또는 NVMe 네임스페이스가 포함될 수 있습니다. 이 경우 데이터 무결성을 보장하기 위해 모든 LUN 또는 네임스페이스는 동일한 일관성 그룹에 속해야 합니다. 저희는 여러 ONTAP SVM에 걸쳐 있는 볼륨 그룹을 지원하지 않습니다. 각 볼륨 그룹은 동일한 SVM의 LUN 또는 네임스페이스로 생성되어야 합니다.</block>
+  <block id="068aca4640078e2903e02fdc90d7726a" category="section-title">저장 프로토콜을 선택하세요</block>
+  <block id="993142e325ed95ef932a5b9d757ced69" category="paragraph">사용 환경 및 요구 사항에 맞는 프로토콜을 선택하십시오.</block>
+  <block id="54e91900403eb6d5cc046c8656d49430" category="inline-link-macro">SMB/CIFS 스토리지 구성</block>
+  <block id="773ed844e90ce71e7c8aa21f21b3096e" category="list-text"><block ref="748ef2ce96ed8da490134273e5d8e9fa" category="inline-link-macro-rx"></block> - 다중 네트워크 연결을 통해 내결함성과 향상된 성능을 제공하기 위해 다중 채널 지원 기능을 갖춘 Proxmox VE용 SMB/CIFS 파일 공유를 구성합니다.</block>
+  <block id="3ff424d6ce7d07ee9f23927c42cd92b9" category="inline-link-macro">NFS 스토리지 구성</block>
+  <block id="c1a7fa2aa7627dc6544927b9555590f1" category="list-text"><block ref="19ca8381639157d3177200ba484ffd1b" category="inline-link-macro-rx"></block> - nConnect 또는 세션 트렁킹을 사용하여 Proxmox VE용 NFS 스토리지를 구성하여 다중 네트워크 연결을 통해 내결함성과 성능 향상을 구현합니다.</block>
+  <block id="d24fee406d719041a754cbba3a349622" category="inline-link-macro">FC를 사용하여 LVM을 구성합니다.</block>
+  <block id="ff5c1296e91682811fd45eaba669a659" category="list-text"><block ref="3001da71843e53419908d3b4fd5edf24" category="inline-link-macro-rx"></block> - Proxmox VE 호스트 간 고성능 및 저지연 블록 스토리지 액세스를 위해 파이버 채널을 사용하여 LVM(논리 볼륨 관리자)을 구성합니다.</block>
+  <block id="5b3d5e30c3fd17b6acecdd43c8938eac" category="inline-link-macro">iSCSI를 사용하여 LVM 구성</block>
+  <block id="8267aad26d5b554113f64ab36aeb4eca" category="list-text"><block ref="a7f852037e2bcc5b56cb88f1593957db" category="inline-link-macro-rx"></block> - 표준 이더넷 네트워크를 통해 멀티패스를 지원하는 블록 스토리지 액세스를 위해 iSCSI를 사용하여 LVM(논리 볼륨 관리자)을 구성합니다.</block>
+  <block id="ada8efcdb8daa0e1bbd73b34f824f825" category="inline-link-macro">NVMe/FC를 사용하여 LVM 구성</block>
+  <block id="3bd553a33ea32ad688436c920f343724" category="list-text"><block ref="e6121cb03b68c7386103c60741bdbdb0" category="inline-link-macro-rx"></block> - 최신 NVMe 프로토콜을 사용하여 고성능 블록 스토리지를 구현하기 위해 파이버 채널을 통한 NVMe로 논리 볼륨 관리자(LVM)를 구성합니다.</block>
+  <block id="d76bd03db0de8b62a05aafb01bde9e6f" category="inline-link-macro">NVMe/TCP를 사용하여 LVM 구성</block>
+  <block id="65fbfd219a769731df238652e56c5168" category="list-text"><block ref="94222b6499f43ab03e4114168d46611c" category="inline-link-macro-rx"></block> - 최신 NVMe 프로토콜을 사용하여 표준 이더넷 네트워크를 통해 고성능 블록 스토리지를 구현하기 위해 NVMe over TCP를 사용하는 논리 볼륨 관리자(LVM)를 구성합니다.</block>
+  <block id="e19b3699e93b5a371e8b1e945db6385a" category="paragraph">Proxmox 가상 환경(VE)은 동일한 호스트에서 전체 VM 기반 가상화와 컨테이너 기반 가상화를 모두 지원합니다. 커널 기반 가상 머신(KVM)과 퀵 에뮬레이터(QEMU)를 활용하여 완전한 가상 머신 가상화를 구현합니다. QEMU는 오픈 소스 머신 에뮬레이터이자 가상화 도구이며, KVM 커널 모듈을 사용하여 게스트 코드를 호스트 CPU에서 직접 실행합니다. Linux Containers(LXC)를 사용하면 컨테이너를 VM처럼 관리할 수 있으며 재부팅 후에도 데이터가 유지됩니다. Proxmox VE 9 이상 버전에서는 OCI 레지스트리 지원이 포함되어 공용 및 개인 레지스트리에서 컨테이너 이미지를 가져올 수 있습니다. Proxmox VE 9에서 애플리케이션 컨테이너 지원이 기술 미리보기로 추가되었습니다.</block>
+  <block id="d95672cd38ab0eb0ff76a7ca26d2ad85" category="paragraph">클러스터를 사용하면 호스팅 노드에 장애가 발생할 경우 다른 노드에서 VM과 컨테이너를 모니터링하고 재시작할 수 있습니다. 가상 머신과 컨테이너는 고가용성(HA)을 위해 구성되어야 합니다. 가상 머신과 컨테이너는 선호도 그룹을 생성하여 특정 호스트 집합에 호스팅할 수 있습니다. VM 또는 컨테이너는 가장 높은 우선순위를 가진 호스트에서 호스팅됩니다. 더 자세한 정보를 보려면 확인하세요. <block ref="fdacaf81a34c2d0312d03f6cdb2b9d17" category="inline-link-macro-rx"></block></block>
+  <block id="71e4042aff68fcb490d0250e3f67b48f" category="paragraph">여러 Proxmox VE 클러스터를 관리하기 위해 Proxmox Datacenter Manager 제품을 별도로 설치할 수 있습니다. 이 제품은 여러 Proxmox VE 클러스터와 Proxmox 백업 서버를 관리할 수 있는 단일 인터페이스를 제공합니다. 이를 통해 클러스터 간에 VM과 컨테이너를 마이그레이션할 수 있습니다.</block>
+  <block id="e657f96f21ef5a8469fef396a8a0c15d" category="paragraph">Proxmox 원격 장치에 대한 Basic, Standard 또는 Premium 구독을 보유한 고객은 Proxmox Datacenter Manager 엔터프라이즈 저장소 및 기술 지원을 이용할 수 있습니다.</block>
+  <block id="a445d9bee5af85391acdf5ebac0691ca" category="paragraph">Proxmox VE 9 이상 버전은 iSCSI 및 FC 스토리지 유형에서 씬 프로비저닝과 공간 회수(UNMAP)를 지원합니다. 자세한 내용은 다음을 참조하십시오. <block ref="0cf3dbfbb21cde5074b4aa71855337f8" category="inline-link-macro-rx"></block></block>
+  <block id="9a5f59dab1c43f2f4606ce142607334f" category="paragraph">모든 스토리지 볼륨은 허용된 콘텐츠 유형으로 구성됩니다. NAS 볼륨은 모든 콘텐츠 유형을 지원하는 반면, SAN은 VM 및 컨테이너 이미지로 지원 범위가 제한됩니다. 디렉터리 저장 유형은 모든 콘텐츠 유형을 지원합니다.</block>
+  <block id="8fdbf27f81697b40d0fade44baf0b60a" category="admonition">SMB 연결 자격 증명은 평문으로 저장되며 루트 사용자만 접근할 수 있습니다.</block>
+  <block id="569a2ea9364935242acaf0981c6349e8" category="paragraph">Proxmox VE는 Linux 브리지 및 Open vSwitch와 같은 네이티브 Linux 네트워킹 기능을 사용하여 호스트 기반 네트워킹과 클러스터 전체 VNet을 모두 지원하여 소프트웨어 정의 네트워킹(SDN)을 구현합니다. 호스트의 이더넷 인터페이스는 내결함성과 고가용성을 제공하기 위해 서로 결합될 수 있습니다. 다른 옵션은 다음을 참조하십시오. <block ref="9763a7d4d26e9dea41679cb36cae802c" category="inline-link-macro-rx"></block></block>
+  <block id="ec7afd59203906b5a03c94726f7a4fc5" category="paragraph">게스트 네트워크는 클러스터 수준에서 구성할 수 있으며, 변경 사항은 멤버 호스트에 푸시됩니다. 영역 분리는 영역(Zone), 가상 네트워크(VNet) 및 서브넷(Subnet)을 사용하여 관리됩니다. <block ref="24658c95512d4a42c47249a958bb1795" category="inline-link-macro-rx"></block> Simple(소스 NAT를 사용한 격리), VLAN(802.1Q - 외부 스위치 종속성), VLAN Stacking(802.1ad - 프라이빗 VLAN), VXLAN(레이어 3 위에 레이어 2)과 같은 네트워크 유형을 정의합니다. VPC(예: 네트워킹), EVPN(BGP를 사용한 VXLAN으로 레이어 3 멀티 클러스터 네트워크 생성) 등</block>
+  <block id="d69edfdce879bded624b698d2beef261" category="summary">Proxmox Backup Server는 NetApp ONTAP 스토리지와 통합되어 Proxmox 가상 환경 워크로드에 엔터프라이즈급 백업 기능을 제공합니다. 이 아키텍처는 ONTAP SnapMirror 복제를 사용하여 증분 백업, 중복 제거, 압축 및 재해 복구를 제공합니다.</block>
+  <block id="a3c4f69e5bc313ca25ef4f6d4c8621d8" category="doc">NetApp ONTAP 사용한 Proxmox 백업 서버 아키텍처에 대해 알아보세요.</block>
+  <block id="0d8daca92e40cef06eddaf69b30374c3" category="paragraph">Proxmox Backup Server(PBS)는 NetApp ONTAP 스토리지와 통합되어 Proxmox Virtual Environment(VE) 워크로드에 엔터프라이즈급 백업 기능을 제공합니다. 이 아키텍처는 ONTAP SnapMirror 복제를 사용하여 증분 백업, 중복 제거, 압축, 암호화 및 재해 복구를 제공합니다.</block>
+  <block id="e900628e85826a7d624021f7a4fa7eb9" category="paragraph">Proxmox Backup Server는 Proxmox 가상 환경에 맞게 설계된 엔터프라이즈급 백업 기능을 제공합니다. PBS는 증분 백업, 중복 제거, 압축 및 암호화를 포함한 기능을 통해 VM 및 컨테이너에 대한 효율적이고 안정적인 백업 및 복원 작업을 제공합니다.</block>
+  <block id="c105c01b38a5c5561ad1e494c17b93ae" category="paragraph">PBS는 로컬 스토리지, NFS, iSCSI 및 S3 호환 객체 스토리지를 포함한 다양한 스토리지 백엔드를 지원합니다. PBS는 NetApp ONTAP 스토리지와 통합될 경우 고성능의 확장 가능한 스토리지를 활용하여 백업 데이터 저장소 및 오프사이트 백업 대상으로 사용할 수 있습니다.</block>
+  <block id="bc048b025e524fbf99d1b3a1125056ff" category="paragraph">이 솔루션은 다음과 같은 구성 요소로 이루어져 있습니다.</block>
+  <block id="861b0401b812a630a4ad62d8f7919c22" category="list-text">*Proxmox VE 클러스터* - 가상화 기능을 제공하고 여러 노드에 걸쳐 가상 머신(VM) 및 컨테이너를 관리합니다.</block>
+  <block id="d7738a6133bd8c38fc4ec38ef9ff48ad" category="list-text">*Proxmox 백업 서버* - ONTAP 스토리지와의 통합을 통해 Proxmox VE 워크로드에 특화된 백업 및 복원 기능을 제공합니다.</block>
+  <block id="30890aab531ddb7fa1a28e5f1d0b230f" category="list-text">* NetApp ONTAP 스토리지 * - Proxmox VE 클러스터 및 PBS 백업 데이터 저장소에 고성능의 확장 가능한 스토리지를 제공합니다.</block>
+  <block id="21a363b492d3cb677d09df52c00ef635" category="list-text">*네트워크 인프라* - Proxmox VE 노드, PBS 및 ONTAP 스토리지 간의 저지연, 고처리량 연결을 보장합니다.</block>
+  <block id="8dec5e06da2ccfad31d557ac8f6158d8" category="list-text">* NetApp Console* - 여러 NetApp 스토리지 시스템 및 데이터 서비스를 중앙에서 관리할 수 있도록 지원합니다.</block>
+  <block id="b459c8640c6242a93242c4dcdbbcd0c4" category="paragraph">다음 다이어그램은 ONTAP 스토리지를 사용하는 Proxmox 백업 서버 설정의 상위 수준 아키텍처를 보여줍니다.</block>
+  <block id="98ed7c69aa296b108671ec63b6962fab" category="image-alt">PBS 및 NetApp ONTAP 아키텍처를 사용한 Proxmox VE 워크로드 데이터 보호</block>
+  <block id="36679488cecd53dec41b0e4ceb443561" category="summary">NetApp ONTAP 스토리지를 사용하는 Proxmox 백업 서버의 요구 사항 및 배포 고려 사항을 검토하십시오. 여기에는 배포 옵션, 스토리지 백엔드 지원, 멀티 클러스터 관리 및 네트워크 구성 모범 사례가 포함됩니다.</block>
+  <block id="3131d44f2470e88f57a0ee08812d0e25" category="doc">NetApp ONTAP 스토리지를 사용하는 Proxmox Backup Server의 배포 요구 사항 및 고려 사항</block>
+  <block id="bc51a4948bffb3c81ba45da72808f3fb" category="paragraph">Proxmox Backup Server(PBS)를 NetApp ONTAP 스토리지와 함께 구현하기 전에 배포 요구 사항 및 고려 사항을 검토하십시오. 이를 통해 백업 서버 배포, 스토리지 구성 및 네트워크 연결에 대한 적절한 계획을 수립할 수 있습니다.</block>
+  <block id="bbe19407c7eae60b683129c569b8bf2a" category="section-title">배포 시 고려 사항</block>
+  <block id="395fdeb6d593bfd46c20ec850a846275" category="paragraph">PBS를 베어메탈에 배포하거나 Proxmox VE의 VM으로 배포할 수 있습니다. PBS를 VM으로 배포할 때는 Proxmox VE 호스트에 다운타임이 발생할 경우를 대비하여 백업 서버의 가용성을 고려해야 합니다. 기본 호스트 장애 발생 시 백업 서버 가용성을 보장하기 위해 PBS를 베어메탈 또는 별도의 Proxmox VE 호스트 또는 클러스터에 배포하십시오.</block>
+  <block id="53b5055fa348505ce324c202812cc780" category="paragraph">백업 내용은 데이터 저장소 내에 자체적으로 저장되므로 필요한 경우 다른 PBS 인스턴스로 데이터 저장소를 마이그레이션할 수 있습니다. 이를 통해 원래 PBS 인스턴스를 사용할 수 없는 경우에도 백업 데이터에 계속 액세스할 수 있습니다.</block>
+  <block id="6ecc829e642115cb682c68104f8b24e1" category="section-title">스토리지 백엔드 지원</block>
+  <block id="1fce04f9eab0e634f856ea235739f2be" category="paragraph">PBS는 로컬 스토리지, NFS, iSCSI, FC, NVMe-oF 및 S3(기술 미리보기)를 포함한 다양한 스토리지 백엔드를 지원합니다. NetApp ONTAP 스토리지와의 통합을 통해 조직은 향상된 데이터 보호 및 복구를 위한 고급 데이터 관리 기능을 활용할 수 있습니다.</block>
+  <block id="3dc5ceaf33c2b43363d4b3030e678340" category="paragraph">재해 복구를 위해 ONTAP SnapMirror 사용하여 PBS 데이터 저장소를 다른 ONTAP 시스템으로 복제하십시오. 이는 백업 데이터를 보호하고 사이트 장애 발생 후 복원을 가능하게 합니다.</block>
+  <block id="2bef5bd76f7a0978cce6c5f4942b613b" category="section-title">멀티 클러스터 관리</block>
+  <block id="68c06664ee921a6835d80ac5e1cfcc51" category="paragraph">단일 PBS 인스턴스는 여러 Proxmox VE 클러스터를 관리할 수 있으므로 대규모 배포를 위한 중앙 집중식 백업을 제공합니다. 네임스페이스를 사용하여 서로 다른 클러스터 또는 테넌트의 백업 데이터를 논리적으로 분리함으로써 데이터 격리 및 보안을 보장하십시오.</block>
+  <block id="13604482c9c403576a23cf2eab423a9c" category="paragraph">데이터 보존 정책을 구성하여 백업 데이터의 수명 주기를 자동으로 관리하고 조직 요구 사항을 준수하도록 하십시오. 오래되거나 불필요한 백업 데이터를 자동으로 삭제하도록 정리 정책을 설정하십시오. 가비지 컬렉션 프로세스는 데이터 저장소에서 사용되지 않거나 더 이상 필요 없는 데이터를 제거하여 저장 공간을 확보합니다.</block>
+  <block id="53047d10bbad849d84482025dff7cd0e" category="section-title">관리 인터페이스</block>
+  <block id="ab460c6d29e78f275b58c95212ccaa79" category="paragraph">웹 기반 인터페이스, 명령줄 도구 또는 REST API를 통해 PBS를 관리할 수 있습니다. URL을 사용하여 8007번 포트의 웹 인터페이스에 접속하세요.<block ref="076531771dc78facaf9818c80fc8e196" prefix=" " category="inline-code"></block>.</block>
+  <block id="908a6644c79f2bc9e82d8777e36f7cd0" category="section-title">네트워크 구성 모범 사례</block>
+  <block id="678099ee260c7dfdaad689e0db50843c" category="paragraph">고가용성과 성능을 위해 PBS와 ONTAP 스토리지 간의 이중화된 네트워크 경로를 확보하십시오. 대역폭 및 이중화 향상을 위해 링크 집합(LACP)을 고려하십시오. 스토리지 트래픽 성능 향상을 위해 모든 네트워크 장치에서 점보 프레임(MTU 9000)을 구성하십시오.</block>
+  <block id="7fddf6fc9e3844d093fc6670293eabea" category="paragraph">NFS의 경우, 적절한 권한을 부여하여 PBS 데이터 저장소용 전용 내보내기를 생성하십시오. 블록 프로토콜의 경우, 승인된 PBS 호스트만 접근할 수 있도록 적절한 영역 설정 및 LUN 마스킹을 적용해야 합니다.</block>
+  <block id="c59f1da152ef4526b5c73edc3ace8f0a" category="summary">Proxmox VE는 NAS 프로토콜의 경우 NFS 및 SMB를, SAN 프로토콜의 경우 FC, iSCSI 및 NVMe-oF를 포함한 다양한 스토리지 유형을 ONTAP 에서 지원합니다. 각 프로토콜은 VM 디스크, 백업, 컨테이너 볼륨, ISO 이미지 및 템플릿을 포함한 다양한 콘텐츠 유형을 지원합니다.</block>
+  <block id="1d3489632a52cbd4ac802cd2b00f3a0e" category="doc">Proxmox 가상 환경에서 지원되는 스토리지 유형</block>
+  <block id="3982801181fd93df8690e90664ecd9c1" category="paragraph">Proxmox Virtual Environment(VE)는 NetApp ONTAP 사용하여 NAS용 NFS 및 SMB, FC용 iSCSI 및 SAN용 NVMe-oF를 포함한 다양한 스토리지 프로토콜을 지원합니다. 각 프로토콜은 VM 디스크, 백업, 컨테이너 볼륨, ISO 이미지 및 템플릿을 포함하여 다양한 Proxmox VE 콘텐츠 유형을 지원합니다.</block>
+  <block id="64bf9913f4bb6c030a60e86d852b251e" category="section-title">NAS 프로토콜 지원</block>
+  <block id="4d01db9b194f8083194923c46b43baf4" category="paragraph">NAS 프로토콜(NFS 및 SMB)은 모든 Proxmox VE 콘텐츠 유형을 지원하며 일반적으로 데이터센터 수준에서 한 번만 구성됩니다. 게스트 VM은 NAS 스토리지에서 raw, qcow2 또는 VMDK 디스크 형식을 사용할 수 있습니다. ONTAP 스냅샷은 클라이언트가 특정 시점의 데이터 복사본에 액세스할 수 있도록 표시할 수 있습니다.</block>
+  <block id="53836f8b0ea09c0fd4ecf5b93b74425a" category="section-title">SAN 프로토콜 지원</block>
+  <block id="e6a065af17958c9671b3880719b51f1f" category="paragraph">SAN 프로토콜(FC, iSCSI 및 NVMe-oF)은 일반적으로 호스트별로 구성되며 Proxmox VE에서 VM 디스크 및 컨테이너 이미지 콘텐츠 유형을 지원합니다. 게스트 VM은 블록 스토리지에서 raw, VMDK 또는 qcow2 디스크 형식을 사용할 수 있습니다.</block>
+  <block id="ddf89f3f3124b502f2b4dc5ff7408314" category="section-title">저장 장치 유형 호환성 매트릭스</block>
+  <block id="fcbd19b726fdd6160dfe2ab43f285a55" category="paragraph">*참고사항:*</block>
+  <block id="7f163fbdd024b99c2e2190a3646347a1" category="list-text">공유 폴더를 생성하려면 클러스터 파일 시스템이 필요하며 디렉터리 저장 유형을 사용해야 합니다.</block>
+  <block id="d950d94f161733b026e62d076cbdd538" category="list-text">LVM 스토리지 유형을 사용하십시오.</block>
+  <block id="99ad49e21444cc4f158a30703801fd30" category="summary">NetApp ONTAP 스토리지를 사용하는 Proxmox Backup Server로 Proxmox VE 워크로드를 보호하세요. 이 절차에서는 SnapMirror 복제를 사용한 데이터 저장소 구성, 백업 작업, 복원 절차 및 재해 복구 설정을 다룹니다.</block>
+  <block id="d2b464e16f23793007e335addb57cda7" category="doc">Proxmox Backup Server와 NetApp ONTAP 사용하여 Proxmox VE 워크로드를 보호하세요.</block>
+  <block id="a8749652472004068f5eed92fc6c85f1" category="paragraph">NetApp ONTAP 스토리지와 통합된 Proxmox Backup Server(PBS)를 사용하여 Proxmox 가상 환경(VE) 워크로드를 보호하십시오. 이 절차에서는 ONTAP SnapMirror 복제를 사용한 데이터 저장소 구성, 백업 작업, 복원 절차 및 재해 복구 설정을 다룹니다.</block>
+  <block id="c3c46efef43d1d6a08e1a9490170cfe4" category="paragraph">Proxmox Backup Server 아키텍처 및 ONTAP 통합에 대한 자세한 내용은 다음을 참조하십시오. <block ref="fe4157e7c986688e377631fe74941c30" category="inline-link-macro-rx"></block>.</block>
+  <block id="5a457c7500e4bf3055a0945b61578cc4" category="list-text">고가용성과 성능을 위해 PBS와 ONTAP 스토리지 간의 이중화된 네트워크 경로를 확보하십시오.</block>
+  <block id="2fafff36612b079f651ed477549b0c5d" category="list-text">대역폭 및 이중화 향상을 위해 링크 집합(LACP)을 고려하십시오.</block>
+  <block id="6723a91abfe23c633de13725b2b3fa8d" category="list-text">스토리지 트래픽 성능 향상을 위해 모든 네트워크 장치에서 점보 프레임(MTU 9000)을 구성하십시오.</block>
+  <block id="985ecd56d42b04215aebffa551adff83" category="list-text">NFS의 경우, 적절한 권한을 부여하여 PBS 데이터 저장소용 전용 내보내기를 생성하십시오.</block>
+  <block id="c9e54f7d5a349d213d6560a57f7cd6e9" category="list-text">블록 프로토콜의 경우, 승인된 PBS 호스트로의 접근을 제한하기 위해 적절한 영역 설정 및 LUN 마스킹을 보장해야 합니다.</block>
+  <block id="f98484fc38c578aca640fd781e7196ae" category="section-title">데이터 저장소 구성</block>
+  <block id="2dc26109d922e60c46d9df6140fa92d8" category="paragraph">NetApp ONTAP 스토리지를 사용하여 Proxmox Backup Server 데이터 저장소를 구성합니다. 여기에는 PBS 호스트에 ONTAP 스토리지를 마운트하고, PBS 웹 인터페이스에 로컬 데이터 저장소를 생성하고, 선택적으로 오프사이트 백업 및 장기 보존을 위해 ONTAP S3 스토리지를 구성하는 작업이 포함됩니다.</block>
+  <block id="c2d548d1ab4f9c8ae7a8bb24fa1de154" category="paragraph">ONTAP 스토리지 백엔드를 준비하고 PBS 호스트에 마운트합니다. 준비 단계는 파일 기반(NFS) 프로토콜을 사용하는지 블록 기반(SAN/NVMe-oF) 프로토콜을 사용하는지에 따라 다릅니다.</block>
+  <block id="5fd0791e745674b32ee5b5d4e22171ee" category="paragraph">PBS는 로컬 저장소에 마운트된 모든 폴더를 데이터 저장소로 사용할 수 있습니다. PBS는 카탈로그, 인덱스 및 청크 파일을 데이터 저장소에 저장합니다. 최적의 성능과 확장성을 위해 PBS 데이터 저장소로 NetApp ONTAP SAN(iSCSI/FC/NVMe-oF) 또는 NFS 스토리지(nConnect 또는 세션 트렁킹 및 pNFS 활성화)를 사용하십시오.</block>
+  <block id="ab942149f162d0fd26c0c35f3b422dac" category="list-title">PBS 호스트에 스토리지를 마운트합니다.</block>
+  <block id="5ba28aa1e92de191d89ef6ef367547c5" category="list-text">SAN 또는 NVMe-oF 프로토콜의 경우 ONTAP 에 LUN 또는 네임스페이스를 생성하고 이를 PBS 호스트에 연결하십시오.</block>
+  <block id="44b197b3b77786140186cf7fd7654aa5" category="list-text">LUN 또는 네임스페이스를 적절한 파일 시스템(ext4 또는 xfs)으로 포맷하고 PBS 호스트에 마운트하십시오.</block>
+  <block id="5ade3114be89251c2f1d51ba742fba23" category="list-text">NFS의 경우 PBS 호스트에 NFS 내보내기를 마운트하십시오.</block>
+  <block id="3bb347501ee560ca0cc74164accdb3c7" category="list-text">fstab 또는 automount를 사용하여 시스템 재부팅 시 데이터 저장소가 자동으로 마운트되도록 하십시오.</block>
+  <block id="b98c753603fa64eab10489bf6615d997" category="paragraph-title">PBS에 데이터 저장소를 생성합니다.</block>
+  <block id="85e2d3eba3998ecf4f97ce43f0133348" category="paragraph">스토리지를 마운트한 후 PBS 웹 인터페이스에서 새 데이터 저장소를 생성하십시오.</block>
+  <block id="f2d3e6263b2ec658f4a9d7b06cbc3be1" category="list-text">데이터 저장소 &gt; 데이터 저장소 추가로 이동합니다.</block>
+  <block id="a9f4ef6ba2500df3ff139c4fa9e45273" category="list-text">이름을 입력하고, 데이터 저장소 유형을 로컬로 선택한 다음, 마운트된 폴더를 백업 경로로 지정하십시오.</block>
+  <block id="8ee90cebcd6e42ff99b5eabd2229abc4" category="image-alt">PBS의 로컬 데이터 저장소 구성</block>
+  <block id="3cac0ef615ac9fec2b55913d3198dc52" category="paragraph-title">-&gt; ONTAP S3 스토리지를 사용하여 데이터 저장소를 구성합니다.</block>
+  <block id="bcec1d9fb7ac4eb863479e0c913fa327" category="paragraph">S3 스토리지는 일반적으로 오프사이트 백업 및 장기 보존에 사용됩니다. Proxmox Backup Server는 기술 미리보기 기능으로 S3 스토리지를 지원합니다.</block>
+  <block id="e19f399ce827d2a130b3dc32dab16e0a" category="list-text">ONTAP S3 서비스가 활성화되어 있고 올바르게 구성되어 있는지 확인하십시오.</block>
+  <block id="472364bf3349970260a75b330b5c7f42" category="list-text">PBS 데이터 저장소용 ONTAP S3 버킷을 생성합니다.</block>
+  <block id="d953991782836c9e584ead96e502a20f" category="list-text">S3 버킷에 대한 액세스 키와 비밀 키를 얻으세요.</block>
+  <block id="3ec2617fad102466b18c33d8f54e4432" category="list-text">S3 엔드포인트 URL과 인증서 지문 정보를 수집합니다.</block>
+  <block id="67f0af8dbf7c3e3e08c731dd8557134a" category="list-text">PBS 웹 인터페이스에서 구성 &gt; S3 엔드포인트로 이동하여 수집한 정보를 사용하여 새 S3 엔드포인트를 추가합니다.</block>
+  <block id="b8841f5dee397269f7b7e38ac64c60b7" category="image-alt">PBS의 S3 엔드포인트 구성</block>
+  <block id="fb75dc5b43dbc5820295eceb4b13346a" category="image-alt">PBS의 S3 엔드포인트 구성 파일</block>
+  <block id="10cf7cd4559364562f07fd838364b838" category="list-text">다음으로, 데이터 저장소 → 데이터 저장소 추가로 이동합니다. 이름을 입력하고, 데이터 저장소 유형을 S3로 선택한 다음, 구성된 S3 엔드포인트를 선택하십시오. 로컬 캐시로 사용할 로컬 데이터 저장소의 폴더 이름을 지정하고 버킷을 선택하십시오. 예시를 보여주세요</block>
+  <block id="3bb3f110060a601f18aa5ab0ad1f213a" category="image-alt">PBS에서 S3 데이터스토어 구성</block>
+  <block id="4aa328dcbc6bc7de00c8f61e2397a861" category="image-alt">PBS의 S3 데이터스토어 구성 파일</block>
+  <block id="125a8538ceef3774b5933343386476a8" category="section-title">ONTAP S3 스토리지에 로컬 동기화 작업을 생성합니다.</block>
+  <block id="63c698cd1fce859e077645ae08ddc948" category="paragraph">+ PBS에서 로컬 동기화 작업을 생성하여 로컬 PBS 데이터 저장소에서 ONTAP S3 스토리지로 데이터를 마이그레이션합니다. 이 작업은 백업 데이터를 로컬 데이터 저장소에서 S3 데이터 저장소로 복사하여 오프사이트에 저장하고 장기 보존합니다.</block>
+  <block id="58eaba00e5b10b4b3a42238fc3b56e50" category="list-text">PBS 웹 인터페이스에서 S3 데이터 저장소 &gt; 동기화 작업으로 이동하여 추가를 클릭합니다.</block>
+  <block id="28ca1f09f60c1576c7eb07731c9cb2ad" category="image-alt">PBS에 로컬 동기화 작업 추가하기</block>
+  <block id="1b376d83765ddd16c159cd733e43b3dd" category="list-text">위치를 로컬로 선택하고, 소스 로컬 데이터 저장소를 선택한 다음, 원하는 네임스페이스와 깊이를 지정합니다. 동기화 작업 일정 및 추가 옵션을 구성합니다.</block>
+  <block id="614a0a4bfbd428484c95d1b4194dd5e5" category="image-alt">PBS에서 로컬 동기화 작업 구성</block>
+  <block id="9abe15b75027060ad5936d3d3822af56" category="list-text">동기화 작업 구성을 저장합니다. 동기화 작업은 정의된 일정에 따라 실행되며 로컬 PBS 데이터 저장소의 백업 데이터를 ONTAP S3 스토리지로 복사합니다.</block>
+  <block id="7f14889330109d5821968b11b79a5173" category="admonition">ONTAP 스토리지를 사용한 오프사이트 저장 및 장기 보존을 위해 Netapp 콘솔을 관리 및 데이터 서비스에 활용할 수 있습니다.</block>
+  <block id="8fe1767a8b55ee5f0273a944d17eace6" category="section-title">Proxmox VE 클러스터에 Proxmox 백업 서버 추가</block>
+  <block id="5d5fcd5f85274a16041a1c0894237505" category="paragraph">가상 머신 및 컨테이너에 대한 백업 작업을 활성화하려면 Proxmox Backup Server를 스토리지 대상으로 추가하십시오.</block>
+  <block id="16cd0cf83b6544af84b2b8c7687fbf1c" category="list-text">Proxmox VE 웹 인터페이스에서 데이터센터 &gt; 스토리지로 이동한 다음 추가 &gt; Proxmox 백업 서버를 클릭합니다.</block>
+  <block id="6122d9034d5273e39f40c7a9478c06b7" category="image-alt">Proxmox VE에 PBS 저장 기능 추가하기</block>
+  <block id="45cf88adc3effe5fbc66e933052b4517" category="list-text">안전한 통신을 위해 PBS 서버 인증서 지문을 제공하십시오. PBS 웹 인터페이스에서 또는 PBS에서 다음 명령어를 실행하여 지문을 얻을 수 있습니다.<block ref="55d7863a6f221652e1ce70facd3cdfec" prefix=" " category="inline-code"></block>.</block>
+  <block id="76e37e2819c6cb52a333149ed85323d4" category="image-alt">Proxmox Backup Server UI에서 PBS 인증서 지문 구성</block>
+  <block id="9156943f82b3b112607a215326fdba10" category="image-alt">Proxmox Backup Server CLI에서 PBS 인증서 지문 구성</block>
+  <block id="c8a397ada969519575324c894fb6505d" category="list-text">백업 보존 정책 및 암호화와 같은 추가 옵션을 구성하십시오.</block>
+  <block id="ebdc722e3229641d6925bb33c8e147fc" category="list-text">PBS 저장소 구성을 저장하려면 [추가]를 클릭하십시오.</block>
+  <block id="6b6a9343bc6a135d26d7c549974ab0ee" category="paragraph">이제 Proxmox VE 클러스터는 가상 머신 및 컨테이너의 백업 및 복원 작업을 위해 PBS 데이터 저장소를 사용할 수 있습니다.</block>
+  <block id="80ddf8e94d3c3cb3463aa3890e1448dd" category="section-title">백업을 수행하십시오</block>
+  <block id="e9797316a483fef0e47237db657a34af" category="paragraph">Proxmox VE 워크로드를 Proxmox 백업 서버에 백업합니다. 여기에는 온디맨드 백업 수행, 예약 백업 작업 구성, 호스트 구성 파일 백업, 사용자 지정 작업을 위한 백업 전후 스크립트 사용 등이 포함됩니다.</block>
+  <block id="63293d32960dd66dd5fca5291e488b71" category="paragraph-title">-&gt; 필요에 따라 백업을 수행합니다.</block>
+  <block id="acc68c53f3f6bed0d05f15d1aa6cb41a" category="paragraph">Proxmox Backup Server를 사용하여 VM 또는 컨테이너의 즉시 백업을 생성합니다.</block>
+  <block id="5ce78af4d3ad4d0eb02e05981aaf3f26" category="list-text">Proxmox VE 웹 인터페이스에서 VM 또는 컨테이너로 이동합니다.</block>
+  <block id="8f99a70fcf0bedd62af3ca828e97ad1d" category="list-text">백업 탭을 클릭한 다음 지금 백업을 클릭하세요.</block>
+  <block id="0abacf0a038212e8785df456f661104f" category="image-alt">Proxmox VE의 온디맨드 백업</block>
+  <block id="8b0650b7cf84fcc64c9631eabddde363" category="list-text">백업 대상으로 Proxmox Backup Server Storage를 선택하십시오.</block>
+  <block id="9112900ecf585c6a04f2f991bb5449fb" category="image-alt">Proxmox VE에서 PBS 대상 스토리지를 선택하는 온디맨드 백업</block>
+  <block id="a3e1e45ec35c3a5f594ee184e29d6bd9" category="list-text">압축, 알림, 스냅샷 모드와 같은 추가 백업 옵션을 구성하십시오.</block>
+  <block id="3a88c22db3207dd47d4c0307053d168d" category="list-text">백업을 클릭하여 백업 프로세스를 시작하세요.</block>
+  <block id="cf4f5305a4d037daaf610d9134bb9139" category="paragraph-title">-&gt; 예약 백업 구성</block>
+  <block id="7747b6d0c3f2c123915b421f6bc0fb0e" category="paragraph">Proxmox Backup Server를 사용하여 VM 및 컨테이너에 대한 예약 백업을 설정하세요.</block>
+  <block id="82fde8d7c0d6a82d099abc267274a8d7" category="list-text">Proxmox VE 웹 인터페이스에서 데이터센터 &gt; 백업으로 이동합니다.</block>
+  <block id="bd31598b7023fe3eb381bef65b8573f7" category="list-text">새 백업 작업을 생성하려면 [추가]를 클릭하십시오.</block>
+  <block id="11cb908648a3fe2f24886c8b8ad786f3" category="image-alt">Proxmox VE에 예약 백업 작업 추가하기</block>
+  <block id="06f45aec62cbd38ce6ff556914287747" category="list-text">PBS 저장소를 대상으로 선택하고 백업 일정(예: 매일 또는 매주)을 선택하십시오. 선택 모드를 전체, 포함/제외할 VM/CT 선택 또는 풀 기반으로 설정하십시오.</block>
+  <block id="e2a95ecbdc4928418575973a070ac784" category="image-alt">Proxmox VE에서 예약된 백업 작업 구성</block>
+  <block id="799f143281bde1a804acb3e9a1a4d120" category="list-text">보존 정책, 압축, 스냅샷 모드와 같은 추가 옵션을 구성하십시오.</block>
+  <block id="d71707e5351d8690ec4d2c99741d6b60" category="list-text">예약된 백업 작업 구성을 저장하려면 [생성]을 클릭하십시오.</block>
+  <block id="cc5d1a9cc1facbf445e94d1fba9d8578" category="paragraph">Proxmox VE 클러스터는 Proxmox Backup Server를 스토리지 대상으로 사용하여 정의된 일정에 따라 지정된 VM 및 컨테이너의 백업을 자동으로 수행합니다.</block>
+  <block id="7e44e8330b5e87a919d915376ed32e53" category="paragraph">예약된 작업 구성은 Proxmox VE 호스트의 /etc/pve/job.cfg 파일에 저장됩니다.</block>
+  <block id="ebc99ff45830e2ecf9e617518f09d7ef" category="image-alt">Proxmox VE의 예약 백업 작업 구성 파일</block>
+  <block id="8f58249c423f4f59dd55da9dc38883a6" category="paragraph-title">-&gt; Proxmox VE 호스트 파일을 PBS에 백업합니다.</block>
+  <block id="75aaa17cad0b71d46971f7d7e91fbcad" category="paragraph">Proxmox VE 호스트 구성 파일, 시스템 설정 및 기타 중요 데이터를 Proxmox 백업 서버에 백업합니다.</block>
+  <block id="1eaa6bec267e7553d764d66e09d7b262" category="list-text">Proxmox VE 셸 또는 SSH 세션에서 다음을 사용하십시오.<block ref="db40c0efe7023b4b0dd0101b821f6b6c" prefix=" " category="inline-code"></block> 호스트 백업을 생성하는 명령어:</block>
+  <block id="d5701d85fabf93cbabb20637ad2998c3" category="paragraph">바꾸다<block ref="cc9549591211c31474128122ebe1518c" prefix=" " category="inline-code"></block> 백업 사양(예:<block ref="bad171a4479180b3e1951aa2eceb13b7" prefix=" " category="inline-code"></block>),<block ref="5fae363afdc366ec768ede8ca3120ee4" prefix=" " category="inline-code"></block> PBS의 FQDN을 사용하면<block ref="ad61e43dd36eb3d69e9dd87af610dcd1" prefix=" " category="inline-code"></block> PBS 데이터 저장소 이름과 함께<block ref="02886250fede5e11b96f10e832d0cd33" prefix=" " category="inline-code"></block> 네임스페이스와 함께. 이는 인증 및 지문 환경 변수가 구성되어 있다고 가정합니다.</block>
+  <block id="acf3548929f64cbd5840f0b88dcf4c5c" category="image-alt">Proxmox VE 호스트 백업 명령</block>
+  <block id="bdf38e5144da01036d21d0a772856209" category="list-text">백업 프로세스는 Proxmox VE 호스트의 백업을 생성하여 지정된 PBS 데이터 저장소에 저장합니다.</block>
+  <block id="c36cefabab21fdacad0ec7191664775f" category="image-alt">Proxmox Backup Server UI에서 파일 보기</block>
+  <block id="3393e7cb466c95f9726db27a3bca8957" category="list-text">Proxmox VE 호스트 파일을 백업에서 복원하려면 다음을 사용하십시오.<block ref="f6a3ab727cb2e979a0d05ad08bc81954" prefix=" " category="inline-code"></block> 적절한 매개변수를 사용한 명령입니다.</block>
+  <block id="04008fe333c6dc4574370db8a285fafc" category="paragraph">Proxmox VE는 백업 전후에 사용자 지정 작업을 수행할 수 있는 백업 전후 스크립트를 지원합니다. 이러한 스크립트를 사용하여 가상 머신이나 컨테이너를 백업 준비하거나, 추가 작업을 수행하거나, 백업 완료 후 정리 작업을 할 수 있습니다.</block>
+  <block id="a720b43476cfe14d2cf6fea3a950e671" category="list-text">Proxmox VE 호스트에 백업 스크립트를 생성합니다. 스크립트가 실행 가능하고 필요한 권한이 있는지 확인하십시오.</block>
+  <block id="3384030595a0a0ad3287ac9f9c25e831" category="image-alt">백업 스크립트에 대한 스크립트 인자 세부 정보</block>
+  <block id="4f150056b99a7bb0c49b60a2e54d4f1e" category="list-text">백업 작업이 존재하는지 확인하십시오.</block>
+  <block id="caa9f04df057e046a09b29f22b905ba6" category="list-text">Proxmox VE 셸 또는 SSH 세션에서 다음을 사용하십시오.<block ref="99e219f653aa582df4baaeeccb55261c" prefix=" " category="inline-code"></block> 명령<block ref="662b51a9c120bc17a427c611fbc30aac" prefix=" " category="inline-code"></block> 실행할 스크립트를 지정하는 옵션입니다.</block>
+  <block id="1bbe52ac199570836dffe007f9535865" category="image-alt">Proxmox VE에서 백업 스크립트 설정하기</block>
+  <block id="a49f46cee3d5127495adb39d93cb8a01" category="list-text">선택적으로, 백업용 스냅샷을 찍기 전에 워크로드 내부의 파일 시스템을 QEMU 게스트 에이전트를 사용하여 일시 중지할 수 있습니다. QEMU 게스트 에이전트가 설치되어 실행 중인지 확인하십시오. 해당 스크립트를 VM 또는 컨테이너 내부의 /etc/qemu/fsfreeze-hook.d/ 또는 /etc/qemu-ga/fsfreeze-hook.d/ 경로에 배치하십시오.</block>
+  <block id="8e58083c178f015f803ab196b1d618e3" category="admonition">후크스크립트는 VM 또는 컨테이너 수준에서도 설정할 수 있습니다.<block ref="789f695c451c4e79a90edab4c736f47c" prefix=" " category="inline-code"></block> 또는<block ref="b2a45119943f59a35f554068ace0c27d" prefix=" " category="inline-code"></block> 명령어를 사용하여<block ref="32b3a20354c53eeb85ef22e9d06baf1d" prefix=" " category="inline-code"></block> 옵션. 샘플 후크스크립트는 Proxmox VE 호스트의 /usr/share/pve-docs/examples/guest-example-hookscript.pl을 참조하십시오.</block>
+  <block id="5be228565440d3a8d2d642daf8f6785b" category="section-title">가상 머신 및 컨테이너 복원</block>
+  <block id="4ce120bf6e78dc9becd06b5cf7076f07" category="paragraph">Proxmox VE 웹 인터페이스 또는 PBS 스토리지에서 VM 및 컨테이너를 직접 복원할 수 있습니다.</block>
+  <block id="a4bcadf948707b515a20c46b0ad01a0f" category="list-text">기존 VM 또는 컨테이너를 복원하려면 Proxmox VE 웹 인터페이스에서 해당 VM 또는 컨테이너로 이동하여 백업 탭을 클릭하고 PBS 스토리지에서 백업을 선택한 다음 복원을 클릭합니다.</block>
+  <block id="30cf04e58e15e16d547933ac9ac1ec50" category="image-alt">Proxmox VE에서 PBS를 사용하여 VM 복원하기</block>
+  <block id="637e7c88adddfc3008f358f9d6d1083a" category="paragraph">베어메탈 복구 또는 다른 Proxmox VE 호스트로 복원하려면 다음을 사용하십시오.<block ref="db40c0efe7023b4b0dd0101b821f6b6c" prefix=" " category="inline-code"></block> 명령.</block>
+  <block id="3527508548bc21eadefa2ad0dd308ccb" category="list-text">Proxmox VE에서 현재 사용할 수 없는 VM 또는 컨테이너를 복원하려면 PBS 스토리지 백업 섹션으로 이동하여 백업을 선택하고 복원을 클릭하십시오. 복원을 완료하려면 대상 저장소 및 기타 필요한 정보를 제공하십시오.</block>
+  <block id="7a56f575d85d5850da9c413ba57ae51d" category="image-alt">Proxmox VE UI에서 PBS 저장소에 저장된 누락된 VM 복원하기</block>
+  <block id="068d7e5d839dd02d67cc6529b1f284f7" category="section-title">SnapMirror 사용하여 재해 복구를 구성합니다.</block>
+  <block id="02f8bb2307b6959bd028d2850f84b206" category="paragraph">재해 복구를 위해 SnapMirror 사용하여 ONTAP 스토리지의 PBS 데이터 저장소를 다른 ONTAP 시스템으로 복제합니다. 이는 백업 데이터를 보호하고 사이트 장애 발생 후 복원을 가능하게 합니다.</block>
+  <block id="55f4682b84e221e3fbf587ed12c62979" category="list-text">PBS 데이터스토어 볼륨에 대한 SnapMirror 복제를 구성합니다.</block>
+  <block id="81a2af6178a0eeee74fdb08c2ae7412b" category="list-text">재해가 발생할 경우, 복제된 PBS 데이터 저장소를 보조 PBS 인스턴스에 마운트하십시오.</block>
+  <block id="3592e0b52fc427fd2e212dd0269018bf" category="paragraph">PBS에 데이터 저장소를 추가할 때, 데이터 저장소 재초기화를 방지하려면 "기존 데이터 저장소 재사용" 고급 옵션을 활성화하십시오.</block>
+  <block id="b0884bbace245d96abc1137d279a08fd" category="image-alt">PBS에서 기존 데이터 저장소를 재사용합니다.</block>
+  <block id="679d2970e3995e5fc14b544884a37a89" category="paragraph">ONTAP S3 스토리지의 경우, PBS에서 데이터스토어를 추가할 때 "기존 데이터스토어 재사용" 및 "사용 중인 마커 덮어쓰기" 옵션을 모두 활성화하십시오.</block>
+  <block id="7cbf5ead37f08f25990bad4a80ff8d84" category="image-alt">PBS에서 기존 S3 데이터 저장소 재사용</block>
+  <block id="fe7cf3e96c6b20c409f70dde124a7b0f" category="paragraph">데이터 저장소를 추가한 후에는 백업 데이터에 접근하여 복원 작업을 수행할 수 있습니다.</block>
+  <block id="2be48fddd66eba1f6ce497921cd32d4b" category="section-title">Proxmox Datacenter Manager를 사용하여 여러 클러스터를 모니터링하세요.</block>
+  <block id="21b0ecd42755754572fe752f70ee671e" category="paragraph">Proxmox Datacenter Manager(PDM)를 사용하여 여러 Proxmox VE 및 Proxmox Backup Server 인스턴스를 모니터링하고 관리합니다. PDM은 여러 Proxmox VE 클러스터 및 PBS 인스턴스의 상태, 성능 및 상태를 모니터링하기 위한 중앙 집중식 관리 인터페이스를 제공합니다.</block>
+  <block id="ad1127782ecd92b63f319b449ffc45d2" category="image-alt">Proxmox 데이터센터 관리자 개요</block>
+  <block id="e86308afbc26afaa5229dfafd3ee8ab0" category="paragraph">Proxmox Backup Server는 NetApp ONTAP 스토리지와 통합되어 Proxmox VE 워크로드에 강력하고 효율적인 데이터 보호 기능을 제공합니다. 조직은 ONTAP의 고급 데이터 관리 기능과 PBS의 백업 기능을 활용하여 가상화된 워크로드의 가용성과 무결성을 보장할 수 있습니다.</block>
+  <block id="61fc0196e9c1813453cdbdb4aed0034e" category="section-title">2026년 1월 15일</block>
+  <block id="3d3dbaddb8eeecb1fd8caab736a1acb7" category="list-text">Proxmox VE 9 릴리스를 반영하여 Proxmox VE 솔루션 콘텐츠를 업데이트했습니다.</block>
+  <block id="15851e52ff91b17325d02bcb06147fbb" category="list-text">Proxmox VE 저장소로 사용되는 볼륨에 랜섬웨어 방지 기능을 활성화하는 방법에 대한 지침을 추가했습니다.</block>
+  <block id="dca923bde586c56ff9e80a035b569f50" category="list-text">Proxmox VE에서 FC 및 NVMe/FC를 스토리지 프로토콜로 사용하도록 지침을 추가했습니다.</block>
+  <block id="2e94ca9f81de016c02e76e148fee1eaf" category="list-text"><block ref="2e94ca9f81de016c02e76e148fee1eaf" category="inline-link-macro-rx"></block></block>
+  <block id="b957e7f390a33f68599b8075a82fdae6" category="list-text">Proxmox Backup Server용 ONTAP 통합 기능을 추가했습니다.</block>
+  <block id="3f649f93b537f09a93cf7a8e8ee77ebd" category="inline-link-macro">Proxmox Backup Server와 NetApp ONTAP 사용하여 Proxmox VE에서 실행되는 워크로드를 보호하세요.</block>
+  <block id="ba218e947e49e3546a325b9b7e6e3c58" category="list-text"><block ref="ba218e947e49e3546a325b9b7e6e3c58" category="inline-link-macro-rx"></block></block>
+  <block id="b39dd55093d23c94cdc2e8bb85ce2acb" category="list-text">Proxmox VE와 ONTAP 통합을 위한 배포 가이드라인을 추가했습니다.</block>
+  <block id="80703c7b6c08c51533caaeabf49abcf8" category="inline-link-macro">Proxmox 가상 환경을 위한 NetApp ONTAP 배포 지침</block>
+  <block id="9f7bd72916b6e7b46cb4ef9421aa654f" category="list-text"><block ref="9f7bd72916b6e7b46cb4ef9421aa654f" category="inline-link-macro-rx"></block></block>
+  <block id="6b232c5f91c6b866f64751df748d8b05" category="sidebar">Proxmox VE에 대해 알아보세요</block>
+  <block id="54594bccd58ed1cbd8fc3cfd68b1d1ed" category="sidebar">Proxmox VE 및 ONTAP 아키텍처</block>
+  <block id="745f3917a074ad2d3a63f913855d07bd" category="sidebar">지원되는 저장 유형</block>
+  <block id="e8d05e64f5c32cc74f3698ac82de9cee" category="sidebar">스토리지 프로토콜 구성</block>
+  <block id="a9a0ce306b8f93a439f3aa02f6c4d548" category="sidebar">Proxmox VE 워크로드를 보호합니다.</block>
+  <block id="4b7b0c862179b1d444bf810298aa6cde" category="sidebar">Proxmox 백업 서버 아키텍처</block>
+  <block id="ce2d085f4e50cade96fa91ccdedf8fa7" category="sidebar">배포 요구 사항 및 고려 사항</block>
+  <block id="40f27e7405ba45375cf663f8361fe671" category="sidebar">Proxmox Backup Server를 사용하여 데이터 보호를 구성하세요.</block>
+  <block id="0d3a6e48ddb5157d99693acb073595b2" category="sidebar">Proxmox 가상화 환경에서 획기적인 성능을 제공하는 NetApp 스토리지 및 NVMe-oF</block>
+  <block id="5f92b643fcaa578f80900a61e9ce5337" category="sidebar">Proxmox VE용 Linux Bridge와 Open vSwitch 비교</block>
+  <block id="a056429d9a944190929fc1ff011d59fd" category="sidebar">SolidFire 스토리지를 사용하는 Proxmox VE</block>
+  <block id="33944cf48dae6085e379419638e7f045" category="sidebar">Proxmox VE용 ONTAP 사용하여 스토리지 프로토콜을 구성합니다.</block>
+  <block id="00e4880b550e40d823bf3e2f64737181" category="sidebar">스토리지 프로토콜 개요</block>
+  <block id="df98233fcbd5f7d34a38d94575306755" category="sidebar">Proxmox VE 워크로드 데이터 보호(Proxmox Backup Server 및 NetApp ONTAP)</block>
 </blocks>

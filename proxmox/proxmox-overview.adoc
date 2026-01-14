@@ -20,7 +20,7 @@ Proxmox 가상 환경(VE)은 Debian Linux를 기반으로 하는 오픈 소스 T
 
 == 개요
 
-Proxmox 가상 환경(VE)은 동일한 호스트에서 전체 VM 가상화와 컨테이너 기반 가상화를 모두 지원합니다.  전체 VM 가상화에는 커널 기반 가상 머신(KVM)과 빠른 에뮬레이터(QEMU)가 활용됩니다.  QEMU는 오픈소스 머신 에뮬레이터이자 가상화 프로그램으로, KVM 커널 모듈을 사용하여 호스트 CPU에서 직접 게스트 코드를 실행합니다.  Linux 컨테이너(LXC)를 사용하면 재부팅 후에도 데이터가 지속되도록 컨테이너를 VM처럼 관리할 수 있습니다.
+Proxmox 가상 환경(VE)은 동일한 호스트에서 전체 VM 기반 가상화와 컨테이너 기반 가상화를 모두 지원합니다. 커널 기반 가상 머신(KVM)과 퀵 에뮬레이터(QEMU)를 활용하여 완전한 가상 머신 가상화를 구현합니다. QEMU는 오픈 소스 머신 에뮬레이터이자 가상화 도구이며, KVM 커널 모듈을 사용하여 게스트 코드를 호스트 CPU에서 직접 실행합니다. Linux Containers(LXC)를 사용하면 컨테이너를 VM처럼 관리할 수 있으며 재부팅 후에도 데이터가 유지됩니다. Proxmox VE 9 이상 버전에서는 OCI 레지스트리 지원이 포함되어 공용 및 개인 레지스트리에서 컨테이너 이미지를 가져올 수 있습니다. Proxmox VE 9에서 애플리케이션 컨테이너 지원이 기술 미리보기로 추가되었습니다.
 
 image:proxmox-overview-001.png["Proxmox 호스트의 VM 및 LXC"]
 
@@ -34,7 +34,7 @@ image:proxmox-overview-001.png["Proxmox 호스트의 VM 및 LXC"]
 
 image:proxmox-overview-002.png["관리 인터페이스"]
 
-클러스터를 사용하면 호스팅 노드에 장애가 발생하면 다른 노드에서 VM과 컨테이너를 모니터링하고 다시 시작할 수 있습니다.  VM과 컨테이너는 고가용성(HA)을 위해 구성되어야 합니다.  그룹을 생성하면 VM과 컨테이너를 특정 호스트 하위 집합에 호스팅할 수 있습니다.  VM 또는 컨테이너는 가장 높은 우선순위를 가진 호스트에 호스팅됩니다.  자세한 내용은 다음을 확인하세요.link:https://pve.proxmox.com/wiki/High_Availability["HA 관리자"]
+클러스터를 사용하면 호스팅 노드에 장애가 발생할 경우 다른 노드에서 VM과 컨테이너를 모니터링하고 재시작할 수 있습니다. 가상 머신과 컨테이너는 고가용성(HA)을 위해 구성되어야 합니다. 가상 머신과 컨테이너는 선호도 그룹을 생성하여 특정 호스트 집합에 호스팅할 수 있습니다. VM 또는 컨테이너는 가장 높은 우선순위를 가진 호스트에서 호스팅됩니다. 더 자세한 정보를 보려면 확인하세요. link:https://pve.proxmox.com/wiki/High_Availability["HA 관리자"]
 
 image:proxmox-overview-003.png["HA 그룹 우선 순위"]
 
@@ -42,6 +42,10 @@ image:proxmox-overview-003.png["HA 그룹 우선 순위"]
 
 
 TIP: LDAP/Microsoft AD의 연결 자격 증명은 일반 텍스트로 저장될 수 있으며, 호스트 파일 시스템에서 보호해야 하는 파일에 저장될 수도 있습니다.
+
+여러 Proxmox VE 클러스터를 관리하기 위해 Proxmox Datacenter Manager 제품을 별도로 설치할 수 있습니다. 이 제품은 여러 Proxmox VE 클러스터와 Proxmox 백업 서버를 관리할 수 있는 단일 인터페이스를 제공합니다. 이를 통해 클러스터 간에 VM과 컨테이너를 마이그레이션할 수 있습니다.
+
+Proxmox 원격 장치에 대한 Basic, Standard 또는 Premium 구독을 보유한 고객은 Proxmox Datacenter Manager 엔터프라이즈 저장소 및 기술 지원을 이용할 수 있습니다.
 
 
 
@@ -69,16 +73,18 @@ image:proxmox-overview-004.png["VM 디스크 형식"]
 
 iSCSI LUN을 원시 장치로 VM에 표시하는 옵션이 있습니다.
 
+Proxmox VE 9 이상 버전은 iSCSI 및 FC 스토리지 유형에서 씬 프로비저닝과 공간 회수(UNMAP)를 지원합니다. 자세한 내용은 다음을 참조하십시오. link:https://pve.proxmox.com/pve-docs/chapter-pvesm.html#thin_provisioning_and_space_reclamation_support["Proxmox VE 스토리지"]
+
 LXC에도 자체 구성 파일이 있습니다. `/etc/pve/lxc/<container id>.conf` 및 컨테이너 디스크 구성 요소.  지원되는 저장 유형에서 데이터 볼륨을 마운트할 수 있습니다.
 
 image:proxmox-overview-005.png["컨테이너 추가 마운트"]
 
 지원되는 스토리지 유형에는 로컬 디스크, NAS(SMB 및 NFS), SAN(FC, iSCSI, NVMe-oF 등)이 있습니다.  자세한 내용은 다음을 참조하세요.link:https://pve.proxmox.com/pve-docs/chapter-pvesm.html["Proxmox VE 스토리지"]
 
-모든 저장 볼륨은 허용된 콘텐츠 유형으로 구성됩니다.  NAS 볼륨은 모든 콘텐츠 유형을 지원하는 반면, SAN 지원은 VM 및 컨테이너 이미지로 제한됩니다.
+모든 스토리지 볼륨은 허용된 콘텐츠 유형으로 구성됩니다. NAS 볼륨은 모든 콘텐츠 유형을 지원하는 반면, SAN은 VM 및 컨테이너 이미지로 지원 범위가 제한됩니다. 디렉터리 저장 유형은 모든 콘텐츠 유형을 지원합니다.
 
 
-NOTE: 디렉토리 저장 유형은 모든 콘텐츠 유형도 지원합니다.  SMB 연결 자격 증명은 일반 텍스트로 저장되며 루트만 접근할 수 있습니다.
+NOTE: SMB 연결 자격 증명은 평문으로 저장되며 루트 사용자만 접근할 수 있습니다.
 
 image:proxmox-overview-006.png["NAS를 사용한 콘텐츠 유형"]
 
@@ -90,11 +96,11 @@ Broadcom vSphere 환경에서 VM을 가져오려면 vSphere 호스트를 스토�
 
 == 회로망
 
-Proxmox VE는 Linux 브리지나 Open vSwitch와 같은 기본 Linux 네트워킹 기능을 지원하여 소프트웨어 정의 네트워킹(SDN)을 구현합니다.  호스트의 이더넷 인터페이스를 결합하여 중복성과 높은 가용성을 제공할 수 있습니다.  다른 옵션은 다음을 참조하세요.link:https://pve.proxmox.com/pve-docs/chapter-sysadmin.html#_choosing_a_network_configuration["Proxmox VE 문서"]
+Proxmox VE는 Linux 브리지 및 Open vSwitch와 같은 네이티브 Linux 네트워킹 기능을 사용하여 호스트 기반 네트워킹과 클러스터 전체 VNet을 모두 지원하여 소프트웨어 정의 네트워킹(SDN)을 구현합니다. 호스트의 이더넷 인터페이스는 내결함성과 고가용성을 제공하기 위해 서로 결합될 수 있습니다. 다른 옵션은 다음을 참조하십시오. link:https://pve.proxmox.com/pve-docs/chapter-sysadmin.html#_choosing_a_network_configuration["Proxmox VE 문서"]
 
 image:proxmox-overview-008.png["보세망"]
 
-게스트 네트워크는 클러스터 수준에서 구성될 수 있으며, 변경 사항은 멤버 호스트에 푸시됩니다.  분리는 Zones, VNets, Subnets을 통해 관리됩니다. link:https://pve.proxmox.com/pve-docs/chapter-pvesdn.html["존"] 단순, VLAN, VLAN 스태킹, VXLAN, EVPN 등의 네트워크 유형을 정의합니다.
+게스트 네트워크는 클러스터 수준에서 구성할 수 있으며, 변경 사항은 멤버 호스트에 푸시됩니다. 영역 분리는 영역(Zone), 가상 네트워크(VNet) 및 서브넷(Subnet)을 사용하여 관리됩니다. link:https://pve.proxmox.com/pve-docs/chapter-pvesdn.html["존"] Simple(소스 NAT를 사용한 격리), VLAN(802.1Q - 외부 스위치 종속성), VLAN Stacking(802.1ad - 프라이빗 VLAN), VXLAN(레이어 3 위에 레이어 2)과 같은 네트워크 유형을 정의합니다. VPC(예: 네트워킹), EVPN(BGP를 사용한 VXLAN으로 레이어 3 멀티 클러스터 네트워크 생성) 등
 
 네트워크는 존의 유형에 따라 다르게 동작하며 특정 기능, 장점, 제한 사항을 제공합니다.
 

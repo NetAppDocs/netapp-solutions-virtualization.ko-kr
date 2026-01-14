@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: proxmox/proxmox-ontap-smb.html 
+keywords: netapp, proxmox, proxmox ve, smb, cifs, ontap, storage 
+summary: ONTAP 사용하여 Proxmox 가상 환경에 대한 SMB/CIFS 스토리지를 구성합니다. 이 절차에는 SVM 활성화, LIF 생성, Active Directory 구성, 볼륨 생성 및 내결함성과 성능 향상을 위한 멀티채널 설정이 포함됩니다. 
+---
+= Proxmox VE용 SMB/CIFS 스토리지를 구성합니다.
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp ONTAP 사용하여 Proxmox 가상 환경(VE)용 SMB/CIFS 스토리지를 구성합니다. SMB 멀티채널은 스토리지 시스템에 대한 다중 네트워크 연결을 통해 내결함성을 제공하고 성능을 향상시킵니다.
+
+SMB/CIFS 파일 공유는 스토리지 관리자와 가상화 관리자 모두의 구성 작업이 필요합니다. 자세한 내용은 다음을 참조하십시오. link:https://www.netapp.com/pdf.html?item=/media/17136-tr4740.pdf["TR4740 - SMB 3.0 멀티채널"].
+
+
+NOTE: 비밀번호는 평문 파일에 저장되며 루트 사용자만 접근할 수 있습니다. 참조하다 link:https://pve.proxmox.com/pve-docs/chapter-pvesm.html#storage_cifs["Proxmox VE 문서"].
+
+.ONTAP 사용한 SMB 공유 스토리지 풀
+video::5b4ae54a-08d2-4f7d-95ec-b22d015f6035[panopto,width=360]
+
+
+== 스토리지 관리자 작업
+
+ONTAP 처음 사용하는 경우 시스템 관리자 인터페이스를 사용하여 이러한 작업을 완료하십시오.
+
+. SMB에 대해 SVM을 활성화하십시오. 따르다 link:https://docs.netapp.com/us-en/ontap/smb-config/configure-access-svm-task.html["ONTAP 9 문서"] 더 자세한 정보를 원하시면.
+. 컨트롤러당 최소 2개의 LIF를 생성하십시오. 설명서에 나와 있는 단계를 따르십시오. 참고로, 이 솔루션에서 사용된 LIF의 스크린샷을 아래에 첨부합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-smb-001.png["NAS 인터페이스 세부 정보"]
+
+====
+. Active Directory 또는 작업 그룹 기반 인증을 구성합니다. 설명서에 나와 있는 단계를 따르십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-smb-002.png["도메인 정보 가입"]
+
+====
+. 볼륨을 생성합니다. FlexGroup 사용하려면 클러스터 전체에 데이터를 분산하는 옵션을 선택하십시오. 해당 볼륨에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-smb-003.png["FlexGroup 옵션"]
+
+====
+. SMB 공유를 만들고 권한을 조정합니다.  따르다link:https://docs.netapp.com/us-en/ontap/smb-config/configure-client-access-shared-storage-concept.html["ONTAP 9 문서"] 자세한 내용은.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-smb-004.png["SMB 공유 정보"]
+
+====
+. 가상화 관리자에게 SMB 서버, 공유 이름 및 자격 증명을 제공하십시오.
+
+
+
+
+== 가상화 관리자 작업
+
+Proxmox VE에 SMB 공유를 스토리지로 추가하고 성능 향상 및 내결함성을 위해 멀티채널을 활성화하려면 다음 작업을 완료하십시오.
+
+. 공유 인증을 위해 SMB 서버, 공유 이름 및 자격 증명을 수집합니다.
+. 장애 복구를 위해 최소 두 개의 인터페이스가 서로 다른 VLAN에 구성되어 있는지 확인하십시오. NIC가 RSS를 지원하는지 확인하십시오.
+. 관리 UI를 사용하여 `https:<proxmox-node>:8006`데이터센터를 클릭하고 스토리지를 선택한 다음 추가를 클릭하고 SMB/CIFS를 선택합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-smb-005.png["SMB 스토리지 탐색"]
+
+====
+. 세부 정보를 입력하세요. 주식 이름은 자동으로 입력되어야 합니다. 모든 콘텐츠 유형을 선택하고 추가를 클릭합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-smb-006.png["SMB 스토리지 추가"]
+
+====
+. 멀티채널 옵션을 활성화하려면 클러스터 노드에서 셸을 열고 다음 명령을 실행하십시오. `<storage id>` 이전 단계에서 생성된 스토리지 ID입니다.
++
+[source, shell]
+----
+pvesm set <storage id> --options multichannel,max_channels=16
+----
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-smb-007.png["다중 채널 설정"]
+
+====
+. 다음은 구성된 스토리지에 대한 /etc/pve/storage.cfg 파일의 내용입니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:proxmox-ontap-smb-008.png["SMB용 스토리지 구성 파일"]
+
+====
+
