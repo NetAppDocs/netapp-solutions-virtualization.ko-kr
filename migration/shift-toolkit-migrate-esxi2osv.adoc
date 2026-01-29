@@ -541,5 +541,5 @@ NOTE: 이 특정 통합을 시작하기 전에 Red Hat 계정 팀에 문의하�
 
 다음 영상에서는 이 솔루션에 설명된 프로세스를 보여줍니다.
 
-.ESX에서 Oracle Linux Virtualization Manager(OLVM)로의 제로 터치 마이그레이션
+.ESX에서 Red Hat OpenShift Virtualization(OSV)으로의 제로 터치 마이그레이션
 video::7e2abc5e-2919-43d6-a5c2-b3760100adaf[panopto]
