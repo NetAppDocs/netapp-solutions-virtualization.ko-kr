@@ -1,0 +1,182 @@
+---
+sidebar: sidebar 
+permalink: opennebula/opennebula-ontap-smb.html 
+keywords: netapp, opennebula, opennebula ve, smb, cifs, ontap, storage 
+summary: ONTAP를 사용하여 OpenNebula 가상 환경에 대한 SMB/CIFS 스토리지를 구성합니다. 이 절차에는 SVM 활성화, LIF 생성, Active Directory 구성, 볼륨 생성, 내결함성 및 성능 향상을 위한 멀티채널 설정이 포함됩니다. 
+---
+= OpenNebula용 SMB/CIFS 데이터 저장소 스토리지 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp ONTAP를 사용하여 OpenNebula용 SMB/CIFS 데이터스토어 스토리지를 구성합니다. SMB 멀티채널은 스토리지 시스템에 대한 여러 네트워크 연결을 통해 내결함성을 제공하고 성능을 향상시킵니다.
+
+SMB/CIFS 파일 공유는 스토리지 관리자와 가상화 관리자 모두의 구성 작업이 필요합니다. 자세한 내용은 다음을 참조하십시오. link:https://www.netapp.com/pdf.html?item=/media/17136-tr4740.pdf["TR4740 - SMB 3.0 멀티채널"].
+
+
+NOTE: 비밀번호는 일반 텍스트 파일에 저장되며 루트 사용자만 액세스할 수 있습니다. 중요한 정보를 보호하기 위해 적절한 보안 조치가 마련되어 있는지 확인하십시오.
+
+
+
+== 스토리지 관리자 작업
+
+ONTAP 처음 사용하는 경우 시스템 관리자 인터페이스를 사용하여 이러한 작업을 완료하십시오.
+
+. SMB에 대해 SVM을 활성화하십시오. 따르다 link:https://docs.netapp.com/us-en/ontap/smb-config/configure-access-svm-task.html["ONTAP 9 문서"] 더 자세한 정보를 원하시면.
+. 컨트롤러당 최소 2개의 LIF를 생성하십시오. 설명서에 나와 있는 단계를 따르십시오. 참고로, 이 솔루션에서 사용된 LIF의 스크린샷을 아래에 첨부합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:opennebula-ontap-smb-001.png["NAS 인터페이스 세부 정보"]
+
+====
+. Active Directory 또는 작업 그룹 기반 인증을 구성합니다. 설명서에 나와 있는 단계를 따르십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:opennebula-ontap-smb-002.png["도메인 정보 가입"]
+
+====
+. 볼륨을 생성합니다. FlexGroup 사용하려면 클러스터 전체에 데이터를 분산하는 옵션을 선택하십시오. 해당 볼륨에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:opennebula-ontap-smb-003.png["FlexGroup 옵션"]
+
+====
+. SMB 공유를 만들고 권한을 조정합니다.  따르다link:https://docs.netapp.com/us-en/ontap/smb-config/configure-client-access-shared-storage-concept.html["ONTAP 9 문서"] 자세한 내용은.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:opennebula-ontap-smb-004.png["SMB 공유 정보"]
+
+====
+. 가상화 관리자에게 SMB 서버, 공유 이름 및 자격 증명을 제공하십시오.
+
+
+
+
+== 가상화 관리자 작업
+
+SMB 공유를 OpenNebula에서 데이터 저장소로 추가하고 성능 향상 및 내결함성을 위해 멀티채널을 활성화하려면 다음 작업을 완료하십시오.
+
+. 공유 인증을 위해 SMB 서버, 공유 이름 및 자격 증명을 수집합니다.
+. Fedora에서 Active Directory 통합 및 SMB 마운트 지원을 위해 다음 패키지가 설치되어 있는지 확인하십시오. sssd realmd adcli oddjob oddjob-mkhomedir samba-common-tools krb5-workstation cifs-utils. Debian 패키지는 realmd sssd sssd-tools libnss-sss libpam-sss adcli samba-common-bin packagekit krb5-user cifs-utils입니다.
+. 장애 복구를 위해 최소 두 개의 인터페이스가 서로 다른 VLAN에 구성되어 있는지 확인하십시오. NIC가 RSS를 지원하는지 확인하십시오.
+. 프런트엔드 서버 중 하나에 SSH로 접속하여 원하는 데이터 저장소 유형에 따라 구성 파일을 생성합니다. 샘플 파일은 아래와 같습니다.
++
+[role="tabbed-block"]
+====
+.백업
+--
+.. Restic의 경우,
+
+
+[listing]
+----
+$cat smb-restic.conf
+NAME = "Backup-Restic-SMB"
+TYPE = "BACKUP_DS"
+
+DS_MAD = "restic"
+TM_MAD = "-"
+
+RESTIC_PASSWORD = "<restic_password>"
+RESTIC_SFTP_SERVER = "<backup server>"
+----
+.. Rsync의 경우
+
+
+[listing]
+----
+$cat smb-rsync.conf
+NAME = "Backup-Rsync-SMB"
+TYPE = "BACKUP_DS"
+
+DS_MAD = "rsync"
+TM_MAD = "-"
+
+RSYNC_USER = "<rsync_user>"
+RSYNC_HOST = "<backup server>"
+----
+--
+.파일
+[source, shell]
+----
+$cat smb-kernel.conf
+NAME = "File-Kernel-SMB"
+TYPE = "FILE_DS"
+DS_MAD = "fs"
+TM_MAD = "local"
+SAFE_DIRS = "/var/tmp/files"
+----
+.이미지
+[source, shell]
+----
+$cat smb-image.conf
+NAME = "Image-SMB"
+TYPE = "IMAGE_DS"
+DS_MAD = "fs"
+TM_MAD = "shared"
+----
+.시스템
+[source, shell]
+----
+$cat smb-system.conf
+NAME = "System-SMB"
+TYPE = "SYSTEM_DS"
+TM_MAD = "shared"
+----
+====
+. 실행 `onedatastore create <configuration file>`. 생성 후 반환되는 데이터 저장소 ID를 기록해 두세요.
++
+[]
+====
+onedatastore create smb-system.conf ID: 100
+
+====
+. /etc/에 smb 자격 증명 파일을 생성합니다. kerberos 인증을 사용하는 경우(KVM 호스트가 <domain>에 가입됨)에는 이 단계가 필요하지 않습니다.
++
+[source, shell]
+----
+$cat /etc/smb-credentials-<datastore_id>.cfg
+username=<smb_username>
+password=<smb_password>
+domain=<smb_domain>
+----
+. 자격 증명 파일에 적절한 권한(640)을 설정합니다. 필요한 경우 소유권을 oneadmin 사용자 및 그룹으로 변경합니다.
+.  `id oneadmin` 명령을 사용하여 oneadmin 사용자의 uid 및 gid를 수집합니다.
+. 멀티채널을 활성화하려면 /etc/fstab 또는 automount 구성을 업데이트하십시오. 기본 데이터 저장소 위치는 /var/lib/one/datastores라고 가정합니다. 다른 위치인 경우 /etc/one/oned.conf의 DATASTORE_LOCATION 매개변수를 확인하십시오. 데이터 저장소 위치에 <datastore_id> 폴더가 있는지 확인하십시오. 샘플 항목은 다음과 같습니다.
++
+[role="tabbed-block"]
+====
+./etc/fstab 사용
+--
+[source, shell]
+----
+# credentials mapping to file option is not required when using kerberos authentication
+//<smb_server>/<smb_share> /var/lib/one/datastores/<datastore_id> cifs credentials=/etc/smb-credentials-<datastore_id>.cfg,_netdev,noauto,x-systemd.automount,vers=3.0,multichannel,max_channels=16,nofail,uid=<oneadmin uid>,gid=<oneadmin gid> 0 0
+----
+--
+.automount 사용
+--
+[source, shell]
+----
+# credentials mapping to file option is not required when using kerberos authentication
+/var/lib/one/datastores/<datastore_id> -fstype=cifs,credentials=/etc/smb-credentials-<datastore_id>.cfg,vers=3.0,multichannel,max_channels=16,uid=<oneadmin uid>,gid=<oneadmin gid> ://<smb_server>/<smb_share>
+----
+--
+====
+.  `mount -a` 또는  `systemctl reload autofs` 명령을 사용하여 데이터 저장소를 마운트합니다.
+. `mount` 명령을 사용하여 데이터 저장소가 마운트되었는지 확인하고  `onedatastore show <datastore_id>` 명령을 사용하여 데이터 저장소 용량을 확인합니다.
+. 데이터 저장소 폴더에 oneadmin 사용자 및 그룹의 소유권이 있는지 확인하십시오.  `chown -R oneadmin:oneadmin /var/lib/one/datastores/<datastore_id>` 명령어를 사용하여 권한을 조정하십시오.
+

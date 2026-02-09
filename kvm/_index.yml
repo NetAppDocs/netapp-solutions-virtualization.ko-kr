@@ -12,6 +12,18 @@ indexpage:
       url: kvm-overview.html
     - title: KVM 가상화 환경을 위한 NetApp ONTAP 스토리지
       url: kvm-ontap.html
+  - title: KVM용 OpenNebula 리소스
+    links:
+    - title: OpenNebula에 대해 알아보십시오
+      url: "../opennebula/opennebula-overview.html"
+    - title: OpenNebula 설치
+      url: https://docs.opennebula.io/7.0/software/installation_process/
+    - title: OpenNebula 및 NetApp 아키텍처
+      url: "../opennebula/opennebula-netapp-architecture.html"
+    - title: 지원되는 저장 유형
+      url: "../opennebula/opennebula-storage-types.html"
+    - title: 스토리지 프로토콜 구성
+      url: "../opennebula/opennebula-netapp-protocols.html"
   - title: 추가 자료
     links:
     - title: Rocky Linux에 libvirt 설정

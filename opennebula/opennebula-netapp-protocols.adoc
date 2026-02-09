@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: opennebula/opennebula-netapp-protocols.html 
+keywords: netapp, opennebula, all-flash, nfs, iscsi, ontap, storage, aff 
+summary: 'NAS 프로토콜(NFS, SMB) 및 SAN 프로토콜(FC, iSCSI, NVMe)을 사용하여 OpenNebula용 ONTAP 스토리지를 프로비저닝합니다. OpenNebula 환경에 맞는 적절한 프로토콜별 절차를 선택하여 공유 스토리지를 구성하십시오.' 
+---
+= NetApp ONTAP와 함께 OpenNebula를 위한 스토리지 프로토콜에 대해 알아보기
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NAS 프로토콜(NFS, SMB) 및 SAN 프로토콜(FC, iSCSI, NVMe)을 사용하여 OpenNebula용 ONTAP 스토리지를 프로비저닝합니다. OpenNebula 환경에 맞는 적절한 프로토콜별 절차를 선택하여 공유 스토리지를 구성하십시오.
+
+OpenNebula 프런트엔드 및 하이퍼바이저 호스트에 FC, 이더넷 또는 기타 지원되는 인터페이스가 스위치에 연결되어 ONTAP 논리 인터페이스와 통신할 수 있도록 해야 합니다. 지원되는 구성에 대해서는 항상 https://mysupport.netapp.com/matrix/#welcome["상호 운용성 매트릭스 도구"]을 확인하십시오. 예시 시나리오는 각 OpenNebula 호스트에 두 개의 고속 네트워크 인터페이스 카드가 있고, 이 카드들이 서로 연결되어 내결함성 및 성능 향상을 위한 본딩 인터페이스를 구성한다고 가정하여 작성되었습니다. 호스트 관리, VM/컨테이너 트래픽, 스토리지 액세스를 포함한 모든 네트워크 트래픽에 동일한 업링크 연결이 사용됩니다. 네트워크 인터페이스가 더 많은 경우 스토리지 트래픽을 다른 유형의 트래픽과 분리하는 것을 고려하십시오.
+
+ONTAP 스토리지 아키텍처 및 지원되는 스토리지 유형에 대한 자세한 내용은 link:opennebula-netapp-architecture.html["OpenNebula를 위한 NetApp 스토리지 아키텍처에 대해 알아보십시오"] 및 link:opennebula-storage-types.html["OpenNebula에 지원되는 스토리지 유형에 대해 알아보십시오"]을 참조하십시오.
+
+
+NOTE: LVM을 SAN 프로토콜(FC, iSCSI, NVMe-oF)과 함께 사용할 경우, 볼륨 그룹에는 여러 개의 LUN 또는 NVMe 네임스페이스가 포함될 수 있습니다. 이 경우 데이터 무결성을 보장하기 위해 모든 LUN 또는 네임스페이스는 동일한 일관성 그룹에 속해야 합니다. 저희는 여러 ONTAP SVM에 걸쳐 있는 볼륨 그룹을 지원하지 않습니다. 각 볼륨 그룹은 동일한 SVM의 LUN 또는 네임스페이스로 생성되어야 합니다.
+
+
+
+== 저장 프로토콜을 선택하세요
+
+사용 환경 및 요구 사항에 맞는 프로토콜을 선택하십시오.
+
+* link:opennebula-netapp-iscsi.html["iSCSI를 사용하여 NetApp 드라이버 구성"] - 다중 경로 지원을 통해 표준 이더넷 네트워크를 통한 블록 스토리지 액세스를 위해 iSCSI를 사용하여 OpenNebula NetApp 드라이버를 구성합니다. 이 기능은 Enterprise Edition에서만 제공됩니다. 효율적인 VM 프로비저닝을 위해 ONTAP 네이티브 클론을 활용합니다.
+* link:opennebula-ontap-smb.html["SMB/CIFS 스토리지 구성"] - 내결함성 및 다중 네트워크 연결을 통한 향상된 성능을 위한 다중 채널 지원을 통해 OpenNebula용 SMB/CIFS 파일 공유를 구성합니다.
+* link:opennebula-ontap-nfs.html["NFS 스토리지 구성"] - 여러 네트워크 연결을 사용하여 내결함성과 성능 향상을 위해 nConnect 또는 세션 트렁킹과 함께 OpenNebula용 NFS 스토리지를 구성합니다.
+* link:opennebula-ontap-fc.html["FC를 사용하여 LVM Thin 구성"] - OpenNebula 호스트 간 고성능 및 저지연 블록 스토리지 액세스를 위해 파이버 채널을 사용하여 LVM(논리 볼륨 관리자)을 구성합니다.
+* link:opennebula-ontap-iscsi.html["iSCSI를 사용하여 LVM Thin 구성"] - 다중 경로 지원을 통해 표준 이더넷 네트워크를 통한 블록 스토리지 액세스를 위해 iSCSI를 사용하여 LVM(논리 볼륨 관리자)을 구성합니다.
+* link:opennebula-ontap-nvme-fc.html["NVMe/FC를 사용하여 LVM Thin 구성"] - 최신 NVMe 프로토콜을 사용하여 고성능 블록 스토리지를 구현하기 위해 Fibre Channel을 통한 NVMe로 논리 볼륨 관리자(LVM)를 구성합니다.
+* link:opennebula-ontap-nvme-tcp.html["NVMe/TCP를 사용하여 LVM Thin 구성"] - 최신 NVMe 프로토콜을 사용하여 표준 이더넷 네트워크를 통해 고성능 블록 스토리지를 구현하기 위해 NVMe over TCP를 사용하는 논리 볼륨 관리자(LVM)를 구성합니다.
+
+
+
+NOTE: E-Series 또는 EF-Series 스토리지 프로토콜 관련 지원이 필요한 경우 링크 https://docs.netapp.com/us-en/e-series/config-linux/index.html["Linux 환경에서 LVM을 설정하는 방법에 대한 NetApp E-Series 및 EF-Series 설명서"]와 LVM Thin 관련 문서 중 하나를 참조하십시오.

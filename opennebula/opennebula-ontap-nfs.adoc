@@ -1,0 +1,158 @@
+---
+sidebar: sidebar 
+permalink: opennebula/opennebula-ontap-nfs.html 
+keywords: netapp, opennebula, kvm, nfs, ontap, storage, nconnect, session trunking 
+summary: ONTAP을 사용하여 OpenNebula용 NFS 데이터 저장소 스토리지를 구성합니다. 이 절차에는 SVM 활성화, LIF 생성, 내보내기 정책 구성, 볼륨 생성, 그리고 내결함성 및 성능 향상을 위한 nConnect 또는 세션 트렁킹 설정이 포함됩니다. 
+---
+= ONTAP을 사용하여 OpenNebula용 NFS 스토리지 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp ONTAP를 사용하여 OpenNebula용 NFS 스토리지를 구성합니다. FlexGroup 볼륨을 사용할 때 효율적인 리소스 관리, 내결함성, 성능 향상을 위해 nConnect 또는 pNFS(v4.1 이상)의 세션 트렁킹을 사용하세요. 하나의 NFS 내보내기(export)는 OpenNebula 클러스터의 Image 및 System 데이터스토어 모두에 사용할 수 있습니다. FlexCache를 사용할 계획이라면, nfs 내보내기를 Image 데이터스토어 전용으로 할당하세요.
+
+고가용성 및 재해 복구 시나리오를 위해 MetroCluster 구성을 고려하십시오.
+
+ONTAP 처음 사용하는 경우 시스템 관리자 인터페이스를 사용하여 이러한 작업을 완료하십시오.
+
+
+
+== 스토리지 관리자 작업
+
+OpenNebula와 함께 사용할 ONTAP에서 NFS 스토리지를 프로비저닝하려면 다음 작업을 완료하십시오.
+
+. NFS용 SVM을 활성화하세요. 참조하다 link:https://docs.netapp.com/us-en/ontap/nfs-config/verify-protocol-enabled-svm-task.html["ONTAP 9 문서"].
+. 컨트롤러당 최소 2개의 LIF를 생성하십시오. 설명서에 나와 있는 단계를 따르십시오. 참고로, 실험실에서 사용되는 LIF의 스크린샷을 첨부합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:opennebula-ontap-nfs-001.png["NAS 인터페이스 세부 정보"]
+
+====
+. OpenNebula 호스트 IP 주소 또는 서브넷에 대한 액세스를 제공하도록 NFS 내보내기 정책을 생성하거나 업데이트합니다. link:https://docs.netapp.com/us-en/ontap/nfs-config/create-export-policy-task.html["수출 정책 생성"] 및 link:https://docs.netapp.com/us-en/ontap/nfs-config/add-rule-export-policy-task.html["내보내기 정책에 규칙 추가"]을 참조하십시오.
+. link:https://docs.netapp.com/us-en/ontap/nfs-config/create-volume-task.html["볼륨을 생성합니다"]. 대용량(>100TB)이 필요한 경우 클러스터 전체에 데이터를 분산하여 FlexGroup을 사용하는 옵션을 선택하십시오. FlexGroup을 사용하는 경우 link:https://docs.netapp.com/us-en/ontap/pnfs/pnfs-commands.html#enable-nfsv4-1["SVM에서 pNFS를 활성화합니다."]를 따라 성능 향상을 위해 SVM에서 pNFS를 활성화하는 것을 고려하십시오. pNFS를 사용하는 경우 OpenNebula 호스트가 모든 컨트롤러(데이터 LIF)에 데이터 액세스할 수 있도록 해야 합니다. 볼륨에 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:opennebula-ontap-nfs-002.png["FlexGroup 옵션"]
+
+====
+. 가상화 관리자에게 NFS 볼륨이 준비되었음을 알리고 NFS 내보내기 경로 정보를 제공하십시오.
+
+
+
+
+== 가상화 관리자 작업
+
+OpenNebula에서 NFS 볼륨을 데이터 저장소로 추가하고 성능 향상을 위해 nConnect 또는 세션 트렁킹을 구성하려면 다음 작업을 완료하십시오.
+
+. 장애 복구를 위해 최소 두 개의 인터페이스가 서로 다른 VLAN에 구성되어 있는지 확인하십시오. NIC 본딩을 사용하십시오.
+. 프런트엔드 서버 중 하나에 SSH로 접속하여 원하는 데이터 저장소 유형에 따라 구성 파일을 생성합니다. 샘플 파일은 아래와 같습니다.
++
+[role="tabbed-block"]
+====
+.백업
+--
+.. Restic의 경우,
+
+
+[listing]
+----
+$cat nfs-restic.conf
+NAME = "Backup-Restic-NFS"
+TYPE = "BACKUP_DS"
+
+DS_MAD = "restic"
+TM_MAD = "-"
+
+RESTIC_PASSWORD = "<restic_password>"
+RESTIC_SFTP_SERVER = "<backup server>"
+----
+.. Rsync의 경우
+
+
+[listing]
+----
+$cat nfs-rsync.conf
+NAME = "Backup-Rsync-NFS"
+TYPE = "BACKUP_DS"
+
+DS_MAD = "rsync"
+TM_MAD = "-"
+
+RSYNC_USER = "<rsync_user>"
+RSYNC_HOST = "<backup server>"
+----
+--
+.파일
+[source, shell]
+----
+$cat nfs-kernel.conf
+NAME = "File-Kernel-NFS"
+TYPE = "FILE_DS"
+DS_MAD = "fs"
+TM_MAD = "local"
+SAFE_DIRS = "/var/tmp/files"
+----
+.이미지
+[source, shell]
+----
+$cat nfs-image.conf
+NAME = "Image-NFS"
+TYPE = "IMAGE_DS"
+DS_MAD = "fs"
+TM_MAD = "shared"
+----
+.시스템
+[source, shell]
+----
+$cat nfs-system.conf
+NAME = "System-NFS"
+TYPE = "SYSTEM_DS"
+TM_MAD = "shared"
+----
+====
+. 실행 `onedatastore create <configuration file>`. 생성 후 반환되는 데이터 저장소 ID를 기록해 두세요.
++
+[]
+====
+onedatastore create nfs-system.conf ID: 101
+
+====
+.  `id oneadmin` 명령을 사용하여 oneadmin 사용자의 uid 및 gid를 수집합니다.
+. 원하는 마운트 옵션으로 데이터스토어를 마운트하려면 /etc/fstab 또는 자동 마운트 구성을 업데이트하십시오. 기본 데이터스토어 위치는 /var/lib/one/datastores로 가정합니다.  `onedatastore show <datastore_id>`를 사용하여 확인할 수 있습니다. 그렇지 않은 경우 /etc/one/oned.conf의 DATASTORE_LOCATION 매개변수를 확인하십시오. 데이터스토어 위치에 <datastore_id> 폴더가 존재하는지 확인하십시오. 아래에 샘플 항목이 나와 있습니다:
++
+[role="tabbed-block"]
+====
+./etc/fstab 사용
+--
+[source, shell]
+----
+# To use session trunking, use the option trunkdiscovery
+//<nfs_server>/<nfs_share> /var/lib/one/datastores/<datastore_id> nfs nconnect=8,max_channels=16,_netdev,noauto,x-systemd.automount,nofail,uid=<oneadmin uid>,gid=<oneadmin gid> 0 0
+----
+--
+.automount 사용
+--
+[source, shell]
+----
+# To use session trunking, use the option trunkdiscovery
+/var/lib/one/datastores/<datastore_id> -fstype=nfs,nconnect=8,max_channels=16,_netdev,noauto,x-systemd.automount,nofail,uid=<oneadmin uid>,gid=<oneadmin gid> <nfs_server>:/<nfs_share>
+----
+--
+====
+.  `mount -a` 또는  `systemctl reload autofs` 명령을 사용하여 데이터 저장소를 마운트합니다.
+. `mount` 명령을 사용하여 데이터 저장소가 마운트되었는지 확인하고  `onedatastore show <datastore_id>` 명령을 사용하여 데이터 저장소 용량을 확인합니다.
+. 데이터 저장소 폴더에 oneadmin 사용자 및 그룹의 소유권이 있는지 확인하십시오.  `chown -R oneadmin:oneadmin /var/lib/one/datastores/<datastore_id>` 명령어를 사용하여 권한을 조정하십시오.
+. nConnect 옵션이 설정되었는지 확인하려면 OpenNebula 호스트에서 `ss -an | grep :2049`를 실행하고 NFS 서버 IP에 대한 다중 연결이 있는지 확인하십시오. pNFS가 활성화되었는지 확인하려면 `nfsstat -c`를 실행하고 레이아웃 관련 메트릭을 확인하십시오. 데이터 트래픽을 기반으로 데이터 LIF에 대한 다중 연결이 표시되어야 합니다.
+
+
+
+NOTE: 세션 트렁킹에서 nconnect 옵션은 트렁크 인터페이스 중 하나에만 설정됩니다. pNFS에서는 메타데이터 및 데이터 인터페이스에 nconnect 옵션이 설정됩니다. 실제 운영 환경에서는 nConnect 또는 세션 트렁킹 중 하나만 사용하고 둘 다 사용하지 마십시오.

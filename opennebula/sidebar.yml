@@ -1,0 +1,33 @@
+---
+section: opennebula
+title: OpenNebula
+url: "/opennebula/index.html"
+entries:
+- title: OpenNebula 정보
+  pdf-filename: NetApp에서의 OpenNebula 개요
+  url: "/opennebula/opennebula-overview.html"
+- title: OpenNebula용 NetApp 스토리지 프로비저닝
+  pdf-filename: NetApp 스토리지 for OpenNebula
+  entries:
+  - title: 솔루션 아키텍처
+    url: "/opennebula/opennebula-netapp-architecture.html"
+  - title: 지원되는 저장 유형
+    url: "/opennebula/opennebula-storage-types.html"
+  - title: OpenNebula를 위해 NetApp으로 스토리지 프로토콜을 구성합니다
+    entries:
+    - title: 스토리지 프로토콜 개요
+      url: "/opennebula/opennebula-netapp-protocols.html"
+    - title: SMB/CIFS 스토리지 구성
+      url: "/opennebula/opennebula-ontap-smb.html"
+    - title: NFS 스토리지 구성
+      url: "/opennebula/opennebula-ontap-nfs.html"
+    - title: NetApp ONTAP iSCSI 스토리지를 구성합니다
+      url: "/opennebula/opennebula-netapp-iscsi.html"
+    - title: FC를 사용하여 LVM을 구성합니다.
+      url: "/opennebula/opennebula-ontap-fc.html"
+    - title: iSCSI를 사용하여 LVM 구성
+      url: "/opennebula/opennebula-ontap-iscsi.html"
+    - title: NVMe/FC를 사용하여 LVM 구성
+      url: "/opennebula/opennebula-ontap-nvme-fc.html"
+    - title: NVMe/TCP를 사용하여 LVM 구성
+      url: "/opennebula/opennebula-ontap-nvme-tcp.html"

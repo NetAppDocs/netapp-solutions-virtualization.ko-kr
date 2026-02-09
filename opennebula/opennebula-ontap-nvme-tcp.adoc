@@ -1,0 +1,192 @@
+---
+sidebar: sidebar 
+permalink: opennebula/opennebula-ontap-nvme-tcp.html 
+keywords: netapp, opennebula, volume group, nvme, nvme-tcp, lvm, ontap, storage 
+summary: 'ONTAP를 사용하여 OpenNebula용 NVMe over TCP를 통한 LVM(Logical Volume Manager) 데이터 저장소를 구성합니다. 이 절차에는 nvme-cli 설치, 검색 구성, 네임스페이스 프로비저닝, 서브시스템 설정 및 공유 스토리지를 위한 볼륨 그룹 생성이 포함됩니다.' 
+---
+= OpenNebula용 ONTAP NVMe/TCP로 LVM Thin 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NVMe over TCP 프로토콜과 NetApp ONTAP을 사용하여 OpenNebula 호스트 간에 공유 스토리지를 위한 Logical Volume Manager (LVM) 데이터스토어를 구성합니다. 이 구성은 최신 NVMe 프로토콜을 사용하여 표준 이더넷 네트워크를 통한 고성능 블록 수준 스토리지 액세스를 제공합니다.
+
+
+
+== 초기 가상화 관리자 작업
+
+NVMe/TCP 연결을 위해 OpenNebula 호스트를 준비하고 스토리지 관리자에게 필요한 정보를 수집하려면 다음 초기 작업을 완료하십시오.
+
+. Linux VLAN 인터페이스 두 개가 사용 가능한지 확인하십시오.
+. 모든 OpenNebula 호스트에서 다음 명령을 실행하여 호스트 이니시에이터 정보를 수집하십시오.
++
+[source, shell]
+----
+nvme show-hostnqn
+----
+. 수집한 호스트 NQN 정보와 호스트 이름을 스토리지 관리자에게 제공하고 필요한 크기의 NVMe 네임스페이스를 요청하십시오.
+
+
+
+
+== 스토리지 관리자 작업
+
+ONTAP 처음 사용하시는 경우, 시스템 관리자를 이용하시면 더욱 편리하게 사용하실 수 있습니다.
+
+. SVM이 NVMe 프로토콜이 활성화된 상태로 사용 가능한지 확인하십시오. 참조하다 link:https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html["ONTAP 9 문서의 NVMe 작업"].
+. NVMe 네임스페이스를 생성합니다.
+. 서브시스템을 생성하고 호스트 NQN에 할당합니다. 클러스터의 모든 OpenNebula 호스트와 프런트엔드 서버에 대해 하나의 서브시스템을 생성합니다. 프런트엔드 서버는 서브시스템 할당에서 선택 사항이지만 이미지 데이터 저장소에는 필수입니다.
+. 보안 탭에서 랜섬웨어 방지 기능이 활성화되어 있는지 확인하십시오.
+. 가상화 관리자에게 NVMe 네임스페이스가 생성되었음을 알리십시오.
+
+
+
+
+== 가상화 관리자 최종 작업
+
+OpenNebula에서 NVMe 네임스페이스를 공유 LVM 데이터 저장소로 구성하려면 다음 작업을 완료하십시오.
+
+. 클러스터의 각 OpenNebula 호스트에서 셸로 이동하여 /etc/nvme/discovery.conf 파일을 생성합니다. 사용자 환경에 맞게 내용을 업데이트합니다.
++
+[source, shell]
+----
+root@onehost01:~# cat /etc/nvme/discovery.conf
+# Used for extracting default parameters for discovery
+#
+# Example:
+# --transport=<trtype> --traddr=<traddr> --trsvcid=<trsvcid> --host-traddr=<host-traddr> --host-iface=<host-iface>
+
+-t tcp -l 1800 -a 172.21.118.153
+-t tcp -l 1800 -a 172.21.118.154
+-t tcp -l 1800 -a 172.21.119.153
+-t tcp -l 1800 -a 172.21.119.154
+----
+. NVMe 서브시스템에 로그인합니다.
++
+[source, shell]
+----
+nvme connect-all
+----
+. 재부팅 후에도 NVMe 네임스페이스를 유지하려면 nvmf-autoconnect 서비스를 활성화하십시오.
++
+[source, shell]
+----
+systemctl enable nvmf-autoconnect
+----
+. 장치 세부 정보를 검사하고 수집합니다.
++
+[source, shell]
+----
+nvme list
+nvme netapp ontapdevices
+nvme list-subsys
+lsblk -N
+----
+. 프런트엔드 서버 중 하나에 SSH로 접속하여 원하는 데이터 저장소 유형에 따라 구성 파일을 생성합니다. 전체 속성 목록은 https://docs.opennebula.io/7.0/product/cluster_configuration/san_storage/lvm_drivers/["OpenNebula LVM 문서"]를 참조하십시오. 샘플 파일은 아래와 같습니다.
++
+[role="tabbed-block"]
+====
+.백업
+--
+.. Restic의 경우,
+
+
+[listing]
+----
+$cat nvmetcp-restic.conf
+NAME = "Backup-Restic-NVMETCP"
+TYPE = "BACKUP_DS"
+
+DS_MAD = "restic"
+TM_MAD = "-"
+
+RESTIC_PASSWORD = "<restic_password>"
+RESTIC_SFTP_SERVER = "<backup server>"
+----
+.. Rsync의 경우
+
+
+[listing]
+----
+$cat nvmetcp-rsync.conf
+NAME = "Backup-Rsync-NVMETCP"
+TYPE = "BACKUP_DS"
+
+DS_MAD = "rsync"
+TM_MAD = "-"
+
+RSYNC_USER = "<rsync_user>"
+RSYNC_HOST = "<backup server>"
+----
+--
+.파일
+[source, shell]
+----
+$cat nvmetcp-kernel.conf
+NAME = "File-Kernel-NVMETCP"
+TYPE = "FILE_DS"
+DS_MAD = "fs"
+TM_MAD = "local"
+SAFE_DIRS = "/var/tmp/files"
+----
+.이미지
+[source, shell]
+----
+$cat nvmetcp-image.conf
+NAME = "Image-NVMETCP01"
+TYPE = "IMAGE_DS"
+DS_MAD = "fs"
+TM_MAD = "fs_lvm_ssh"
+DISK_TYPE = "block"
+LVM_THIN_ENABLE = "yes"
+----
+.시스템
+[source, shell]
+----
+$cat nvmetcp-system.conf
+NAME = "System-NVMETCP02"
+TYPE = "SYSTEM_DS"
+TM_MAD = "fs_lvm_ssh"
+DISK_TYPE = "block"
+BRIDGE_LIST = "<space-separated list of OpenNebula hosts>" # If NVMe namespace not presented to frontend hosts
+LVM_THIN_ENABLE = "yes"
+----
+====
+. 실행 `onedatastore create <configuration file>`. 생성 후 반환되는 데이터 저장소 ID를 기록해 두세요.
++
+[]
+====
+onedatastore create nvmetcp-system.conf ID: 109
+
+====
+.  `vgcreate <vg_name> <nvme_device>` 명령을 사용하여 NVMe 네임스페이스에 볼륨 그룹을 생성합니다. 이미지 데이터스토어의 경우 볼륨 그룹 이름은 원하는 대로 지정할 수 있습니다. 시스템 데이터스토어의 경우 볼륨 그룹 이름은  `vg-one-<datastore id>` 형식이어야 합니다. OpenNebula가 시스템 데이터스토어에 대한 올바른 볼륨 그룹을 식별하려면 이 형식이 필요합니다. 백업/파일/이미지 데이터스토어를 생성하는 경우 다음 단계를 진행하십시오. 시스템 데이터스토어의 경우 여기서 중지하십시오.
+.  `lvcreate -l 100%FREE -n <logical volume name> <volume group name>` 명령을 사용하여 논리 볼륨 씬 풀을 생성합니다. 시스템 데이터스토어의 경우 OpenNebula에서 필요 시 LVM 씬 풀을 자동으로 생성합니다.
+.  `mkfs.ext4 /dev/<volume group>/<logical volume>` 명령을 사용하여 논리 볼륨에 파일 시스템을 생성합니다. 시스템 데이터 저장소는 파일 시스템 생성이 필요하지 않습니다.
+. 원하는 마운트 옵션으로 데이터스토어를 마운트하려면 /etc/fstab 또는 자동 마운트 구성을 업데이트하십시오. 기본 데이터스토어 위치는 /var/lib/one/datastores로 가정합니다.  `onedatastore show <datastore_id>`를 사용하여 확인할 수 있습니다. 그렇지 않은 경우 /etc/one/oned.conf의 DATASTORE_LOCATION 매개변수를 확인하십시오. 데이터스토어 위치에 <datastore_id> 폴더가 존재하는지 확인하십시오. 아래에 샘플 항목이 나와 있습니다:
++
+[role="tabbed-block"]
+====
+./etc/fstab 사용
+--
+[source, shell]
+----
+/dev/<vg name>/<logical volume> /var/lib/one/datastores/<datastore_id> ext4 _netdev,noauto,x-systemd.automount,nofail 0 2
+----
+--
+.automount 사용
+--
+[source, shell]
+----
+/var/lib/one/datastores/<datastore_id> -fstype=ext4,_netdev,noauto,x-systemd.automount,nofail,rw :/dev/<vg name>/<logical volume>
+----
+--
+====
+.  `mount -a` 또는  `systemctl reload autofs` 명령을 사용하여 데이터 저장소를 마운트합니다.
+. `mount` 명령을 사용하여 데이터 저장소가 마운트되었는지 확인하고  `onedatastore show <datastore_id>` 명령을 사용하여 데이터 저장소 용량을 확인합니다.
+. 데이터 저장소 폴더에 oneadmin 사용자 및 그룹의 소유권이 있는지 확인하십시오.  `chown -R oneadmin:oneadmin /var/lib/one/datastores/<datastore_id>` 명령어를 사용하여 권한을 조정하십시오.
+

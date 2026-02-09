@@ -30,6 +30,8 @@ indexpage:
       url: "/proxmox/index.html"
     - title: KVM과 libvirt
       url: "/kvm/index.html"
+    - title: OpenNebula
+      url: "/opennebula/index.html"
   - title: VM 마이그레이션 및 변환
     links:
     - title: Shift Toolkit을 사용하여 VM 마이그레이션

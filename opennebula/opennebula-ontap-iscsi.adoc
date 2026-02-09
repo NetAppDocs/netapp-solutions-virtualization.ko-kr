@@ -1,0 +1,195 @@
+---
+sidebar: sidebar 
+permalink: opennebula/opennebula-ontap-iscsi.html 
+keywords: netapp, opennebula, volume group, iscsi, lvm, lvm thin pool, ontap, storage 
+summary: 'ONTAP를 사용하여 OpenNebula용 iSCSI로 LVM(Logical Volume Manager) 데이터 저장소를 구성합니다. 이 절차에는 iSCSI 및 다중 경로 구성과 볼륨 그룹 생성이 포함됩니다.' 
+---
+= OpenNebula용 ONTAP iSCSI로 LVM Thin 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+iSCSI 프로토콜을 사용하여 NetApp ONTAP와 함께 OpenNebula 호스트 간에 공유 스토리지를 위한 Logical Volume Manager (LVM) 데이터스토어를 구성합니다. 이 구성은 다중 경로 지원과 함께 표준 이더넷 네트워크를 통한 블록 수준 스토리지 액세스를 가능하게 합니다.
+
+
+
+== 초기 가상화 관리자 작업
+
+OpenNebula 호스트를 iSCSI 연결에 맞게 준비하고 스토리지 관리자에게 필요한 정보를 수집하려면 다음 초기 작업을 완료하십시오.
+
+. Linux VLAN 인터페이스 두 개가 사용 가능한지 확인하십시오.
+. 모든 OpenNebula 호스트에 multipath-tools 및 iSCSI 이니시에이터 유틸리티가 설치되어 있고 부팅 시 자동으로 시작되는지 확인하십시오.
++
+[role="tabbed-block"]
+====
+.Debian/Ubuntu
+--
+[source, shell]
+----
+apt list | grep multipath-tools
+# If need to install, execute the following line.
+apt-get install multipath-tools open-iscsi
+# If /etc/multipath.conf is not present, first make sure the multipathd service is started.
+systemctl enable --now multipathd
+systemctl enable --now open-iscsi
+----
+--
+.RHEL/AlmaLinux
+--
+[source, shell]
+----
+dnf list installed | grep device-mapper-multipath
+# If need to install, execute the following line.
+dnf install device-mapper-multipath iscsi-initiator-utils
+# If /etc/multipath.conf is not present, first make sure the multipathd service is started.
+systemctl enable --now multipathd
+systemctl enable --now iscsid
+----
+--
+====
+. 모든 OpenNebula 호스트의 iSCSI 호스트 IQN을 수집하여 스토리지 관리자에게 제공합니다.
++
+[source, shell]
+----
+cat /etc/iscsi/initiator.name
+----
+
+
+ONTAP 처음 사용하시는 경우, 시스템 관리자를 이용하시면 더욱 편리하게 사용하실 수 있습니다.
+
+. iSCSI 프로토콜이 활성화된 상태로 SVM에 액세스할 수 있는지 확인하십시오. 따르다 link:https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["ONTAP 9 문서"].
+. iSCSI 전용으로 컨트롤러당 두 개의 LIF를 생성하십시오. 이중화 및 다중 경로 성능 향상을 위해 컨트롤러당 두 개의 LIF를 사용하는 것이 좋습니다. OpenNebula 호스트에 구성된 VLAN 인터페이스에 LIF를 생성해야 합니다. 성능 향상을 위해 점보 프레임(MTU 9000) 사용을 권장합니다.
++
+image:opennebula-ontap-iscsi-001.png["iSCSI 인터페이스 세부 정보"]
+
+. LUN을 생성하고 호스트 iSCSI 이니시에이터에 제공합니다. 일반적으로 하나의 OpenNebula 클러스터마다 하나의 igroup이 생성됩니다. Image 및 System 데이터스토어를 모두 지원하려면 프런트엔드 서버와 하이퍼바이저 호스트를 동일한 igroup에 포함하십시오.
+. LUN이 생성되었음을 가상화 관리자에게 알리십시오.
+
+
+
+
+== 가상화 관리자 최종 작업
+
+iSCSI LUN을 OpenNebula에서 공유 LVM 데이터스토어로 구성하려면 다음 작업을 완료하십시오.
+
+. 프런트엔드 서버 중 하나에 SSH로 접속하여 iSCSI 데이터 lif 주소 중 하나를 입력하면 모든 iSCSI Lif 포털을 검색할 수 있습니다.
++
+[source, shell]
+----
+iscsiadm -m discovery -t sendtargets -p <iscsi data lif address>
+iscsiadm -m node
+iscsiadm -m node -l
+iscsiadm -m session
+----
+. SCSI 버스를 다시 스캔하여 새 LUN을 감지하려면 `rescan-scsi-bus.sh` 또는 `echo "- - -" > /sys/class/scsi_host/host*/scan`을(를) 실행하십시오.
+.  `lsblk -S` 또는 fdisk -l 명령을 사용하여 모든 OpenNebula 호스트에서 LUN이 표시되는지 확인합니다.
+.  `iscsiadm -m session -P 3`를 실행하여 LUN과 장치 이름 매핑을 검색합니다.
+.  `multipath -a /dev/<device_name>`을 실행하여 장치를 다중 경로 구성에 추가합니다. 그런 다음  `multipath -r`를 실행하여 다중 경로 구성을 다시 로드합니다.  `multipath -ll` 명령을 실행하여 다중 경로 구성을 확인합니다.
+. 원하는 데이터 저장소 유형에 따라 구성 파일을 생성합니다. 전체 속성 목록은 https://docs.opennebula.io/7.0/product/cluster_configuration/san_storage/lvm_drivers/["OpenNebula LVM 문서"]를 참조하십시오. 샘플 파일은 아래에 나와 있습니다.
++
+[role="tabbed-block"]
+====
+.백업
+--
+.. Restic의 경우,
+
+
+[listing]
+----
+$cat iscsi-restic.conf
+NAME = "Backup-Restic-iSCSI01"
+TYPE = "BACKUP_DS"
+
+DS_MAD = "restic"
+TM_MAD = "-"
+
+RESTIC_PASSWORD = "<restic_password>"
+RESTIC_SFTP_SERVER = "<backup server>"
+----
+.. Rsync의 경우
+
+
+[listing]
+----
+$cat iscsi-rsync.conf
+NAME = "Backup-Rsync-iSCSI02"
+TYPE = "BACKUP_DS"
+
+DS_MAD = "rsync"
+TM_MAD = "-"
+
+RSYNC_USER = "<rsync_user>"
+RSYNC_HOST = "<backup server>"
+----
+--
+.파일
+[source, shell]
+----
+$cat iscsi-kernel.conf
+NAME = "File-Kernel-iSCSI03"
+TYPE = "FILE_DS"
+DS_MAD = "fs"
+TM_MAD = "local"
+SAFE_DIRS = "/var/tmp/files"
+----
+.이미지
+[source, shell]
+----
+$cat iscsi-image.conf
+NAME = "Image-iSCSI04"
+TYPE = "IMAGE_DS"
+DS_MAD = "fs"
+TM_MAD = "fs_lvm_ssh"
+DISK_TYPE = "block"
+LVM_THIN_ENABLE = "yes"
+----
+.시스템
+[source, shell]
+----
+$cat iscsi-system.conf
+NAME = "System-iSCSI05"
+TYPE = "SYSTEM_DS"
+TM_MAD = "fs_lvm_ssh"
+DISK_TYPE = "block"
+BRIDGE_LIST = "<space-separated list of OpenNebula hosts>" # If LUN not presented to frontend hosts
+LVM_THIN_ENABLE = "yes"
+----
+====
+. 실행 `onedatastore create <configuration file>`. 생성 후 반환되는 데이터 저장소 ID를 기록해 두세요.
++
+[]
+====
+onedatastore create iscsi-system.conf ID: 106
+
+====
+.  `vgcreate <vg_name> <multipath_device>` 명령을 사용하여 iSCSI LUN에 볼륨 그룹을 생성합니다. 이미지 데이터스토어의 경우 볼륨 그룹 이름은 원하는 대로 지정할 수 있습니다. 시스템 데이터스토어의 경우 볼륨 그룹 이름은  `vg-one-<datastore id>` 형식이어야 합니다. 이는 OpenNebula가 시스템 데이터스토어에 대한 올바른 볼륨 그룹을 식별하는 데 필요합니다. 백업/파일/이미지 데이터스토어를 생성하는 경우 다음 단계를 진행하십시오. 시스템 데이터스토어의 경우 여기서 중지하십시오.
+.  `lvcreate -l 100%FREE -n <logical volume name> <volume group name>` 명령을 사용하여 논리 볼륨 씬 풀을 생성합니다. 시스템 데이터스토어의 경우 OpenNebula에서 필요 시 LVM 씬 풀을 자동으로 생성합니다.
+.  `mkfs.ext4 /dev/<volume group>/<logical volume>` 명령을 사용하여 논리 볼륨에 파일 시스템을 생성합니다. 시스템 데이터 저장소는 파일 시스템 생성이 필요하지 않습니다.
+. 원하는 마운트 옵션으로 데이터스토어를 마운트하려면 /etc/fstab 또는 자동 마운트 구성을 업데이트하십시오. 기본 데이터스토어 위치는 /var/lib/one/datastores로 가정합니다.  `onedatastore show <datastore_id>`를 사용하여 확인할 수 있습니다. 그렇지 않은 경우 /etc/one/oned.conf의 DATASTORE_LOCATION 매개변수를 확인하십시오. 데이터스토어 위치에 <datastore_id> 폴더가 존재하는지 확인하십시오. 아래에 샘플 항목이 나와 있습니다:
++
+[role="tabbed-block"]
+====
+./etc/fstab 사용
+--
+[source, shell]
+----
+/dev/<vg name>/<logical volume> /var/lib/one/datastores/<datastore_id> ext4 _netdev,noauto,x-systemd.automount,nofail 0 2
+----
+--
+.automount 사용
+--
+[source, shell]
+----
+/var/lib/one/datastores/<datastore_id> -fstype=ext4,_netdev,noauto,x-systemd.automount,nofail,rw :/dev/<vg name>/<logical volume>
+----
+--
+====
+.  `mount -a` 또는  `systemctl reload autofs` 명령을 사용하여 데이터 저장소를 마운트합니다.
+. `mount` 명령을 사용하여 데이터 저장소가 마운트되었는지 확인하고  `onedatastore show <datastore_id>` 명령을 사용하여 데이터 저장소 용량을 확인합니다.
+. 데이터 저장소 폴더에 oneadmin 사용자 및 그룹의 소유권이 있는지 확인하십시오.  `chown -R oneadmin:oneadmin /var/lib/one/datastores/<datastore_id>` 명령어를 사용하여 권한을 조정하십시오.
+

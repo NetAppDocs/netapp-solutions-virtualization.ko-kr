@@ -1,0 +1,172 @@
+---
+sidebar: sidebar 
+permalink: opennebula/opennebula-netapp-iscsi.html 
+keywords: netapp, opennebula, opennebula, iscsi, snapshot, ontap, storage 
+summary: ONTAP을 사용하여 iSCSI로 OpenNebula 데이터스토어를 구성합니다. 이 절차에는 iSCSI 연결 및 데이터스토어 프로비저닝에 필요한 초기 설정이 포함됩니다. 
+---
+= OpenNebula용 iSCSI를 사용하여 NetApp 데이터스토어 구성
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp ONTAP가 AFF 또는 FAS 시스템에서 실행되는 환경에서 iSCSI 프로토콜을 사용하여 OpenNebula 데이터스토어를 구성합니다. 이 구성은 다중 경로 지원과 함께 표준 이더넷 네트워크를 통한 블록 수준 스토리지 액세스를 가능하게 합니다. 이 데이터스토어 설정은 스토리지 효율성과 데이터 보호를 강화하기 위해 스냅샷 및 클론 생성을 포함한 ONTAP의 기본 기능을 활용합니다.
+
+
+
+== 초기 가상화 관리자 작업
+
+OpenNebula 호스트를 iSCSI 연결에 맞게 준비하고 스토리지 관리자에게 필요한 정보를 수집하려면 다음 초기 작업을 완료하십시오.
+
+. Linux VLAN 인터페이스 두 개가 사용 가능한지 확인하십시오.
+. 모든 OpenNebula 호스트에 multipath-tools 및 iSCSI 이니시에이터 유틸리티가 설치되어 있고 부팅 시 자동으로 시작되는지 확인하십시오.
++
+[role="tabbed-block"]
+====
+.Debian/Ubuntu
+--
+[source, shell]
+----
+apt list | grep multipath-tools
+# If need to install, execute the following line.
+apt-get install multipath-tools open-iscsi
+# If /etc/multipath.conf is not present, first make sure the multipathd service is started.
+systemctl enable --now multipathd
+systemctl enable --now open-iscsi
+----
+--
+.RHEL/AlmaLinux
+--
+[source, shell]
+----
+dnf list installed | grep device-mapper-multipath
+# If need to install, execute the following line.
+dnf install device-mapper-multipath iscsi-initiator-utils
+# If /etc/multipath.conf is not present, first make sure the multipathd service is started.
+systemctl enable --now multipathd
+systemctl enable --now iscsid
+----
+--
+====
+. 모든 OpenNebula 호스트의 iSCSI 호스트 IQN을 수집하여 스토리지 관리자에게 제공합니다.
++
+[source, shell]
+----
+cat /etc/iscsi/initiator.name
+----
+
+
+
+
+== 스토리지 관리자 작업
+
+ONTAP 처음 사용하시는 경우, 시스템 관리자를 이용하시면 더욱 편리하게 사용하실 수 있습니다.
+
+. iSCSI 프로토콜이 활성화된 상태로 SVM에 액세스할 수 있는지 확인하십시오. 따르다 link:https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["ONTAP 9 문서"].
+. iSCSI 전용으로 컨트롤러당 두 개의 LIF를 생성하십시오. 이중화 및 다중 경로 성능 향상을 위해 컨트롤러당 두 개의 LIF를 사용하는 것이 좋습니다. OpenNebula 호스트에 구성된 VLAN 인터페이스에 LIF를 생성해야 합니다. 성능 향상을 위해 점보 프레임(MTU 9000) 사용을 권장합니다.
++
+image:opennebula-netapp-iscsi-001.png["iSCSI 인터페이스 세부 정보"]
+
+. igroup을 생성하고 호스트 iSCSI 이니시에이터를 추가합니다. 일반적으로 OpenNebula 클러스터 하나당 하나의 igroup이 생성됩니다. Image 및 System 데이터스토어를 모두 지원하려면 프런트엔드 서버와 하이퍼바이저 호스트를 동일한 igroup에 포함시키십시오.
+. 대상 SVM에 범위가 지정된 ONTAP REST API 액세스 권한이 있는 ONTAP 역할과 사용자 계정을 생성합니다. 이 사용자는 OpenNebula의 NetApp 드라이버에서 사용됩니다. 자세한 내용은 link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_overview.html["사용자 및 역할 작업"] ONTAP 문서를 참조하십시오. 가상화 구성 작업에서 사용할 사용자 이름과 비밀번호를 기록해 두십시오.
+. 가상화 구성 작업에 사용할 다음 리소스에 대한 SVM iSCSI Target IQN 및 UUID를 수집하십시오.
++
+** SVM
+** 사용할 애그리게이트/계층
+** OpenNebula 호스트를 사용하는 igroup
+** iSCSI 타겟 IQN(일반적으로 SVM IQN과 동일). 가상화 관리자는 `iscsiadm -m session` 명령을 사용하여 OpenNebula 호스트 중 하나에 로그인하고 iSCSI 타겟을 검색한 후 이 정보를 검색할 수 있습니다. +
+
+
+
+
+[listing]
+----
+NETAPP_SVM="85c23687-d5d9-11f0-86c4-d039eac4d4b3"
+NETAPP_AGGREGATES="6e8f9995-42dd-400a-a440-646639dc5d0b"
+NETAPP_IGROUP="5ad9faf3-d62c-11f0-86c4-d039eac4d4b3"
+NETAPP_TARGET="iqn.1992-08.com.netapp:sn.85c23687d5d911f086c4d039eac4d4b3:vs.6"
+----
+ TIP: System Manager displays the UUID in the URL when viewing the resource details.
+
+
+== 가상화 관리자 최종 작업
+
+OpenNebula에서 iSCSI 데이터 저장소를 구성하려면 다음 작업을 완료하십시오.
+
+. 프런트엔드 서버 중 하나에 SSH로 접속하여 iSCSI 데이터 lif 주소 중 하나를 입력하면 모든 iSCSI Lif 포털을 검색할 수 있습니다.
++
+[source, shell]
+----
+iscsiadm -m discovery -t sendtargets -p <iscsi data lif address>
+iscsiadm -m node
+iscsiadm -m node -l
+----
+. 원하는 데이터 저장소 유형에 따라 구성 파일을 생성합니다. 전체 속성 목록은 https://docs.opennebula.io/7.0/product/cluster_configuration/san_storage/netapp/#datastore-optional-attributes["OpenNebula NetApp SAN 설명서"]를 참조하십시오. 샘플 파일은 아래에 나와 있습니다.
++
+[role="tabbed-block"]
+====
+.이미지
+[source, shell]
+----
+$cat netapp-image.conf
+NAME = "Image-NetApp-iSCSI"
+TYPE = "IMAGE_DS"
+DS_MAD = "netapp"
+TM_MAD = "netapp"
+DISK_TYPE = "BLOCK"
+NETAPP_HOST = "<ontap_cluster_ip>"
+NETAPP_USER = "<ontap_api_user>"
+NETAPP_PASS = "<ontap_api_password>"
+NETAPP_SVM = "<ontap_svm_uuid>"
+NETAPP_AGGREGATES = "<ontap_aggregate_uuid>"
+NETAPP_IGROUP = "<ontap_igroup_uuid>"
+NETAPP_TARGET = "<ontap_iscsi_target_iqn>"
+# Optional suffix to share SVM across multiple tenants
+NETAPP_SUFFIX = "t1"
+----
+.시스템
+[source, shell]
+----
+$cat netapp-system.conf
+NAME = "System-NetApp-iSCSI"
+TYPE = "SYSTEM_DS"
+TM_MAD = "netapp"
+DISK_TYPE = "BLOCK"
+NETAPP_HOST = "<ontap_cluster_ip>"
+NETAPP_USER = "<ontap_api_user>"
+NETAPP_PASS = "<ontap_api_password>"
+NETAPP_SVM = "<ontap_svm_uuid>"
+NETAPP_AGGREGATES = "<ontap_aggregate_uuid>"
+NETAPP_IGROUP = "<ontap_igroup_uuid>"
+NETAPP_TARGET = "<ontap_iscsi_target_iqn>"
+# Optional suffix to share SVM across multiple tenants
+NETAPP_SUFFIX = "t1"
+----
+====
+. 실행 `onedatastore create <configuration file>`. 생성 후 반환되는 데이터 저장소 ID를 기록해 두세요.
++
+[]
+====
+onedatastore create netapp-system.conf ID: 105
+
+====
+.  `onedatastore show <datastore_id>`을 실행하여 데이터 저장소가 성공적으로 생성되었는지 확인하십시오.
+. 이미지 데이터스토어에 앱을 다운로드하고 템플릿을 사용하여 VM을 생성한 후 시스템 데이터스토어에 프로비저닝합니다.
+. 이미지 및 가상 머신 디스크용으로 ONTAP에서 생성된 LUN을 확인하십시오. 사용되는 명명 규칙은 다음과 같습니다.
++
+.. 이미지 데이터 저장소: one_<datastore_id>_<image_id>_<suffix> (볼륨), one_<datastore_id>_<image_id>_<suffix>_lun (LUN)
+.. 시스템 데이터 저장소: one_<vm_id>_disk_<disk_id>_<suffix> (볼륨), one_<datastore_id>_<vm_id>_disk_<disk_id>_<suffix>_lun (LUN)
++
+.예를 보여주세요
+[%collapsible]
+====
+image:opennebula-netapp-iscsi-002.png["OpenNebula 이미지 및 VM용 ONTAP LUN"]
+
+====
+
+
+
