@@ -75,6 +75,7 @@ ONTAP Proxmox VE 구축을 향상시키는 포괄적인 엔터프라이즈 스�
 * Windows와 Unix ID 간의 이름 매핑
 * 내장된 위협 탐지 기능을 갖춘 자율형 랜섬웨어 보호 기능
 * 파일 시스템 분석을 통한 용량 및 사용량 파악
+* 고가용성을 위한 MetroCluster 지원.
 
 
 
@@ -82,6 +83,7 @@ ONTAP Proxmox VE 구축을 향상시키는 포괄적인 엔터프라이즈 스�
 === SAN 프로토콜 기능
 
 * SnapMirror 활성 동기화를 사용하여 장애 도메인 간에 클러스터를 확장합니다(항상 확인하십시오). https://mysupport.netapp.com/matrix/#welcome["상호 운용성 매트릭스 도구"] 지원되는 구성의 경우)
+* 고가용성을 위한 MetroCluster 지원.
 * ASA 모델은 액티브-액티브 멀티패싱 및 고속 경로 페일오버를 제공합니다.
 * FC, iSCSI 및 NVMe-oF 프로토콜 지원
 * iSCSI CHAP 상호 인증

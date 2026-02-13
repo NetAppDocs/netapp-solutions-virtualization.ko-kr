@@ -8564,4 +8564,7 @@
   <block id="fae50285a56e2519a749a9e6f1e7aa21" category="sidebar">NetApp 스토리지 for OpenNebula</block>
   <block id="8629e03df0633263ab40227fe3986a47" category="sidebar">OpenNebula를 위해 NetApp으로 스토리지 프로토콜을 구성합니다</block>
   <block id="ff9a52b1a7c26847f2ab026a07420444" category="sidebar">NetApp ONTAP iSCSI 스토리지를 구성합니다</block>
+  <block id="12db34d0277dc14c8dfb7f00306bcdb1" category="list-text">고가용성을 위한 MetroCluster 지원.</block>
+  <block id="193267cce237caa1ad9fccf574952dd4" category="inline-link-macro">ONTAP 스토리지를 사용한 FCP 및 iSCSI용 Proxmox VE 9.x의 ONTAP 9 문서</block>
+  <block id="191c3e0b6a997326d8f620ef8fbb2776" category="admonition">ONTAP 장치 다중 경로에 대한 원하는 구성이 패키지에 이미 포함되어 있습니다. 자세한 내용은 <block ref="bbf51a4dc5cabbb4a7cd9e6e15ab2e54" category="inline-link-macro-rx"></block>을 참조하십시오.</block>
 </blocks>
