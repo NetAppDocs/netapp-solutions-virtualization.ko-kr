@@ -32,11 +32,11 @@ image:redhat-openshift-ocpv-tp-003.png["source-ns 네임스페이스에 OCP-v VM
 
 
 
-== ONTAP S3를 사용하여 App Vault 만들기
+== ONTAP S3를 사용하여 AppVault 생성
 
-이 섹션에서는 OnTap S3 개체 스토리지를 사용하여 Trident Protect에서 앱 볼트를 설정하는 방법을 보여줍니다.
+이 섹션에서는 ONTAP S3 객체 스토리지를 사용하여 Trident Protect에서 AppVault 객체를 설정하는 방법을 보여줍니다.
 
-oc 명령과 아래에 표시된 yaml 파일을 사용하여 비밀과 ontap s3에 대한 AppVault 사용자 정의 리소스를 생성합니다.  trident protected 네임스페이스에 생성해야 합니다.
+아래에 표시된 oc 명령어와 yaml 파일을 사용하여 ONTAP S3용 시크릿과 AppVault 사용자 지정 리소스를 생성하십시오. 반드시 trident protect 네임스페이스에 생성해야 합니다.
 
 [source, cli]
 ----
@@ -91,9 +91,9 @@ spec:
         name: appvault-secret
   providerType: OntapS3
 ----
-ontap S3 볼트가 생성되었고 사용 가능 상태인지 확인하세요.
+ONTAP S3 볼트가 생성되었고 사용 가능 상태인지 확인하십시오.
 
-image:redhat-openshift-ocpv-tp-002.png["trident-protect 네임스페이스의 OCP-v appvault"]
+image:redhat-openshift-ocpv-tp-002.png["trident-protect 네임스페이스의 OCP-v AppVault"]
 
 
 
