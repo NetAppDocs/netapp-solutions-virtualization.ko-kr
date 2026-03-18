@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: openshift/osv-trident-install.html 
 keywords: OpenShift, OCP, Trident, Trident Protect, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, Red Hat OpenShift Virtualization 
-summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화 
+summary: Red Hat 인증 Trident Operator를 사용하여 Trident를 설치하고 ONTAP 및 Amazon FSx for NetApp ONTAP용 스토리지 객체를 생성하여 컨테이너 및 VM에 대한 동적 볼륨 프로비저닝을 활성화하십시오. 
 ---
-= Red Hat OpenShift 클러스터에 Trident 설치하고 스토리지 객체를 생성합니다.
+= Red Hat OpenShift 클러스터에 Trident를 설치하고 스토리지 객체를 생성하세요
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,69 +14,117 @@ summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화
 
 
 [role="lead"]
-OpenShift 클러스터에 Red Hat Certified Trident Operator를 사용하여 Trident 설치하고 블록 액세스를 위해 작업자 노드를 준비합니다.  ONTAP 및 FSxN 스토리지에 대한 Trident 백엔드 및 스토리지 클래스 객체를 생성하여 컨테이너 및 VM에 대한 동적 볼륨 프로비저닝을 활성화합니다.
+Red Hat 인증 Trident Operator를 사용하여 Trident를 설치하고 ONTAP 및 Amazon FSx for NetApp ONTAP용 스토리지 객체를 생성하여 컨테이너 및 VM에 대한 동적 볼륨 프로비저닝을 활성화합니다. 필요한 경우 블록 액세스를 위해 작업자 노드를 준비합니다.
 
-
-NOTE: OpenShift Virtualization에서 VM을 생성해야 하는 경우 Trident 설치해야 하며 백엔드 개체와 스토리지 클래스 개체를 OpenShift Virtualization을 클러스터(온프레미스 및 ROSA)에 설치하기 전에 OpenShift 클러스터에 생성해야 합니다.  기본 스토리지 클래스와 기본 볼륨 스냅샷 클래스는 클러스터의 Trident 스토리지와 스냅샷 클래스로 설정해야 합니다.  이것이 구성된 경우에만 OpenShift Virtualization은 템플릿을 사용하여 VM을 생성하기 위해 골든 이미지를 로컬로 제공할 수 있습니다.
-
-
-NOTE: Trident 설치하기 전에 OpenShift Virtualization operator가 설치되어 있는 경우 다음 명령을 사용하여 다른 스토리지 클래스를 사용하여 생성된 골든 이미지를 삭제한 다음, Trident 스토리지 및 볼륨 스냅샷 클래스 기본값이 설정되어 있는지 확인하여 OpenShift Virtualization이 Trident 스토리지 클래스를 사용하여 골든 이미지를 생성하도록 할 수 있습니다.
-
-[source, yaml]
+.시작하기 전에
+* OpenShift Virtualization을 설치하기 전에 이 페이지의 절차를 완료하십시오. OpenShift Virtualization은 VM 템플릿용 골든 이미지를 생성하기 위해 기본 Trident 기반 StorageClass 및 VolumeSnapshotClass가 필요합니다.
+* Trident를 구성하기 전에 OpenShift Virtualization을 이미 설치한 경우 다른 스토리지 클래스로 생성된 골든 이미지를 모두 삭제하십시오. Trident를 기본값으로 설정하면 OpenShift Virtualization이 Trident 스토리지를 사용하여 골든 이미지를 다시 생성합니다.
++
+[source, bash]
 ----
 oc delete dv,VolumeSnapshot -n openshift-virtualization-os-images --selector=cdi.kubevirt.io/dataImportCron
 ----
 
-NOTE: ROSA 클러스터의 FSxN 스토리지에 대한 트라이던트 객체를 생성하기 위한 샘플 YAML 파일을 얻고, VolumeSnapshotClass에 대한 샘플 YAML 파일을 얻으려면 이 페이지를 아래로 스크롤하세요.
 
-** Trident 설치**
 
-.Red Hat Certified Operator를 사용하여 Trident 설치
-[%collapsible%open]
+
+== 1단계: Trident 설치
+
+Red Hat 인증 Trident Operator는 온프레미스, 퍼블릭 클라우드 및 ROSA와 같은 관리형 서비스에서 NetApp이 OpenShift를 위해 지원합니다. Trident 25.02부터 Amazon FSx for NetApp ONTAP를 사용하고 OpenShift Virtualization VM 워크로드를 실행할 계획인 경우 Operator가 iSCSI용 작업자 노드를 준비할 수도 있습니다.
+
+다른 설치 옵션은 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["Trident 문서"]을 참조하십시오.
+
+.단계
+. *OperatorHub*에서 *Certified NetApp Trident*을 선택하십시오.
++
+.예를 보여주세요
+[%collapsible]
 ====
-이 섹션에서는 Red Hat Certified Trident Operator를 사용하여 Trident 설치하는 방법에 대한 세부 정보를 제공합니다.link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["Trident 문서를 참조하세요"] Trident 설치하는 다른 방법은 여기를 참조하세요.  Trident 25.02가 출시됨에 따라 온프레미스 및 클라우드의 Red Hat OpenShift에서 Trident 사용하는 사용자와 AWS의 Red Hat OpenShift Service와 같은 관리형 서비스를 사용하는 사용자는 이제 Operator Hub의 Trident Certified Operator를 사용하여 Trident 설치할 수 있습니다.  Trident 이전에는 커뮤니티 운영자로만 제공되었기 때문에 이는 OpenShift 사용자 커뮤니티에 중요한 의미를 갖습니다.
+image:rh-os-n-use-case-osv-trident-install-001.png["운영자 허브"]
 
-Red Hat Certified Trident 운영자의 장점은 OpenShift와 함께 사용할 경우(온프레미스, 클라우드 또는 ROSA를 통한 관리형 서비스로 사용) NetApp 에서 운영자와 컨테이너의 기반을 완벽하게 지원한다는 것입니다.  또한 NetApp Trident 고객에게 무료로 제공되므로 Red Hat OpenShift와 원활하게 작동하도록 검증된 인증 운영자를 사용하여 설치하기만 하면 되며 간편한 수명 주기 관리를 위해 패키지로 제공됩니다.
-
-또한, Trident 25.02 운영자(및 이후 버전)는 iSCSI를 위한 작업자 노드를 준비하는 선택적 이점을 제공합니다.  특히 ROSA 클러스터에 워크로드를 배포하고 FSxN과 함께 iSCSI 프로토콜을 사용하려는 경우 이 기능이 매우 유용합니다. 특히 OpenShift Virtualization VM 워크로드에 유용합니다.  FSxN을 사용하여 ROSA 클러스터에서 iSCSI를 위한 워커 노드를 준비하는 과제는 클러스터에 Trident 설치하면 이 기능으로 완화됩니다.
-
-운영자를 사용하는 설치 단계는 온프레미스 클러스터에 설치하든 ROSA에 설치하든 동일합니다.  Operator를 사용하여 Trident 설치하려면 Operator 허브를 클릭하고 Certified NetApp Trident 선택하세요.  설치 페이지에서는 기본적으로 최신 버전이 선택되어 있습니다.  설치를 클릭하세요.image:rh-os-n-use-case-osv-trident-install-001.png["운영자 허브"]
-
+====
+. *설치* 페이지에서 최신 버전을 유지하고 *설치*를 선택합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
 image:rh-os-n-use-case-osv-trident-install-002.png["설치하다"]
 
-운영자가 설치되면 운영자 보기를 클릭한 다음 Trident Orchestrator의 인스턴스를 만듭니다.  iSCSI 스토리지 액세스를 위해 작업자 노드를 준비하려면 YAML 보기로 이동하여 iscsi를 추가하여 nodePrep 매개변수를 수정합니다.
+====
+. 오퍼레이터 설치가 완료되면 *View operator*를 선택하고 Trident Orchestrator 인스턴스를 생성하십시오.
++
+iSCSI를 위해 워커 노드를 준비하려면 YAML 보기로 전환하고 `iscsi`을 `nodePrep`에 추가하세요.
 
++
+.예를 보여주세요
+[%collapsible]
+====
 image:rh-os-n-use-case-osv-trident-install-003.png["노드 준비를 위해 iSCSI를 추가합니다."]
 
-이제 클러스터에서 모든 트라이던트 포드가 실행 중이어야 합니다.image:rh-os-n-use-case-osv-trident-install-004.png["Trident 설치됨"]
+====
+. 클러스터에서 모든 Trident Pod가 실행 중인지 확인하십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:rh-os-n-use-case-osv-trident-install-004.png["Trident 설치됨"]
 
-OpenShift 클러스터의 작업자 노드에서 iSCSI 도구가 활성화되었는지 확인하려면 작업자 노드에 로그인하여 표시된 대로 iscsid, multipathd active 및 multipath.conf 파일의 항목을 확인하세요.
-
+====
+. iSCSI 노드 준비를 활성화한 경우 워커 노드에 로그인하여 `iscsid` 및 `multipathd`이(가) 활성 상태이고 `multipath.conf`에 항목이 있는지 확인하십시오.
++
+.예를 보여주세요
+[%collapsible]
+====
 image:rh-os-n-use-case-osv-trident-install-005.png["iscsid 실행 중"]
 
+====
++
+.예를 보여주세요
+[%collapsible]
+====
 image:rh-os-n-use-case-osv-trident-install-006.png["multipathd 실행 중"]
 
-image:rh-os-n-use-case-osv-trident-install-007.png["multipathconf 파일 실행 중"]
+====
++
+.예를 보여주세요
+[%collapsible]
+====
+image:rh-os-n-use-case-osv-trident-install-007.png["multipath.conf 파일 실행 중"]
 
 ====
 
 
-== 비디오 데모
-
-다음 비디오는 Red Hat Certified Trident Operator를 사용하여 Trident 설치하는 방법을 보여줍니다.
+.비디오 데모
+다음 비디오는 Red Hat 인증 Trident Operator를 사용하여 Trident를 설치하는 방법을 보여줍니다.
 
 .OpenShift에서 인증된 Trident Operator를 사용하여 Trident 25.02.1 설치
 video::15c225f3-13ef-41ba-b255-b2d500f927c0[panopto,width=360]
 
 
-== 온프레미스 OpenShift 클러스터를 위한 Trident 구성
+== 2단계: 사용 환경에 맞는 스토리지 백엔드 및 StorageClass 구성 파일을 준비합니다
 
-.NAS용 Trident 백엔드 및 스토리지 클래스
-[%collapsible%open]
+TridentBackendConfig 및 StorageClass 정의를 사용자 환경에 맞게 생성하십시오. 환경 내에서 여러 스토리지 프로토콜을 구성할 수 있습니다. 사용하려는 각 프로토콜에 대한 YAML 파일을 생성하고 자리 표시자 값을 특정 구성 세부 정보로 바꾸십시오.
+
+
+NOTE: 사용 환경에 따라 아래의 온프레미스 또는 ROSA 섹션 중 하나를 완료한 후 3단계로 진행하십시오.
+
+
+
+=== 온프레미스 OpenShift 클러스터
+
+구성하려는 각 프로토콜에 대한 YAML 파일을 생성하십시오. 다음 프로토콜 중 하나 이상을 구성할 수 있습니다. NFS 기반 파일 스토리지를 위한 NAS, iSCSI 블록 스토리지를 위한 iSCSI, TCP를 통한 고성능 NVMe 블록 스토리지를 위한 NVMe/TCP 또는 Fibre Channel 블록 스토리지를 위한 FC.
+
+[role="tabbed-block"]
 ====
+.NAS
+--
+TridentBackendConfig 및 StorageClass를 생성하여 ONTAP NAS에 대한 NFS 기반 영구 스토리지 프로비저닝을 활성화합니다. 백엔드 구성에는 Kubernetes Secret에 저장된 자격 증명이 포함되며 ONTAP SVM 및 관리 LIF를 참조합니다.
+
+백엔드 시크릿 및 백엔드 구성 파일( `tbc-nas.yaml`로 저장):
+
 [source, yaml]
 ----
-cat tbc-nas.yaml
+# tbc-nas.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -93,18 +141,20 @@ metadata:
 spec:
   version: 1
   storageDriverName: ontap-nas
-  managementLIF: <cluster management lif>
+  managementLIF: <ONTAP management LIF>
   backendName: tbc-nas
-  svm: zoneb
-  storagePrefix: testzoneb
+  svm: zoneb #<replace with your SVM name>
+  storagePrefix: testzoneb #<replace with your prefix>
   defaults:
     nameTemplate: "{{ .config.StoragePrefix }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
   credentials:
     name: tbc-nas-secret
 ----
+StorageClass 정의(다른 이름으로 저장 `sc-nas.yaml`):
+
 [source, yaml]
 ----
-cat sc-nas.yaml
+# sc-nas.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -117,13 +167,16 @@ parameters:
   snapshots: "true"
 allowVolumeExpansion: true
 ----
-====
-.iSCSI를 위한 Trident 백엔드 및 스토리지 클래스
-[%collapsible%open]
-====
+--
+.iSCSI
+--
+TridentBackendConfig 및 StorageClass를 생성하여 ONTAP SAN에서 iSCSI 기반 블록 스토리지 프로비저닝을 활성화합니다. 백엔드 구성은 ontap-san 드라이버를 사용하며 Kubernetes Secret에 저장된 자격 증명을 포함합니다.
+
+백엔드 시크릿 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-iscsi.yaml`):
+
 [source, yaml]
 ----
-# cat tbc-iscsi.yaml
+# tbc-iscsi.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -146,9 +199,11 @@ spec:
   credentials:
     name: backend-tbc-ontap-iscsi-secret
 ----
+StorageClass 정의(다른 이름으로 저장 `sc-iscsi.yaml`):
+
 [source, yaml]
 ----
-# cat sc-iscsi.yaml
+# sc-iscsi.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -162,20 +217,23 @@ parameters:
   snapshots: "true"
 allowVolumeExpansion: true
 ----
-====
-.NVMe/TCP를 위한 Trident 백엔드 및 스토리지 클래스
-[%collapsible%open]
-====
+--
+.NVMe/TCP
+--
+NVMe over TCP를 사용하는 ONTAP SAN용 TridentBackendConfig 및 StorageClass를 생성하여 고성능 블록 스토리지 프로비저닝을 활성화합니다. 백엔드 구성은 NVMe/TCP 전송에 최적화된 ontap-san 드라이버를 사용하며 Kubernetes Secret에 저장된 자격 증명을 포함합니다.
+
+백엔드 시크릿 및 백엔드 구성 파일( `tbc-nvme.yaml`로 저장):
+
 [source, yaml]
 ----
-# cat tbc-nvme.yaml
+# tbc-nvme.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: backend-tbc-ontap-nvme-secret
 type: Opaque
 stringData:
-  username: <cluster admin password>
+  username: <cluster admin username>
   password: <cluster admin password>
 ---
 apiVersion: trident.netapp.io/v1
@@ -185,15 +243,18 @@ metadata:
 spec:
   version: 1
   storageDriverName: ontap-san
-  managementLIF: <cluster management LIF>
+  sanType: nvme
+  managementLIF: <ONTAP management LIF>
   backendName: backend-tbc-ontap-nvme
   svm: <SVM name>
   credentials:
     name: backend-tbc-ontap-nvme-secret
 ----
+StorageClass 정의(다른 이름으로 저장 `sc-nvme.yaml`):
+
 [source, yaml]
 ----
-# cat sc-nvme.yaml
+# sc-nvme.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -207,20 +268,23 @@ parameters:
   snapshots: "true"
 allowVolumeExpansion: true
 ----
-====
-.FC용 Trident 백엔드 및 스토리지 클래스
-[%collapsible%open]
-====
+--
+.FC
+--
+TridentBackendConfig 및 StorageClass를 생성하여 Fibre Channel이 포함된 ONTAP SAN에 대해 FC 기반 블록 스토리지 프로비저닝을 활성화합니다. 백엔드 구성은 FCP 프로토콜이 지정된 ontap-san 드라이버를 사용하며 Kubernetes Secret에 저장된 자격 증명을 포함합니다.
+
+백엔드 시크릿 및 백엔드 구성 파일( `tbc-fc.yaml`로 저장):
+
 [source, yaml]
 ----
-# cat tbc-fc.yaml
+# tbc-fc.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: tbc-fc-secret
 type: Opaque
 stringData:
-  username: <cluster admin password>
+  username: <cluster admin username>
   password: <cluster admin password>
 ---
 apiVersion: trident.netapp.io/v1
@@ -230,19 +294,21 @@ metadata:
 spec:
   version: 1
   storageDriverName: ontap-san
-  managementLIF: <cluster mgmt lif>
+  managementLIF: <ONTAP management LIF>
   backendName: tbc-fc
-  svm: openshift-fc
+  svm: openshift-fc #<replace with your SVM name>
   sanType: fcp
-  storagePrefix: demofc
+  storagePrefix: demofc #<replace with your prefix>
   defaults:
     nameTemplate: "{{ .config.StoragePrefix }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
   credentials:
     name: tbc-fc-secret
 ----
+StorageClass 정의(다른 이름으로 저장 `sc-fc.yaml`):
+
 [source, yaml]
 ----
-# cat sc-fc.yaml
+# sc-fc.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -256,32 +322,38 @@ parameters:
   snapshots: "true"
 allowVolumeExpansion: true
 ----
+--
 ====
 
 
-== FSxN 스토리지를 사용한 ROSA 클러스터에 대한 Trident 구성
+=== Amazon FSx for NetApp ONTAP를 사용하는 ROSA 클러스터
 
-.FSxN NAS를 위한 Trident 백엔드 및 스토리지 클래스
-[%collapsible%open]
+구성하려는 각 프로토콜에 대한 YAML 파일을 생성하십시오. NFS 기반 파일 스토리지를 위한 NAS 또는 블록 스토리지를 위한 iSCSI 중 하나 또는 둘 다를 구성할 수 있습니다.
+
+[role="tabbed-block"]
 ====
+.NAS
+--
+ROSA 클러스터에서 NFS 기반 영구 스토리지 프로비저닝을 활성화하기 위해 Amazon FSx for NetApp ONTAP의 ONTAP NAS용 TridentBackendConfig 및 StorageClass를 생성합니다. 백엔드 구성은 관리 및 데이터 LIF를 위해 Amazon FSx for NetApp ONTAP DNS 이름을 사용하며, trident 네임스페이스의 Kubernetes Secret에 저장된 자격 증명을 포함합니다.
+
+백엔드 시크릿 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-fsx-nas.yaml`):
+
 [source, yaml]
 ----
-#cat tbc-fsx-nas.yaml
+# tbc-fsx-nas.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: backend-fsx-ontap-nas-secret
-  namespace: trident
 type: Opaque
 stringData:
-  username: <cluster admin lif>
-  password: <cluster admin passwd>
+  username: <FSx for ONTAP, for example fsxadmin>
+  password: <FSx for ONTAP password>
 ---
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
 metadata:
   name: backend-fsx-ontap-nas
-  namespace: trident
 spec:
   version: 1
   backendName: fsx-ontap
@@ -292,9 +364,11 @@ spec:
   credentials:
     name: backend-fsx-ontap-nas-secret
 ----
+StorageClass 정의(다른 이름으로 저장 `sc-fsx-nas.yaml`):
+
 [source, yaml]
 ----
-# cat sc-fsx-nas.yaml
+# sc-fsx-nas.yaml (storage class name is trident-csi)
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -303,24 +377,27 @@ provisioner: csi.trident.netapp.io
 parameters:
   backendType: "ontap-nas"
   fsType: "ext4"
-allowVolumeExpansion: True
+allowVolumeExpansion: true
 reclaimPolicy: Retain
 ----
-====
-.FSxN iSCSI를 위한 Trident 백엔드 및 스토리지 클래스
-[%collapsible%open]
-====
+--
+.iSCSI
+--
+ROSA 클러스터에서 iSCSI 기반 블록 스토리지 프로비저닝을 활성화하기 위해 Amazon FSx for NetApp ONTAP의 ONTAP SAN용 TridentBackendConfig 및 StorageClass를 생성합니다. 백엔드 구성은 ontap-san 드라이버를 사용하며, Kubernetes Secret에 저장된 자격 증명을 포함합니다. 작업자 노드가 iSCSI 액세스를 위해 준비되어 있는지 확인합니다.
+
+백엔드 시크릿 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-fsx-iscsi.yaml`):
+
 [source, yaml]
 ----
-# cat tbc-fsx-iscsi.yaml
+# tbc-fsx-iscsi.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: backend-tbc-fsx-iscsi-secret
 type: Opaque
 stringData:
-  username: <cluster admin username>
-  password: <cluster admin password>
+  username: <FSx for ONTAP, for example fsxadmin>
+  password: <FSx for ONTAP password>
 ---
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -329,15 +406,17 @@ metadata:
 spec:
   version: 1
   storageDriverName: ontap-san
-  managementLIF: <management LIF>
+  managementLIF: <Management DNS name>
   backendName: fsx-iscsi
   svm: <SVM name>
   credentials:
-    name: backend-tbc-ontap-iscsi-secret
+    name: backend-tbc-fsx-iscsi-secret
 ----
+StorageClass 정의(다른 이름으로 저장 `sc-fsx-iscsi.yaml`):
+
 [source, yaml]
 ----
-# cat sc-fsx-iscsi.yaml
+# sc-fsx-iscsi.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -351,17 +430,19 @@ parameters:
   snapshots: "true"
 allowVolumeExpansion: true
 ----
+--
 ====
 
 
-== Trident 볼륨 스냅샷 클래스 생성
+== 3단계: VolumeSnapshotClass 구성 파일 생성
 
-.Trident 볼륨 스냅샷 클래스
-[%collapsible%open]
-====
+온프레미스 및 ROSA 배포 환경 모두에 대해 VolumeSnapshotClass 정의를 생성합니다. 이 구성을 통해 영구 볼륨에 대한 스냅샷 기반 작업을 활성화할 수 있습니다.
+
+VolumeSnapshotClass 정의(다른 이름으로 저장 `snapshot-class.yaml`):
+
 [source, yaml]
 ----
-# cat snapshot-class.yaml
+# snapshot-class.yaml
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
@@ -369,40 +450,152 @@ metadata:
 driver: csi.trident.netapp.io
 deletionPolicy: Retain
 ----
-====
-백엔드 구성, 스토리지 클래스 구성 및 스냅샷 구성에 필요한 yaml 파일을 준비한 후 다음 명령을 사용하여 trident 백엔드, 스토리지 클래스 및 스냅샷 클래스 객체를 생성할 수 있습니다.
 
-[source, yaml]
+
+== 4단계: 구성 파일을 클러스터에 적용합니다
+
+이전 단계에서 생성한 구성 파일을 OpenShift 클러스터에 적용합니다.
+
+.단계
+. 구성한 각 프로토콜에 대해 TridentBackendConfig 및 StorageClass 파일을 적용하십시오.
++
+온프레미스 클러스터의 경우:
+
++
+[source, bash]
 ----
-oc create -f <backend-filename.yaml> -n trident
-oc create -f < storageclass-filename.yaml>
-oc create -f <snapshotclass-filename.yaml>
+oc create -f tbc-nas.yaml -n trident
+oc create -f sc-nas.yaml
+
+oc create -f tbc-iscsi.yaml -n trident
+oc create -f sc-iscsi.yaml
+
+oc create -f tbc-nvme.yaml -n trident
+oc create -f sc-nvme.yaml
+
+oc create -f tbc-fc.yaml -n trident
+oc create -f sc-fc.yaml
+----
++
+ROSA 클러스터의 경우:
+
++
+[source, bash]
+----
+oc create -f tbc-fsx-nas.yaml -n trident
+oc create -f sc-fsx-nas.yaml
+
+oc create -f tbc-fsx-iscsi.yaml -n trident
+oc create -f sc-fsx-iscsi.yaml
+----
+. VolumeSnapshotClass 구성을 적용합니다.
++
+[source, bash]
+----
+oc create -f snapshot-class.yaml
+----
+. 리소스가 성공적으로 생성되었는지 확인하십시오.
++
+TridentBackendConfig 객체를 확인하세요:
+
++
+[source, bash]
+----
+oc get tbc -n trident
+----
++
+StorageClass 객체를 확인하세요:
+
++
+[source, bash]
+----
+oc get storageclass
+----
++
+VolumeSnapshotClass 확인:
+
++
+[source, bash]
+----
+oc get volumesnapshotclass
 ----
 
 
-== Trident Storage 및 Snapshot Class를 사용하여 기본값 설정
 
-.Trident Storage 및 Snapshot Class를 사용하여 기본값 설정
-[%collapsible%open]
-====
-이제 OpenShift 클러스터에서 필수 Trident 스토리지 클래스와 볼륨 스냅샷 클래스를 기본값으로 만들 수 있습니다.  앞서 언급했듯이 기본 스토리지 클래스와 볼륨 스냅샷 클래스를 설정해야 OpenShift Virtualization에서 골든 이미지 소스를 사용하여 기본 템플릿에서 VM을 생성할 수 있습니다.
 
-콘솔에서 주석을 편집하거나 다음 명령어를 사용하여 명령줄에서 패치를 적용하여 Trident 스토리지 클래스와 스냅샷 클래스를 기본값으로 설정할 수 있습니다.
+== 5단계: 기본 Trident 스토리지 및 스냅샷 클래스 설정
 
-[source, yaml]
+OpenShift 클러스터에서 Trident StorageClass와 VolumeSnapshotClass를 기본값으로 설정합니다. 이는 OpenShift Virtualization이 VM 템플릿을 위한 골든 이미지 소스를 생성하는 데 필요합니다.
+
+.단계
+. 기본 Trident StorageClass를 설정합니다.
++
+Trident 기반 StorageClass를 클러스터 기본값으로 설정하여 스토리지 클래스가 지정되지 않은 경우 PersistentVolumeClaims가 자동으로 사용하도록 합니다. 클러스터 전체 기본값용 어노테이션 하나와 OpenShift Virtualization 전용 어노테이션 하나, 총 두 개의 어노테이션을 구성해야 합니다.
+
++
+.. 클러스터 전체의 기본 StorageClass 어노테이션을 설정합니다.
++
+하나의 StorageClass만 기본값으로 설정되어 있는지 확인하십시오. 다른 StorageClass가 이미 기본값으로 설정되어 있는 경우 해당 주석을 false로 설정하십시오.
+
++
+콘솔에서 주석을 편집합니다.
+
++
+[source]
 ----
-storageclass.kubernetes.io/is-default-class:true
-or
-kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+storageclass.kubernetes.io/is-default-class: "true"
+----
++
+CLI에서:
 
-storageclass.kubevirt.io/is-default-virt-class: true
-or
-kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubevirt.io/is-default-virt-class": "true"}}}'
++
+[source, bash]
 ----
-이것이 설정되면 다음 명령을 사용하여 기존 dv 및 VolumeSnapShot 개체를 삭제할 수 있습니다.
+kubectl patch storageclass <storage class name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+----
+.. OpenShift Virtualization 관련 기본 주석을 설정합니다.
++
+OpenShift Virtualization은 클러스터의 일반 `is-default-class` 어노테이션보다 우선순위가 높은 특정 어노테이션을 사용합니다. 다른 StorageClass이 이미 기본값으로 설정되어 있는 경우 해당 어노테이션을 false로 설정하십시오.
 
-[source, yaml]
++
+콘솔에서 주석을 편집합니다.
+
++
+[source]
 ----
-oc delete dv,VolumeSnapshot -n openshift-virtualization-os-images --selector=cdi.kubevirt.io/dataImportCron
+storageclass.kubevirt.io/is-default-virt-class: "true"
 ----
-====
++
+CLI에서:
+
++
+[source, bash]
+----
+kubectl patch storageclass <storage class name> -p '{"metadata": {"annotations":{"storageclass.kubevirt.io/is-default-virt-class": "true"}}}'
+----
+
+
+. 기본 Trident VolumeSnapshotClass를 설정합니다.
++
+Trident 기반 VolumeSnapshotClass를 클러스터 기본값으로 설정하면 영구 볼륨에 대한 스냅샷 기반 작업이 활성화됩니다. 이렇게 하면 스냅샷 클래스가 지정되지 않은 경우 VolumeSnapshots가 자동으로 Trident CSI 드라이버를 사용하게 되며 OpenShift Virtualization에서 골든 이미지의 스냅샷을 생성할 수 있습니다.
+
++
+VolumeSnapshotClass는 기본값으로 하나만 설정해야 합니다. 이미 다른 VolumeSnapshotClass가 기본값으로 설정되어 있는 경우, 해당 클래스의 어노테이션을 false로 설정하십시오.
+
++
+콘솔에서 주석을 편집합니다.
+
++
+[source]
+----
+snapshot.storage.kubernetes.io/is-default-class: "true"
+----
++
+CLI에서:
+
++
+[source, bash]
+----
+oc patch volumesnapshotclass <snapshot class name> --type=merge -p '{"metadata":{"annotations":{"snapshot.storage.kubernetes.io/is-default-class":"true"}}}'
+----
+
