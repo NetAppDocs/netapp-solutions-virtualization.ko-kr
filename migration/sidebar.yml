@@ -35,6 +35,8 @@ entries:
       url: "/migration/shift-toolkit-migrate-esxi2osvmtv.html"
     - title: VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로 VM 마이그레이션
       url: "/migration/shift-toolkit-migrate-esxi2olvm.html"
+    - title: VMware ESXi에서 Proxmox VE로 VM 마이그레이션
+      url: "/migration/shift-toolkit-migrate-esxi2proxmox.html"
   - title: Shift Toolkit을 사용하여 VM 변환
     url: "/migration/shift-toolkit-conversion.html"
   - title: 모니터링 및 대시보드

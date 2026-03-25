@@ -88,3 +88,6 @@ Shift 툴킷은 다음 Oracle Linux Virtualization Manager 버전에 대해 검�
 
 .케이비엠
 KVM 대상의 경우 Shift Toolkit은 디스크 형식 변환(VMDK에서 QCOW2 또는 RAW로)만 지원합니다. 대상 드롭다운에서 KVM을 선택하는 경우 하이퍼바이저 연결 세부 정보는 필요하지 않습니다. 변환 후 QCOW2 디스크를 사용하여 KVM 기반 플랫폼에서 VM을 프로비저닝합니다.
+
+.Proxmox VE
+Shift 툴킷은 9.X 이상을 실행하는 Proxmox VE에 대해 검증되었습니다.
