@@ -28,6 +28,8 @@ indexpage:
       url: proxmox-pbs-requirements.html
     - title: Proxmox Backup Server를 사용하여 데이터 보호를 구성하세요.
       url: proxmox-wkld-dp-pbs.html
+    - title: Proxmox용 Storage Manager 구성 및 사용
+      url: proxmox-smp.html
   - title: 추가 자료
     links:
     - title: Proxmox 가상화 환경에서 획기적인 성능을 제공하는 NetApp 스토리지 및 NVMe-oF

@@ -40,3 +40,5 @@ entries:
     url: "/proxmox/proxmox-pbs-requirements.html"
   - title: Proxmox Backup Server를 사용하여 데이터 보호를 구성하세요.
     url: "/proxmox/proxmox-wkld-dp-pbs.html"
+- title: Proxmox용 Storage Manager 구성 및 사용
+  url: "/proxmox/proxmox-smp.html"

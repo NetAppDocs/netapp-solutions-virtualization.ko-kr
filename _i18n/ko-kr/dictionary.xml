@@ -8677,4 +8677,364 @@
   <block id="c88d9b30e97598ef05d325b4506788d5" category="admonition">(<block ref="5229e8d2d27b318b34969f09afea3c3e" prefix=" " category="inline-code"></block>을 각 실제 Proxmox 노드 이름으로 교체)</block>
   <block id="e5b30de22f0b345a82ac611f3074c604" category="paragraph">Shift 툴킷은 9.X 이상을 실행하는 Proxmox VE에 대해 검증되었습니다.</block>
   <block id="6490ec34510eacbfef4a5a0912755642" category="sidebar">VMware ESXi에서 Proxmox VE로 VM 마이그레이션</block>
+  <block id="bc6a2417f633d0e9c233879fd2818db0" category="summary">Proxmox용 스토리지 관리자(SMP)는 NetApp ONTAP 스토리지 시스템을 사용하는 Proxmox 환경의 가상 머신에 대한 포괄적인 스토리지 프로비저닝 및 수명 주기 관리를 제공합니다. SMP를 통해 관리자는 스토리지를 직접 관리할 수 있으며, 자동 프로비저닝, 백업, 복원 및 클론 기능을 통해 운영을 간소화할 수 있습니다.</block>
+  <block id="a15b66fd2b17e8407ea544d0292babd1" category="doc">Proxmox용 Storage Manager 구성 및 사용</block>
+  <block id="4a897ef7b3ac1f395f7fc32000401ab7" category="section-title">Proxmox용 Storage Manager에 대해 알아보십시오</block>
+  <block id="80793f5ab012f8005ce06374421179c2" category="paragraph">Proxmox용 스토리지 관리자(SMP)는 NetApp 스토리지 시스템을 사용하는 Proxmox 환경 내 가상 머신에 대한 엔드 투 엔드 스토리지 관리를 제공합니다. 관리자가 스토리지를 직접 관리할 수 있도록 함으로써 SMP는 Proxmox 환경에서 스토리지 및 데이터 관리 작업을 간소화합니다.</block>
+  <block id="be01a357ae2c9752875b5385c732b017" category="section-title">주요 기능</block>
+  <block id="d71818a28a60a5c8e015bcc81aae0c7b" category="list-text">*엔드 투 엔드 스토리지 관리*: SMP는 스토리지 프로비저닝부터 백업 및 복구에 이르기까지 가상 머신의 전체 수명 주기 관리를 제공합니다.</block>
+  <block id="f13331afcedbe440081b36b55cb2a0c4" category="list-text">*직접 스토리지 관리*: Proxmox 관리자는 스토리지를 직접 관리하여 운영을 간소화하고 복잡성을 줄일 수 있습니다.</block>
+  <block id="98954d29674a2f7985969e1396bf1c3a" category="list-text">*독립 실행형 설치 관리자*: SMP는 API를 통해 Proxmox 노드에 원활하게 연결되는 독립 실행형 설치 관리자로 제공됩니다.</block>
+  <block id="82ec2cd6fda87713f588da75c3b1d0ed" category="section-title">기능</block>
+  <block id="6b2dc2f3d66855df0d015639656d24b4" category="paragraph">SMP의 각 구성 요소는 스토리지 관리 효율성을 향상시키도록 설계되었습니다.</block>
+  <block id="cb5de5f5a505032ccd94d2648d62f68e" category="list-text">*스토리지 프로비저닝*: Proxmox 호스트 및 연결된 가상 머신에 대한 스토리지 리소스를 간편하게 할당하고 관리할 수 있습니다.</block>
+  <block id="3a01d360c0f0cb0cdc0585daa3df9da1" category="list-text">*NFS 스토리지 프로비저닝*: Proxmox 환경에서 사용할 ONTAP NFS 스토리지를 설정하고 구성합니다.</block>
+  <block id="77288ba781bf399318385705a17429b2" category="list-text">*iSCSI 스토리지 프로비저닝*: 강력하고 효율적인 iSCSI 스토리지 관리를 위해 다중 경로를 지원하는 thick LVM을 구현합니다.</block>
+  <block id="14837468729ce3fa1f8d89ed60795450" category="list-text">*백업 및 복구*: 안정적인 백업과 신속한 복구를 통해 데이터 무결성과 가용성을 보장합니다.</block>
+  <block id="21ef6967068b9a36d21040af10adf612" category="list-text">*크래시 일관성 및 파일 일관성 백업*: 크래시 일관성 및 파일 일관성 백업 메커니즘을 모두 설정하여 데이터 무결성을 보장하십시오.</block>
+  <block id="3c97bebeef02907e93ed87d5f20f8c41" category="list-text">*VM 복원 작업*: 가상 머신 복원 프로세스를 실행하여 데이터를 복구하고 시스템 가용성을 유지합니다.</block>
+  <block id="8a45d50515bd9e571096bde2388b55ae" category="list-text">*스토리지 효율성*: ONTAP는 데이터에 필요한 스토리지를 최소화하도록 설계된 포괄적인 스토리지 효율성 기술 제품군을 제공합니다. 이러한 기술은 스토리지 사용량을 줄일 뿐만 아니라 시스템 성능을 향상시켜 다음과 같은 이점을 제공합니다.</block>
+  <block id="01b243a08d1ef96305ff0b40bc25a88b" category="list-text">*빠른 VM 프로비저닝*: 가상 머신의 프로비저닝을 간소화하여 더 빠른 배포를 지원합니다.</block>
+  <block id="621b04303152f01982bc0e44364360b3" category="list-text">*더 빠른 데이터 세트 복사*: 효율적인 데이터 관리를 위해 데이터 세트 복제 속도를 향상시킵니다.</block>
+  <block id="bd6369bb4bd91954198f97950a94e3f8" category="paragraph">진행하기 전에 다음을 완료했는지 확인하십시오.</block>
+  <block id="2f3184544c8c7698027d88c9c8a44ff6" category="list-text">Proxmox Virtual Environment(PVE) 9.x 이상 클러스터 작동.</block>
+  <block id="7746ab2c9b8a6b3bfe8917fa9b70e926" category="inline-link-macro">ONTAP로 NFS 데이터 저장소 구성</block>
+  <block id="36b6fd653ba77e90e118f89284094d0e" category="inline-link-macro">ONTAP 스토리지를 사용하여 iSCSI용 Proxmox VE 9.x 구성</block>
+  <block id="622870bd7d4035e7b855ef12105eb676" category="list-text">SVM 레벨에서 NFS 및 iSCSI 프로토콜이 활성화된 ONTAP All Flash FAS(AFF) 스토리지입니다. 자세한 지침은 <block ref="6e56f4d15b7c1e04ae5f08c29f7b144a" category="inline-link-macro-rx"></block> 및 <block ref="86a5c73f1afc30bff858818023498f37" category="inline-link-macro-rx"></block>을 참조하십시오.</block>
+  <block id="40dcafe19d809afae187eec1ba7f3ae1" category="paragraph">iSCSI LUN 구성의 경우 다음을 활성화해야 합니다.</block>
+  <block id="5d8fa5d13a4a7190dd10930f1269a464" category="paragraph">*모든 Proxmox 호스트에 다중 경로 및 iSCSI를 설치합니다.*</block>
+  <block id="bcd0ddd05db26a82faebbf6a48c41aaf" category="paragraph">*iSCSI 이니시에이터를 구성하고 iSCSI를 통해 연결합니다(Proxmox 호스트에서):*</block>
+  <block id="c650bec305174b8a20f8ffefbf65cecb" category="paragraph">생성 또는 업데이트<block ref="dd5ff67ba72768d33f75e645aa2b8e56" prefix=" " category="inline-code"></block>:</block>
+  <block id="8c73154034873df50b02311c9347af03" category="paragraph">또는 다음을 사용하십시오.</block>
+  <block id="1a6df8aa35122b13273963fc33dce3e5" category="list-text">Proxmox 호스트와 ONTAP 스토리지는 SMP 호스트에서 네트워크를 통해 접근할 수 있습니다.</block>
+  <block id="7cb380268ba5ef101fd192503c03a851" category="section-title">Proxmox용 Storage Manager 설치 및 설정</block>
+  <block id="8ef7d23c0a4123be31ad9a21042f57e9" category="paragraph">SMP를 시작하려면 지정된 가상 머신에서 Windows 운영 체제를 사용하십시오. SMP는 Windows Server 2019, 2022 및 2025에서 실행할 수 있습니다.</block>
+  <block id="f75fc37643c9a38461b3a62dab08a144" category="inline-link">NetApp Console 자동화 허브</block>
+  <block id="29deacf315fbfe62c3462b416af7aba5" category="list-text"><block ref="0398c7fb0cc5a396466a8e016035628d" category="inline-link-rx"></block>에서 SMP 패키지(~17MB)를 다운로드하십시오.</block>
+  <block id="b7982d00d3982934a62491f7e24e253c" category="example-title">SMP 다운로드 페이지 보기</block>
+  <block id="e6b01aba18ae9101d6eae1b7f434703b" category="image-alt">NetApp Console Automation hub의 SMP 설치 프로그램 다운로드 페이지</block>
+  <block id="c77cdfc65f1e1add4c6d39d770ada25d" category="list-text">패키지의 압축을 풉니다.</block>
+  <block id="2ede026ae04efeec809da7ed27a096e1" category="list-text">실행 파일을 실행하여 서비스를 설치하고 시작하십시오.</block>
+  <block id="6c51aa3a59b87c82c1dfecea3cba474d" category="admonition">SMP는 사용 가능한 API를 활용하여 스토리지 프로비저닝 및 데이터 보호 워크플로를 모두 오케스트레이션하므로 추가 패키지 종속성이 필요하지 않습니다.</block>
+  <block id="624d744496b3011fbdadc16faba348c4" category="example-title">SMP 설치 마법사 보기</block>
+  <block id="16729ea42110f60c273634471fc22e67" category="image-alt">SMP 설치 마법사</block>
+  <block id="a5ae2b6d11cc9b270d9d7650d47f8470" category="paragraph">*Shift 툴킷을 사용한 대체 설치*</block>
+  <block id="f4ff31b41b86276ccb2df87283fae960" category="paragraph">독립 실행형 설치 프로그램 대신 Shift 툴킷을 사용하여 Proxmox VE Storage Manager를 설치할 수도 있습니다.</block>
+  <block id="1d0745cbec37f3d4d7845f08528310c1" category="list-text">Open Shift Toolkit.</block>
+  <block id="9c3bf8b2581b9a27a83600260b27a7cf" category="list-text">*설정* &gt; *고급* &gt; *Storage Manager*로 이동합니다.</block>
+  <block id="9d608322f3f4f1d41a875e9e7fdf1552" category="list-text">토글 스위치를 사용하여 Proxmox VE를 활성화하십시오.</block>
+  <block id="1d73fea09ff2c41139aaaf8f795e18f8" category="list-text">시스템이 필요한 구성 요소를 자동으로 설치할 때까지 기다리십시오.</block>
+  <block id="ee16a42e32bf023103544c9f7c590ada" category="list-text">설치가 완료되면 *View*를 클릭하거나 웹 브라우저를 열어<block ref="17c02bfa253344cd8c235e1435ecfead" prefix=" " category="inline-code"></block> Storage Manager에 액세스하십시오.</block>
+  <block id="344f4624c197942068a6539cdc4138e0" category="paragraph">예를 들면 다음과 같습니다.<block ref="abad16881186eb7f5a53f159fcbe4243" prefix=" " category="inline-code"></block></block>
+  <block id="d82fbaed65c0ae471da1583d14a37bca" category="list-text">웹 브라우저를 열고<block ref="05b17a751d9f33ab7e7a878a6ab984a2" prefix=" " category="inline-code"></block>를 입력하여 SMP UI에 액세스합니다</block>
+  <block id="6e4d0d0f8b4808f7b2807bccfe8483da" category="example-title">SMP 로그인 화면 보기</block>
+  <block id="e85bb40f2eb4ebf12cc2fb9761d2a1cd" category="image-alt">SMP 로그인 화면</block>
+  <block id="870cd4e95860fe235c8a2e3b15aede36" category="example-title">SMP 홈 화면 보기</block>
+  <block id="5cabdedbe16d03ed8c01d60e3260a89c" category="image-alt">SMP 사용자 인터페이스 홈 화면</block>
+  <block id="205499e4288d7067c81c08fe68e9e9cc" category="section-title">Proxmox용 Storage Manager 구성</block>
+  <block id="01da4c32453f80a763a5a7b1d91f6196" category="paragraph">스토리지와 스토리지 및 Proxmox 노드 모두에 대한 연결이 올바르게 구성되면 ONTAP 스냅샷 및 FlexClone 기능을 활용하여 가상 머신의 프로비저닝 및 보호를 자동화하도록 SMP를 구성하십시오.</block>
+  <block id="63e6512e5da4c75e0e171d297a4608a1" category="paragraph">첫 번째 단계는 ONTAP 스토리지 엔드포인트를 검색하고 추가한 다음 대상 Proxmox 노드를 SMP에 추가하는 것입니다.</block>
+  <block id="9ded8ea6a281a01a3456d85998d83b17" category="list-text">SMP가 설치되었습니다</block>
+  <block id="ef9e26869071d5005aa4111633260be5" category="list-text">SMP 인스턴스는 Proxmox 노드 및 스토리지 시스템에 연결되어 있습니다.</block>
+  <block id="03f72d2db79bfe8b5850b37ad9b9a285" category="list-text">NFS 또는 iSCSI 스토리지 풀을 제공하는 ONTAP 클러스터</block>
+  <block id="b14099e7ba86d616328d732ee99beb44" category="list-text">DNS 이름을 사용할 경우 DNS 확인이 제대로 작동합니다. 그렇지 않은 경우 검색에 IP 주소를 사용하십시오.</block>
+  <block id="335b860fa96e5474db8806bfe459f4f6" category="list-text">환경에 지원되는 버전의 Proxmox Virtual Environment 서버가 있습니다</block>
+  <block id="bbe48fb854ea022537208eeeff822f91" category="paragraph-title">이 작업 정보</block>
+  <block id="17dcd852dac7514645776d7846d2d176" category="paragraph">하이퍼바이저와 스토리지 간의 연결이 설정되면 구성에 몇 번의 클릭과 약 2분 정도의 시간이 소요됩니다.</block>
+  <block id="bca24abb65c6e351027b3a72dd3245ba" category="list-text">SMP에 로그인합니다.</block>
+  <block id="9033b9f2b9513307f04b2778ad5d66d4" category="list-text">SMP 왼쪽 탐색 메뉴에서 *Plan*을 선택합니다.</block>
+  <block id="4f703335310e496b01946356b7d9f417" category="list-text">*플랜 추가*를 클릭합니다.</block>
+  <block id="0445149019781b80dd8425105e8817d4" category="example-title">플랜 추가 보기</block>
+  <block id="0fb052fdf5d002de705400662cf6c4c7" category="image-alt">플랜 추가 옵션을 표시하는 SMP 플랜 구성 페이지</block>
+  <block id="fbb3f533d5596fce457e767126cd2462" category="list-text">* ONTAP 추가 * 를 클릭하여 ONTAP 스토리지 시스템의 자격 증명을 추가합니다.</block>
+  <block id="39aa8694c9f0165a9c255d63c639b5e8" category="paragraph">클러스터 엔드포인트 또는 SVM 관리 LIF를 사용하여 ONTAP을 추가할 수 있습니다.</block>
+  <block id="f5d0c85beea9633b8f3d05b0669c6ad3" category="list-text">클러스터 엔드포인트를 사용하여 추가하려면 다음 세부 정보를 제공하십시오.</block>
+  <block id="31f73799da3f96581a68124442f89562" category="list-text">클러스터 IP 주소 또는 FQDN</block>
+  <block id="3fc42626d7c1a7d96c4d684631cd9cc5" category="list-text">ONTAP 클러스터에 액세스하기 위한 사용자 이름</block>
+  <block id="1d1745d0584caa4931777498d2038276" category="list-text">ONTAP 클러스터에 액세스하기 위한 암호</block>
+  <block id="306eb1afd5424875f511d22f89332ddf" category="list-text">*자체 서명된 인증서 수락*을 선택하고 *스토리지 클러스터 추가*를 클릭합니다</block>
+  <block id="5ee8fea254025adf13dac2405698c62d" category="example-title">ONTAP 추가 보기: 클러스터 엔드포인트</block>
+  <block id="703e44a0bb06fd03b9192a2a6a64fac9" category="image-alt">클러스터 엔드포인트 자격 증명에 대한 ONTAP 대화 상자 추가</block>
+  <block id="f97d55206680ad20ffd744636a3a5583" category="list-text">SVM 관리 LIF를 사용하여 추가하려면 다음 세부 정보를 제공하십시오.</block>
+  <block id="28e3edf5dd553a107c254772d2730dde" category="list-text">SVM 관리 LIF 또는 FQDN</block>
+  <block id="7368e2b2f35207aeac657a1d72574622" category="list-text">SVM에 액세스하기 위한 사용자 이름</block>
+  <block id="a4f5d0b677d71448697549ef4b1b73e8" category="list-text">SVM에 액세스하기 위한 암호</block>
+  <block id="263dad744b8989444b7352a836f7d6c6" category="example-title">ONTAP 추가 보기: SVM 관리 LIF</block>
+  <block id="6d65021c4f4e8afb9b9e1055de01a49d" category="image-alt">SVM 관리 LIF 자격 증명에 대한 ONTAP 대화 상자 추가</block>
+  <block id="46680ca9e229ee1ee29c8608d11b2f6c" category="list-text">*Proxmox 추가*를 클릭하여 SMP에 등록할 Proxmox 노드의 자격 증명을 추가합니다.</block>
+  <block id="d82ffddae26af45128fa07949e25e6f8" category="paragraph">Proxmox 노드를 추가하려면 기존 Proxmox 노드 중 하나의 IP 주소를 지정하십시오. 검색 작업이 클러스터에 자동으로 쿼리를 보내 필요한 모든 구성 정보를 수집합니다.</block>
+  <block id="0de11488ec479f7728a12eaa20900087" category="list-text">다음 세부 정보를 제공합니다.</block>
+  <block id="5b25773ba32209a4fe725200a2a3d634" category="list-text">Proxmox 독립 실행형 IP 주소 또는 FQDN</block>
+  <block id="97d74590db36cd4ca2d90356f9bfb36c" category="list-text">Proxmox에 액세스하기 위한 사용자 이름</block>
+  <block id="9c32dec3011d3653626baa10712791e8" category="list-text">리소스 인벤토리를 수행하기 위해 Proxmox 호스트에 액세스하는 데 필요한 암호</block>
+  <block id="a3527c00de3093aedfe39e88dee0476f" category="list-text">*자체 서명된 인증서 수락*을 선택하고 *계속*을 클릭합니다</block>
+  <block id="981948c481297b86b99312dac33aa22b" category="example-title">Proxmox 추가 보기: 노드 자격 증명</block>
+  <block id="24687c1cf4224ade86dc3a2613ba621e" category="image-alt">노드 자격 증명에 대한 Proxmox 대화 상자 추가</block>
+  <block id="1360763f6d72571f7396ab687a83c4ee" category="paragraph">또는 다음을 제공하여 API 토큰을 사용하여 API에 액세스합니다.</block>
+  <block id="5ef6d12c6ab7cf8827b9f830e2522cb1" category="list-text">API 토큰 ID</block>
+  <block id="9eb805b09c2a753bc3c84670ec1edee0" category="list-text">API 토큰 시크릿</block>
+  <block id="ec74e3326911e584dc27bfd7179f01df" category="admonition">이번 릴리스에서는 API 토큰이 NFS 작업에만 허용됩니다.</block>
+  <block id="29fb3fbf9e6f05a465ffb384ec62fb96" category="example-title">Proxmox 추가 보기: API 토큰</block>
+  <block id="7008d62c12095e070626d8e0ea00a96e" category="image-alt">API 토큰 옵션이 있는 Proxmox 대화 상자 추가</block>
+  <block id="077e2eb82a78c0cb2cf132d6d29a3f93" category="list-text">검색 작업이 성공적으로 완료되었는지, 그리고 각 계획의 상태가 *Success*로 표시되었는지 확인하십시오.</block>
+  <block id="f8db156bcd939938d7f93316ea6313e3" category="paragraph">추가되면 SMP가 자동으로 검색 스캔을 수행하여 VM과 관련 메타데이터를 표시합니다. 기존 스토리지 볼륨이나 매핑된 LUN도 감지됩니다.</block>
+  <block id="da9ebfcb56d64b8f5ee1e1d8fbacde53" category="example-title">Plan 검색 결과 보기</block>
+  <block id="462b9f75ff02bea828ab596b793f5251" category="image-alt">VM 및 관련 메타데이터를 표시하는 SMP 플랜 검색</block>
+  <block id="bd965e38a0c9cf27aa1bde099308e23f" category="list-title">완료한 후</block>
+  <block id="e6e9b89e862bc003978f1af7f280869a" category="list-text">Proxmox 노드 또는 스토리지에 변경 사항이 있는 경우 최신 정보를 가져오려면 검색을 실행하십시오. 플랜 이름 옆에 있는 점 세 개를 클릭하고 *검색*을 클릭하십시오.</block>
+  <block id="474bf458cc30e4b8fdd736bd925c3b12" category="list-text">ONTAP 스토리지 시스템이 먼저 추가되었는지 확인하여 검색 작업이 기존 리소스를 적절하게 매핑할 수 있도록 하십시오. Proxmox가 먼저 추가된 경우 ONTAP에 대해 검색 작업을 실행하십시오.</block>
+  <block id="f8d4ea7341264eb50afe80834dc061a0" category="list-text">자격 증명 또는 API 토큰을 나중에 업데이트해야 하는 경우 *Settings*로 이동하여 *Update Credentials* 옵션을 선택하십시오.</block>
+  <block id="a535082aff98ea1d38f0f35ac647e12e" category="example-title">자격 증명 업데이트 보기</block>
+  <block id="6af2e498843e4f1854eb7d456772431f" category="image-alt">성공적인 구성 후 SMP 계획 개요</block>
+  <block id="032bb3c77a75d4bae0f58801b4d5326a" category="section-title">스토리지 프로비저닝</block>
+  <block id="79bdba7e9c2ce1634948cacedeb044e9" category="paragraph">볼륨을 스토리지 풀(일반적으로 데이터스토어라고 함)로 프로비저닝하면 가상 머신과 해당 가상 디스크(QCOW2 또는 RAW)를 위한 논리적 컨테이너가 생성됩니다. SMP를 사용하면 데이터스토어를 프로비저닝한 다음 단일 호스트 또는 클러스터 내의 모든 호스트에 연결할 수 있습니다.</block>
+  <block id="6a419d81a161181f12d8850f1a012be6" category="section-title">NFS 스토리지 프로비저닝</block>
+  <block id="98985c7468b8d060b8c69adb35e858e9" category="paragraph">SMP를 사용하여 ONTAP 볼륨을 NFS 데이터 저장소로 프로비저닝하고 마운트합니다.</block>
+  <block id="63938bc948beb2e55c02dc31502b9ffb" category="list-text">SMP GUI에서 *Provision* 탭으로 이동합니다.</block>
+  <block id="1a6f577e0fac07b666b2bef4ad1272e8" category="list-text">*볼륨 추가*로 이동합니다.</block>
+  <block id="ebcdf9f15e57fc8163fdf3bd6b029a29" category="example-title">프로비저닝 탭 보기: 볼륨 추가</block>
+  <block id="dee1ab712ba700ad30a35856d4fe5038" category="image-alt">볼륨 추가 옵션이 있는 SMP 프로비저닝 탭</block>
+  <block id="d2772b4842c5dd40946a37c0d6d287ba" category="list-text">새 볼륨 마법사의 빠른 프로비저닝 단계에서 *NFS*를 선택합니다.</block>
+  <block id="74ba153df4d42d15015bd8a896cd8461" category="admonition">기본적으로 NFS가 선택됩니다. 빠른 프로비저닝은 표준 배포에 기본 설정을 사용하여 더 빠른 설정을 제공합니다. 고급 프로비저닝은 향후 릴리스에서 도입될 HA 및 BCDR 기능을 위한 확장된 옵션을 제공합니다.</block>
+  <block id="c93f8b9a833b2738c6cb10c2367c7225" category="example-title">새 볼륨 마법사 보기: NFS</block>
+  <block id="5f27d041642bb5d9a9067c02a896e458" category="image-alt">빠른 프로비저닝 단계에서 NFS가 선택된 새 볼륨 마법사</block>
+  <block id="4f12d9e0baa36a3f41168d307ba51dcb" category="list-text">*ONTAP 세부 정보* 섹션에 다음 정보를 입력하십시오.</block>
+  <block id="41f3847d09f22a55e99809db2c6104a6" category="list-text">*스토리지 클러스터* 드롭다운 메뉴에서 ONTAP 클러스터 또는 지정된 스토리지 가상 머신(SVM)을 선택하십시오.</block>
+  <block id="036c26a9b4ed3c17621e432898966f30" category="list-text">*Volume Name* 필드에 고유한 값을 입력하십시오.</block>
+  <block id="206f3e721cf4a8f1e513c322a1726779" category="list-text">*크기* 필드에 데이터 저장소 볼륨에 필요한 용량을 입력하십시오</block>
+  <block id="0b702b379d2eaa087216d0256bc0070f" category="list-text">다음에 대한 적절한 옵션을 선택하여 ONTAP 스토리지 리소스를 선택합니다.</block>
+  <block id="ccaf0d2d7033af92241b8ff76cd0c8db" category="list-text">애그리게이트 이름</block>
+  <block id="40bb64e121f0b3462502ccc0affca51a" category="list-text">스토리지 가상 머신(SVM)</block>
+  <block id="051e905db307c71f9aef8ac8cbd29613" category="list-text">데이터 저장소 액세스에 사용할 기본 LIF</block>
+  <block id="b49ec07b8b611f7adc0a33efcc9fb5ff" category="list-text">기존 *Export Policy*를 선택하거나 필요에 따라 (+)를 클릭하여 사용자 지정 정책을 생성하십시오</block>
+  <block id="24e0372bf95564bbd3c0e2d60241582e" category="example-title">ONTAP 세부 정보 보기: NFS</block>
+  <block id="9e73cd568f4995015468e5ea7fc21267" category="image-alt">NFS 볼륨 프로비저닝을 위한 ONTAP 세부 정보 섹션</block>
+  <block id="6ee2cb1f2ad53a8713dc4b5f1d14b00c" category="list-text">*Proxmox 세부 정보* 섹션에 다음 정보를 입력하십시오.</block>
+  <block id="4848d7a5dd5d5f219b1906134f7e4c12" category="list-text">*Proxmox* 필드에서 대상 클러스터를 선택한 다음 데이터 저장소에 액세스해야 하는 모든 노드를 선택합니다</block>
+  <block id="7af504db4b1ab9a9b5d93aebd258cd70" category="list-text">*NFS Version* 필드에서 원하는 NFS 프로토콜(NFS v3 또는 NFS v4.1)을 선택하십시오.</block>
+  <block id="7aa9f53296ff77ea0b117972e899efb5" category="list-text">*Content* 섹션에서 이 데이터 저장소에 대해 활성화할 콘텐츠 유형을 선택합니다.</block>
+  <block id="c1fbc1bfb34660ddc938357ccdacd9b1" category="list-text">디스크 이미지</block>
+  <block id="803b8db87be0f8173c99010aeed59929" category="list-text">ISO 이미지</block>
+  <block id="c6a7da7c822ee3f8597e8d2cfa6274e3" category="list-text">컨테이너 템플릿</block>
+  <block id="72d6d7a1885885bb55a565fd1070581a" category="list-text">가져오기</block>
+  <block id="ab09f6cb8731d936fd24ffd11c121a3e" category="list-text">또는 *모든* 콘텐츠 유형을 선택합니다</block>
+  <block id="26cd09e3b55760a82de4221c32adc7f3" category="list-text">(선택 사항) 여러 TCP 연결이 필요한 경우 *nconnect* 옵션을 활성화합니다</block>
+  <block id="717c5ff6ded1c053f9df755524e37b13" category="list-text">선택한 Proxmox 노드 전체에 데이터 저장소가 마운트되도록 *Mount the datastore* 옵션이 선택되어 있는지 확인하십시오.</block>
+  <block id="5ae972fbea5178d385ae37c43066181b" category="example-title">Proxmox 세부 정보 보기: NFS</block>
+  <block id="b17325a720e27a475e7f826f3a66d026" category="image-alt">NFS 데이터스토어 구성을 위한 Proxmox 세부 정보 섹션</block>
+  <block id="2b401be828228e91a07a7d0b6e9d7794" category="list-text">ONTAP 볼륨을 생성하고 선택한 Proxmox 클러스터 내에 데이터 저장소(스토리지 풀)를 등록하려면 *프로비저닝*을 클릭하십시오.</block>
+  <block id="e257c7937069b319a144ecbf019c12bb" category="example-title">NFS 프로비저닝 결과 보기</block>
+  <block id="16c20084d0dbc8857e5bbc2e8f85e80d" category="image-alt">NFS 볼륨 프로비저닝이 진행 중입니다</block>
+  <block id="20d6bee48d0adbc3786a290b5f2e14db" category="image-alt">NFS 데이터 저장소 프로비저닝이 성공적으로 완료되었습니다.</block>
+  <block id="b42c1df509703b4a4200ff23a9dc7fa5" category="example-title">Proxmox에서 NFS 데이터 저장소 보기</block>
+  <block id="6a5c4804d4d14230471b6e084363c227" category="image-alt">Proxmox 클러스터에 등록된 NFS 데이터 저장소</block>
+  <block id="a3b80f6e3aada23e186b29e38ccb39f7" category="section-title">프로비저닝된 볼륨 편집</block>
+  <block id="ea7c1ae20bb3c6c9907d9cf757343b83" category="paragraph">프로비저닝 후 볼륨 설정을 수정하려면 SMP를 사용하십시오.</block>
+  <block id="b2a0a59da3d8bd2591e0f79ece6df392" category="list-text">SMP GUI에서 *Provision* 탭에서 볼륨을 찾으십시오.</block>
+  <block id="7462ca72b115e3154b561b0b3ff80e42" category="list-text">볼륨 옆에 있는 세 개의 세로 점(⋮)을 클릭합니다.</block>
+  <block id="12b03368679477fc48ed14b8f217a115" category="list-text">컨텍스트 메뉴에서 *편집*을 선택하여 볼륨 설정을 엽니다.</block>
+  <block id="c2b2b3d9b51f35b3503181a7ecdcc51e" category="example-title">볼륨 편집 대화 상자 보기</block>
+  <block id="7e445e8e62314fedc43a80d6c9051319" category="image-alt">볼륨 구성 옵션을 보여주는 볼륨 편집 대화 상자</block>
+  <block id="6e7b977049eccdb5e457228b56adb54d" category="list-text">필요에 따라 볼륨 설정을 수정합니다.</block>
+  <block id="7b4d237e75c218fc19cae448bcf6a5dd" category="list-text">*볼륨 크기 조정*: 볼륨의 스토리지 용량 조정</block>
+  <block id="f38236b839f962d250e8138a4c223039" category="admonition">볼륨 크기 조정은 NFS 볼륨에만 적용됩니다.</block>
+  <block id="65e1a411ade11648599055e27e9c97db" category="list-text">*Snapshot 잠금*: Snapshot이 삭제되거나 변경되는 것을 방지하려면 활성화하십시오</block>
+  <block id="37538b44cf133013e7d2e698c3a4403f" category="admonition">이를 위해서는 클러스터에 SnapLock 라이센스가 설치되어 있어야 하며, 클러스터의 규정 준수 시계가 초기화되어 있어야 합니다.</block>
+  <block id="f2e9125c3ba8ab3c9d84f43698e5461f" category="list-text">*Anti-Ransomware Protection*: 랜섬웨어 공격을 나타낼 수 있는 비정상적인 활동을 사전에 감지하고 경고하려면 활성화하십시오</block>
+  <block id="94817b5c04e567acd05c78c40aeddbca" category="list-text">*엑스포트 정책*: 엑스포트 정책을 업데이트하거나 수정합니다.</block>
+  <block id="1c57870dbe054c795b276d38e3ad3796" category="list-text">변경 사항을 적용하려면 *저장*을 클릭합니다.</block>
+  <block id="c87d29528a937487ad7e7249ee2d9608" category="section-title">iSCSI 스토리지 프로비저닝</block>
+  <block id="5d1cab6f57f8464f77145e7938ba9be2" category="paragraph">SMP를 사용하여 가상 머신용 iSCSI 백엔드를 설정하십시오.</block>
+  <block id="bd12dc2dcbdc0e148685df55534b34f3" category="list-text">새 볼륨 마법사의 빠른 프로비저닝 단계에서 * iSCSI * 를 선택합니다.</block>
+  <block id="5d8ead293ea75a0a9ae617006275a11e" category="example-title">새 볼륨 마법사 보기: iSCSI</block>
+  <block id="bf9d13dff3a0005aabec67bf48434b37" category="image-alt">빠른 프로비저닝 단계에서 iSCSI가 선택된 새 볼륨 마법사</block>
+  <block id="811a6b259240c7547f143de52c15e89a" category="list-text">iSCSI 프로토콜에서 *ONTAP 세부 정보* 섹션에 다음 정보를 제공합니다.</block>
+  <block id="0398656c0b0fd22f03e9901463fd7f15" category="list-text">*스토리지 클러스터* 드롭다운에서 적절한 ONTAP 클러스터 또는 지정된 스토리지 가상 머신(SVM)을 선택하십시오</block>
+  <block id="559a2a2d08113e7678c2e8ee2ce06fc2" category="list-text">다음 항목에 대한 옵션을 선택하세요:</block>
+  <block id="4b56968db9c546567d13d4a0e030cb38" category="list-text">*LUN Name* 필드에 고유한 값을 입력하십시오.</block>
+  <block id="344d4f645ac6f57b81a633ba1fd49e58" category="list-text">*LUN 개수* 필드에 필요한 LUN 개수를 입력하십시오(기본값은 1개이며, 동일한 크기의 추가 LUN을 병렬로 생성할 수 있습니다).</block>
+  <block id="63bba23f10fee9a9eb2088e0af4abfbb" category="list-text">각 LUN에 대해 원하는 크기를 *LUN당 용량* 필드에 입력하십시오</block>
+  <block id="0c4ebcc189c7ff27b6d0ad5bf0170527" category="list-text">iSCSI 액세스 제어를 위한 *이니시에이터 그룹*(igroup)을 선택하십시오. 기존 igroup을 선택하거나 새 igroup을 생성할 수 있습니다.</block>
+  <block id="66ff2e6484d13c3dacf6512016f91421" category="example-title">ONTAP 세부 정보 보기: iSCSI LUN 구성</block>
+  <block id="6ab0fd4c90fb9261d42864b6707f18bc" category="image-alt">LUN 구성 옵션을 보여주는 iSCSI ONTAP 세부 정보 섹션</block>
+  <block id="b4108f8f34e4c29aceae0441e02b0d90" category="example-title">iSCSI igroup 선택 보기</block>
+  <block id="fb1ab9362f8b5e54aac4d9add259668d" category="image-alt">액세스 제어를 위한 iSCSI igroup 선택</block>
+  <block id="ce343df19283b3cf14c42054bd3834c2" category="list-text">*Proxmox* 드롭다운 메뉴에서 대상 클러스터를 선택한 다음 스토리지에 액세스해야 하는 모든 노드를 선택합니다</block>
+  <block id="7c2fa397eae5c7cff275d9af220677ff" category="list-text">Proxmox 내에서 iSCSI 기반 스토리지 풀을 나타낼 적절한 *LVM ID*를 선택하십시오.</block>
+  <block id="55e55645eb48f6dd80eaae0011772935" category="list-text">*노드* 필드에서 제시된 iSCSI 타겟에 액세스해야 하는 모든 노드를 선택하십시오</block>
+  <block id="399ca814d2465ee55ab50696b86e124e" category="list-text">(선택 사항) VLAN 분할이 필요한 경우 원하는 *스토리지 VLAN*을 선택하십시오.</block>
+  <block id="44048d9edfce2d1039880fd65f5c1bd5" category="list-text">*콘텐츠* 섹션에서 이 데이터 저장소에서 지원하는 콘텐츠 유형을 선택합니다.</block>
+  <block id="0e7278cda02a9c0446dcc75a4df34eb2" category="list-text">컨테이너</block>
+  <block id="32789d1bf615b3466cc67e73ee046c0a" category="list-text">선택한 Proxmox 노드 전체에서 스토리지를 사용할 수 있도록 *데이터 저장소 마운트*가 선택되어 있는지 확인하십시오.</block>
+  <block id="73c2e3d4f22c3855b4ca093f9153b16a" category="list-text">(선택 사항) 여러 노드에서 스토리지 풀에 동시에 액세스할 경우 *공유*를 활성화하십시오.</block>
+  <block id="c0789c6619eaef189013c5b5b6b6349c" category="example-title">Proxmox 세부 정보 보기: iSCSI</block>
+  <block id="8a4e8882437f1ab8676e2e8ad20a56f0" category="image-alt">스토리지 풀 구성을 보여주는 iSCSI Proxmox 세부 정보 섹션</block>
+  <block id="b996a550e92087f66181379c0877d761" category="list-text">ONTAP LUN을 생성하고 선택한 Proxmox 클러스터 내에 데이터스토어(스토리지 풀)를 등록하려면 *Provision*을 클릭하십시오.</block>
+  <block id="d750a964f886223afef79dcc3d71aa65" category="example-title">iSCSI LUN 프로비저닝 보기</block>
+  <block id="c59a1d58649b275a2d12a059e4c993bc" category="image-alt">iSCSI LUN 프로비저닝이 진행 중입니다</block>
+  <block id="5ba878b8ae6fb27568603861f9773239" category="example-title">iSCSI 프로비저닝 완료 보기</block>
+  <block id="a3db89a7992cf0b790613bd2f3fc68f6" category="image-alt">iSCSI LUN 프로비저닝이 완료되었습니다</block>
+  <block id="1bfe13b881d23c16a7e27351bd95424e" category="example-title">Proxmox에서 iSCSI 데이터 저장소 보기</block>
+  <block id="1f441e4c8f3f026105202e4280eeac59" category="image-alt">Proxmox 클러스터에 등록된 iSCSI 데이터 저장소</block>
+  <block id="12d76d1fd798f359377beceb6da3367b" category="list-text">Proxmox 엔드포인트에 액세스하여 NFS 및 iSCSI LUN이 연결되었는지 확인하십시오.</block>
+  <block id="ba6c6bdf8e13f558c64819daf5ddf1fd" category="paragraph">연결된 스토리지를 이제 가상 머신 프로비저닝에 사용할 수 있습니다.</block>
+  <block id="503dfebeb8af3b374d8aaa098ab0454b" category="example-title">Proxmox 스토리지 보기</block>
+  <block id="385d4bd896742ff9689e051c0ebce19d" category="image-alt">NFS 및 iSCSI 데이터 저장소가 연결되었음을 확인하는 Proxmox 스토리지 보기</block>
+  <block id="1e797690fda2b7281d18e75ad4be1d9a" category="section-title">볼륨 구성 옵션</block>
+  <block id="27defa684e9847f2a767a36772762b75" category="paragraph">SMP가 새로운 ONTAP FlexVol 볼륨 및 LUN을 프로비저닝할 때 몇 가지 기본 구성 값이 자동으로 적용됩니다.</block>
+  <block id="91b115a1144549ca8093901ee18c25eb" category="cell">ONTAP 설정</block>
+  <block id="6b66a61fa66288a9a7ad6474d2e686ec" category="cell">기본값</block>
+  <block id="5938fe448c8661febcef3f4e779e3adb" category="cell">스냅샷 예약(-percent-snapshot-space)</block>
+  <block id="9f1ef07877f9d85a82bd500f408b4814" category="cell">0%</block>
+  <block id="7218aec62575561a6de1cae8d5658390" category="cell">부분 예약(-fractional-reserve)</block>
+  <block id="3a7e09ff0fa38663ffe6d91324ea75d9" category="cell">액세스 시간 업데이트(-atime-update)</block>
+  <block id="b9f5c797ebbf55adccdd8539a65a0241" category="cell">비활성화됨</block>
+  <block id="e93200d5b0d16915bf04236790544b2f" category="cell">최소 미리 읽기(-min-readahead)</block>
+  <block id="c877d89702fdd14e51b02028a20c7d07" category="cell">예약된 스냅샷</block>
+  <block id="6adf97f83acf6453d4a6a4b1070f3754" category="cell">None</block>
+  <block id="fd18465573ec21a6218982055981f6b1" category="cell">스토리지 효율성</block>
+  <block id="00d23a76e43b46dae9ec7aa9dcbebb32" category="cell">활성화됨</block>
+  <block id="f65fd63b63c9e9f25bf6bc141e83de34" category="cell">볼륨 보장</block>
+  <block id="c2410aebdf425dabcc65e546e506b03e" category="cell">없음(씬 프로비저닝됨)</block>
+  <block id="8285885018fdba6d87edc774237f0e24" category="cell">볼륨 자동 크기 조정</block>
+  <block id="d89f4f8b1d7c18847b88b46142f61535" category="cell">증가_축소</block>
+  <block id="ace72ec54e17777d27eb8bdb9d57e782" category="cell">LUN 공간 예약</block>
+  <block id="514aa7792a71ab4ab677eb2385131aae" category="cell">LUN 공간 할당</block>
+  <block id="d40a66b12af7a3ddd7bf63dedceda40d" category="section-title">NConnect 동작</block>
+  <block id="aeaaa17f83b9bc3b25ec5374560c9fac" category="paragraph">Proxmox VE에서 NFS 스토리지를 사용할 때는 Linux NFS 클라이언트(Proxmox VE의 기본 운영 체제인 Debian에서 사용)의 특정 동작에 유의해야 합니다. Linux 커널은 노드에 NFS 익스포트가 처음 마운트될 때 사용된 마운트 매개변수를 재사용할 수 있습니다. 동일한 익스포트를 다른 마운트 옵션으로 다시 마운트할 경우, 새 옵션이 적용되지 않을 수 있습니다.</block>
+  <block id="a9c60c99077ebc97689e44fb06b4dabc" category="paragraph">모범 사례로, 별도의 익스포트를 생성 및 마운트하고 서로 다른 NFS 서버 IP 주소(예: 별도의 데이터 LIF)를 사용하는 것이 좋습니다. SMP는 기존 연결과 해당 nconnect 값을 자동으로 감지하고 새 연결에 적절한 nconnect 값을 적용합니다.</block>
+  <block id="c724784c65896d8b16350f4b0580dfd4" category="section-title">가상 머신 보호</block>
+  <block id="d70d176974da5b5a7b4b5ad4a15f6cb4" category="paragraph">ONTAP 기반 NFS 데이터스토어에서 가상 머신을 실행할 때 가장 효율적인 보호 방법은 Proxmox가 파일 시스템 일관성을 유지하는 동안 ONTAP이 스토리지 계층에서 실제 백업 지점을 캡처하도록 하는 것입니다. ONTAP 스냅샷은 데이터스토어 볼륨의 빠르고 공간 효율적인 시점 복사본을 제공하며, 나중에 전체 데이터스토어, 개별 파일 또는 VM 콘텐츠를 복구하는 데 사용할 수 있습니다.</block>
+  <block id="fb6d475c3e4b5d4d1fff6a48627a808d" category="paragraph">SMP는 크래시 일관성 및 VM 일관성 데이터 보호와 클론 관리를 위한 간편한 오케스트레이터를 제공합니다. 이 소프트웨어는 여러 작업에 적용할 수 있는 백업 정책 생성을 통해 백업, 복원 및 클론 수명 주기를 간소화합니다. 이러한 정책은 일정, 보존 기간, 복제 및 기타 기능을 정의할 수 있습니다. 또한 선택적으로 파일 일관성 스냅샷을 사용할 수 있으며, 이 방식은 ONTAP 스냅샷을 생성하기 전에 QEMU의 I/O 정지 기능을 활용합니다.</block>
+  <block id="5b08cbb5dca11f05981a75cbf1c5a88c" category="paragraph">SMP를 사용하면 하나의 ONTAP NFS 볼륨에 여러 VM이 포함된 전체 데이터 저장소, 여러 데이터 저장소에 걸쳐 있을 수 있는 VM 그룹 또는 개별 VM 수준에서 보호할 수 있습니다.</block>
+  <block id="c0819302c0fdeaa2de0e53290c2af810" category="section-title">가상 머신 백업</block>
+  <block id="acc5bd6a5c43a1a496c47e8be0d7563c" category="paragraph">ONTAP 볼륨이 프로비저닝되면 백업 옵션을 사용하여 Proxmox 클러스터에서 실행 중인 모든 VM을 나열하고 가상 머신의 크래시 정합성 보장 또는 파일 정합성 보장 백업을 수행하십시오.</block>
+  <block id="a86ce101da91da022fd2c8030492a31f" category="list-text">왼쪽 탐색 창에서 *보호* &gt; *백업*에 액세스합니다.</block>
+  <block id="f06b701302ab96036d80b4ba50678b1c" category="example-title">Protect 백업 페이지 보기</block>
+  <block id="7b801bff3f4a3d2cb930e2d4090b8e35" category="image-alt">Proxmox 가상 머신을 나열하는 SMP Protect Backup 페이지</block>
+  <block id="4ed0369f06813efcb56c84dd64276a93" category="list-text">백업할 가상 머신을 선택하고 *Backup*을 클릭하십시오.</block>
+  <block id="b43081f5a187c5dfefa3af565ec9c78c" category="example-title">백업 보기 대화 상자: VM 선택</block>
+  <block id="2cfb32e272e11167a228d801ed1d797d" category="image-alt">VM 선택 및 백업 옵션을 보여주는 백업 대화 상자</block>
+  <block id="bb543620c1bb165f129729db39bd1075" category="list-text">백업 워크플로를 사용하면 충돌 시에도 정합성 보장 보호와 파일 정합성 보장 보호 중에서 선택할 수 있습니다.</block>
+  <block id="a3d657430454923a672a6de3e8e78f9b" category="paragraph">파일 일관성 모드는 선택적으로 QEMU fsfreeze를 사용하여 스냅샷을 생성하기 전에 게스트 파일 시스템의 상태를 유지합니다. fsfreeze가 실패하면 시스템은 Proxmox 스냅샷을 사용합니다.</block>
+  <block id="b177c3761c50975267181c6f181ed49f" category="admonition">이 대체 메커니즘은 NFS 볼륨에 저장된 가상 머신에만 적용됩니다.</block>
+  <block id="80fe339027f54b313e56c02f221b7784" category="example-title">백업 보기 대화 상자: 일관성 옵션</block>
+  <block id="9621aa748c18fae5b11563535ae693f1" category="image-alt">크래시 정합성 및 파일 정합성 보호 옵션을 보여주는 백업 대화 상자</block>
+  <block id="1e0e0805ed47d989edfb7740bc02050d" category="example-title">백업 진행 상황 보기</block>
+  <block id="9edba21feb47e7c3c7b34a1e8c6a6082" category="image-alt">임시 Proxmox 스냅샷 및 ONTAP 스냅샷 생성을 보여주는 백업 진행 상황</block>
+  <block id="63744fa62a74bb5137c7a7e404682cde" category="admonition">ONTAP 스냅샷은 볼륨 수준에서 생성되며, NFS 데이터스토어 내의 모든 VM 디스크와 구성 파일을 단일 스냅샷에 캡처합니다. VM 일관성 보호가 선택된 경우, fsfreeze는 선택된 VM에 대해서만 실행됩니다. 볼륨 내의 다른 모든 VM은 동일한 ONTAP 스냅샷 내에 크래시 일관성으로 포함됩니다.</block>
+  <block id="31efa25c2184d1a291da989772d74d65" category="list-title">추가 백업 옵션</block>
+  <block id="af871268b13c30a1719d3d01305cee2c" category="list-text">단일 데이터 저장소를 백업하려면 *스토리지* 탭을 선택하고 *백업* 옵션을 선택하십시오.</block>
+  <block id="4ab34f1635594c4c74f476705e4288ff" category="list-text">여러 데이터스토어를 하나의 단위로 백업하거나 서로 다른 데이터스토어에 걸쳐 있는 VM 그룹을 보호하려면 *리소스 그룹* 옵션을 사용하십시오. 리소스 그룹을 사용하면 데이터스토어 또는 VM을 논리적 보호 세트로 구성할 수 있습니다.</block>
+  <block id="a80be1806697091cb40b260b8e6f3c81" category="example-title">리소스 그룹 보기 탭</block>
+  <block id="6f4b2c196e7e8c39991576c94413d72b" category="image-alt">새 리소스 그룹을 생성할 수 있는 옵션이 있는 리소스 그룹 탭</block>
+  <block id="548b49f4267cb06525a994818f01fc03" category="list-title">리소스 그룹을 생성합니다</block>
+  <block id="1d02e93ad2b503d0c9762050ad044fee" category="list-text">*리소스 그룹* 탭을 열고 *추가*를 선택합니다.</block>
+  <block id="1cd35697f1c0958282da2047aa540e6c" category="list-text">새 리소스 그룹의 이름을 입력합니다.</block>
+  <block id="6f9eb8c5e682f5484f8c4fdbaa8131d4" category="list-text">리소스 유형을 선택합니다. * VM * 또는 * Datastore * 를 선택합니다.</block>
+  <block id="7295c5b603e686bf0646426684fb3ae9" category="list-text">적절한 *프로토콜*을 선택하십시오.</block>
+  <block id="4ef65ae9ac839b3a1389a2fbd696a8dc" category="list-text">선택한 리소스 유형에 따라 포함할 특정 VM 또는 데이터 저장소를 선택하십시오.</block>
+  <block id="dbd123bbb8208a33626f3887f73e976c" category="list-text">설정을 완료하려면 *리소스 그룹 생성*을 클릭하십시오.</block>
+  <block id="d27880785e191bcc12e62da6a8bfc940" category="example-title">리소스 그룹 생성 대화 상자 보기</block>
+  <block id="089d83d5d30a9c34646b3c72a7bc6e48" category="image-alt">VM 및 데이터 저장소 선택 옵션이 있는 리소스 그룹 생성 대화 상자</block>
+  <block id="5eb544767dc93e1d6b3c354ae8456713" category="admonition">데이터 저장소(볼륨) 수준에서 수행되는 백업은 항상 크래시 정합성을 유지합니다. 리소스 그룹은 VM 또는 데이터 저장소 중 하나의 리소스 유형만 포함할 수 있습니다. iSCSI 기반 스토리지의 경우 백업은 항상 크래시 정합성을 유지합니다.</block>
+  <block id="e39661913d7ec84708217eb35b00f945" category="section-title">백업 워크플로우 세부 정보</block>
+  <block id="2b9b1f8453bf370c2983188160a5c1ab" category="paragraph">상위 수준 백업 워크플로에는 다음이 포함됩니다.</block>
+  <block id="32475fd8913ed22e08f766a205aa16c5" category="list-text">*보호 범위 정의*: 보호 대상이 데이터 저장소(ONTAP 볼륨), 리소스 그룹(여러 볼륨 또는 VM) 또는 개별 VM인지 선택합니다.</block>
+  <block id="88c4013e231d0fdb60dcb5e0d79c1f49" category="list-text">*일관성 방법 확인*: ONTAP 스냅샷 생성 전에 일관성을 생성하는 방법을 선택하십시오.</block>
+  <block id="a6c936939df5f921cea1c4b9c3cd87c1" category="list-text">QEMU 게스트 에이전트 고정/고정 해제는 게스트 내 파일 시스템 정지 및 Windows VSS 통합에 사용됩니다.</block>
+  <block id="f6c02bd07995293ad23fff6bd04bf820" category="list-text">*VM 구성 파일을 덤프합니다*.</block>
+  <block id="b45ca7816f29e4fc929df7e0df740dfa" category="list-text">*ONTAP 스냅샷 생성*: VM이 일관된 상태일 때 데이터 저장소 볼륨의 ONTAP 스냅샷을 캡처합니다. 이 스냅샷이 보존된 백업 복사본이 됩니다.</block>
+  <block id="6d61f9389a3601895c88c1cb0fd62835" category="list-text">*임시 Proxmox 스냅샷 제거*: 델타 파일 증가를 방지하기 위해 ONTAP 스냅샷이 완료된 후 Proxmox 스냅샷을 삭제하십시오.</block>
+  <block id="c7b74349395edac1a2ff66c56cba9a2b" category="list-text">*보존 및 복제 정책 적용(정책 사용)*: 구성된 ONTAP 보존 정책을 적용하고 재해 복구 복제가 활성화된 경우 스냅샷 세트를 복제합니다.</block>
+  <block id="28997d4ea5adb79d15126c8647eeecad" category="paragraph">이 접근 방식은 변경된 정보만 저장하여 스토리지 공간과 네트워크 대역폭을 최소화합니다. 스냅샷 복사본을 사용하여 성능에 영향을 주지 않고 VM 또는 데이터스토어의 빠른 복사본을 만든 다음 NetApp SnapMirror 기술을 사용하여 장기간 오프사이트 데이터 보호를 위해 2차 시스템으로 전송할 수 있습니다.</block>
+  <block id="3b448b799a5495c4f9a7ebc4d0689ab1" category="section-title">VM 백업 작업 자동화</block>
+  <block id="9adeeaa50234f5358601746b9c22415e" category="paragraph">일정을 구성하여 Proxmox VM 백업을 자동화하세요. 정기적인 백업 복사본을 생성하는 것은 데이터 보호 및 재해 복구에 매우 중요합니다.</block>
+  <block id="efedc938c8804069e43eef3afb7a50e2" category="list-text">*보호* &gt; *백업* &gt; *정책*으로 이동하여 *추가*를 클릭하면 새 백업 정책과 일정을 추가할 수 있습니다.</block>
+  <block id="79d49b4251609d45520d82a59fc9f8a0" category="example-title">백업 정책 페이지 보기</block>
+  <block id="c4bdda0624f27abf6bf63530e27a4861" category="image-alt">새 정책을 추가하는 옵션이 있는 백업 정책 페이지</block>
+  <block id="dd5c5779b00c1e6410c5f1448d8032e5" category="list-text">일반 설정 구성:</block>
+  <block id="14658415a5afeaa1957fb4873b7e1cef" category="list-text">정책 이름을 입력합니다</block>
+  <block id="083e281621716e4b47dd6127eb863f69" category="list-text">* 정책 유형 * (볼륨 또는 리소스 그룹)을 선택합니다</block>
+  <block id="26328790446c107cdf06d8061cfe4b23" category="list-text">선택한 유형에 따라 *대상*을 선택하십시오</block>
+  <block id="0e2a78870984b898edf24cfaeaaf4cbb" category="list-text">*백업 빈도*(시간별, 일별, 주별 또는 월별)를 설정합니다</block>
+  <block id="bd10dede615581ca9fb0ad15a5f80c8d" category="list-text">"보관 기간(일)" 또는 "보관할 개수"를 사용하여 *보존*을 구성합니다(기본 보존 값은 7).</block>
+  <block id="162f053cfc588cae1387c277ab05bebc" category="list-text">*복제 모드*를 선택하십시오(현재 릴리스에서는 비활성화됨):</block>
+  <block id="fa23470db7b9905492d6e4cdd14b03e5" category="list-text">백업 후 SnapMirror 업데이트</block>
+  <block id="05c92158f412c4a911e0b21a09762bf2" category="list-text">백업 후 SnapVault 업데이트</block>
+  <block id="b7162d5707ff1ce8659c81b10fe1360a" category="admonition">SnapMirror 복제는 CLI 또는 System Manager를 사용하여 ONTAP에서 구성해야 합니다.</block>
+  <block id="5c9c0ce957626de1ba61e3b223edc18a" category="list-text">*고급 옵션*에서 ONTAP 스냅샷을 트리거하기 전에 Proxmox 스냅샷 또는 fsfreeze를 사용해야 하는 경우 *VM 일관성*을 활성화하십시오.</block>
+  <block id="e6e88ad731fa7394b0549c9bf8984e93" category="list-text">* 정책 생성 * 을 클릭하여 구성을 저장합니다.</block>
+  <block id="483807e364a731ef25e37332431b95df" category="example-title">백업 정책 보기: 일정 및 보존 기간</block>
+  <block id="88e210e3874392c98a1a15ecca60983a" category="image-alt">일정 및 보존 설정을 보여주는 백업 정책 구성</block>
+  <block id="eb056378ebe1219f725292058c7c3cb2" category="example-title">백업 정책 보기: 복제 및 고급 옵션</block>
+  <block id="f199ab5a74d87f7506da5be17063933c" category="image-alt">복제 및 고급 옵션을 보여주는 백업 정책 구성</block>
+  <block id="d546319060294cd6fed0a27c0300de85" category="admonition">VM 백업 작업은 리소스 그룹의 예약된 실행 시간을 기다리지 않고 *Backup*을 클릭하여 즉시 트리거할 수도 있습니다.</block>
+  <block id="7cf83ed16229466716adaf95b4893815" category="section-title">가상 머신 또는 데이터 저장소 복원</block>
+  <block id="a03236b29afd0ed2851a5d5eebd6f8f7" category="paragraph">SMP를 사용하여 백업에서 Proxmox VM을 복원합니다.</block>
+  <block id="c3d97c5d3055ae2da516925a70f7565a" category="paragraph">가상 머신은 복원 작업을 수행하기 전에 전원이 꺼져 있어야 합니다.</block>
+  <block id="0701fbb9ba9af7c70c62fc8becce8a3d" category="list-text">웹 인터페이스 왼쪽의 탐색 창에서 *복원* 옵션을 선택하십시오.</block>
+  <block id="b9ae03a3aa993a2dbf24b77952323ceb" category="list-text">복원해야 하는 가상 머신, 스토리지 또는 리소스 그룹을 선택합니다.</block>
+  <block id="e22a96d780914e2328ea1c5c0bb7ac1c" category="example-title">복원 페이지 보기</block>
+  <block id="ec66ca040e1e451014ab1b2b97b8effd" category="image-alt">가상 머신을 나열하는 복원 페이지</block>
+  <block id="0163772b712a4596fe39e31c0df953e4" category="list-text">*복원* 아이콘을 클릭합니다.</block>
+  <block id="8fb4c89a75e57cf95a7f11f9928c0598" category="paragraph">선택 항목(VM, 스토리지 또는 리소스 그룹)에 따라 복원 팝업 창이 열립니다.</block>
+  <block id="2177dd98be441da52cc94c64c5652ff5" category="admonition">선택한 리소스에 따라 해당 구성 요소에 대해 생성된 스냅샷이 표시됩니다. 예를 들어 리소스 그룹 수준에서 생성된 스냅샷은 리소스 그룹이 선택된 경우에만 표시됩니다. 스토리지에도 동일하게 적용됩니다. 하지만 가상 머신의 경우 모든 구성 요소에 걸쳐 생성된 스냅샷이 선택 가능하도록 표시됩니다.</block>
+  <block id="d98b474b7ce96c0602b08184f998981b" category="example-title">복원 대화 상자 보기: 스냅샷 선택</block>
+  <block id="d39a68c53f468994b8eb2a9969319d58" category="image-alt">시점 복원을 위한 스냅샷 선택을 보여주는 복원 대화 상자</block>
+  <block id="9bad64a194489c724280a9f3aa290a8d" category="list-text">필요한 옵션을 선택합니다.</block>
+  <block id="34c80f37ec67f13e69bc00b969766355" category="list-text">*복원 대상*: 동일한 호스트 또는 대체 호스트로 복원하는 옵션</block>
+  <block id="4b57a9d53c1e5195b99e11692bf50a88" category="list-text">*호스트*: 대체 호스트가 선택된 경우 드롭다운을 통해 클러스터 내에서 사용 가능한 호스트를 선택할 수 있습니다</block>
+  <block id="e0352dab27ca2a00303bd958e5b9af54" category="list-text">*스냅샷*: 시점 복원에 적합한 스냅샷을 선택합니다</block>
+  <block id="357a35aedd0c37deb3a881df778a9bb4" category="list-text">*복원*을 클릭합니다.</block>
+  <block id="aeec9a15068a9fe8072320311bfbd325" category="example-title">진행 중인 복원 보기</block>
+  <block id="57702f528c052b11afb86f0c827392fd" category="image-alt">복원 작업이 진행 중입니다</block>
+  <block id="411c886732d838d7a4e7fc81c8995348" category="example-title">보기 복원 완료</block>
+  <block id="af4a1b82397eb169184c4e1b3d7827ac" category="image-alt">복원 작업이 성공적으로 완료되었습니다.</block>
+  <block id="54f7813f0b2baaac12855f24a30bfa0b" category="admonition">스토리지 수준 복원이 시작되면 해당 볼륨 또는 LUN의 모든 가상 머신의 전원이 꺼지고 시스템은 전체 스토리지 엔티티를 한꺼번에 복원합니다.</block>
+  <block id="421758f15e3278f12d9d030800b20ddd" category="example-title">스토리지 수준 복원 보기</block>
+  <block id="f92cc5baf6c3e188fd199b32593c2872" category="image-alt">선택한 볼륨의 모든 VM을 표시하는 스토리지 수준 복원</block>
+  <block id="d750ce3dc8c069b7e10707fa9bb26b37" category="section-title">워크플로 세부 정보 복원</block>
+  <block id="4f7185469f5cf0defb7436df5f9a2cd2" category="paragraph">복원 워크플로는 기본 스토리지 유형에 따라 다르며 다음과 같은 주요 단계를 포함합니다.</block>
+  <block id="32f048225f9de5f0b3fa497280cda9a9" category="list-text">*복원 범위 정의*: 보호 대상이 데이터 스토어(ONTAP 볼륨), 리소스 그룹(여러 볼륨 또는 VM) 또는 개별 VM인지 선택합니다.</block>
+  <block id="9f948cd2f711de107337701cc6554fdd" category="list-text">*복원 작업 실행*: VM 복원 프로세스는 스토리지 프로토콜에 따라 다릅니다.</block>
+  <block id="4d697b61940b6c4b91e32653112ce2de" category="list-text">*NFS 기반 복원*: NFS에서 볼륨 또는 데이터스토어를 복원할 때 SMP는 타겟 볼륨에서 볼륨 스냅 복원 작업을 시작합니다. NFS 볼륨에서 호스팅되는 VM의 경우 SMP는 VM ID, 스냅샷 이름, 사이트 ID 및 스토리지 유형을 포함한 복원 매개변수를 검증합니다. VM이 실행 중인 경우 SMP는 VM의 상태를 폴링하고 중지 명령을 실행하여 VM을 중지합니다. 그런 다음 시스템은 파일 수준 복원 작업을 사용하여 스냅샷에서 VM 디스크를 복원합니다.</block>
+  <block id="cd2c64c9ab903c66b4d2a7891b0b587c" category="list-text">*iSCSI 기반 복원*: iSCSI 데이터스토어 또는 LUN의 경우, SMP는 스냅샷에서 LUN을 복원하고, 복원된 디바이스를 검증하고, Proxmox 노드 전체에서 iSCSI 재검색을 수행하여 디바이스 접근성을 보장합니다. iSCSI 스토리지에 있는 VM의 경우, SMP는 스냅샷 LUN을 클론하고, 클론된 LUN을 Proxmox 호스트에 매핑한 다음, iSCSI 검색을 수행하여 가져옵니다. 그런 다음 복원된 스토리지가 추가되고 VM 구성이 업데이트됩니다. VM 디스크는 VM별로 진행 상황이 추적되는 가운데 원래 스토리지로 다시 이동됩니다. 이 프로세스는 임시 스토리지 제거 및 클론된 LUN 삭제를 포함한 정리 작업으로 마무리됩니다.</block>
+  <block id="e28fdf4c2bbea67ab8cc9435c052542f" category="section-title">가상 머신 복제</block>
+  <block id="25f522b1df2d8fb6114e43bf0917c615" category="paragraph">SMP를 사용하여 개발, 테스트 또는 신속한 프로비저닝을 위한 가상 머신의 클론을 생성할 수 있습니다.</block>
+  <block id="369f99486f571e9d472f89e3e7909776" category="list-text">*보호* 섹션을 열고 왼쪽 탐색 메뉴에서 *Clone*을 선택하세요.</block>
+  <block id="f27e1184902281b008fe3673a73b481f" category="list-text">VM 목록에서 필요한 VM을 찾고 작업 열에서 *Clone*을 클릭합니다.</block>
+  <block id="f816cf33cefdfc199db4d0e92ff91311" category="list-text">VM 복제 창에서 복제본이 생성될 *타겟 노드*를 선택합니다.</block>
+  <block id="55e53a61f3c7477f7f167b8c721251ce" category="example-title">VM 복제 대화 상자 보기</block>
+  <block id="55b2ea0ea4963799e0e5c2a04635ae8f" category="image-alt">타겟 노드 선택을 보여주는 VM 복제 대화 상자</block>
+  <block id="cb3b692663c8fd9237a884fb13461b59" category="list-text">클론의 소스로 사용할 *Snapshot*을 선택합니다.</block>
+  <block id="734fb61fdd53b835cc4e8ac836428082" category="admonition">현재 릴리스에서는 액티브 파일 시스템에 대해 클론이 수행됩니다. 향후 릴리스에서는 클론 워크플로에서 스냅샷을 선택할 수 있게 되며, 이 경우 선택한 스냅샷에서 생성된 새 볼륨을 사용하여 파일 클론이 수행됩니다.</block>
+  <block id="9214466080a06b7cc3b0de5c9dd22c97" category="list-text">복제된 VM의 *복사본 수*, *CPU 코어*, *소켓* 및 *메모리*를 지정합니다.</block>
+  <block id="e9b8051d934919e3a647130ed4789bde" category="list-text">(선택 사항) 복제된 VM이 생성 후 자동으로 시작되도록 하려면 *Power on after clone*을 활성화하십시오.</block>
+  <block id="125f902d6277dea35f1e73bba93e1797" category="list-text">(선택 사항) 클론을 새로 생성된 데이터 저장소에 배치하려면 *새 데이터 저장소 생성*을 선택하십시오.</block>
+  <block id="48cdc65f398e691ca79d2ceb2bcb0653" category="list-text">*고급 옵션*에서 네트워크 설정이 클론에 자동으로 적용되도록 하려면 *네트워크 구성*을 활성화하십시오.</block>
+  <block id="c1a914c3772512c513133c46f5ce43da" category="list-text">*Clone*을 클릭하여 클로닝 프로세스를 시작합니다.</block>
+  <block id="2d7e9a210f45284500629a7e1a5fc757" category="paragraph">클론 워크플로는 ONTAP의 고속 클로닝 API를 사용하여 새 VM을 프로비저닝하고 클론된 인스턴스에 고유한 5자리 GUID를 할당합니다.</block>
+  <block id="44e078a9c2786bafcf05cfed912ff8dd" category="example-title">클론 작업 보기</block>
+  <block id="ebb2db61be8173b99d7dbdc86bd6c162" category="image-alt">ONTAP FlexClone을 사용하여 진행 중인 클론 작업</block>
+  <block id="757d94a4727d30a7bc055dc6ffc9650a" category="admonition">복제된 VM은 백업 목록과 클론 목록 모두에 나타나며 기존 백업 정책을 사용하여 보호할 수 있습니다. 복제된 VM을 이러한 목록에 표시하려면 Proxmox 및 ONTAP 플랜에 대한 검색을 실행하십시오.</block>
+  <block id="58cf380dd375a1ad9b72382c9ae4f20e" category="example-title">클론 생성된 VM을 목록에서 보기</block>
+  <block id="24e1c51d79344374eb88c6a0cdf413ee" category="image-alt">백업 및 클론 목록에 나타나는 클론 VM</block>
+  <block id="1ee9044092621cd1ac75e063c280d1d2" category="section-title">클론 워크플로우 세부 정보</block>
+  <block id="c6e2c6c6ce1a4b9e896ef549e6c70631" category="paragraph">SMP는 호스트 측 파일 복사 대신 스토리지 측 클론을 수행하도록 ONTAP에 작업을 오프로드하여 신속한 VM 클로닝을 자동화합니다. 내부적으로 SMP는 ONTAP FlexClone 의미 체계(스냅샷 기반, 쓰기 가능, 공간 효율적인 클론)를 활용하여 클론을 빠르게 생성하고 초기에 적은 용량을 소비하도록 하며, 가능한 경우 Proxmox 호스트를 통한 데이터 읽기/쓰기를 방지합니다.</block>
+  <block id="9d90d398f0f9f9ef3e46da5b04cdcbe2" category="paragraph">이 접근 방식은 클론 작업을 ONTAP로 푸시하여 VM 프로비저닝을 가속화하고, 개발/테스트, 랩 환경 및 빠른 새로 고침 주기에 적합한 빠르고 씬(thin)하며 스토리지 효율적인 클론을 제공합니다.</block>
+  <block id="7e91228a15629a7b130a4ae105648554" category="paragraph">기본적으로 클론 작업은 액티브 파일 시스템에 대해 수행됩니다. 클론 워크플로는 스냅샷을 선택할 수도 있으며, 이 경우 선택한 스냅샷에서 생성된 새 볼륨을 사용하여 파일 클론이 수행됩니다.</block>
+  <block id="00ae0cd12340f0b4bbba6b466e757a65" category="section-title">작업 모니터링</block>
+  <block id="6eee01cbde07288dfe00892f0ee5ae71" category="paragraph">프로세스 로그 및 대시보드 보기를 사용하여 SMP 작업을 모니터링하고 추적하십시오.</block>
+  <block id="828650695d5b304f8a1a5f742391c024" category="section-title">프로세스 로그</block>
+  <block id="e74eddb0eb9d008549f59ed36fc89956" category="paragraph">프로세스 로그 보기에서는 Proxmox용 Storage Manager를 통해 수행된 모든 작업에 대한 통합 기록을 제공합니다. 각 항목에는 작업 상태, 작업 ID, 수행된 작업, 시작 시간 및 소요 시간이 표시됩니다. 이를 통해 완료된 작업을 쉽게 추적하고, 실패했거나 부분적으로 완료된 작업을 식별하고, 환경에서 실행된 작업 순서를 검토할 수 있습니다.</block>
+  <block id="0cdd52f44ae71cc4850ce3088798caf9" category="paragraph">필터 및 검색 옵션을 사용하여 특정 작업을 빠르게 찾거나 상태별로 목록을 좁힐 수 있습니다.</block>
+  <block id="75d25c20dd3b1c1a301cf7b82672460f" category="example-title">프로세스 로그 보기 보기</block>
+  <block id="7b5c02009e94ce335684cc92f06d3dca" category="image-alt">작업 기록 및 작업 상태를 표시하는 프로세스 로그 보기</block>
+  <block id="2938c7f7e560ed972f8a4f68e80ff834" category="section-title">대시보드</block>
+  <block id="ff49c5e7d30b99b8015363798dfe94ee" category="paragraph">대시보드는 Proxmox용 Storage Manager 환경 전체를 한눈에 파악할 수 있도록 개요를 제공합니다. Proxmox 클러스터, 호스트, 데이터스토어, ONTAP 클러스터 및 보호되는 가상 머신 수와 같은 주요 인벤토리 정보를 요약하여 보여줍니다. 용량 사용량, 총 스토리지 볼륨, 보호 정책 및 리소스 그룹도 표시되어 시스템 리소스 활용률을 명확하게 파악할 수 있습니다.</block>
+  <block id="9f1f0ff0117a0c038ed3aeea004c9590" category="paragraph">클러스터 상태가 눈에 띄게 표시되어 연결된 모든 노드의 상태를 나타냅니다. 대시보드 하단 섹션에는 VM 분포(총계, 실행 중, 중지됨)가 강조 표시되며 메모리, 스토리지 및 CPU에 대한 실시간 Proxmox 리소스 활용률이 제공됩니다. 이 화면을 통해 시스템 상태를 신속하게 평가하고 리소스 부족 현상을 파악하며 전반적인 운영 상태를 모니터링할 수 있습니다.</block>
+  <block id="3b512de059a0505d85337f42502cc459" category="example-title">대시보드 보기</block>
+  <block id="a203c70d64ac00a0da7baa307e769325" category="image-alt">클러스터 상태를 보여주는 SMP 대시보드</block>
+  <block id="f0000b12e34e9d2e8ad82c701c4729db" category="paragraph">Proxmox용 Storage Manager는 Proxmox 환경 전반에 걸쳐 보호, 클로닝 및 복구 작업을 관리하는 간소화되고 통합된 방법을 제공합니다. ONTAP과 직접 통합함으로써 이 솔루션은 엔터프라이즈급 스토리지의 효율성, 안정성 및 성능을 일상적인 VM 워크플로에 제공합니다. ONTAP의 공간 효율적인 스냅샷, 빠른 클로닝 기능 및 내장 복제 기능은 일관되고 예측 가능한 데이터 보호를 제공하며, SMP는 이러한 기능을 직관적이고 작업 중심적인 인터페이스로 간소화합니다.</block>
 </blocks>
