@@ -8625,8 +8625,6 @@
   <block id="2250ade21f70f3898f30d19c23e4f560" category="admonition">마이그레이션을 트리거하기 전에 가상 머신의 전원을 꺼야 합니다</block>
   <block id="643765be95e96ba0bd0d50b581f23ba9" category="admonition">VMware Tools 제거는 VM이 전원이 켜진 후 대상 하이퍼바이저에서 수행됩니다.</block>
   <block id="e0a9da9332918532fa3fb3eadaa4ed4e" category="list-text">Windows VM을 준비하기 위해 Invoke-VMScript를 실행할 때는 로컬 관리자 계정을 사용하거나 로컬 Administrators 그룹에 속한 Active Directory 계정을 사용하십시오. Linux 시스템의 경우 암호 없이 명령을 실행할 수 있는 계정(예: 암호 없는 sudo)을 사용하십시오.</block>
-  <block id="f1229500f6a7c4d3c2d90804fdb089b8" category="list-text">Windows VM의 경우 VirtIO ISO가 마운트되어 있는지 확인하십시오. 그렇지 않으면 준비 프로세스가 실패합니다. VirtIO ISO 드라이버는 여기에서 다운로드할 수 있습니다. 스크립트는 마운트된 드라이브를 감지하고 필요한 파일을 자동으로 복사합니다.</block>
-  <block id="bc0f647d8dee9e215c7b045379244a6e" category="list-text">링크에 지정된 ISO가 사용되는지 확인하십시오. 준비 스크립트는 .msi 패키지를 사용하여 드라이버와 qemu-guest-agent를 설치합니다. 사전 요구 사항이 준비되면 Shift 툴킷 UI에 로그인하여 Proxmox VE를 대상 하이퍼바이저로 사용하는 사이트를 구성하십시오. 추가하려면 "새 사이트 추가"를 클릭하고 "대상"을 선택하십시오.</block>
   <block id="165d8350def49f049896fbe15e76a272" category="section-title">1단계: 대상 사이트(Proxmox VE) 추가</block>
   <block id="58c19cc9f30ac5f53cecad2b57f1b183" category="paragraph">대상 Proxmox VE 환경을 Shift Toolkit에 추가합니다.</block>
   <block id="2be3d66150efaf11bc807c60b267e960" category="paragraph"><block ref="2be3d66150efaf11bc807c60b267e960" category="inline-image-macro-rx" type="image"></block></block>
@@ -9037,4 +9035,6 @@
   <block id="3b512de059a0505d85337f42502cc459" category="example-title">대시보드 보기</block>
   <block id="a203c70d64ac00a0da7baa307e769325" category="image-alt">클러스터 상태를 보여주는 SMP 대시보드</block>
   <block id="f0000b12e34e9d2e8ad82c701c4729db" category="paragraph">Proxmox용 Storage Manager는 Proxmox 환경 전반에 걸쳐 보호, 클로닝 및 복구 작업을 관리하는 간소화되고 통합된 방법을 제공합니다. ONTAP과 직접 통합함으로써 이 솔루션은 엔터프라이즈급 스토리지의 효율성, 안정성 및 성능을 일상적인 VM 워크플로에 제공합니다. ONTAP의 공간 효율적인 스냅샷, 빠른 클로닝 기능 및 내장 복제 기능은 일관되고 예측 가능한 데이터 보호를 제공하며, SMP는 이러한 기능을 직관적이고 작업 중심적인 인터페이스로 간소화합니다.</block>
+  <block id="cb2322662ab0efc3a672040563903109" category="list-text">Windows VM의 경우 VirtIO ISO가 마운트되어 있는지 확인하십시오. 그렇지 않으면 준비 프로세스가 실패합니다. VirtIO ISO 드라이버는 <block ref="a0c092fa69648d84887cd7b874e6d0bb" category="inline-link-macro-rx"></block>에서 다운로드할 수 있습니다. 스크립트는 마운트된 드라이브를 감지하고 필요한 파일을 자동으로 복사합니다.</block>
+  <block id="20bd4f3e222783e1dc397b4d18429ecc" category="list-text">링크에 지정된 ISO를 사용해야 합니다. 준비 스크립트는 .msi 패키지를 사용하여 드라이버와 qemu-guest-agent를 설치합니다. 필수 구성 요소가 준비되면 Shift 툴킷 UI에 로그인하여 Proxmox VE를 대상 하이퍼바이저로 사용하는 사이트를 구성합니다. 추가하려면 "새 사이트 추가"를 클릭하고 "대상"을 선택합니다.</block>
 </blocks>
