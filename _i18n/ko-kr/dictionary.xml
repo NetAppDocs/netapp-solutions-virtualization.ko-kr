@@ -9037,4 +9037,8 @@
   <block id="f0000b12e34e9d2e8ad82c701c4729db" category="paragraph">Proxmox용 Storage Manager는 Proxmox 환경 전반에 걸쳐 보호, 클로닝 및 복구 작업을 관리하는 간소화되고 통합된 방법을 제공합니다. ONTAP과 직접 통합함으로써 이 솔루션은 엔터프라이즈급 스토리지의 효율성, 안정성 및 성능을 일상적인 VM 워크플로에 제공합니다. ONTAP의 공간 효율적인 스냅샷, 빠른 클로닝 기능 및 내장 복제 기능은 일관되고 예측 가능한 데이터 보호를 제공하며, SMP는 이러한 기능을 직관적이고 작업 중심적인 인터페이스로 간소화합니다.</block>
   <block id="cb2322662ab0efc3a672040563903109" category="list-text">Windows VM의 경우 VirtIO ISO가 마운트되어 있는지 확인하십시오. 그렇지 않으면 준비 프로세스가 실패합니다. VirtIO ISO 드라이버는 <block ref="a0c092fa69648d84887cd7b874e6d0bb" category="inline-link-macro-rx"></block>에서 다운로드할 수 있습니다. 스크립트는 마운트된 드라이브를 감지하고 필요한 파일을 자동으로 복사합니다.</block>
   <block id="20bd4f3e222783e1dc397b4d18429ecc" category="list-text">링크에 지정된 ISO를 사용해야 합니다. 준비 스크립트는 .msi 패키지를 사용하여 드라이버와 qemu-guest-agent를 설치합니다. 필수 구성 요소가 준비되면 Shift 툴킷 UI에 로그인하여 Proxmox VE를 대상 하이퍼바이저로 사용하는 사이트를 구성합니다. 추가하려면 "새 사이트 추가"를 클릭하고 "대상"을 선택합니다.</block>
+  <block id="de8e5a1efd59fd3016154d032cf04a70" category="inline-link-macro">VMware ESXi에서 Red Hat OpenShift Virtualization으로 Migration Toolkit for Virtualization(MTV)을 사용한 마이그레이션</block>
+  <block id="ff9844b2de7cfcbbdfa55375ab39a06f" category="list-text"><block ref="ff9844b2de7cfcbbdfa55375ab39a06f" category="inline-link-macro-rx"></block></block>
+  <block id="990fa9f57e4aad9dabc3374936fa135c" category="inline-link-macro">VMware ESXi에서 Proxmox VE로</block>
+  <block id="0844e7bd233e5a61e8cb4e245ed8e467" category="list-text"><block ref="0844e7bd233e5a61e8cb4e245ed8e467" category="inline-link-macro-rx"></block></block>
 </blocks>

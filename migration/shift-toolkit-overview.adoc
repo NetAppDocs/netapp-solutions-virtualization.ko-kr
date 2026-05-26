@@ -36,6 +36,8 @@ Shift 툴킷은 다음 하이퍼바이저 간 양방향 변환을 지원하여 �
 * Microsoft Hyper-V에서 VMware ESXi로
 * VMWare ESXi에서 Oracle Linux Virtualization Manager(OLVM)로
 * VMWare ESXi에서 Red Hat OpenShift 가상화로
+* VMware ESXi에서 Red Hat OpenShift Virtualization으로 Migration Toolkit for Virtualization(MTV)을 사용한 마이그레이션
+* VMware ESXi에서 Proxmox VE로
 
 
 Shift 툴킷은 다음 디스크 형식에 대해 하이퍼바이저 간 가상 디스크의 디스크 수준 변환을 지원합니다.

@@ -26,6 +26,8 @@ Shift Toolkit은 다음 하이퍼바이저 간 양방향 마이그레이션을 �
 * link:shift-toolkit-migrate-hyperv2esxi.html["Microsoft Hyper-V에서 VMware ESXi로"]
 * link:shift-toolkit-migrate-esxi2olvm.html["VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로"]
 * link:shift-toolkit-migrate-esxi2osv.html["VMware ESXi에서 Red Hat OpenShift 가상화로"]
+* link:shift-toolkit-migrate-esxi2osvmtv.html["VMware ESXi에서 Red Hat OpenShift Virtualization으로 Migration Toolkit for Virtualization(MTV)을 사용한 마이그레이션"]
+* link:shift-toolkit-migrate-esxi2proxmox.html["VMware ESXi에서 Proxmox VE로"]
 
 
 
