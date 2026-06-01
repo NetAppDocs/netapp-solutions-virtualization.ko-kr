@@ -9041,4 +9041,26 @@
   <block id="ff9844b2de7cfcbbdfa55375ab39a06f" category="list-text"><block ref="ff9844b2de7cfcbbdfa55375ab39a06f" category="inline-link-macro-rx"></block></block>
   <block id="990fa9f57e4aad9dabc3374936fa135c" category="inline-link-macro">VMware ESXi에서 Proxmox VE로</block>
   <block id="0844e7bd233e5a61e8cb4e245ed8e467" category="list-text"><block ref="0844e7bd233e5a61e8cb4e245ed8e467" category="inline-link-macro-rx"></block></block>
+  <block id="5ee3244123f8d6e1cd95dd20bbd4c917" category="section-title">마이그레이션 확인</block>
+  <block id="a72a581a13e85fc031dd394d163e7318" category="paragraph">Shift 툴킷은 이제 마이그레이션 상태가 "Success" 또는 "Partial Failure"로 표시된 후 활성화되는 블루프린트 레벨에 대한 검증 옵션을 제공합니다. 성공하면 검증 옵션이 새 작업을 시작하고 블루프린트 매핑에 지정된 대로 VM 설정을 확인합니다. 검증 마이그레이션 작업의 상태는 작업 모니터링에 나열되며 작업을 클릭하고 "view logs"를 선택하면 세부 정보를 볼 수 있습니다.</block>
+  <block id="f32310bcb640784ccc77c7dd4c4b3dbf" category="admonition">블루프린트를 생성하는 동안 검증 옵션을 선택할 수도 있으며, 이 경우 마이그레이션 작업이 완료된 후 5분 후에 검증 작업이 트리거됩니다.</block>
+  <block id="9d40980b6999e7f166bfa40856a00fec" category="admonition">마이그레이션 작업 후에 검증을 선택하면 검증 작업이 즉시 트리거되고 마법사에 해당 작업이 나열됩니다.</block>
+  <block id="56ac9d919bb8cab4f6077b76fb1f62a9" category="image-alt">마이그레이션 작업 세부 정보 확인</block>
+  <block id="bcf221f3eb2ff23d03e933df5dc05c15" category="image-alt">마이그레이션 작업 목록 확인</block>
+  <block id="4215a20f35c33323f41cfdcc53561758" category="section-title">워크플로 분할</block>
+  <block id="b648dea0c6088fda044bba8739f233dd" category="paragraph">분할 워크플로(ONTAP NAS 드라이버를 사용하는 OpenShift 마이그레이션 블루프린트에만 적용 가능)는 VM과 연결된 볼륨 및 해당 FlexClone 볼륨을 자동으로 검색합니다.</block>
+  <block id="8aa0551ed462370f4ba674dbd90ceb17" category="paragraph">ONTAP 버전을 기반으로 적절한 분할 전략이 자동으로 선택됩니다. 일반적인 지침은 다음과 같습니다.</block>
+  <block id="6d574a30eced387339f80ba54a89cc7d" category="list-text">ONTAP 9.17.1 이상의 볼륨에 대한 Split Clone, 20개 병렬 실행</block>
+  <block id="3880a6f70719d876e231d8e2879f85ee" category="list-text">최대 4개의 병렬 스레드를 사용하는 ONTAP 9.17.1 이전 버전용 볼륨 이동</block>
+  <block id="1a3cae237cc41487606878fecfbf5dbd" category="paragraph">분할 클론 프로세스는 진행 상황을 지속적으로 모니터링하고 그에 따라 작업 대기열을 관리합니다. 분할 또는 볼륨 이동 작업이 완료되면 관련 스냅샷이 삭제됩니다.</block>
+  <block id="9c3a731812fdeaa07c81b64877fdd363" category="paragraph">분할 단계 작업의 상태는 작업 모니터링에 표시됩니다. 자세한 내용을 보려면 분할 작업을 클릭하고 "로그 보기"를 선택하십시오.</block>
+  <block id="e9957f4f6643604e2e240ef6506687cd" category="admonition">Shift Toolkit은 현재 스냅샷 삭제 후 볼륨 크기를 조정하지 않습니다. 이 기능은 향후 릴리스에서 제공될 예정입니다.</block>
+  <block id="240aa9b96ee46082f68f7be9164d556b" category="image-alt">분할 워크플로 전략 선택</block>
+  <block id="17ad14aae32d21937aca67c32e7957b4" category="image-alt">분할 워크플로우 작업 진행 상황</block>
+  <block id="403f27f7aab7b0ad3c0682d7cca0a733" category="section-title">고급 하이퍼바이저 설정</block>
+  <block id="d77c1cd5f2b0ce7f2dd95f4c5bc3c495" category="paragraph">Shift Toolkit에는 대상 하이퍼바이저에 대한 마이그레이션 작업용 고급 하이퍼바이저 설정이 포함되어 있습니다. 이러한 설정을 통해 마이그레이션 관리자는 필요에 따라 각 VM 마이그레이션 단계에 대한 기능을 활성화할 수 있습니다. Shift Toolkit은 런타임에 설정을 읽어오므로 각 작업은 시작 시 선택된 옵션을 적용합니다.</block>
+  <block id="4502be711601ff984509d35dfc59750d" category="image-alt">고급 하이퍼바이저 설정 개요</block>
+  <block id="d54ff9be113864ba45f6c548b61f0360" category="image-alt">고급 하이퍼바이저 설정 옵션</block>
+  <block id="891154c0cb3c52a4cadf0de9b589ee45" category="image-alt">고급 하이퍼바이저 설정 구성</block>
+  <block id="8639d82053466ca0d28ba6da8779cf53" category="image-alt">고급 하이퍼바이저 설정 작업 세부 정보</block>
 </blocks>
