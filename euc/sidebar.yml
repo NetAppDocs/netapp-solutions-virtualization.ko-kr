@@ -1,0 +1,15 @@
+---
+section: euc
+title: NetApp을 사용한 최종 사용자 컴퓨팅
+url: "/euc/index.html"
+entries:
+- title: NetApp을 통한 최종 사용자 컴퓨팅에 대해 알아보십시오
+  pdf-filename: NetApp을 사용한 최종 사용자 컴퓨팅 개요
+  entries:
+  - title: NetApp을 사용한 최종 사용자 컴퓨팅 개요
+    url: "/euc/euc-overview.html"
+  - title: 최종 사용자 컴퓨팅을 위한 NetApp 스토리지의 이점
+    url: "/euc/euc-benefits.html"
+- title: Omnissa Horizon 및 NetApp 아키텍처
+  pdf-filename: Omnissa Horizon 및 NetApp 아키텍처
+  url: "/euc/omnissa-netapp-architecture.html"

@@ -1,0 +1,96 @@
+---
+sidebar: sidebar 
+permalink: euc/omnissa-netapp-architecture.html 
+keywords: euc, digital workspace, virtual desktop, vdi, virtual desktop infrastructure, cloud desktop, virtual application, application virtualization, app virtualization, virtual desktop management, desktop management, application management 
+summary:  
+---
+= NetApp 아키텍처를 사용하는 Omnissa
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+이 섹션에서는 NetApp을 사용하는 Omnissa의 아키텍처에 대한 개요와 솔루션에 포함된 구성 요소 및 기술을 설명합니다. 또한 EUC 환경에서 NetApp 스토리지를 사용하는 이점과 이를 통해 조직이 가상 데스크톱 및 애플리케이션 배포를 최적화하는 방법을 강조합니다.
+
+
+
+== 아키텍처 개요
+
+Omnissa와 NetApp의 아키텍처는 EUC 환경을 위한 확장 가능하고 유연한 솔루션을 제공하도록 설계되었습니다. 이 솔루션은 Omnissa 관리 플랫폼, NetApp 스토리지 어레이, 가상 데스크톱 및 애플리케이션 인프라 등 여러 구성 요소로 이루어져 있습니다. Omnissa 관리 플랫폼은 가상 데스크톱 및 애플리케이션 인프라 관리를 위한 중앙 집중식 인터페이스를 제공하며, NetApp 스토리지 어레이는 가상 데스크톱 및 애플리케이션에 고성능의 안정적인 스토리지를 제공합니다. 이 아키텍처는 가상 데스크톱 인프라(VDI), 애플리케이션 가상화, 사용자 데이터를 위한 파일 공유 등 광범위한 EUC 사용 사례를 지원하도록 설계되었습니다.
+
+image:omnissa-netapp-architecture-001.png["NetApp 아키텍처를 사용하는 Omnissa"]
+
+Omnissa Horizon은 온프레미스, 클라우드 또는 하이브리드 환경에 배포할 수 있어 조직이 필요에 가장 적합한 배포 모델을 유연하게 선택할 수 있습니다. 이 아키텍처는 VDI, 애플리케이션 가상화 및 Remote Desktop Services(RDS)를 포함한 다양한 사용 사례를 지원하도록 설계되었습니다.
+
+Omnissa Horizon Client는 가상 데스크톱 및 애플리케이션에 액세스하기 위한 최종 사용자 인터페이스입니다. Windows, macOS, Linux, iOS 및 Android 기기에서 사용할 수 있어 사용자는 다양한 기기에서 가상 데스크톱 및 애플리케이션에 연결할 수 있습니다. 클라이언트 소프트웨어 설치가 불가능한 기기에서는 웹 브라우저를 HTML 클라이언트로 사용할 수 있습니다.
+
+씬 클라이언트와 제로 클라이언트를 사용하여 가상 데스크톱 및 애플리케이션에 액세스할 수도 있으므로 많은 사용자에게 가상 데스크톱 및 애플리케이션을 배포하려는 조직에 비용 효율적인 솔루션을 제공합니다.
+
+Omnissa Horizon을 사용하면 Windows 가상 데스크톱, Linux 가상 데스크톱, Remote Desktop Server(RDS) 호스팅 애플리케이션 및 데스크톱, Linux 호스팅 애플리케이션 및 Windows 물리적 시스템에 대한 연결을 생성하고 브로커할 수 있습니다.
+
+Horizon Connection 서버는 Active Directory를 통해 사용자를 인증하고 요청을 적절하고 권한이 있는 리소스로 전달합니다.
+
+Omnissa Horizon 에이전트는 물리적 머신, 가상 데스크톱 및 원격 데스크톱 세션 호스트(RDSH)에 설치되어 Horizon Connection 서버와의 통신을 가능하게 하고 원활한 사용자 환경을 제공합니다. 또한 세션 관리, 인쇄 및 USB 리디렉션과 같은 기능도 제공합니다.
+
+Unified Access Gateway(UAG)는 가상 데스크톱 및 애플리케이션에 대한 원격 액세스를 제공하는 보안 게이트웨이입니다. 일반적으로 DMZ에 배포되며 회사 네트워크 외부에서 Horizon Connection 서버에 대한 안전한 액세스를 제공합니다.
+
+외부 데이터베이스 인스턴스는 Horizon Connection 서버 이벤트 및 기타 정보를 저장하는 데 사용됩니다. 데이터베이스는 Microsoft SQL Server, PostgreSQL 또는 Oracle Database에서 호스팅할 수 있으므로 조직은 필요에 가장 적합한 데이터베이스 플랫폼을 유연하게 선택할 수 있습니다.
+
+Horizon SaaS를 사용하는 경우 Horizon SaaS 서비스에 연결하기 위해 Horizon Edge Gateway 어플라이언스가 배포됩니다. Edge Gateway는 Horizon SaaS 서비스에 대한 안전한 액세스를 제공하며, 조직이 가상 데스크톱 및 애플리케이션 인프라에 대한 제어권을 유지하면서 클라우드 기반 솔루션의 이점을 활용할 수 있도록 지원합니다.
+
+자세한 내용은 다음을 참조하십시오 https://techzone.omnissa.com/resource/horizon-8-architecture["Horizon 8 아키텍처"].
+
+NetApp 스토리지 어레이는 가상 데스크톱 및 애플리케이션 호스팅은 물론 사용자 데이터를 위한 고성능의 안정적인 스토리지를 제공하는 데 사용됩니다. NetApp 스토리지 어레이는 유연한 배포 옵션과 조직의 요구 사항이 증가함에 따라 확장할 수 있는 기능을 제공합니다. 또한 데이터 중복제거, 압축, 씬 프로비저닝과 같은 기능을 제공하여 조직이 스토리지 리소스를 최적화하고 비용을 절감할 수 있도록 지원합니다.
+
+
+
+== Pod 및 Block 아키텍처
+
+Omnissa Horizon은 EUC 환경을 위한 확장 가능하고 반복 가능한 솔루션을 제공하기 위해 포드 및 블록 아키텍처를 사용합니다. 포드는 상호 연결된 Horizon Connection 서버 그룹으로, 최대 20,000개의 가상 데스크톱 및 애플리케이션 세션을 처리할 수 있습니다. 하나의 포드는 최대 7개의 Horizon Connection 서버를 포함할 수 있으며, 이 서버들은 동일한 데이터센터에 위치해야 하고 여러 위치에 걸쳐 배치될 수 없습니다. 클라우드 포드 아키텍처(CPA)를 사용하면 여러 포드를 상호 연결하여 대규모 환경에 적합한 확장 가능한 솔루션을 제공할 수 있습니다. CPA를 통해 세션 수는 최대 250,000개까지 확장 가능합니다. 세션 수가 더 많아야 하는 경우, 아키텍처에 추가 CPA를 추가할 수 있습니다.
+
+블록은 가상 데스크톱과 RDSH 세션을 호스팅하는 데 사용되는 컴퓨팅 클러스터 모음입니다. 각 블록에는 자체 하이퍼바이저 관리자가 있으며, VMware 환경에서는 vCenter가 사용됩니다. VCF 환경에서는 각 Workload Domain이 하나의 블록을 구성합니다. 블록은 파드와 동일한 데이터 센터에 존재하거나 다른 데이터 센터에 위치할 수 있습니다. 원격 에이전트의 경우 블록당 권장 최대 세션 수는 1,000개입니다. 블록당 VM 수는 Horizon VM 구성에 따라 달라집니다.
+
+가상 데스크톱과 Windows 서버의 RDSH 세션은 블록 내의 컴퓨트 클러스터에서 호스팅됩니다. vSphere 환경에서는 가상 머신이 컴퓨트 클러스터에 연결된 데이터스토어에서 호스팅됩니다. ONTAP tools for VMware vSphere는 관리자가 vCenter 인터페이스에서 직접 NetApp 스토리지를 관리할 수 있도록 vCenter 통합 기능을 제공합니다. ONTAP는 데이터스토어 연결을 위해 블록 프로토콜(iSCSI, NVMeoF, Fibre Channel)과 파일 프로토콜(NFS) 모두를 지원합니다.
+
+vSphere API for Array Integration(VAAI)은 vSphere가 특정 스토리지 작업을 스토리지 어레이로 오프로드하여 성능과 효율성을 향상시키는 API 세트입니다. NetApp 스토리지 어레이는 VAAI를 지원하여 하드웨어 지원 잠금, 블록 제로화, 전체 복사 작업과 같은 기능을 사용할 수 있습니다. NFS 데이터스토어의 경우 VAAI 지원을 활성화하려면 vSphere 호스트에 VAAI 구성 요소를 설치해야 합니다. VAAI를 사용하면 가상 데스크톱 프로비저닝 시간을 크게 단축할 수 있습니다.
+
+image:omnissa-netapp-architecture-003.png["파일 스토리지가 있는 데이터 저장소"]
+
+NetApp 스토리지 어레이는 데이터 중복제거, 압축 및 씬 프로비저닝과 같은 기능도 제공하므로 조직이 스토리지 리소스를 최적화하고 비용을 절감할 수 있습니다. 이러한 기능은 스토리지 리소스를 필요로 하는 가상 데스크톱과 애플리케이션이 많은 EUC 환경에서 특히 유용할 수 있습니다.
+
+가상 데스크톱 및 RDSH 세션을 호스팅하는 vSphere 데이터스토어의 고가용성을 위해 NetApp SnapMirror 액티브 동기화 복제를 사용하여 보조 NetApp 스토리지 어레이로 데이터스토어를 보호할 수 있습니다. 기본 스토리지 어레이에 장애가 발생할 경우, 2차 스토리지 어레이가 인계받아 균일 액세스 모드를 사용하여 다운타임 없이 가상 데스크톱 및 애플리케이션에 대한 액세스를 제공할 수 있습니다. NFS 데이터스토어의 경우 NetApp MetroCluster 구성을 사용하여 보호할 수 있습니다.
+
+image:omnissa-netapp-architecture-002.png["블록 스토리지를 사용하는 데이터 저장소"]
+
+
+NOTE: 포드 내 Horizon Connection 서버의 경우 사이트 간 확장 클러스터 구성은 지원되지 않습니다. 이 구성은 데이터센터 내 가상 데스크톱 및 애플리케이션에 고가용성이 필요한 경우에 사용하십시오. MetroCluster에서 호스팅되는 사용자 데이터용 파일 공유는 여러 데이터센터에서 사용자 데이터에 대한 액티브-액티브 액세스를 제공할 수 있습니다. 각 데이터센터는 사용자 데이터용 파일 공유를 호스팅하는 파일 서버(SVM)를 가질 수 있습니다. SVM은 MetroCluster 구성을 사용하여 보호되므로 사용자 데이터에 대한 고가용성 및 재해 복구 기능을 제공합니다.
+
+
+
+== 애플리케이션 가상화
+
+VDI 환경에서 흔히 발생하는 문제점 중 하나는 사전 설치된 애플리케이션으로 인해 VDI 템플릿이 무분별하게 확장되는 것입니다. Omnissa Horizon에서는 App Volumes를 사용하여 애플리케이션을 가상 데스크톱 및 게시된 애플리케이션 호스트로 스트리밍할 수 있습니다. 사용자 쓰기 가능 볼륨을 통해 사용자는 애플리케이션을 설치할 수 있습니다. 이를 통해 영구 데스크톱의 필요성이 줄어듭니다. App Volumes를 사용하면 애플리케이션이 패키징되어 가상 데스크톱 및 RDSH 세션에 실시간으로 제공됩니다. Machine Manager를 기반으로 패키징된 애플리케이션은 Datastore의 VMDK 파일 또는 SMB 파일 공유의 VHD 파일에 저장되며, App Volumes Agent가 가상 데스크톱 및 RDSH 서버에서 마운트 및 마운트 해제를 처리합니다.
+
+image:omnissa-netapp-architecture-004.png["App volumes 아키텍처"]
+
+App Volumes Manager의 데이터베이스로는 Microsoft SQL Server 또는 SQL Server Express를 사용할 수 있습니다. vSphere 데이터스토어는 VMFS 또는 NFS를 지원합니다. 데이터스토어는 ONTAP tools for VMware vSphere를 사용하여 프로비저닝할 수 있으며, 이 도구는 vCenter 통합을 통해 NetApp 스토리지를 vCenter 인터페이스에서 직접 관리할 수 있도록 합니다.
+
+Omnissa App Volumes는 Omnissa Horizon 외에도 Citrix Virtual Apps and Desktops 및 Microsoft Remote Desktop Services(RDS)를 지원합니다. 이를 통해 기업은 App Volumes를 사용하여 여러 EUC 플랫폼에서 애플리케이션을 배포하고 일관된 사용자 환경을 제공하며 애플리케이션 관리를 간소화할 수 있습니다.
+
+자세한 내용은 다음을 참조하십시오 https://techzone.omnissa.com/resource/app-volumes-architecture["App Volumes 아키텍처"].
+
+
+
+== 사용자 프로필 관리
+
+사용자 프로필 관리는 모든 EUC 환경에서 매우 중요한 요소입니다. 사용자가 다양한 가상 데스크톱과 애플리케이션에서 일관된 환경을 경험할 수 있도록 보장하기 때문입니다. Omnissa Horizon은 Microsoft FSLogix 및 Omnissa Dynamic Environment Manager(DEM) 또는 이 둘의 조합을 포함한 여러 사용자 프로필 관리 솔루션을 지원합니다. FSLogix는 컨테이너화된 사용자 프로필 솔루션을 제공하여 빠른 로그인과 다양한 가상 데스크톱 및 애플리케이션에서 일관된 사용자 환경을 구현합니다. DEM은 보다 세분화된 사용자 프로필 관리 방식을 제공하여 관리자가 특정 조건 및 기준에 따라 사용자 설정 및 구성을 관리할 수 있도록 합니다. DEM에 대한 자세한 내용은 https://techzone.omnissa.com/resource/dynamic-environment-manager-architecture["Dynamic Environment Manager 아키텍처"]를 참조하십시오.
+
+FSLogix를 사용하여 사용자 프로필을 컨테이너화하면 사용자는 어떤 가상 데스크톱이나 RDSH 세션에 할당되더라도 개인 설정 및 데이터에 액세스할 수 있습니다. 사용자 데이터를 SMB 파일 공유로 리디렉션하여 컨테이너 크기를 줄이고 관리를 간소화할 수 있습니다. DEM과 FSLogix 모두 사용자 프로필 컨테이너와 설정을 저장할 파일 공유가 필요합니다. ONTAP는 GNS(Global Namespace)를 지원하여 여러 데이터 센터에 걸쳐 사용자 프로필을 호스팅하는 파일 공유에 대한 단일 네임스페이스를 생성하거나 Microsoft DFS(Distributed File System)와 통합하여 사용자 프로필 스토리지를 위한 통합 네임스페이스를 제공할 수 있습니다. 이를 통해 사용자 프로필에 대한 고가용성 및 재해 복구 기능을 제공할 뿐만 아니라 사용자의 위치나 액세스하는 가상 데스크톱에 관계없이 원활한 환경을 제공할 수 있습니다.
+
+ONTAP FlexGroup는 EUC 환경에서 사용자 프로필을 호스팅하기 위한 확장 가능하고 고성능의 솔루션을 제공합니다. FlexGroups는 높은 처리량과 낮은 지연 시간을 제공하도록 설계되어 데이터에 대한 빠른 액세스가 필요한 사용자 프로필 호스팅에 이상적입니다.
+
+ONTAP FlexCache는 Microsoft DFS와 함께 사용하면 사용자 프로필을 위한 분산 캐싱 솔루션을 제공하여 EUC 환경에서 사용자 데이터에 대한 더 빠른 액세스와 향상된 성능을 제공할 수 있습니다. FlexCache를 사용하면 자주 액세스하는 사용자 프로필 데이터를 로컬에 캐시하여 지연 시간을 줄이고 사용자 경험을 개선할 수 있습니다.
