@@ -40,16 +40,173 @@ Shift Toolkit은 대상 환경에서 디스크 포맷 변환과 네트워크 재
 
 
 .VMware 요구 사항
-* VMDK는 svmotion을 사용하여 개별 볼륨에 배치됩니다(PVC/PV 구조에 대한 VMDK 모방).
+* VMDK는 여러 가지 방식으로 구성할 수 있습니다. 모든 VMDK를 단일 NFSv3 볼륨에 저장할 수 있으며(Storage vMotion 불필요), 각 VMDK를 개별 볼륨에 배치하거나, 여러 VMDK를 볼륨 내의 qtree 구조로 구성할 수 있습니다.
 +
 
-NOTE: 이러한 제한은 PVC 프로비저닝에 NAS-economy 드라이버를 사용할 수 있는 다음 릴리스에서 제거될 예정입니다.
+NOTE: Shift Toolkit은 레이아웃을 자동으로 감지하고 적절한 복제 방법과 NAS 스토리지 드라이버를 선택합니다.
+
++
+
+NOTE: VMDK 파일이 qtree 내에 배치되면 Shift Toolkit은 ONTAP-NAS-economy 드라이버를 사용합니다.
 
 * VMware 도구는 게스트 VM에서 실행됩니다.
 * 마이그레이션할 VM은 준비를 위해 RUNNING 상태입니다.
 * 마이그레이션을 트리거하기 전에 VM의 전원을 꺼야 합니다.
 * VMware 도구 제거는 VM이 전원이 켜지면 대상 하이퍼바이저에서 수행됩니다.
 
+
+.Trident 노하우 및 매핑
+* *ONTAP-NAS*: VMDK 파일들을 하나의 볼륨에 모두 저장하거나, 각 VMDK 파일을 개별 볼륨에 저장할 수 있습니다. VM 선택은 데이터스토어 수준 또는 VM 수준에서 가능합니다.
+* *ONTAP-NAS-Economy*: VMDK 파일은 단일 볼륨에 있어야 하며, 볼륨 이름은 다음 명명 규칙을 따라야 합니다: `trident_qtree_pool_<storage-prefix>_<10 random characters>`. 리소스 그룹 내 VM 선택은 데이터스토어 수준에서만 가능합니다.
++
+
+NOTE: ONTAP-NAS-Economy의 경우, 위에 명시된 명명 규칙을 따르는 볼륨이 이미 존재해야 하며 VMware vCenter의 데이터스토어로 사용되어야 합니다. 즉, VM을 Storage vMotioned를 통해 이 특정 데이터스토어로 이동시키거나 기존 데이터스토어의 이름을 명명 규칙에 맞게 변경해야 합니다: `trident_qtree_pool_<storage-prefix>_<10 random characters>`.
+
++
+
+NOTE: ONTAP-NAS-Economy의 경우 Trident 백엔드 구성(TBC)에서 매개변수 `Deny New Volume Pools`를  `true`로 설정해야 합니다. 사용되는 스토리지 클래스는 storagePools를  `tbc name: <aggr name where the trident_qtree_pool_<storage-prefix>_<10 random characters> resides>`로 제한해야 합니다.
+
++
+.ONTAP-NAS-Economy 드라이버용 TBC 구성 예시
+[%collapsible]
+====
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+	name: nas-eco-data-1172-secret
+	namespace: trident
+type: Opaque
+stringData:
+	username: <svm-admin-username>
+	password: <svm-admin-password>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+	name: nas-eco-data-1172
+	namespace: trident
+spec:
+	backendName: nas-eco-data-1172
+	credentials:
+		name: nas-eco-data-1172-secret
+	dataLIF: "192.168.1.100"
+	denyNewVolumePools: "False"
+	managementLIF: "192.168.1.50"
+	storageDriverName: ontap-nas-economy
+	svm: data_1172
+	version: 1
+----
+====
++
+
+NOTE:  `denyNewVolumePools` 매개변수는 초기 PVC 생성의 일부로  `trident_qtree_pool_<storage-prefix>_<10 random characters>`이(가) 생성된 직후에  `true`(으)로 설정되어야 합니다. 이 값을  `true`(으)로 설정하면 Trident가 qtree 기반 PVC를 배치하는 데 기존 qtree 풀을 사용하도록 보장합니다.
+
++
+TBC는 다음 명령줄을 사용하여 패치할 수 있습니다.
+
++
+[source, bash]
+----
+oc patch tbc nas-eco-data-1172 -n trident --type=merge -p '{"spec":{"denyNewVolumePools":"true"}}'
+----
++
+.스토리지 클래스용 YAML 예시
+[%collapsible]
+====
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+	name: nas-eco-data-1172
+	annotations:
+		storageclass.kubernetes.io/is-default-class: "true"
+provisioner: csi.trident.netapp.io
+parameters:
+	backendType: ontap-nas-economy
+	fsType: nfs
+	storagePools: "nas-eco-data-1172:NSOL_NetApp_C800_T18U13_02_SSD_CAP_1"
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+----
+====
+* *ONTAP-SAN*: VMDK 파일은 Storage vMotion을 사용하여 개별 볼륨에 배치해야 합니다(VMDK를 PVC/PV 구성에 매핑). VM 선택은 VM 수준에서 이루어집니다.
+* *ONTAP-SAN-Economy*: VMDK 파일은 단일 NFSv3 볼륨에 있어야 하며, 볼륨 이름은 다음 명명 규칙을 따라야 합니다:  `trident_lun_`. 리소스 그룹 내 VM 선택은 데이터스토어 수준에서만 가능합니다.
++
+
+NOTE: ONTAP-SAN-Economy의 경우, 명명 규칙 `trident_lun_`을 따르는 볼륨이 미리 존재해야 하며 VMware vCenter의 데이터스토어로 사용되어야 합니다. 즉, VM을 Storage vMotioned하여 이 특정 데이터스토어로 이동하거나, 기존 데이터스토어의 이름을 명명 규칙 `trident_lun_`에 맞게 변경해야 합니다.
+
++
+.ONTAP-SAN-Economy용 TBC 구성 예시
+[%collapsible]
+====
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+	name: ontap-san800-eco-secret
+	namespace: trident
+type: Opaque
+stringData:
+	username: <svm-admin-username>
+	password: <svm-admin-password>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+	name: ontap-san800-eco
+	namespace: trident
+spec:
+	backendName: ontap-san800-eco
+	aggregate: NSOL_NetApp_C800_T18U13_01_SSD_CAP_1
+	credentials:
+		name: ontap-san800-eco-secret
+	dataLIF: "192.168.1.110"
+	defaults:
+		protocol: iSCSI
+		snapshotPolicy: none
+		spaceAllocate: "true"
+		spaceReserve: none
+		tieringPolicy: none
+	managementLIF: "192.168.1.60"
+	storage:
+		- labels:
+			backend: san800-eco
+	storageDriverName: ontap-san-economy
+	svm: data_1172
+	version: 1
+----
+====
++
+.ONTAP-SAN-Economy의 샘플 스토리지 클래스 구성
+[%collapsible]
+====
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+	name: sc-ontap-san-eco
+provisioner: csi.trident.netapp.io
+parameters:
+	backendType: ontap-san-economy
+	selector: "backend=san800-eco"
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+----
+====
++
+
+NOTE: ONTAP-SAN 및 ONTAP-SAN-Economy의 경우, VM을 블록 기반 데이터스토어에서 ONTAP NFSv3 볼륨으로 먼저 Storage vMotioned해야 합니다. 그런 다음 Shift Toolkit이 VMDK를 LUN으로 변환하고 해당 네임스페이스에 PVC로 가져옵니다.
+
+
+
+리소스 그룹에 대한 VM 선택은 VM 수준 또는 데이터스토어 수준에서 수행할 수 있습니다. 선택에 따라 워크플로는 적절한 ONTAP NAS 또는 SAN 스토리지 드라이버를 선택합니다. 예를 들어, 단일 VM이 선택된 경우 ONTAP-NAS 드라이버가 사용됩니다. 동일한 볼륨에 여러 VMDK가 있는 경우 소스 볼륨과 해당 SVM, 그리고 OpenShift 측에 구성된 TBC 및 스토리지 클래스를 기반으로 ONTAP-NAS 또는 ONTAP-NAS-Economy 드라이버가 사용됩니다.
 
 .게스트 VM 요구 사항
 * Windows VM의 경우: 로컬 관리자 자격 증명을 사용하세요.
@@ -358,7 +515,7 @@ Shift Toolkit은 기본 부팅 디스크를 포함하여 각 VM에 연결된 모
 
 
 
-NOTE: VMDK 파일이 여러 개 있는 경우 각 VMDK가 변환됩니다.  이 릴리스(v4.0)에서는 각 VMDK를 개별 볼륨/데이터 저장소에 배치해야 합니다.
+NOTE: VMDK 파일이 여러 개인 경우, 각 VMDK 파일은 사용되는 스토리지 드라이버에 따라 변환되어 자체 PVC에 저장됩니다.
 
 * 볼륨을 정리하여 disk.img 파일만 남깁니다.
 +
@@ -395,8 +552,11 @@ image::shift-toolkit-115.png[Red Hat OpenShift VM 마이그레이션]
 
 ====
 
+NOTE: 작업이 완료되면 설계도에 대해 검증 옵션을 실행할 수 있습니다. 자세한 내용은 xref:shift-toolkit-settings.adoc#verify-migration[마이그레이션 확인]을 참조하십시오.
 
-== Shift Toolkit을 사용하여 가상화를 위한 마이그레이션 툴킷 사용
+
+
+== Shift Toolkit과 함께 Migration Toolkit for Virtualization 사용(스크립트 방식)
 
 이 섹션에서는 NetApp Shift Toolkit과 함께 MTV(Migration Toolkit for Virtualization)를 사용하여 Red Hat OpenShift Virtualization으로 원활하게 마이그레이션하는 방법을 설명합니다.
 
@@ -411,17 +571,17 @@ image::shift-toolkit-115.png[Red Hat OpenShift VM 마이그레이션]
 NOTE: Shift Toolkit API만 사용되므로 Shift Toolkit 리소스 그룹이나 블루프린트를 구성할 필요가 없습니다.
 
 * OpenShift 클러스터의 관리자 수준 권한
-* tridentctl 및 OC 명령줄 도구가 설치된 Linux 인스턴스
+* OC 명령줄 도구가 설치된 Linux 인스턴스
 +
 ** Kubeconfig가 내보내졌거나 OC 로그인이 실행되어 클러스터에 연결되었습니다.
-** Shift Toolkit UI(*설정 > 개발자 액세스 > 스크립트 차단기*)에서 "OpenShift-MTV"라는 스크립트를 다운로드합니다.
-** 파일의 압축을 풉니다. `unzip openshift-mtv.zip`
+** Shift Toolkit UI(*설정 > 개발자 액세스 > 스크립트 차단*)에서 "Shift-VM-to-OpenShift-MTV"라는 스크립트를 다운로드하십시오.
+** 파일 압축을 해제합니다: `unzip Shift-VM-to-OpenShift-MTV.zip`
 ** Python3이 설치되어 있는지 확인하세요. `dnf install python3`
 ** OpenJDK 8 이상을 설치하세요: `yum install java-1.8.0-openjdk`
 ** 설치 요구 사항: `pip install -r requirements.txt`
 
 
-* *MTV에 대한 가상 머신 요구 사항*: VM의 VMDK는 개별 볼륨에 배치되어야 합니다.  디스크가 3개인 VM의 경우 각 디스크는 개별 볼륨에 있어야 합니다(PVC 구조에 데이터 저장소를 매핑).  이 작업은 storage vmotion을 사용하여 수동으로 수행해야 합니다.
+* *MTV용 가상 머신 요구 사항*: VMDK 파일은 다양한 방식으로 구성할 수 있습니다. 모든 VMDK 파일을 단일 볼륨에 배치하거나(Storage vMotion 불필요), 각각 별도의 볼륨에 할당하거나, NFS 볼륨 내의 qtree 구조로 그룹화할 수 있습니다. 스크립트는 레이아웃을 자동으로 감지하고 TBC UUID를 기반으로 적절한 클론 방식과 NAS 스토리지 드라이버를 선택합니다.
 
 
 .단계
@@ -530,8 +690,19 @@ image::shift-toolkit-119.png[이주 역사]
 1.5TB 데이터 디스크(3개의 PVC에 분산)가 있는 VM의 마이그레이션이 6분 만에 완료되었습니다.  이는 ONTAP 스토리지를 사용하여 VM을 재배치하는 간소화되고 영향이 적은 접근 방식을 보여줍니다.
 
 +
+스크립트는 구성 파일을 사용하거나 매개변수를 지정하여 실행할 수 있습니다. 매개변수를 사용하여 스크립트를 실행하는 예는 아래와 같습니다.
 
-NOTE: 이 특정 통합을 시작하기 전에 Red Hat 계정 팀에 문의하세요.
++
+
+NOTE: 이 스크립트는 SVM 간 복제도 지원하므로 제공된 입력 매개변수를 기반으로 서로 다른 SVM에 걸쳐 PVC를 생성할 수 있습니다.
+
++
+[source, bash]
+----
+python3 main.py --mode params --ontap-server 10.192.102.56 --ontap-username admin --ontap-password 'correct password' --ontap-source-vserver manila --ontap-target-vserver manila --ontap-data-lif 10.63.172.249 --ontap-skip-ssl --vcenter-server 10.63.172.125 --vcenter-username administrator@demoenv.com --vcenter-password 'correct password' --vcenter-skip-ssl --shift-server 10.61.187.117 --shift-username admin --shift-password 'correct password' --trident-backend-name tbc-ontap-manila-nimo --trident-backend-uuid 778245f4-1f50-453c-b81c-3dd82e166bbc --trident-storage-class nimmanila --mtv-project openshift-mtv --mtv-plan casetst --ocp-server https://api.demomigsno.demoval.com:6443 --ocp-token sha256~co89ATebn-ktVyrMbNJUGByVWph_kjLamYtIOPmqfQM --ocp-project default --import-volume --execution-mode clone_shrink --snapshot-prefix ""
+----
++
+마이그레이션이 완료되면 클론 볼륨을 분리해야 합니다. 사용하는 방법은 ONTAP 버전에 따라 다릅니다. ONTAP 9.17.1 이상에서는 clone split을 사용하고, 이전 버전에서는 vol move를 사용합니다. 분리 프로세스를 시작하는 스크립트는 제공된 ZIP 패키지 내의 "Post migrate" 폴더에 있습니다.
 
 
 

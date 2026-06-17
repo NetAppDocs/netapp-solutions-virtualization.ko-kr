@@ -14,13 +14,13 @@ summary:
 
 
 [role="lead"]
-Shift Toolkit을 사용하여 VMware ESX 가상 머신 디스크(VMDK)를 Microsoft Hyper-V(VHDX) 디스크 형식이나 Red Hat KVM(QCOW2) 디스크 형식으로 변환합니다.  이 프로세스에는 리소스 그룹 설정, 변환 청사진 생성, 변환 일정 예약이 포함됩니다.
+Shift Toolkit을 사용하여 VMware ESX 가상 머신 디스크(VMDK)를 Microsoft Hyper-V(VHDX) 디스크 형식 또는 RAW/QCOW2 디스크 형식으로 변환할 수 있습니다. 이 과정에는 리소스 그룹 설정, 변환 설계도 생성 및 변환 예약이 포함됩니다.
 
 
 
 == 개요
 
-Shift 툴킷은 다음 디스크 형식에 대해 하이퍼바이저 간 가상 디스크의 디스크 수준 변환을 지원합니다.
+Shift Toolkit은 ONTAP의 FlexVol 및 FlexGroup 볼륨을 모두 지원하며, 다음 형식에 대해 하이퍼바이저 간 가상 디스크의 디스크 수준 변환을 지원합니다.
 
 * VMware ESX에서 Microsoft Hyper-V로(VMDK에서 VHDX로)
 * Microsoft Hyper-V에서 VMware ESX로(VHDX에서 VMDK로)
@@ -28,7 +28,12 @@ Shift 툴킷은 다음 디스크 형식에 대해 하이퍼바이저 간 가상 
 * VMware ESX에서 Red Hat KVM으로(VMDK에서 RAW로)
 
 
-변환된 qcow2 파일은 모든 KVM 하이퍼바이저와 호환됩니다. 예를 들어, qcow2 파일은 virt-manager를 사용하여 RHEL 기반 KVM과 함께 활용될 수 있으며, Ubuntu KVM Rocky Linux 기반 KVM 등과도 활용할 수 있습니다. 동일한 기능을 Oracle Linux 가상화 관리자와 함께 사용할 수 있으며 NetApp Trident 사용하여 가져온 후 OpenShift 가상화와도 함께 사용할 수 있습니다. 목표는 조직에서 VM을 프로비저닝하고 네트워크를 할당하는 데 사용하는 기존 자동화 스크립트에 통합할 수 있는 디스크(초 단위에서 분 단위)를 제공하는 것입니다. 이 접근 방식은 Shift 툴킷 API가 디스크 변환을 처리하고 나머지 스크립트가 VM을 불러오므로 전체 마이그레이션 시간을 줄이는 데 도움이 됩니다.
+변환된 qcow2 파일은 모든 KVM 하이퍼바이저와 호환됩니다. 예를 들어, qcow2 파일은 virt-manager를 사용하는 RHEL 기반 KVM과 함께 사용하여 VM을 생성할 수 있을 뿐만 아니라 ubuntu KVM, Rocky Linux 기반 KVM 등에서도 사용할 수 있습니다. 동일한 파일을 Oracle Linux 가상화 관리자, Proxmox, OpenNebula, HP VME에서 사용할 수 있으며, NetApp Trident를 사용하여 가져온 후 OpenShift 가상화에서도 사용할 수 있습니다. 목표는 디스크(몇 초에서 몇 분 내에 변환됨)를 제공하는 것이며, 이 디스크는 조직에서 VM을 프로비저닝하고 네트워크를 할당하는 데 사용하는 기존 자동화 스크립트에 통합될 수 있습니다. 이 접근 방식은 Shift 툴킷 API가 디스크 변환을 처리하고 나머지 스크립트가 VM을 구동하도록 하여 전반적인 마이그레이션 시간을 단축하는 데 도움이 됩니다.
+
+NetApp Shift Toolkit은 FlexGroup 볼륨에 저장된 VMware VMDK 디스크를 RAW 디스크 형식으로 변환하는 기능도 지원하여 Proxmox 또는 OLVM과 같은 KVM 기반 플랫폼으로 원활하게 마이그레이션할 수 있도록 합니다.
+
+
+NOTE: FlexGroup 스토리지를 사용하는 경우 RAW 형식 변환만 지원됩니다. 또한 Shift 툴킷은 KVM 전용 변환을 수행할 때 준비 과정에서 VirtIO 드라이버를 삽입합니다.
 
 Shift 툴킷은 VMware에서 다른 호환 KVM 하이퍼바이저로의 엔드투엔드 마이그레이션을 지원합니다.  그러나 변환 옵션은 마이그레이션 관리자에게 이러한 변환 및 마이그레이션 API를 실행할 수 있는 기능을 제공합니다.
 

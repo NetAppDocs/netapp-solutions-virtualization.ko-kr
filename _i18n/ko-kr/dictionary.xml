@@ -1268,7 +1268,6 @@
   <block id="2670f5ec7a40353d700f21035e194a99" category="video-title">Cirrus Migrate Cloud를 사용하여 규모에 맞는 모든 스토리지로 마이그레이션</block>
   <block id="703841c57d312b4b589352aac851caea" category="paragraph">가상화 인프라를 현대화하려는 조직은 종종 가상 머신을 보다 효율적인 스토리지 플랫폼으로 마이그레이션해야 합니다.  다양한 스토리지 시스템에서 NetApp ONTAP 데이터 저장소로 VM을 마이그레이션하는 방법을 알아보세요. 이를 통해 ONTAP의 고급 데이터 관리 기능, 공간 효율적인 스냅샷, 통합 데이터 보호 기능을 활용할 수 있습니다.</block>
   <block id="8b290c60d51c7b14ee6e18accc9eade2" category="doc">Shift Toolkit을 사용하여 VM 변환</block>
-  <block id="1b2e9d78e9f2b2a302c46e7584df1000" category="paragraph">Shift Toolkit을 사용하여 VMware ESX 가상 머신 디스크(VMDK)를 Microsoft Hyper-V(VHDX) 디스크 형식이나 Red Hat KVM(QCOW2) 디스크 형식으로 변환합니다.  이 프로세스에는 리소스 그룹 설정, 변환 청사진 생성, 변환 일정 예약이 포함됩니다.</block>
   <block id="eef829dd0d7a22bac7a4c66eb414abff" category="list-text">VMware ESX에서 Microsoft Hyper-V로(VMDK에서 VHDX로)</block>
   <block id="6b1831fe2dec45a187654bdbfabc905f" category="list-text">VMware ESX에서 Red Hat KVM으로(VMDK에서 QCOW2로)</block>
   <block id="3873bc04ca31ec1f2ea54a39c86e8414" category="section-title">QCOW2 형식으로 변환</block>
@@ -6561,7 +6560,6 @@
   <block id="d70245aba238a50b1645035fba3b889c" category="paragraph">NVMe 네임스페이스를 생성하려면 클러스터의 각 ESXi 호스트에서 NVMe 정규화된 이름(NQN)을 가져옵니다.  ONTAP NQN을 사용하여 네임스페이스에 대한 액세스 제어를 제공합니다.</block>
   <block id="0b4b22d8d6891c4ed145b12729a1f2dc" category="list-text">Microsoft Hyper-V에서 VMware ESX로(VHDX에서 VMDK로)</block>
   <block id="e57a1e74c181488f76b8ec41c8780896" category="list-text">VMware ESX에서 Red Hat KVM으로(VMDK에서 RAW로)</block>
-  <block id="3173e5dfb176e66e58d8dd7221d713ae" category="paragraph">변환된 qcow2 파일은 모든 KVM 하이퍼바이저와 호환됩니다. 예를 들어, qcow2 파일은 virt-manager를 사용하여 RHEL 기반 KVM과 함께 활용될 수 있으며, Ubuntu KVM Rocky Linux 기반 KVM 등과도 활용할 수 있습니다. 동일한 기능을 Oracle Linux 가상화 관리자와 함께 사용할 수 있으며 NetApp Trident 사용하여 가져온 후 OpenShift 가상화와도 함께 사용할 수 있습니다. 목표는 조직에서 VM을 프로비저닝하고 네트워크를 할당하는 데 사용하는 기존 자동화 스크립트에 통합할 수 있는 디스크(초 단위에서 분 단위)를 제공하는 것입니다. 이 접근 방식은 Shift 툴킷 API가 디스크 변환을 처리하고 나머지 스크립트가 VM을 불러오므로 전체 마이그레이션 시간을 줄이는 데 도움이 됩니다.</block>
   <block id="4d407050aa86ad48312affa8e43a67d7" category="paragraph">Shift 툴킷은 VMware에서 다른 호환 KVM 하이퍼바이저로의 엔드투엔드 마이그레이션을 지원합니다.  그러나 변환 옵션은 마이그레이션 관리자에게 이러한 변환 및 마이그레이션 API를 실행할 수 있는 기능을 제공합니다.</block>
   <block id="623c44ac4b1228e38622f3eedc5061a8" category="list-text">하이퍼바이저로 KVM(변환 전용)을 지정하여 대상 사이트 유형을 만듭니다.</block>
   <block id="6fed993333f213fd751fe952dd9a1c6b" category="image-alt">대상 사이트 생성 단계에 대한 대화 상자</block>
@@ -6820,8 +6818,6 @@
   <block id="a337c0575fb0850d57838660dc08fb6b" category="list-text">적절한 VLAN으로 구성된 NodeNetworkConfigurationPolicy 및 NetworkAttachmentDefinitions(NAD)</block>
   <block id="e54824158e69898ccca26a77c8674d83" category="list-text">OpenShift 클러스터는 현재 호스트 파일 항목으로 네트워크에 접속 가능합니다.</block>
   <block id="23fb98ffd5f731df3575b1e2734c892d" category="list-text">Kubeconfig 파일이 다운로드되었습니다</block>
-  <block id="4b9bedf1805ba86fd555862c58e11f9c" category="list-text">VMDK는 svmotion을 사용하여 개별 볼륨에 배치됩니다(PVC/PV 구조에 대한 VMDK 모방).</block>
-  <block id="637fc88401a7520023c2d7a08bd3e7f7" category="admonition">이러한 제한은 PVC 프로비저닝에 NAS-economy 드라이버를 사용할 수 있는 다음 릴리스에서 제거될 예정입니다.</block>
   <block id="390dd953003050f0609139653e9d28db" category="section-title">1단계: 대상 사이트 추가(OpenShift)</block>
   <block id="a3bb5f6f2383551983f346517198b09b" category="paragraph">Shift Toolkit에 대상 OpenShift Virtualization 환경을 추가합니다.</block>
   <block id="0013c497ef74e6c5fc1e9d5ccb87e485" category="list-text">*하이퍼바이저*: OpenShift를 선택하세요</block>
@@ -6855,7 +6851,6 @@
   <block id="65e373645c53e9c1cb8605faee1b66ba" category="list-text">Shift Toolkit은 다음 단계를 수행합니다.</block>
   <block id="5e90aae963ef35b5ec5cb0387a034fa7" category="list-text">개별 볼륨을 복제합니다.</block>
   <block id="c20ff75d83b61a3549e12e67572ac94d" category="list-text">각 VMDK에 대해 VMDK를 RAW 형식으로 변환합니다.</block>
-  <block id="148fb718465b8a2a684e6cc11473e73c" category="admonition">VMDK 파일이 여러 개 있는 경우 각 VMDK가 변환됩니다.  이 릴리스(v4.0)에서는 각 VMDK를 개별 볼륨/데이터 저장소에 배치해야 합니다.</block>
   <block id="a06b52e4c2108069bd505ca1641bd18c" category="list-text">볼륨을 정리하여 disk.img 파일만 남깁니다.</block>
   <block id="eeb58a927eea6b7b16bb8f62e422d0e0" category="paragraph">가상 머신 디스크 이미지가 RAW 형식으로 변환되면 Shift Toolkit은 볼륨을 정리하고, RAW 파일의 이름을 disk.img로 바꾸고, 필요한 권한을 할당합니다.</block>
   <block id="ab9492276170195fd3194e0097ac0e86" category="list-text">Trident 가져오기를 사용하여 볼륨을 PVC로 가져옵니다.</block>
@@ -6865,21 +6860,16 @@
   <block id="18cae1d1be5599b41482577b02f1defb" category="admonition">VM은 "기본" 네임스페이스에서 생성됩니다.</block>
   <block id="ad68966c81f3655374588888489c4dbc" category="list-text">Cron 작업을 사용하여 VMware 도구를 제거하고 IP 주소를 할당합니다.</block>
   <block id="57b4f03dd7bb60666ac7ee52988e7a70" category="image-alt">Red Hat OpenShift VM 마이그레이션</block>
-  <block id="8484961e970d557d5574eddec57e1dca" category="section-title">Shift Toolkit을 사용하여 가상화를 위한 마이그레이션 툴킷 사용</block>
   <block id="6d1f69fc0c3f0bf198ec33708c69c1e8" category="paragraph">이 섹션에서는 NetApp Shift Toolkit과 함께 MTV(Migration Toolkit for Virtualization)를 사용하여 Red Hat OpenShift Virtualization으로 원활하게 마이그레이션하는 방법을 설명합니다.</block>
   <block id="dd4ee610bd1d035c73bc0cbcd80e46da" category="paragraph">다음 전제 조건이 충족되는지 확인하세요.</block>
   <block id="075351692a1e60c7c93efefcf8f202b4" category="list-text">OpenShift Virtualization 운영자와 NetApp Trident CSI 드라이버가 설치된 OpenShift 클러스터</block>
   <block id="62af718dafdac747b9a8c93d244cebef" category="list-text">MTV 2.9.4(변환 모드 포함)</block>
   <block id="57d46182fb8d2a9fa64eac5d3f9d9da4" category="admonition">Shift Toolkit API만 사용되므로 Shift Toolkit 리소스 그룹이나 블루프린트를 구성할 필요가 없습니다.</block>
   <block id="69a64b9f7cc895c19adf78a298196575" category="list-text">OpenShift 클러스터의 관리자 수준 권한</block>
-  <block id="89cdbaecbf44555ee5d12d57b8ed5562" category="list-text">tridentctl 및 OC 명령줄 도구가 설치된 Linux 인스턴스</block>
   <block id="d9b6b230b081b7255f69569700039750" category="list-text">Kubeconfig가 내보내졌거나 OC 로그인이 실행되어 클러스터에 연결되었습니다.</block>
-  <block id="bd8ca956c8731469e434d723538e3d8c" category="list-text">Shift Toolkit UI(*설정 &gt; 개발자 액세스 &gt; 스크립트 차단기*)에서 "OpenShift-MTV"라는 스크립트를 다운로드합니다.</block>
-  <block id="416c6b5b9a3583ebc0e998e0c1cbb0b2" category="list-text">파일의 압축을 풉니다.<block ref="a546eb034f2424eac2d4fd17ffb91ee5" prefix=" " category="inline-code"></block></block>
   <block id="e0242df2bb16a2f0ba17e711bfba6885" category="list-text">Python3이 설치되어 있는지 확인하세요.<block ref="2939da1977acc65c6024ace141a44b8d" prefix=" " category="inline-code"></block></block>
   <block id="dac32c3ee00afddd906eb36777b056f0" category="list-text">OpenJDK 8 이상을 설치하세요:<block ref="35b382a04618cbad814d556c5389014b" prefix=" " category="inline-code"></block></block>
   <block id="eee9f07b3774a69216af6a4ab291c088" category="list-text">설치 요구 사항:<block ref="ed479ebacddedec77a46c27cc0e6a94d" prefix=" " category="inline-code"></block></block>
-  <block id="2b4e996ca43cbc701ab84c367f5f505c" category="list-text">*MTV에 대한 가상 머신 요구 사항*: VM의 VMDK는 개별 볼륨에 배치되어야 합니다.  디스크가 3개인 VM의 경우 각 디스크는 개별 볼륨에 있어야 합니다(PVC 구조에 데이터 저장소를 매핑).  이 작업은 storage vmotion을 사용하여 수동으로 수행해야 합니다.</block>
   <block id="c4f874f730151c61a5d9332f8fd9452f" category="list-text">MTV를 사용하여 마이그레이션 계획을 수립하세요.</block>
   <block id="7c5c7662e6cf45f2a66b20f6894ff19a" category="paragraph">빠른 VMDK 변환을 활용하려면 VM에 대한 마이그레이션 계획을 만들고 다음 매개변수가 YAML에 있는지 확인하세요.</block>
   <block id="bab0516e1a858a5aaa1684b50a13bc2e" category="list-text"><block ref="c890a1cad0b84a5de7465f3d9b7b9e36" prefix="" category="inline-code"></block></block>
@@ -6918,7 +6908,6 @@
   <block id="b0ae8cdcd13093eb515809f508d59d70" category="paragraph">VM OS에 따라 MTV는 스토리지 컨트롤러 인터페이스와 함께 VM 부팅 옵션을 자동으로 할당합니다.</block>
   <block id="e55eec04dddf2d0944358c31064f6dd7" category="image-alt">이주 역사</block>
   <block id="f5f5574a5c003ec9e6e236847549f17b" category="paragraph">1.5TB 데이터 디스크(3개의 PVC에 분산)가 있는 VM의 마이그레이션이 6분 만에 완료되었습니다.  이는 ONTAP 스토리지를 사용하여 VM을 재배치하는 간소화되고 영향이 적은 접근 방식을 보여줍니다.</block>
-  <block id="eb05bf59e44b70ea8a44ce8512f06bcc" category="admonition">이 특정 통합을 시작하기 전에 Red Hat 계정 팀에 문의하세요.</block>
   <block id="07a748b9d94ed62efce5ea1947999d42" category="summary">Shift Toolkit을 사용하여 소스 및 대상 사이트를 구성하고, 리소스 그룹과 블루프린트를 만들고, 마이그레이션 워크플로를 실행하여 Microsoft Hyper-V에서 VMware ESXi로 VM을 마이그레이션합니다.</block>
   <block id="cd22472bba782a8919dd031e00eae137" category="doc">Shift Toolkit을 사용하여 Microsoft Hyper-V에서 VMware ESXi로 VM 마이그레이션</block>
   <block id="1bc4218ce884988bb9397d3f4ceeb1f2" category="paragraph">Shift Toolkit을 사용하면 추가 디스크 사본을 생성하지 않고도 하이퍼바이저 간에 직접 VM을 변환할 수 있으므로 Windows 및 Linux 가상 머신 모두에서 최소한의 다운타임으로 사본 없는 마이그레이션이 가능합니다.</block>
@@ -7547,8 +7536,6 @@
   <block id="5f95d89fd1dbb8beadaea935389be26b" category="list-text">클러스터 관리자 권한이 있는 서비스 계정 토큰</block>
   <block id="9f98befe733ce2d29586bf9a87ac8d09" category="inline-link-macro">최소한의 필요한 권한</block>
   <block id="5be8426da76cced0a47158ad47750def" category="list-text">최소한의 권한만 있는 계정입니다. 이 부분을 참조하세요<block ref="c926533bfc6d97c26e033293cec05b98" category="inline-link-macro-rx"></block></block>
-  <block id="17b93afa4178a31153de0905c4000cf4" category="list-text">VMDK 파일은 svmotion을 사용하여 개별 볼륨에 배치해야 합니다(VMDK를 PVC/PV 구조와 유사하게).</block>
-  <block id="b80fc579753a9bc233dccc96c7f62946" category="admonition">스크립트 블록(설정 &gt; 개발자 액세스 &gt; 스크립트 블록)에서 제공되는 스크립트를 사용하여 qtree에 PVC를 배치하거나, 볼륨을 있는 그대로 가져오거나, 볼륨을 복제하여 가져올 수 있으므로 수동 vMotion 작업이 필요하지 않습니다.</block>
   <block id="290ab574b340fbe7c1c7b7c89a003fef" category="list-text">각 VM의 운영 체제는 변환을 위한 게스트 운영 체제로 인증 및 지원됩니다.</block>
   <block id="9fcda93f457ee4efde123f8b81663bce" category="list-text">IP 주소, VLAN 및 기타 네트워크 구성 설정은 마이그레이션 전이나 마이그레이션 도중에 변경해서는 안 됩니다. 가상 머신의 MAC 주소는 마이그레이션 과정에서 보존됩니다.</block>
   <block id="409116cb62df6ecb2004715240d3147a" category="section-title">1단계: 가상화용 마이그레이션 툴킷을 사용하여 마이그레이션 계획을 생성합니다.</block>
@@ -9155,4 +9142,40 @@
   <block id="be67a626ef7bc6c12b4efda89f30af3e" category="sidebar">Omnissa Horizon 및 NetApp을 사용한 최종 사용자 컴퓨팅</block>
   <block id="2b82062236ea0befd9f50ab5aee59dba" category="sidebar">Omnissa Tech Zone</block>
   <block id="e6b7848e205a003bd2a920deab7f65fe" category="sidebar">NetApp을 사용한 최종 사용자 컴퓨팅 개요</block>
+  <block id="970985be56c333fc69eb242858d974a7" category="paragraph">Shift Toolkit을 사용하여 VMware ESX 가상 머신 디스크(VMDK)를 Microsoft Hyper-V(VHDX) 디스크 형식 또는 RAW/QCOW2 디스크 형식으로 변환할 수 있습니다. 이 과정에는 리소스 그룹 설정, 변환 설계도 생성 및 변환 예약이 포함됩니다.</block>
+  <block id="44f1950185c7ba87f5792385e7955268" category="paragraph">Shift Toolkit은 ONTAP의 FlexVol 및 FlexGroup 볼륨을 모두 지원하며, 다음 형식에 대해 하이퍼바이저 간 가상 디스크의 디스크 수준 변환을 지원합니다.</block>
+  <block id="4422589e352b79eabc36e29fbc413ae2" category="paragraph">변환된 qcow2 파일은 모든 KVM 하이퍼바이저와 호환됩니다. 예를 들어, qcow2 파일은 virt-manager를 사용하는 RHEL 기반 KVM과 함께 사용하여 VM을 생성할 수 있을 뿐만 아니라 ubuntu KVM, Rocky Linux 기반 KVM 등에서도 사용할 수 있습니다. 동일한 파일을 Oracle Linux 가상화 관리자, Proxmox, OpenNebula, HP VME에서 사용할 수 있으며, NetApp Trident를 사용하여 가져온 후 OpenShift 가상화에서도 사용할 수 있습니다. 목표는 디스크(몇 초에서 몇 분 내에 변환됨)를 제공하는 것이며, 이 디스크는 조직에서 VM을 프로비저닝하고 네트워크를 할당하는 데 사용하는 기존 자동화 스크립트에 통합될 수 있습니다. 이 접근 방식은 Shift 툴킷 API가 디스크 변환을 처리하고 나머지 스크립트가 VM을 구동하도록 하여 전반적인 마이그레이션 시간을 단축하는 데 도움이 됩니다.</block>
+  <block id="b0ca35fe608ed46ed84790aa11bfd45d" category="paragraph">NetApp Shift Toolkit은 FlexGroup 볼륨에 저장된 VMware VMDK 디스크를 RAW 디스크 형식으로 변환하는 기능도 지원하여 Proxmox 또는 OLVM과 같은 KVM 기반 플랫폼으로 원활하게 마이그레이션할 수 있도록 합니다.</block>
+  <block id="2d4c6926c98a793e6706dcbe238859c7" category="admonition">FlexGroup 스토리지를 사용하는 경우 RAW 형식 변환만 지원됩니다. 또한 Shift 툴킷은 KVM 전용 변환을 수행할 때 준비 과정에서 VirtIO 드라이버를 삽입합니다.</block>
+  <block id="23447c55f2fd36aad3ded247c06d12b4" category="list-text">VMDK는 여러 가지 방식으로 구성할 수 있습니다. 모든 VMDK를 단일 NFSv3 볼륨에 저장할 수 있으며(Storage vMotion 불필요), 각 VMDK를 개별 볼륨에 배치하거나, 여러 VMDK를 볼륨 내의 qtree 구조로 구성할 수 있습니다.</block>
+  <block id="6ebe36fa67a49d0407f9a4e9dbf50d8e" category="admonition">Shift Toolkit은 레이아웃을 자동으로 감지하고 적절한 복제 방법과 NAS 스토리지 드라이버를 선택합니다.</block>
+  <block id="42cab0d760992c3247439fcdc5ca4d17" category="admonition">VMDK 파일이 qtree 내에 배치되면 Shift Toolkit은 ONTAP-NAS-economy 드라이버를 사용합니다.</block>
+  <block id="c25bdee54a1395139c4e27dd4afed39b" category="list-title">Trident 노하우 및 매핑</block>
+  <block id="2c7917b45cd337d7d807fa04da5947c9" category="list-text">*ONTAP-NAS*: VMDK 파일들을 하나의 볼륨에 모두 저장하거나, 각 VMDK 파일을 개별 볼륨에 저장할 수 있습니다. VM 선택은 데이터스토어 수준 또는 VM 수준에서 가능합니다.</block>
+  <block id="23d3497d4ade74fc0d167fa0d114c84f" category="list-text">*ONTAP-NAS-Economy*: VMDK 파일은 단일 볼륨에 있어야 하며, 볼륨 이름은 다음 명명 규칙을 따라야 합니다:<block ref="c6154cd69db6b669e0a46c304fa9ebfa" prefix=" " category="inline-code"></block>. 리소스 그룹 내 VM 선택은 데이터스토어 수준에서만 가능합니다.</block>
+  <block id="63f70a35e7144b2c553e79ee8bf8bbb1" category="admonition">ONTAP-NAS-Economy의 경우, 위에 명시된 명명 규칙을 따르는 볼륨이 이미 존재해야 하며 VMware vCenter의 데이터스토어로 사용되어야 합니다. 즉, VM을 Storage vMotioned를 통해 이 특정 데이터스토어로 이동시키거나 기존 데이터스토어의 이름을 명명 규칙에 맞게 변경해야 합니다:<block ref="c6154cd69db6b669e0a46c304fa9ebfa" prefix=" " category="inline-code"></block>.</block>
+  <block id="ccae04ad6022f2ab0a767284d0133acf" category="admonition">ONTAP-NAS-Economy의 경우 Trident 백엔드 구성(TBC)에서 매개변수<block ref="054ededa0a5fea88c78376154775ac7d" prefix=" " category="inline-code"></block>를 <block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>로 설정해야 합니다. 사용되는 스토리지 클래스는 storagePools를 <block ref="c1fde9306141f8bd069a7aa378dd3ffb" prefix=" " category="inline-code"></block>로 제한해야 합니다.</block>
+  <block id="7c8975f9ca9c6f30d79ecee3119fd5a4" category="example-title">ONTAP-NAS-Economy 드라이버용 TBC 구성 예시</block>
+  <block id="05b66350c44a36540f552f33e7744a15" category="admonition"><block ref="80fd16da9d17abac4374b362f2e409fe" prefix=" " category="inline-code"></block> 매개변수는 초기 PVC 생성의 일부로 <block ref="c6154cd69db6b669e0a46c304fa9ebfa" prefix=" " category="inline-code"></block>이(가) 생성된 직후에 <block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>(으)로 설정되어야 합니다. 이 값을 <block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>(으)로 설정하면 Trident가 qtree 기반 PVC를 배치하는 데 기존 qtree 풀을 사용하도록 보장합니다.</block>
+  <block id="4096572e8bb4cd2ea6a427ddd47a000a" category="paragraph">TBC는 다음 명령줄을 사용하여 패치할 수 있습니다.</block>
+  <block id="3d7849a9ab22ff361c734f18775b64c5" category="example-title">스토리지 클래스용 YAML 예시</block>
+  <block id="a1eb62cacf00ac9030d04bec0c2f1749" category="list-text">*ONTAP-SAN*: VMDK 파일은 Storage vMotion을 사용하여 개별 볼륨에 배치해야 합니다(VMDK를 PVC/PV 구성에 매핑). VM 선택은 VM 수준에서 이루어집니다.</block>
+  <block id="ccaa188bed5034a0b942f3c5887b40c7" category="list-text">*ONTAP-SAN-Economy*: VMDK 파일은 단일 NFSv3 볼륨에 있어야 하며, 볼륨 이름은 다음 명명 규칙을 따라야 합니다: <block ref="624a7fe9f2c6a3bb75046b0eecbdc3b8" prefix=" " category="inline-code"></block>. 리소스 그룹 내 VM 선택은 데이터스토어 수준에서만 가능합니다.</block>
+  <block id="21383aea5e2999b726fa60c1757d73ee" category="admonition">ONTAP-SAN-Economy의 경우, 명명 규칙<block ref="624a7fe9f2c6a3bb75046b0eecbdc3b8" prefix=" " category="inline-code"></block>을 따르는 볼륨이 미리 존재해야 하며 VMware vCenter의 데이터스토어로 사용되어야 합니다. 즉, VM을 Storage vMotioned하여 이 특정 데이터스토어로 이동하거나, 기존 데이터스토어의 이름을 명명 규칙<block ref="624a7fe9f2c6a3bb75046b0eecbdc3b8" prefix=" " category="inline-code"></block>에 맞게 변경해야 합니다.</block>
+  <block id="67ab1603c3106a8b3658420549624c1f" category="example-title">ONTAP-SAN-Economy용 TBC 구성 예시</block>
+  <block id="a04c83014aeb49d42129d11b8339be05" category="example-title">ONTAP-SAN-Economy의 샘플 스토리지 클래스 구성</block>
+  <block id="bd0b2f8fa902dcd79389caf7a52bda49" category="admonition">ONTAP-SAN 및 ONTAP-SAN-Economy의 경우, VM을 블록 기반 데이터스토어에서 ONTAP NFSv3 볼륨으로 먼저 Storage vMotioned해야 합니다. 그런 다음 Shift Toolkit이 VMDK를 LUN으로 변환하고 해당 네임스페이스에 PVC로 가져옵니다.</block>
+  <block id="b85c6e05d65dd0ab955b8bcce5d8cdbf" category="paragraph">리소스 그룹에 대한 VM 선택은 VM 수준 또는 데이터스토어 수준에서 수행할 수 있습니다. 선택에 따라 워크플로는 적절한 ONTAP NAS 또는 SAN 스토리지 드라이버를 선택합니다. 예를 들어, 단일 VM이 선택된 경우 ONTAP-NAS 드라이버가 사용됩니다. 동일한 볼륨에 여러 VMDK가 있는 경우 소스 볼륨과 해당 SVM, 그리고 OpenShift 측에 구성된 TBC 및 스토리지 클래스를 기반으로 ONTAP-NAS 또는 ONTAP-NAS-Economy 드라이버가 사용됩니다.</block>
+  <block id="d78ff19bbe7de35baadb5d206ead481c" category="admonition">VMDK 파일이 여러 개인 경우, 각 VMDK 파일은 사용되는 스토리지 드라이버에 따라 변환되어 자체 PVC에 저장됩니다.</block>
+  <block id="3b5791b9b77bdde0928090f2e82320ff" category="admonition">작업이 완료되면 설계도에 대해 검증 옵션을 실행할 수 있습니다. 자세한 내용은 <block ref="c3561bb2b70d13618c46bbceb37974b9" category="inline-xref-macro-rx"></block>을 참조하십시오.</block>
+  <block id="66cd12a83614460f88066bc18f12cb16" category="section-title">Shift Toolkit과 함께 Migration Toolkit for Virtualization 사용(스크립트 방식)</block>
+  <block id="b46725197c1a0885610acb48c6eb32f4" category="list-text">OC 명령줄 도구가 설치된 Linux 인스턴스</block>
+  <block id="e0c97494d3f6f35d6c4b84d1a6339dca" category="list-text">Shift Toolkit UI(*설정 &gt; 개발자 액세스 &gt; 스크립트 차단*)에서 "Shift-VM-to-OpenShift-MTV"라는 스크립트를 다운로드하십시오.</block>
+  <block id="e4dfc171c0bf7ed67abed9850904b164" category="list-text">파일 압축을 해제합니다:<block ref="4b93dd209b7f06cfd8eff01f9d11951f" prefix=" " category="inline-code"></block></block>
+  <block id="c8f02840346c79c6d7c8db99e01a1a9a" category="list-text">*MTV용 가상 머신 요구 사항*: VMDK 파일은 다양한 방식으로 구성할 수 있습니다. 모든 VMDK 파일을 단일 볼륨에 배치하거나(Storage vMotion 불필요), 각각 별도의 볼륨에 할당하거나, NFS 볼륨 내의 qtree 구조로 그룹화할 수 있습니다. 스크립트는 레이아웃을 자동으로 감지하고 TBC UUID를 기반으로 적절한 클론 방식과 NAS 스토리지 드라이버를 선택합니다.</block>
+  <block id="17af529969a82f6720bcea66c644cae2" category="paragraph">스크립트는 구성 파일을 사용하거나 매개변수를 지정하여 실행할 수 있습니다. 매개변수를 사용하여 스크립트를 실행하는 예는 아래와 같습니다.</block>
+  <block id="5ef8e3063cbb064aa77ed2097b047624" category="admonition">이 스크립트는 SVM 간 복제도 지원하므로 제공된 입력 매개변수를 기반으로 서로 다른 SVM에 걸쳐 PVC를 생성할 수 있습니다.</block>
+  <block id="900072db4db9aa5a93fea4d351c838fd" category="paragraph">마이그레이션이 완료되면 클론 볼륨을 분리해야 합니다. 사용하는 방법은 ONTAP 버전에 따라 다릅니다. ONTAP 9.17.1 이상에서는 clone split을 사용하고, 이전 버전에서는 vol move를 사용합니다. 분리 프로세스를 시작하는 스크립트는 제공된 ZIP 패키지 내의 "Post migrate" 폴더에 있습니다.</block>
+  <block id="2c965de51648fb5524d2eb0e957d4709" category="list-text">VMDK는 여러 가지 방식으로 구성할 수 있습니다. 모든 VMDK를 단일 볼륨에 저장할 수 있으며(Storage vMotion 불필요), 각 VMDK를 개별 볼륨에 저장하거나, 여러 VMDK를 볼륨 내의 qtree 구조로 구성할 수 있습니다.</block>
+  <block id="57ab8ea8689e4a7f85baeb77d04e766e" category="admonition">Shift 툴킷은 레이아웃을 자동으로 감지하고 적절한 복제 방법과 NAS 스토리지 드라이버를 선택합니다.</block>
 </blocks>
