@@ -1,0 +1,200 @@
+---
+sidebar: sidebar 
+permalink: migration/shift-toolkit-deploy-operator.html 
+keywords: netapp, shift, operator, openshift, trident, mtv, migration toolkit for virtualization 
+summary: NetApp Trident CSI 및 가상화용 마이그레이션 툴킷을 사용하여 Shift 운영자를 표준 모드에서 컨테이너화된 서비스로 수동으로 배포합니다. 
+---
+= Shift 운영자를 수동으로 배포합니다(표준 모드)
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp Shift 툴킷을 NetApp Trident CSI 및 가상화용 마이그레이션 툴킷(MTV)을 사용하여 컨테이너화된 서비스로 수동으로 배포합니다. 이 프로세스는 주석 및 레이블을 활용하여 구성 요소 간에 요청을 적절하게 라우팅하고 자동화된 스토리지 프로비저닝 및 가상 머신 디스크 마이그레이션을 지원합니다.
+
+
+
+== 아키텍처 구성 요소
+
+NetApp Shift 툴킷, Trident CSI 및 가상화용 마이그레이션 툴킷이 OpenShift 환경에서 자동화된 스토리지 프로비저닝 및 VM 디스크 마이그레이션을 지원하기 위해 어떻게 함께 작동하는지 이해하십시오.
+
+image::shift_operator_architecture.png[Shift 운영자 아키텍처 다이어그램]
+
+*NetApp Shift 툴킷*
+
+* 이미지 레지스트리를 통해 컨테이너화된 서비스로 배포됨
+* 특정 주석이 포함된 MTV에서 발생하는 영구 볼륨 클레임(PVC) 요청을 수신하는 엔드포인트를 노출합니다.
+* VM 디스크 마이그레이션 작업(형식 변환 포함) 처리를 담당합니다.
+
+
+*NetApp Trident CSI (버전 26.06 이상)*
+
+* 컨테이너 스토리지 인터페이스(CSI) 프로비저너 역할을 합니다.
+* Shift 툴킷에서 PVC 가져오기 요청을 수신합니다.
+* PVC 주석 및 레이블을 기반으로 논리를 적용하여 요청을 직접 처리할지 아니면 Shift로 리디렉션할지 결정합니다.
+
+
+*Migration Toolkit for Virtualization(MTV 2.12 이상)*
+
+* 가상 머신 마이그레이션 계획을 총괄합니다.
+* VM 마이그레이션 중 스토리지 프로비저닝에 필요한 PVC 요청 발행
+* 후속 처리를 안내하기 위한 주석을 추가합니다.
+
+
+
+
+== 시작하기 전에
+
+OpenShift 환경에 필요한 구성 요소가 설치 및 구성되어 있는지 확인한 후 Shift 오퍼레이터를 배포하십시오.
+
+* 가상화 운영자용 Migration Toolkit은 2.12 이상 버전을 실행 중입니다.
+* Trident는 OpenShift OperatorHub를 통해 설치됩니다 - link:https://docs.netapp.com/us-en/trident/trident-install/openshift-operator-deploy.html["Trident 설치 가이드"]
+* NetApp Shift는 NetApp Trident에서 Shift 엔드포인트에 액세스할 수 있는 컨테이너로 배포됩니다.
+* Shift 툴킷 사용을 위해 특별히 스토리지 클래스가 생성되고 레이블이 지정됩니다.
+* 해당 레이블은 Shift 툴킷이 의도된 처리 도구임을 나타냅니다.
+* MTV는 PVC에 다음과 같은 주석을 포함합니다. `forklift.konveyor.io/netapp-shift: "true"`
+
+
+
+
+== 1단계: Shift 설치 프로그램 다운로드 및 압축 해제
+
+Shift 설치 패키지에는 Shift 운영자를 배포하고 Shift를 설치하는 데 필요한 모든 것이 포함되어 있습니다.
+
+.단계
+. Shift 설치 프로그램의 최신 버전을 link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["NetApp 지원 사이트 툴체스트"]에서 다운로드하십시오.
+. 설치 패키지를 압축 해제합니다:
++
+[source, bash]
+----
+tar -xf Shift-installer-1.0.0.tar.gz
+----
+. 설치 프로그램 디렉토리로 이동합니다.
++
+[source, bash]
+----
+cd shift-installer
+----
+
+
+
+
+== 2단계: Shift 네임스페이스 및 API 자격 증명 생성
+
+Shift 운영자를 위한 전용 네임스페이스를 설정하고 안전한 API 액세스에 필요한 자격 증명을 생성합니다.
+
+.단계
+. Shift 네임스페이스를 생성합니다.
++
+[source, bash]
+----
+oc create ns shift
+----
+. Shift 네임스페이스 내에서 Shift API 액세스를 위한 시크릿을 생성합니다.
++
+[source, bash]
+----
+oc create secret generic shift-credentials -n shift \
+  --from-literal=username='admin' \
+  --from-literal=password='admin'
+----
+
+
+
+
+== 3단계: Shift 운영자 배포
+
+Shift 운영자 구성을 OpenShift 클러스터에 적용하고 필요한 Pod가 성공적으로 실행되는지 확인하십시오.
+
+.단계
+. shift-installer 디렉토리에서 배포 명령을 실행합니다.
++
+[source, bash]
+----
+oc apply -f deploy/shift-bundle.yaml
+----
+. Pod 생성 상태를 사용하여 설치를 확인하십시오.
++
+[source, bash]
+----
+oc get pods -n shift
+----
++
+출력 예:
+
++
+[source, console]
+----
+NAME                                     READY   STATUS    RESTARTS   AGE
+shift-68ccd597c-dtsj7                    1/1     Running   0          18s
+shift-pvc-listener-57d546f6b8-r9mgc      1/1     Running   0          18s
+----
+
+
+
+
+== 4단계: Shift 통합을 위한 스토리지 클래스 구성
+
+Shift 연동에 필요한 어노테이션을 추가하여 새 스토리지 클래스를 생성하거나 기존 스토리지 클래스를 업데이트하세요.
+
+.이 작업 정보
+스토리지 클래스에는 다음 어노테이션이 포함되어야 합니다.
+
+* `shift.netapp.io/storage-class-type`
+* `shift.netapp.io/trident-backend-uuid`
+
+
+.단계
+. 기존 스토리지 클래스를 확인하십시오.
++
+[source, bash]
+----
+oc get sc
+----
++
+출력 예:
+
++
+[source, console]
+----
+nimnas1172 (default)   csi.trident.netapp.io   Delete          Immediate         true
+----
+. 필요한 어노테이션을 추가하여 스토리지 클래스를 패치하십시오.
++
+[source, bash]
+----
+oc patch storageclass nimnas1172 \
+  --type=merge \
+  -p '{
+    "metadata": {
+      "annotations": {
+        "shift.netapp.io/storage-class-type": "shift",
+        "shift.netapp.io/trident-backend-uuid": "facc3aad-83bb-423a-b6a1-ba0fb8811217"
+      }
+    }
+  }'
+----
++
+출력 예:
+
++
+[source, console]
+----
+storageclass.storage.k8s.io/nimnas1172 patched
+----
++
+
+NOTE: 백엔드 UUID는 다음 명령을 실행하여 가져올 수 있습니다. `oc get tbc -n trident`
+
+
+
+
+
+== 다음 단계
+
+Shift 운영자 배포 및 스토리지 클래스 구성을 완료한 후 MTV 플랜을 생성하고 실행할 수 있습니다.
+
+MTV 플랜 생성에 대한 자세한 내용은 link:https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.3/html/installing_and_using_the_migration_toolkit_for_virtualization/migrating-vms-web-console["Migration Toolkit for Virtualization 문서"]을 참조하십시오.

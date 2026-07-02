@@ -404,7 +404,7 @@ NOTE: VMDK 파일이 여러 개 있는 경우 각 VMDK가 변환됩니다.
 .QCOW2 또는 RAW 이미지를 PVE NFS 기반 스토리지 풀에 업로드합니다
 가상 머신 디스크 이미지가 qcow2 또는 RAW 형식으로 변환되면 Shift 툴킷은 해당 파일을 적절한 스토리지 풀에 배치하고 각 디스크를 해당 VM ID 폴더 내에 추가합니다.
 
-image::shift-toolkit-469.png[shift toolkit 469]
+image::shift-toolkit-469.png[VM 디스크 이미지가 Proxmox VE NFS 스토리지 풀에 업로드됨]
 
 .가상 머신 생성
 Shift 툴킷은 OS에 따라 각 VM을 생성하기 위해 REST API 호출을 수행합니다.

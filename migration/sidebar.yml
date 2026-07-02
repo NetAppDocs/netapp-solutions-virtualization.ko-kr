@@ -30,9 +30,11 @@ entries:
       url: "/migration/shift-toolkit-migrate-hyperv2esxi.html"
     - title: VMware ESXi에서 Red Hat OpenShift Virtualization으로 VM 마이그레이션
       url: "/migration/shift-toolkit-migrate-esxi2osv.html"
-    - title: 가상화 툴킷을 사용하여 VMware ESXi에서 Red Hat OpenShift Virtualization으로 가상 머신을
-        마이그레이션하세요.
+    - title: Shift 툴킷과 가상화 마이그레이션 툴킷을 사용하여 VMware ESXi에서 Red Hat OpenShift Virtualization으로
+        가상 머신을 마이그레이션합니다.
       url: "/migration/shift-toolkit-migrate-esxi2osvmtv.html"
+    - title: Shift 운영자를 수동으로 배포합니다.
+      url: "/migration/shift-toolkit-deploy-operator.html"
     - title: VMware ESXi에서 Oracle Linux Virtualization Manager(OLVM)로 VM 마이그레이션
       url: "/migration/shift-toolkit-migrate-esxi2olvm.html"
     - title: VMware ESXi에서 Proxmox VE로 VM 마이그레이션
