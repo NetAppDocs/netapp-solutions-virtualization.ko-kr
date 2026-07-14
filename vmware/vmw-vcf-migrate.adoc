@@ -18,6 +18,7 @@ ONTAP 에서 기존 파이버 채널이나 NFS 데이터 저장소를 사용하�
 
 
 
+[[solution-overview]]
 == 솔루션 개요
 
 이 솔루션은 클러스터가 VCF 관리 도메인으로 변환될 때 vSphere의 기존 FC 또는 NFS 데이터 저장소가 주 스토리지가 되는 방식을 보여줍니다.
@@ -28,6 +29,7 @@ ONTAP 에서 기존 파이버 채널이나 NFS 데이터 저장소를 사용하�
 
 
 
+[[architecture-overview]]
 == 아키텍처 개요
 
 ONTAP 도구의 아키텍처는 VMware 환경과 완벽하게 통합되어 ONTAP 도구 서비스, vSphere 플러그인, REST API를 포함하는 모듈식 확장 가능 프레임워크를 활용하여 효율적인 스토리지 관리, 자동화 및 데이터 보호를 구현합니다.
@@ -38,6 +40,7 @@ image::vmware-vcf-import-nfs-010.png[ONTAP 도구 아키텍처]
 
 
 
+[[supported-solutions-for-converting-a-vsphere-environment]]
 == vSphere 환경 변환을 위한 지원 솔루션
 
 vCenter 인스턴스를 변환하기 위한 기술적 세부 정보는 다음 솔루션을 참조하세요.
@@ -48,6 +51,7 @@ vCenter 인스턴스를 변환하기 위한 기술적 세부 정보는 다음 �
 
 
 
+[[additional-information]]
 == 추가 정보
 
 * 이러한 솔루션의 비디오 데모는 다음을 참조하세요.link:../videos/vmware-videos.html#vmware-datastore-provisioning-with-ontap["ONTAP 사용한 VMware 데이터스토어 프로비저닝"] .

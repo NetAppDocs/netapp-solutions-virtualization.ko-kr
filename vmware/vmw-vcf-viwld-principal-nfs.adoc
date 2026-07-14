@@ -18,6 +18,7 @@ summary:
 
 
 
+[[benefits-of-nfs]]
 == NFS의 이점
 
 *간단하고 사용 용이성:* NFS는 설정과 관리가 간단하므로 빠르고 쉽게 파일을 공유해야 하는 환경에 매우 적합한 선택입니다.
@@ -32,6 +33,7 @@ NetApp 스토리지 시스템에서 파이버 채널을 사용하는 방법에 �
 
 
 
+[[scenario-overview]]
 == 시나리오 개요
 
 이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
@@ -51,6 +53,7 @@ NOTE: 이 솔루션은 NetApp AFF 및 FAS 포함한 NFS 스토리지를 지원�
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 이 시나리오에서는 다음 구성 요소와 구성이 사용됩니다.
@@ -75,6 +78,7 @@ vSphere 클러스터에서 NFS를 사용하는 방법에 대한 자세한 내용
 
 
 
+[[deployment-steps]]
 == 배포 단계
 
 NFS 데이터 저장소를 주 저장소로 사용하여 VI 워크로드 도메인을 배포하려면 다음 단계를 완료하세요.
@@ -294,12 +298,14 @@ VMware VAAI용 NetApp NFS 플러그인을 배포하는 방법에 대한 단계�
 ====
 
 
+[[video-demo-for-this-solution]]
 == 이 솔루션에 대한 비디오 데모
 
 .VCF 워크로드 도메인의 주 스토리지로서의 NFS 데이터 저장소
 video::9b66ac8d-d2b1-4ac4-a33c-b16900f67df6[panopto,width=360]
 
 
+[[additional-information]]
 == 추가 정보
 
 ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] 센터.

@@ -18,6 +18,7 @@ Shift Toolkit을 사용하여 가상화 플랫폼 간에 VM을 마이그레이�
 
 
 
+[[supported-migrations]]
 == 지원되는 마이그레이션
 
 Shift Toolkit은 다음 하이퍼바이저 간 양방향 마이그레이션을 지원하여 다중 하이퍼바이저 환경에서 유연성을 제공합니다.
@@ -32,6 +33,7 @@ Shift Toolkit은 다음 하이퍼바이저 간 양방향 마이그레이션을 �
 
 
 
+[[migration-workflow]]
 == 마이그레이션 워크플로
 
 청사진을 만든 후 마이그레이션 프로세스를 시작할 수 있습니다.  마이그레이션 중에 Shift Toolkit은 일련의 단계를 수행하여 디스크 형식을 변환하고 블루프린트에 정의된 대로 대상 호스트에 가상 머신을 생성합니다.
@@ -49,6 +51,7 @@ Shift Toolkit은 마이그레이션 중에 다음 단계를 수행합니다.
 
 
 
+[[network-tips-and-considerations]]
 == 네트워크 팁 및 고려 사항
 
 마이그레이션을 계획할 때 다음 네트워크 요구 사항과 동작을 고려하세요.  Shift Toolkit은 소스 VM에서 네트워크 설정을 자동으로 복사하여 마이그레이션된 VM에 다시 적용하지만, 인터페이스 명명 및 네트워크 어댑터 구성은 Windows와 Linux 시스템 간에 다를 수 있습니다.
@@ -91,6 +94,7 @@ Shift Toolkit은 청사진에 지정된 대로 IP 주소를 유지합니다.
 
 
 
+[[migration-phases]]
 == 마이그레이션 단계
 
 Shift Toolkit을 사용하여 VM을 마이그레이션하는 데 따르는 마이그레이션 단계는 다음과 같습니다.
@@ -111,6 +115,7 @@ NOTE: Shift Toolkit은 VM 준비에 필요한 스크립트를 복사하는 것�
 
 
 
+[[execute-a-migration]]
 == 마이그레이션 실행
 
 블루프린트에 지정된 구성으로 마이그레이션 워크플로를 트리거하려면 *마이그레이션*을 클릭합니다.
@@ -133,3 +138,57 @@ image::shift-toolkit-033.png[디스크 변환 진행 상황]
 작업이 완료되면 청사진 상태가 "마이그레이션 완료"로 변경됩니다.
 
 image::shift-toolkit-034.png[마이그레이션 완료 상태]
+
+
+
+[[delete-a-blueprint]]
+== 블루프린트 삭제
+
+한 번도 실행되지 않은 블루프린트는 UI에서 직접 삭제할 수 있습니다. 하지만 블루프린트가 실행된 후에는 작업 기록이 생성되는데, 블루프린트 자체를 삭제하기 전에 이러한 기록들을 먼저 제거해야 합니다. PowerShell 제거 스크립트를 사용하여 이러한 작업 기록을 정리한 후, 블루프린트와 연결된 리소스 그룹을 삭제할 수 있습니다.
+
+.단계
+. Shift Toolkit UI에서 *설정 > 개발자 액세스 > 스크립트 블록*으로 이동하여 제거 스크립트를 다운로드하십시오.
++
+image::shift-toolkit-082.png[설계도 이름을 기준으로 작업 제거]
+
+. 압축 폴더를 해제하세요. 패키지에는 두 개의 파일이 들어 있습니다.
++
+** `removeBpJobs.json` - 구성 파일
+** `removeBpJobs.ps1` - PowerShell 스크립트
+
+
+.  `removeBpJobs.json` 파일을 수정하여 다음을 지정합니다.
++
+** 이 작업의 실행 이름
+** Shift Toolkit IP 주소
+** 관리자 자격 증명
+** 삭제할 Blueprint 이름
++
+구성 예:
+
++
+[source, json]
+----
+"executions": [
+  {
+    "execution_name": "reslore",
+    "shift_server_ip": "https://10.63.184.75",
+    "shift_username": "admin",
+    "shift_password": "Admin",
+    "blueprint_details": [{"BPTHIMFAT": "True"}]
+  }
+]
+----
+
+
+. PowerShell을 열고 압축 해제된 파일이 있는 폴더로 이동합니다.
+. 스크립트를 실행합니다.
++
+[listing]
+----
+pwsh
+.\removeBpJobs.ps1
+----
+
+
+스크립트 실행이 성공적으로 완료되면 Shift Toolkit UI에서 설계도와 연결된 리소스 그룹을 삭제할 수 있습니다.

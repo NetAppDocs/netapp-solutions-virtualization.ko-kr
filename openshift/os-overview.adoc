@@ -18,6 +18,7 @@ Red Hat OpenShift Container Platform은 온프레미스 및 하이브리드 클�
 
 
 
+[[red-hat-openshift-provides-the-following-capabilities]]
 == Red Hat OpenShift는 다음과 같은 기능을 제공합니다.
 
 * *셀프 서비스 프로비저닝* 개발자는 가장 많이 사용하는 도구를 이용해 필요에 따라 빠르고 쉽게 애플리케이션을 만들 수 있으며, 운영팀은 전체 환경에 대한 완벽한 제어권을 유지합니다.
@@ -37,6 +38,7 @@ image:redhat-openshift-004.png["입력/출력 대화 상자 또는 서면 내용
 
 
 
+[[deployment-methods-for-red-hat-openshift]]
 == Red Hat OpenShift 배포 방법
 
 Red Hat OpenShift 4부터 OpenShift 배포 방법에는 고도로 사용자 정의된 배포를 위한 사용자 프로비저닝 인프라(UPI)를 사용한 수동 배포나 설치 프로그램 프로비저닝 인프라(IPI)를 사용한 완전 자동화된 배포가 포함됩니다.
@@ -45,6 +47,7 @@ Red Hat OpenShift 4부터 OpenShift 배포 방법에는 고도로 사용자 정�
 
 
 
+[[ipi-installation-of-red-hat-openshift]]
 === Red Hat OpenShift의 IPI 설치
 
 OpenShift의 IPI(Installer Provisioned Infrastructure) 배포에는 다음과 같은 상위 단계가 포함됩니다.
@@ -63,6 +66,7 @@ image:redhat-openshift-009.png["입력/출력 대화 상자 또는 서면 내용
 
 
 
+[[netapp-validated-openshift-deployments]]
 === NetApp OpenShift 배포를 검증했습니다.
 
 NetApp 다음의 각 데이터 센터 환경에서 IPI(Installer Provisioned Infrastructure) 배포 방법을 사용하여 실험실에서 Red Hat OpenShift 배포를 테스트하고 검증했습니다.

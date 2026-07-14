@@ -13,6 +13,7 @@ VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하는 데 
 
 
 
+[[infrastructure-requirements]]
 == 인프라 요구 사항
 
 다음 구성 요소와 구성이 제대로 되어 있는지 확인하세요.
@@ -24,6 +25,7 @@ VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하는 데 
 
 
 
+[[recommended-nfs-network-design]]
 == 권장되는 NFS 네트워크 설계
 
 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 허용 기능을 제공하기 위해 NFS에 대한 중복 네트워크 설계를 구성합니다.  아키텍처 요구 사항에 따라 단일 서브넷이나 여러 서브넷으로 NFS를 배포하는 것이 일반적입니다.
@@ -32,6 +34,7 @@ VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하는 데 
 
 
 
+[[additional-information]]
 == 추가 정보
 
 * VMware vSphere에 대한 자세한 내용은 다음을 참조하세요. https://www.vmware.com/docs/vmw-best-practices-running-nfs-vmware-vsphere["VMware vSphere를 사용하여 NFS를 실행하기 위한 모범 사례"] .
@@ -44,6 +47,7 @@ VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하는 데 
 
 
 
+[[whats-next]]
 == 다음은 무엇인가요?
 
 요구사항을 검토한 후,link:vmw-vcf-viwld-supp-nfs-vvols-svm-lifs.html["SVM과 LIF를 생성합니다"] .

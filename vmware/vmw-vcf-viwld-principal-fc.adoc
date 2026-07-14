@@ -18,6 +18,7 @@ summary:
 
 
 
+[[benefits-of-fibre-channel]]
 == 파이버 채널의 이점
 
 *고성능:* FC는 고속 데이터 전송률을 제공하므로 대량의 데이터에 빠르고 안정적으로 액세스해야 하는 애플리케이션에 이상적입니다.
@@ -32,6 +33,7 @@ NetApp 스토리지 시스템에서 파이버 채널을 사용하는 방법에 �
 
 
 
+[[scenario-overview]]
 == 시나리오 개요
 
 이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
@@ -55,6 +57,7 @@ NOTE: 이 솔루션은 NetApp AFF 및 FAS 포함한 NFS 스토리지를 지원�
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 이 시나리오에서는 다음 구성 요소와 구성이 사용됩니다.
@@ -70,22 +73,26 @@ NOTE: NetApp FC LUN에 대해 다중 경로를 권장합니다.
 
 
 
+[[deployment-steps]]
 == 배포 단계
 
 
 
+[[management-domain-default-cluster]]
 === 관리 도메인 - 기본 클러스터
 
 초기 클러스터의 FC 주 저장소는 VCF 브라운필드 가져오기 도구에서만 지원됩니다.  VCF가 CloudBuilder 도구(버전 5.2.x까지)로 배포된 경우 VSAN만 지원됩니다.  나타내다 https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/map-for-administering-vcf-5-2/importing-existing-vsphere-environments-admin/convert-or-import-a-vsphere-environment-into-vmware-cloud-foundation-admin.html["기존 vSphere 환경을 관리 도메인으로 변환"] 자세한 내용은.
 
 
 
+[[management-domain-additional-cluster]]
 === 관리 도메인 - 추가 클러스터
 
 관리 도메인의 추가 vSphere 클러스터는 다음 옵션을 사용하여 배포할 수 있습니다. * vSphere 환경에 추가 클러스터를 두고 VCF 브라운필드 가져오기 도구를 사용하여 vSphere 환경을 관리 도메인으로 변환합니다. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-datastore.html["ONTAP tools for VMware vSphere"] , https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["시스템 관리자 또는 ONTAP API"] VMFS 데이터스토어를 vSphere 클러스터에 배포하는 데 사용할 수 있습니다. * SDDC API를 사용하여 추가 클러스터를 배포합니다. vSphere 호스트에는 VMFS 데이터 저장소가 구성되어 있어야 합니다. 사용 https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["시스템 관리자 또는 ONTAP API"] LUN을 vSphere 호스트에 배포합니다. * SDDC 관리자 UI를 사용하여 추가 클러스터를 배포합니다. 하지만 이 옵션은 버전 5.2.x까지만 VSAN 데이터 저장소를 생성합니다.
 
 
 
+[[vi-workload-domain-default-cluster]]
 === VI 워크로드 도메인 - 기본 클러스터
 
 관리 도메인이 실행되면 VI 워크로드 도메인을 생성할 수 있습니다.
@@ -96,6 +103,7 @@ NOTE: NetApp FC LUN에 대해 다중 경로를 권장합니다.
 
 
 
+[[vi-workload-domain-additional-cluster]]
 === VI 워크로드 도메인 - 추가 클러스터
 
 VI 워크로드가 실행되면 다음 옵션을 사용하여 FC LUN의 VMFS에 추가 클러스터를 배포할 수 있습니다.
@@ -106,6 +114,7 @@ VI 워크로드가 실행되면 다음 옵션을 사용하여 FC LUN의 VMFS에 
 
 
 
+[[additional-information]]
 == 추가 정보
 
 ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] 센터.

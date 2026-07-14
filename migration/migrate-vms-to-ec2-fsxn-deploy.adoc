@@ -18,6 +18,7 @@ Amazon FSx for NetApp ONTAP 배포하여 VM을 Amazon EC2로 마이그레이션�
 
 
 
+[[configure-fsx-ontap-and-cirrus-data-for-migration-operations]]
 == 마이그레이션 작업을 위해 FSx ONTAP 및 Cirrus Data 구성
 
 이것 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["단계별 배포 가이드"] VPC에 FSx ONTAP 볼륨을 추가하는 방법을 보여줍니다.  이러한 단계는 본질적으로 순차적이므로 순서대로 다루어야 합니다.
@@ -91,6 +92,7 @@ image:migrate-ec2-fsxn-006.png["Cirrus Data '통합 추가' 사용자 인터페�
 
 
 
+[[host-registration-scenario]]
 == 호스트 등록 시나리오
 
 온프레미스 데이터 센터의 vCenter에 있는 게스트 VMware VM:
@@ -233,6 +235,7 @@ image:migrate-ec2-fsxn-013.png["Cirrus 데이터 마이그레이션 완료 이�
 
 
 
+[[post-migration-verification]]
 == 이주 후 검증
 
 Windows Server OS를 실행하는 마이그레이션된 Amazon EC2 인스턴스와 완료된 다음 단계를 살펴보겠습니다.

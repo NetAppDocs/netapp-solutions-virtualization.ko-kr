@@ -28,11 +28,12 @@ oc delete dv,VolumeSnapshot -n openshift-virtualization-os-images --selector=cdi
 
 
 
+[[step-1-install-trident]]
 == 1단계: Trident 설치
 
 Red Hat 인증 Trident Operator는 온프레미스, 퍼블릭 클라우드 및 ROSA와 같은 관리형 서비스에서 NetApp이 OpenShift를 위해 지원합니다. Trident 25.02부터 Amazon FSx for NetApp ONTAP를 사용하고 OpenShift Virtualization VM 워크로드를 실행할 계획인 경우 Operator가 iSCSI용 작업자 노드를 준비할 수도 있습니다.
 
-다른 설치 옵션은 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["Trident 문서"]을 참조하십시오.
+다른 설치 옵션은 link:https://docs.netapp.com/us-en/trident/trident-get-started/quickstart.html["Trident 문서"]을 참조하십시오.
 
 .단계
 . *OperatorHub*에서 *Certified NetApp Trident*을 선택하십시오.
@@ -101,6 +102,7 @@ image:rh-os-n-use-case-osv-trident-install-007.png["multipath.conf 파일 실행
 video::15c225f3-13ef-41ba-b255-b2d500f927c0[panopto,width=360]
 
 
+[[step-2-prepare-storage-backend-and-storageclass-configuration-files-for-your-environment]]
 == 2단계: 사용 환경에 맞는 스토리지 백엔드 및 StorageClass 구성 파일을 준비합니다
 
 TridentBackendConfig 및 StorageClass 정의를 사용자 환경에 맞게 생성하십시오. 환경 내에서 여러 스토리지 프로토콜을 구성할 수 있습니다. 사용하려는 각 프로토콜에 대한 YAML 파일을 생성하고 자리 표시자 값을 특정 구성 세부 정보로 바꾸십시오.
@@ -110,9 +112,100 @@ NOTE: 사용 환경에 따라 아래의 온프레미스 또는 ROSA 섹션 중 �
 
 
 
+[[on-premises-openshift-clusters]]
 === 온프레미스 OpenShift 클러스터
 
 구성하려는 각 프로토콜에 대한 YAML 파일을 생성하십시오. 다음 프로토콜 중 하나 이상을 구성할 수 있습니다. NFS 기반 파일 스토리지를 위한 NAS, iSCSI 블록 스토리지를 위한 iSCSI, TCP를 통한 고성능 NVMe 블록 스토리지를 위한 NVMe/TCP 또는 Fibre Channel 블록 스토리지를 위한 FC.
+
+각 프로토콜에 대해 TridentBackendConfig 및 StorageClass를 생성합니다. 백엔드 구성에는 Kubernetes Secret에 저장된 자격 증명이 포함됩니다.
+
+.백엔드 구성 기본 옵션에 대한 필수 지침
+[%collapsible]
+====
+. 백엔드 구성 파일은 **ONTAP SVM** 및 **관리 LIF**를 참조합니다. +
+. **사용자 이름과 비밀번호**를 사용하여 ONTAP에 인증할 수 있습니다. 클러스터 관리자 또는 vserver 관리자 사용자 이름과 비밀번호를 사용하면 됩니다. +
+. ONTAP에서 인증을 위해 **클라이언트 인증서**를 사용할 수도 있습니다. 클라이언트 인증서, 개인 키 및 CA 인증서 생성 방법에 대한 자세한 내용은 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-prep.html#enable-certificate-based-authentication["Trident 관련 문서는 여기에서 확인할 수 있습니다."]을 참조하십시오.
+
+
+====
+.NAS 이코노미 드라이버의 백엔드 구성 옵션에 대한 필수 지침
+[%collapsible]
+====
+**NAS 이코노미 드라이버** 구성에 포함할 수 있는 매개변수는 다음과 같습니다.
+
+. **qtreesPerFlexvol** 값은 50~300 범위 내에 있어야 하며, 기본값은 200입니다. +
+. **limitVolumePoolSize** 이 값은 ontap-nas-economy 백엔드에서 qtree를 사용할 때 요청하는 최대 FlexVol 크기입니다. 기본값은 설정되어 있지 않으며, 이 매개변수는 기본적으로 적용되지 않습니다. 이 매개변수를 설정하면 현재 FlexVol이 지정된 크기에 도달할 때 Trident 운영자가 새 FlexVol을 생성합니다. 이 매개변수는 PV 프로비저닝에 사용되는 FlexVols의 크기를 제한하여 클러스터의 용량 활용률을 제어하는 데 도움이 될 수 있습니다. +
+. **denyNewVolumePools** 이 매개변수는 ontap-nas-economy 백엔드가 qtree를 저장할 새 FlexVol 볼륨을 생성하는 것을 제한합니다. 새 PV를 프로비저닝할 때는 기존 FlexVol만 사용됩니다.
+
+
+====
+.SAN 드라이버 백엔드 구성 옵션에 대한 필수 지침
+[%collapsible]
+====
+**SAN 드라이버** 구성에 다음 매개변수를 포함할 수 있습니다.
+
+. **limitVolumeSize** 이 값은 SAN 백엔드를 사용할 때 요청하는 최대 볼륨 크기입니다. 기본값은 설정되어 있지 않으며, 이 매개변수는 기본적으로 적용되지 않습니다. 이 매개변수를 설정하면 요청된 볼륨 크기가 이 값보다 클 경우 Trident 오퍼레이터의 프로비저닝이 실패합니다. 이 매개변수를 사용하여 관리되는 LUN 볼륨의 최대 크기를 제한할 수 있습니다. +
+. **lunsPerFlexvol** FlexVol당 최대 LUN 개수입니다. [50, 200] 범위 내에 있어야 하며 기본값은 100입니다. 이 매개변수를 설정하면 현재 FlexVol의 LUN 개수가 지정된 개수에 도달할 때 Trident 운영자가 새 FlexVol을 생성합니다. 이 매개변수를 사용하면 PV 프로비저닝에 사용되는 FlexVol당 LUN 개수를 제한하여 클러스터의 용량 활용률을 제어할 수 있습니다.
+
+
+====
+.SAN economy 드라이버의 백엔드 구성 옵션에 대한 필수 지침
+[%collapsible]
+====
+**SAN 이코노미 드라이버** 구성에 포함할 수 있는 매개변수는 다음과 같습니다.
+
+. **limitVolumePoolSize** 이 값은 SAN 이코노미 백엔드를 사용할 때 요청하는 최대 FlexVol 크기입니다. 기본값은 설정되어 있지 않으며, 이 매개변수는 기본적으로 적용되지 않습니다. 이 매개변수를 설정하면 Trident 운영자가 FlexVol에 LUN을 생성하기 위해 생성할 수 있는 최대 FlexVol 크기를 제한합니다. 이 매개변수는 PV 프로비저닝에 사용되는 FlexVols 크기를 제한하여 클러스터의 용량 활용률을 제어하는 데 도움이 될 수 있습니다. +
+. **denyNewVolumePools** 이 매개변수는 SAN 이코노미 백엔드가 LUN을 담을 새로운 FlexVol 볼륨을 생성하는 것을 제한합니다. 기존 FlexVol만 새로운 PV 프로비저닝에 사용됩니다.
+
+
+====
+.볼륨 프로비저닝을 위한 백엔드 구성 옵션에 대한 필수 지침
+[%collapsible]
+====
+
+NOTE: 각 프로토콜에 제공된 샘플 YAML 파일에서 storagePrefix가 제공되지 않으면 기본 접두사 "trident"가 사용됩니다. ontap-nas-economy를 사용하고 storagePrefix가 24자 이상인 경우, qtree에는 스토리지 접두사가 포함되지 않지만 볼륨 이름에는 포함됩니다.
+
+ONTAP에서 시스템 관리자 또는 CLI를 통해 직접 볼륨을 생성할 때 모든 선택적 매개변수에 값을 제공하지 않으면 아래와 같이 볼륨 프로비저닝 중에 일부 기본값이 자동으로 설정됩니다.
+
+image:rh-os-n-use-case-osv-trident-install-volumes-001.png["ONTAP에서 볼륨 생성"]
+
+image:rh-os-n-use-case-osv-trident-install-volumes-002.png["볼륨 매개변수의 기본값"]
+
+다음은 Trident 백엔드 구성을 사용하여 생성된 볼륨의 예입니다. 이름 템플릿을 제외하고는 기본값 섹션에서 명시적으로 설정된 옵션이 없습니다.
+
+[source, cli]
+----
+oc describe tbc -n trident tbc-nas
+### output truncated for brevity
+Spec:
+  Backend Name:  tbc-nas
+  Credentials:
+    Name:  tbc-nas-secret
+  Defaults: # There are no defaults set except for the volume name template.
+    Name Template:      {{ .config.StoragePrefix }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}
+  Management LIF:       10.192.102.50
+  Storage Driver Name:  ontap-nas
+  Storage Prefix:       testautomation
+  Svm:                  oc-test-automation
+----
+이 백엔드 구성을 사용하여 볼륨을 생성하면 백엔드 구성 파일에 설정되지 않은 옵션이 아래와 같이 기본값으로 설정됩니다.
+
+image:rh-os-n-use-case-osv-trident-install-volumes-003.png["Trident 백엔드 구성을 사용하여 생성된 볼륨"]
+
+하지만 Trident 백엔드 구성의 기본 섹션에서 값을 설정하면 해당 매개변수에 특정 값을 지정할 수 있는 볼륨을 생성할 수 있습니다.  다음 예에서는 snapshotPolicy를 기본 정책(명시적으로 설정하지 않으면 none)으로, snapshotDir을 백엔드 구성 YAML의 기본 섹션에서 true로 설정했습니다.  이러한 설정을 통해 백엔드 볼륨이 해당 값을 갖는 것을 확인할 수 있습니다.  (snapdir-access는 true이고 snapshot-policy는 기본 정책입니다.)
+
+image:rh-os-n-use-case-osv-trident-install-volumes-004.png["명시적 값을 갖는 기본 섹션"]
+
+image:rh-os-n-use-case-osv-trident-install-volumes-005.png["snapshotDir 및 snapshotPolicy 값을 백엔드 구성에서 명시적으로 설정합니다"]
+
+image:rh-os-n-use-case-osv-trident-install-volumes-006.png["볼륨에서 snapshotDir 및 snapshotPolicy 값을 명시적으로 설정합니다"]
+
+====
+그 외 추가 매개변수에 대해서는 Trident 설명서를 참조하십시오.
+
+. link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html#backend-configuration-options["Trident NAS 백엔드 구성 옵션"] +
+. link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html#backend-configuration-options["Trident SAN 백엔드 구성 옵션"]
+
 
 [role="tabbed-block"]
 ====
@@ -120,7 +213,7 @@ NOTE: 사용 환경에 따라 아래의 온프레미스 또는 ROSA 섹션 중 �
 --
 TridentBackendConfig 및 StorageClass를 생성하여 ONTAP NAS에 대한 NFS 기반 영구 스토리지 프로비저닝을 활성화합니다. 백엔드 구성에는 Kubernetes Secret에 저장된 자격 증명이 포함되며 ONTAP SVM 및 관리 LIF를 참조합니다.
 
-백엔드 시크릿 및 백엔드 구성 파일( `tbc-nas.yaml`로 저장):
+사용자 이름과 비밀번호 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일 예시 (다음으로 저장 `tbc-nas.yaml`):
 
 [source, yaml]
 ----
@@ -150,6 +243,36 @@ spec:
   credentials:
     name: tbc-nas-secret
 ----
+클라이언트 인증서 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일 예시 (다른 이름으로 저장 `tbc-nas.yaml`):
+
+[source, yaml]
+----
+# tbc-nas.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ontap-nas-secret
+  namespace: trident
+type: Opaque
+stringData:
+  clientPrivateKey: <client private>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: tbc-nas
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  managementLIF: <ONTAP management LIF>
+  backendName: tbc-nas
+  svm: zoneb #<replace with your SVM name>
+  storagePrefix: testzoneb #<replace with your prefix>
+  credentials:
+    name: ontap-nas-secret
+  clientCertificate: <client certificate>
+----
 StorageClass 정의(다른 이름으로 저장 `sc-nas.yaml`):
 
 [source, yaml]
@@ -168,11 +291,66 @@ parameters:
 allowVolumeExpansion: true
 ----
 --
-.iSCSI
+.NAS 이코노미
 --
-TridentBackendConfig 및 StorageClass를 생성하여 ONTAP SAN에서 iSCSI 기반 블록 스토리지 프로비저닝을 활성화합니다. 백엔드 구성은 ontap-san 드라이버를 사용하며 Kubernetes Secret에 저장된 자격 증명을 포함합니다.
+TridentBackendConfig 및 StorageClass를 생성하여 ONTAP NAS 이코노미 드라이버에서 qtree를 사용한 NFS 기반 영구 스토리지 프로비저닝을 활성화합니다. 백엔드 구성에는 Kubernetes Secret에 저장된 자격 증명이 포함되며 ONTAP SVM 및 관리 LIF를 참조합니다.
 
-백엔드 시크릿 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-iscsi.yaml`):
+사용자 이름과 비밀번호 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일 예시 (다음으로 저장 `tbc-nas-economy.yaml`):
+
+[source, yaml]
+----
+# tbc-nas-economy.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tbc-nas-economy-secret
+type: Opaque
+stringData:
+  username: <cluster admin username>
+  password: <cluster admin password>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: tbc-nas-economy
+spec:
+  version: 1
+  storageDriverName: ontap-nas-economy
+  managementLIF: <ONTAP management LIF>
+  backendName: tbc-nas-eco
+  svm: <replace with your SVM name>
+  storagePrefix: <replace with your prefix>
+  defaults:
+    nameTemplate: "{{ .config.StoragePrefix }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+  credentials:
+    name: tbc-nas-economy-secret
+----
+StorageClass 정의(다른 이름으로 저장 `sc-nas-economy.yaml`):
+
+[source, yaml]
+----
+# sc-nas-economy.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: sc-nas-economy
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas-economy"
+  media: "ssd"
+  provisioningType: "thin"
+  snapshots: "true"
+allowVolumeExpansion: true
+----
+
+NOTE: ontap-nas-economy 드라이버의 백엔드 구성 파일에 포함할 수 있는 추가 매개변수에 대한 자세한 내용은 위의 "NAS 이코노미 드라이버 백엔드 구성 옵션에 대한 필수 지침" 섹션을 참조하십시오.
+
+--
+.iSCSI SAN
+--
+iSCSI를 사용하는 ONTAP SAN에 대한 TridentBackendConfig 및 StorageClass를 생성하여 iSCSI 기반 블록 스토리지 프로비저닝을 활성화합니다. 백엔드 구성은 ontap-san 드라이버를 사용하며 Kubernetes Secret에 저장된 자격 증명을 포함합니다. sanType 매개변수를 생략하면 기본적으로 iSCSI 프로토콜이 사용됩니다.
+
+사용자 이름 비밀번호 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-iscsi.yaml`):
 
 [source, yaml]
 ----
@@ -199,6 +377,33 @@ spec:
   credentials:
     name: backend-tbc-ontap-iscsi-secret
 ----
+클라이언트 인증서 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-iscsi.yaml`):
+
+[source, yaml]
+----
+# tbc-iscsi.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-tbc-ontap-iscsi-secret
+type: Opaque
+stringData:
+  clientPrivateKey: <client private key>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: ontap-iscsi
+spec:
+  version: 1
+  storageDriverName: ontap-san
+  managementLIF: <management LIF>
+  backendName: ontap-iscsi
+  svm: <SVM name>
+  credentials:
+    name: backend-tbc-ontap-iscsi-secret
+  clientCertificate: <client certificate>
+----
 StorageClass 정의(다른 이름으로 저장 `sc-iscsi.yaml`):
 
 [source, yaml]
@@ -218,11 +423,11 @@ parameters:
 allowVolumeExpansion: true
 ----
 --
-.NVMe/TCP
+.NVMe/TCP SAN
 --
 NVMe over TCP를 사용하는 ONTAP SAN용 TridentBackendConfig 및 StorageClass를 생성하여 고성능 블록 스토리지 프로비저닝을 활성화합니다. 백엔드 구성은 NVMe/TCP 전송에 최적화된 ontap-san 드라이버를 사용하며 Kubernetes Secret에 저장된 자격 증명을 포함합니다.
 
-백엔드 시크릿 및 백엔드 구성 파일( `tbc-nvme.yaml`로 저장):
+사용자 이름 비밀번호 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-nvme.yaml`):
 
 [source, yaml]
 ----
@@ -250,6 +455,34 @@ spec:
   credentials:
     name: backend-tbc-ontap-nvme-secret
 ----
+클라이언트 인증서 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-nvme.yaml`):
+
+[source, yaml]
+----
+# tbc-nvme.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-tbc-ontap-nvme-secret
+type: Opaque
+stringData:
+  clientPrivateKey: <client private key>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nvme
+spec:
+  version: 1
+  storageDriverName: ontap-san
+  sanType: nvme
+  managementLIF: <ONTAP management LIF>
+  backendName: backend-tbc-ontap-nvme
+  svm: <SVM name>
+  credentials:
+    name: backend-tbc-ontap-nvme-secret
+  clientCertificate: <client certificate>
+----
 StorageClass 정의(다른 이름으로 저장 `sc-nvme.yaml`):
 
 [source, yaml]
@@ -268,12 +501,20 @@ parameters:
   snapshots: "true"
 allowVolumeExpansion: true
 ----
+
+NOTE: ReadWriteMany(RWX) 볼륨을 NVMe 프로토콜과 함께 사용하려는 경우, Kubernetes 클러스터에서 단일 RWX NVMe 볼륨은 64개 이상의 노드에서 마운트할 수 없습니다. 이 제한 사항 및 Trident 26.02에서 도입된 슈퍼 서브시스템 모델과 Trident 26.02 이전의 볼륨별 서브시스템 모델에 대한 자세한 내용은 Trident 설명서를 참조하십시오. https://docs.netapp.com/us-en/trident/trident-use/ontap-san-prep.html#nvme-tcp-considerations[]
+
 --
-.FC
+.FC SAN
 --
 TridentBackendConfig 및 StorageClass를 생성하여 Fibre Channel이 포함된 ONTAP SAN에 대해 FC 기반 블록 스토리지 프로비저닝을 활성화합니다. 백엔드 구성은 FCP 프로토콜이 지정된 ontap-san 드라이버를 사용하며 Kubernetes Secret에 저장된 자격 증명을 포함합니다.
 
-백엔드 시크릿 및 백엔드 구성 파일( `tbc-fc.yaml`로 저장):
+사용자 이름/암호 인증 방법 또는 클라이언트 인증서 인증 방법을 사용하여 ONTAP으로 인증합니다. 클라이언트 인증서, 개인 키 및 CA 인증서 생성 방법에 대한 자세한 내용은 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-prep.html#enable-certificate-based-authentication["Trident 관련 문서는 여기에서 확인할 수 있습니다."]을 참조하십시오. 두 가지 방법에 대한 예시는 아래에 제공됩니다.
+
+.예를 보여주세요
+[%collapsible]
+=====
+ONTAP 사용자 이름 및 비밀번호 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일( `tbc-fc.yaml`로 저장):
 
 [source, yaml]
 ----
@@ -304,8 +545,37 @@ spec:
   credentials:
     name: tbc-fc-secret
 ----
-StorageClass 정의(다른 이름으로 저장 `sc-fc.yaml`):
+클라이언트 인증서 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-fc.yaml`):
 
+[source, yaml]
+----
+# tbc-fc.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tbc-fc-secret
+type: Opaque
+stringData:
+  clientPrivateKey: <client private key>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: tbc-fc
+spec:
+  version: 1
+  storageDriverName: ontap-san
+  managementLIF: <ONTAP management LIF>
+  backendName: tbc-fc
+  svm: openshift-fc #<replace with your SVM name>
+  sanType: fcp
+  storagePrefix: demofc #<replace with your prefix>
+  defaults:
+    nameTemplate: "{{ .config.StoragePrefix }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+  credentials:
+    name: tbc-fc-secret
+  clientCertificate: <client certificate>
+----
 [source, yaml]
 ----
 # sc-fc.yaml
@@ -322,10 +592,69 @@ parameters:
   snapshots: "true"
 allowVolumeExpansion: true
 ----
+=====
+--
+.iSCSI SAN 이코노미
+--
+TridentBackendConfig 및 StorageClass를 생성하여 iSCSI를 사용하는 ONTAP SAN economy에 대해 iSCSI 기반 블록 스토리지 프로비저닝을 활성화합니다. 백엔드 구성은 iSCSI 프로토콜을 사용하는 ontap-san-economy 드라이버를 사용하며 Kubernetes Secret에 저장된 자격 증명을 포함합니다.
+
+클라이언트 인증서 인증을 사용하는 백엔드 비밀 키 및 백엔드 구성 파일(다른 이름으로 저장 `tbc-san-eco.yaml`):
+
+[source, yaml]
+----
+
+# tbc-san-eco.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ontap-san-cert-auth
+  namespace: trident
+type: Opaque
+stringData:
+  clientPrivateKey: <client private key>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: tbc-san-eco-cert
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-san-economy
+  managementLIF: "<ONTAP management LIF>"
+  backendName: tbc_san_eco
+  svm: <replace with your SVM name>
+  storagePrefix: <replace with your prefix>
+  credentials:
+    name: ontap-san-cert-auth
+  clientCertificate: <client certificate>
+
+----
+[source, yaml]
+----
+# sc-san-eco.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: sc-san-eco
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san-economy"
+  provisioningType: "thin"
+  snapshots: "true"
+----
 --
 ====
+Trident 설명서를 참조하시면 YAML 파일의 추가 샘플과 SAN 드라이버 및 NAS 드라이버에서 지원하는 액세스 모드 및 볼륨 모드에 대한 정보를 확인할 수 있습니다.
+
+. link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html["NAS 드라이버를 사용한 샘플"]
+. link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san.html["SAN 드라이버를 사용하는 샘플"]
 
 
+
+
+[[rosa-clusters-with-amazon-fsx-for-netapp-ontap]]
 === Amazon FSx for NetApp ONTAP를 사용하는 ROSA 클러스터
 
 구성하려는 각 프로토콜에 대한 YAML 파일을 생성하십시오. NFS 기반 파일 스토리지를 위한 NAS 또는 블록 스토리지를 위한 iSCSI 중 하나 또는 둘 다를 구성할 수 있습니다.
@@ -434,6 +763,7 @@ allowVolumeExpansion: true
 ====
 
 
+[[step-3-create-a-volumesnapshotclass-configuration-file]]
 == 3단계: VolumeSnapshotClass 구성 파일 생성
 
 온프레미스 및 ROSA 배포 환경 모두에 대해 VolumeSnapshotClass 정의를 생성합니다. 이 구성을 통해 영구 볼륨에 대한 스냅샷 기반 작업을 활성화할 수 있습니다.
@@ -452,6 +782,7 @@ deletionPolicy: Retain
 ----
 
 
+[[step-4-apply-the-configuration-files-to-your-cluster]]
 == 4단계: 구성 파일을 클러스터에 적용합니다
 
 이전 단계에서 생성한 구성 파일을 OpenShift 클러스터에 적용합니다.
@@ -466,6 +797,9 @@ deletionPolicy: Retain
 ----
 oc create -f tbc-nas.yaml -n trident
 oc create -f sc-nas.yaml
+
+oc create -f tbc-nas-economy.yaml -n trident
+oc create -f sc-nas-economy.yaml
 
 oc create -f tbc-iscsi.yaml -n trident
 oc create -f sc-iscsi.yaml
@@ -523,6 +857,7 @@ oc get volumesnapshotclass
 
 
 
+[[step-5-set-the-default-trident-storage-and-snapshot-classes]]
 == 5단계: 기본 Trident 스토리지 및 스냅샷 클래스 설정
 
 OpenShift 클러스터에서 Trident StorageClass와 VolumeSnapshotClass를 기본값으로 설정합니다. 이는 OpenShift Virtualization이 VM 템플릿을 위한 골든 이미지 소스를 생성하는 데 필요합니다.

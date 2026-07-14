@@ -56,6 +56,7 @@ image:vmware-vcf-asa-004.png["SVM 계정 활성화 및 완료"]
 
 
 
+[[whats-next]]
 == 다음은 무엇인가요?
 
 SVM과 LIF를 생성한 후,link:vmw-vcf-mgmt-supplemental-iscsi-network.html["ESXi 호스트에서 iSCSI에 대한 네트워킹 구성"] .

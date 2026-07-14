@@ -1,0 +1,109 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-disaster-recovery-failback.html 
+keywords: OpenShift, OCP, Trident, Trident Protect, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, Red Hat OpenShift Virtualization 
+summary: Red Hat OpenShift 가상화 
+---
+= OpenShift 가상화 재해 복구에서 VM의 페일백
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+이 섹션에서는 NetApp Trident Protect 및 AppMirror를 사용하는 OpenShift Virtualization 재해 복구에서 VM의 페일백 프로세스에 대한 정보를 제공합니다. 재해 복구 타겟 클러스터로 전환하기 위해 페일오버 작업을 수행한 후, 페일백 프로세스를 사용하여 복제 방향을 역전시키고 원래 소스 클러스터를 VM의 기본 클러스터로 복원할 수 있습니다. 여기에는 페일오버 기간 동안 VM에 발생한 모든 변경 사항을 원래 소스 클러스터로 다시 동기화한 다음 복제 관계를 역방향으로 승격하는 작업이 포함됩니다. 다음 단계를 수행하면 재해 복구 이벤트가 발생한 후 모든 변경 사항이 그대로 유지된 상태로 원래 소스 클러스터에서 VM이 실행되도록 할 수 있습니다.
+
+
+
+[[failback-for-openshift-virtualization-disaster-recovery]]
+== OpenShift 가상화 재해 복구를 위한 페일백
+
+Trident Protect를 사용하면 다음 일련의 작업을 통해 페일오버 작업 후 "페일 백"을 구현할 수 있습니다. 원래 복제 방향을 복원하는 이 워크플로에서 Trident Protect는 복제 방향을 반전하기 전에 모든 애플리케이션 변경 사항을 원래 소스 애플리케이션으로 복제(재동기화)합니다.
+
+이 프로세스는 타겟으로 페일오버가 완료된 관계에서 시작되며 다음 단계를 포함합니다.
+
+. 장애 조치 상태로 시작합니다.
+. 복제 관계를 역방향으로 다시 동기화
++
+장애 조치 복제 관계를 역동기화하면 타겟 애플리케이션이 소스 애플리케이션이 되고 소스가 타겟이 됩니다. 장애 조치 중에 타겟 애플리케이션에 변경된 내용은 유지됩니다.
+
++
+.. 원래 타겟 클러스터에서 AppMirrorRelationship CR을 삭제합니다. 이렇게 하면 타겟이 소스가 됩니다. 새 타겟 클러스터에 보호 스케줄이 남아 있는 경우 이를 제거합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:osv-disaster-recovery-013.png["장애 복구를 시작하기 위해 OCP-v AppMirror 관계가 삭제되었습니다."]
+
+====
+.. 장애 조치 기간 동안 발생한 변경 사항을 캡처하기 위해 새 소스 클러스터(원래 타겟)에 스냅샷을 생성합니다. 이렇게 하면 재동기화 프로세스 중에 모든 변경 사항이 원래 소스 클러스터로 복제됩니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+[source, yaml]
+----
+# snapshot.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Snapshot
+metadata:
+  name: test-source-dr-init-snapshot-failback
+  namespace: test-dr-ns
+spec:
+  applicationRef: test-dest-app
+  appVaultRef: ontap-s3-appvault
+  reclaimPolicy: Delete
+----
+image:osv-disaster-recovery-014.png["Trident Protect CLI를 사용하여 새 소스 클러스터에서 생성된 VM의 OCP-v 온디맨드 스냅샷"] image:osv-disaster-recovery-015.png["Trident Protect CLI를 사용하여 새 소스 클러스터에서 생성되는 VM의 OCP-v 온디맨드 스냅샷"] image:osv-disaster-recovery-016.png["Trident Protect CLI를 사용하여 새 소스 클러스터에서 생성된 VM의 OCP-v 온디맨드 스냅샷"]
+
+====
+.. 새 소스 클러스터(원래 타겟)에서 원래 소스 클러스터로의 복제 관계를 설정하고, 역방향에 대한 값을 구성합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+# application-mirror-relationship.yaml
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppMirrorRelationship
+metadata:
+  name: amr1
+spec:
+  desiredState: Established
+  destinationAppVaultRef: ontap-s3-appvault
+  destinationApplicationRef: dr-source-vm-failback
+  namespaceMapping:
+  - destination: test-dr-ns
+    source: test-dr-ns-dest
+  recurrenceRule: |-
+    DTSTART:20240901T000200Z
+    RRULE:FREQ=MINUTELY;INTERVAL=5
+  sourceAppVaultRef: ontap-s3-appvault
+  sourceApplicationName: test-dest-app
+  sourceApplicationUID: "uid of the app in the original source cluster"
+  storageClassName: "sc-nas"
+----
+image:osv-disaster-recovery-017.png["복제 방향을 반전시키기 위해 원본 소스 클러스터에서 생성된 OCP-v AppMirror 관계"] image:osv-disaster-recovery-018.png["복제 방향을 반전시키기 위해 원래 타겟 클러스터에서 생성된 OCP-v AppMirror 관계"]
+
+====
+.. AppMirrorRelationship CR의 desiredState 필드를 "Promoted"로 업데이트하여 새로운 소스 클러스터(원래 타겟 클러스터)에서 원래 소스 클러스터로의 복제 관계를 승격합니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+image:osv-disaster-recovery-019.png["원래 소스 클러스터의 OCP-v AppMirror 관계가 완전한 페일백으로 승격되었습니다."]
+
+이제 원래 소스 클러스터에서 VM이 실행되는 것을 확인할 수 있습니다. 장애 복구 프로세스가 완료되었습니다. 이제 원래 타겟 클러스터의 리소스를 정리할 수 있습니다. 장애 복구 프로세스 후에도 재해 복구 기능을 유지하려면 새 복제 관계를 설정할 수도 있습니다.
+
+
+NOTE: 일반적인 재동기화 작업을 수행하지 마십시오. 이 작업을 수행하면 장애 조치 절차 중에 타겟 클러스터에 기록된 데이터가 손실됩니다.
+
+====
+
+
+

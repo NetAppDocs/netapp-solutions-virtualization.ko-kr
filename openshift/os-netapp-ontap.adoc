@@ -46,10 +46,12 @@ image:redhat-openshift-035.png["입력/출력 대화 상자 또는 서면 내용
 
 
 
+[[netapp-platforms]]
 == NetApp 플랫폼
 
 
 
+[[netapp-afffas]]
 === NetApp AFF/ FAS
 
 NetApp 저지연 성능, 통합 데이터 보호, 다중 프로토콜 지원을 기반으로 맞춤 제작된 강력한 올플래시(AFF) 및 확장형 하이브리드(FAS) 스토리지 플랫폼을 제공합니다.
@@ -60,6 +62,7 @@ NETAPP AFF/ FAS 플랫폼에 대한 자세한 내용을 보려면 클릭하세�
 
 
 
+[[ontap-select]]
 === ONTAP Select
 
 ONTAP Select 사용자 환경의 하이퍼바이저에 배포할 수 있는 NetApp ONTAP 의 소프트웨어 정의 배포입니다. VMware vSphere 또는 KVM에 설치할 수 있으며 하드웨어 기반 ONTAP 시스템의 모든 기능과 경험을 제공합니다.
@@ -68,6 +71,7 @@ ONTAP Select 에 대한 자세한 내용을 보려면 클릭하세요. https://d
 
 
 
+[[cloud-volumes-ontap]]
 === Cloud Volumes ONTAP
 
 NetApp Cloud Volumes ONTAP Amazon AWS, Microsoft Azure, Google Cloud를 포함한 다양한 퍼블릭 클라우드에 배포할 수 있는 NetApp ONTAP 의 클라우드 배포 버전입니다.
@@ -76,18 +80,21 @@ Cloud Volumes ONTAP 에 대한 자세한 내용을 보려면 클릭하세요. ht
 
 
 
+[[amazon-fsx-ontap]]
 === Amazon FSx ONTAP
 
 Amazon FSx ONTAP ONTAP 의 인기 있는 데이터 액세스 및 관리 기능을 갖춘 AWS 클라우드에서 완전 관리형 공유 스토리지를 제공합니다. Amazon FSx ONTAP 에 대한 자세한 내용을 보려면 클릭하세요. https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["여기"] .
 
 
 
+[[azure-netapp-files]]
 === Azure NetApp Files
 
 Azure NetApp Files 는 Azure 기반의 자체 개발 엔터프라이즈급 고성능 파일 스토리지 서비스입니다. NetApp 계정, 용량 풀, 볼륨을 생성할 수 있는 Volumes as a Service를 제공합니다. 서비스 및 성능 수준을 선택하고 데이터 보호를 관리할 수도 있습니다. 온프레미스에서 익숙하고 의존하는 것과 동일한 프로토콜과 도구를 사용하여 고성능, 고가용성, 확장 가능한 파일 공유를 만들고 관리할 수 있습니다. Azure NetApp Files 에 대한 자세한 내용을 보려면 클릭하세요. https://learn.microsoft.com/en-us/azure/azure-netapp-files/["여기"] .
 
 
 
+[[google-cloud-netapp-volumes]]
 === Google Cloud NetApp Volumes
 
 Google Cloud NetApp Volumes 고급 데이터 관리 기능과 확장성이 뛰어난 성능을 제공하는 완전 관리형 클라우드 기반 데이터 스토리지 서비스입니다. 파일 기반 애플리케이션을 Google Cloud로 옮길 수 있습니다. 네트워크 파일 시스템(NFSv3 및 NFSv4.1)과 서버 메시지 블록(SMB) 프로토콜을 기본적으로 지원하므로 애플리케이션을 다시 설계할 필요가 없고 애플리케이션에 대한 영구 저장소를 계속 확보할 수 있습니다. Google Cloud NetApp VolumesP에 대한 자세한 내용을 보려면 클릭하세요. https://cloud.google.com/netapp/volumes/docs/discover/overview["여기"] .

@@ -18,6 +18,7 @@ summary:
 
 
 
+[[introduction]]
 == 소개
 
 적절한 경우 VCF의 SDDC 관리자에서 수행해야 하는 단계에 대한 외부 문서를 참조하고, 스토리지 구성 부분에만 해당하는 단계를 참조합니다.
@@ -32,6 +33,7 @@ NOTE: 이 솔루션은 NetApp ASA, AFF , FAS 포함한 FC 스토리지를 지원
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 이 시나리오에서는 다음 구성 요소와 구성이 사용됩니다.
@@ -47,10 +49,12 @@ VCF 구성에 대한 정보는 다음을 참조하세요.link:https://docs.vmwar
 
 
 
+[[deployment-steps]]
 == 배포 단계
 
 
 
+[[management-domain-default-cluster]]
 === 관리 도메인 - 기본 클러스터
 
 초기 클러스터의 FC 주 저장소는 VCF 브라운필드 가져오기 도구에서만 지원됩니다.  VCF가 Cloud Builder 도구(릴리스 버전 5.2.x 이전)를 사용하여 배포된 경우 vSAN만 지원됩니다.
@@ -59,6 +63,7 @@ VCF 구성에 대한 정보는 다음을 참조하세요.link:https://docs.vmwar
 
 
 
+[[management-domain-additional-cluster]]
 === 관리 도메인 - 추가 클러스터
 
 관리 도메인의 추가 vSphere 클러스터는 다음 옵션을 사용하여 배포할 수 있습니다.
@@ -70,6 +75,7 @@ VCF 구성에 대한 정보는 다음을 참조하세요.link:https://docs.vmwar
 
 
 
+[[additional-information]]
 == 추가 정보
 
 ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] 센터.

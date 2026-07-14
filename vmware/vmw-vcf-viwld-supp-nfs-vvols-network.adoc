@@ -20,6 +20,7 @@ vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터�
 
 
 
+[[step-1-create-a-distributed-port-group-for-nfs-traffic]]
 == 1단계: NFS 트래픽을 위한 분산 포트 그룹 만들기
 
 네트워크에서 NFS 트래픽을 전송할 새로운 분산 포트 그룹을 만들려면 다음 단계를 완료하세요.
@@ -64,6 +65,7 @@ image:vmware-vcf-aff-038.png["DPG - 팀 업링크"]
 
 
 
+[[step-2-create-a-vmkernel-adapter-on-each-esxi-host]]
 == 2단계: 각 ESXi 호스트에 VMkernel 어댑터 만들기
 
 워크로드 도메인의 각 ESXi 호스트에 VMkernel 어댑터를 만듭니다.
@@ -114,6 +116,7 @@ image:vmware-vcf-aff-041.png["VMkernel 선택 검토"]
 
 
 
+[[whats-next]]
 == 다음은 무엇인가요?
 
 워크로드 도메인의 모든 ESXi 호스트에서 NFS에 대한 네트워킹을 구성한 후link:vmw-vcf-viwld-supp-nfs-vvols-storage.html["NFS vVols 에 대한 스토리지 구성"] .

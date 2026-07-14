@@ -33,6 +33,7 @@ NOTE: 비균일 호스트 액세스 모드에서 VM은 vSphere HA에 의해 다�
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 * link:vmw-vcf-mgmt-supplemental-iscsi.html["호스트당 듀얼 스토리지 패브릭(iSCSI의 경우 2개의 HBA 또는 듀얼 VLAN)으로 배포된 VMware vSphere 호스트"] .
@@ -50,6 +51,7 @@ TIP: 자체 서명된 인증서를 사용하는 경우, Mediator VM의 <설치 �
 
 
 
+[[vmsc-non-uniform-host-access-with-ontap-system-manager-ui]]
 == ONTAP 시스템 관리자 UI를 사용한 vMSC 비균일 호스트 액세스.
 
 참고: ONTAP Tools 10.2 이상을 사용하면 여러 사용자 인터페이스를 전환하지 않고도 비균일 호스트 액세스 모드로 확장된 데이터 저장소를 프로비저닝할 수 있습니다.  이 섹션은 ONTAP 도구를 사용하지 않을 경우 참조용입니다.
@@ -86,6 +88,7 @@ NOTE: 위의 스크린샷은 AFF 사용했기 때문에 단일 컨트롤러에�
 
 
 
+[[vmsc-uniform-host-access-mode-with-ontap-tools]]
 == ONTAP 도구를 사용한 vMSC 균일 호스트 액세스 모드.
 
 . NetApp ONTAP 도구가 배포되어 vCenter에 등록되었는지 확인하세요. image:vmware-vmsc-with-smas-015.png["ONTAP Tools 플러그인이 vCenter에 등록됨"] 그렇지 않은 경우 다음을 따르세요.link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["ONTAP 도구 배포"] 그리고link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["vCenter 서버 인스턴스 추가"]
@@ -102,6 +105,7 @@ NOTE: 위의 스크린샷은 AFF 사용했기 때문에 단일 컨트롤러에�
 
 
 
+[[vm-protection-with-snapcenter-plug-in-for-vmware-vsphere]]
 == VMware vSphere용 SnapCenter 플러그인을 사용한 VM 보호.
 
 SnapCenter Plug-in for VMware vSphere SnapMirror 활성 동기화를 지원하며 SnapMirror 비동기와 결합하여 제3 장애 도메인으로 복제할 수도 있습니다.

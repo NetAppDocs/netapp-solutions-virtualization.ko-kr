@@ -30,6 +30,7 @@ OpenShift 가상화 마이그레이션 툴킷을 사용하여 VMware에서 OpenS
 ====
 
 
+[[video-demonstration]]
 == 비디오 데모
 
 다음 비디오에서는 영구 저장소로 ontap-san 스토리지 클래스를 사용하여 VMware에서 OpenShift Virtualization으로 RHEL VM을 콜드 마이그레이션하는 방법을 보여줍니다.
@@ -38,6 +39,7 @@ OpenShift 가상화 마이그레이션 툴킷을 사용하여 VMware에서 OpenS
 video::bac58645-dd75-4e92-b5fe-b12b015dc199[panopto,width=360]
 
 
+[[migration-of-vm-from-vmware-to-openshift-virtualization-using-migration-toolkit-for-virtualization]]
 == 가상화를 위한 마이그레이션 툴킷을 사용하여 VMware에서 OpenShift 가상화로 VM 마이그레이션
 
 이 섹션에서는 Trident 사용하여 OpenShift Container 플랫폼에서 실행되고 NetApp ONTAP 스토리지와 통합된 OpenShift Virtualization으로 VMware의 가상 머신을 마이그레이션하기 위해 MTV(Migration Toolkit for Virtualization)를 사용하는 방법을 살펴보겠습니다.
@@ -48,10 +50,12 @@ image:rh-os-n-use-case-vm-migration-using-mtv.png["입력/출력 대화 상자 �
 
 
 
+[[prerequisites-for-the-sample-migration]]
 === 샘플 마이그레이션을 위한 전제 조건
 
 
 
+[[on-vmware]]
 === **VMware에서**
 
 * 다음 구성을 사용하여 rhel 9.3을 사용하는 RHEL 9 VM이 설치되었습니다.
@@ -80,6 +84,7 @@ NOTE: postgresql 서버를 시작하고 부팅 시 서비스가 시작되도록 
 
 
 
+[[on-openshift-cluster]]
 === **OpenShift 클러스터에서**
 
 MTV를 설치하기 전에 다음 설치가 완료되었습니다.
@@ -92,6 +97,7 @@ MTV를 설치하기 전에 다음 설치가 완료되었습니다.
 
 
 
+[[install-mtv]]
 === MTV 설치
 
 이제 가상화를 위한 마이그레이션 툴킷(MTV)을 설치할 수 있습니다.  제공된 지침을 참조하세요link:https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/installing-the-operator["여기"] 설치에 대한 도움이 필요하면.
@@ -137,6 +143,7 @@ image:rh-os-n-use-case-vm-migration-mtv-plan-ready.png["입력/출력 대화 상
 
 
 
+[[perform-cold-migration]]
 === 콜드 마이그레이션 수행
 
 *시작*을 클릭하면 일련의 단계를 거쳐 VM 마이그레이션이 완료됩니다.
@@ -149,6 +156,7 @@ image:rh-os-n-use-case-vm-migration-mtv-plan-complete.png["입력/출력 대화 
 
 
 
+[[perform-warm-migration]]
 === Warm 마이그레이션 수행
 
 웜 마이그레이션을 수행하려면 위에 표시된 대로 마이그레이션 계획을 만든 후 계획 설정을 편집하여 기본 마이그레이션 유형을 변경해야 합니다.  콜드 마이그레이션 옆에 있는 편집 아이콘을 클릭하고 버튼을 토글하여 웜 마이그레이션으로 설정합니다.  **저장**을 클릭합니다.  이제 **시작**을 클릭하여 마이그레이션을 시작하세요.

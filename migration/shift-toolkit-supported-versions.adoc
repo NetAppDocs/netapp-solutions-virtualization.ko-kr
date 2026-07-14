@@ -17,6 +17,7 @@ NetApp Shift Toolkit에서 Windows 및 Linux 게스트 운영 체제, ONTAP 버�
 
 
 
+[[supported-vm-guest-operating-systems]]
 == 지원되는 VM 게스트 운영 체제
 
 Shift Toolkit은 VM 변환을 위해 다음과 같은 Windows 및 Linux 게스트 운영 체제를 지원합니다.
@@ -52,12 +53,14 @@ NOTE: Windows Server 2008은 공식적으로 지원되지 않습니다. 하지�
 
 
 
+[[supported-ontap-versions]]
 == 지원되는 ONTAP 버전
 
 Shift Toolkit은 ONTAP 9.14.1 이상을 지원합니다.
 
 
 
+[[supported-hypervisors]]
 == 지원되는 하이퍼바이저
 
 Shift Toolkit은 VM 마이그레이션 및 변환을 위해 다음과 같은 하이퍼바이저 플랫폼을 지원합니다.

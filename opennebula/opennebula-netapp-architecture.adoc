@@ -18,6 +18,7 @@ NetApp 제품은 OpenNebula와 통합되어 NAS 및 SAN 프로토콜을 통한 �
 
 
 
+[[solution-architecture]]
 == 솔루션 아키텍처
 
 솔루션 아키텍처는 다음과 같은 주요 구성 요소를 포함합니다.
@@ -35,12 +36,14 @@ image::opennebula-netapp-architecture-001.png[OpenNebula와 NetApp ONTAP 아키�
 
 
 
+[[ontap-features-for-opennebula]]
 == OpenNebula용 ONTAP 기능
 
 ONTAP는 OpenNebula 구축 환경을 향상시키는 포괄적인 엔터프라이즈급 스토리지 기능을 제공합니다. 이러한 기능은 NAS 및 SAN 스토리지 아키텍처 전반에 걸쳐 데이터 관리, 보호, 효율성 및 프로토콜 지원을 포괄합니다.
 
 
 
+[[core-data-management-features]]
 === 핵심 데이터 관리 기능
 
 * 확장형 클러스터 아키텍처
@@ -63,6 +66,7 @@ ONTAP는 OpenNebula 구축 환경을 향상시키는 포괄적인 엔터프라�
 
 
 
+[[nas-protocol-features]]
 === NAS 프로토콜 기능
 
 * FlexGroup 볼륨은 고성능, 부하 분산 및 확장성을 갖춘 스케일아웃 NAS 컨테이너를 제공합니다.
@@ -82,6 +86,7 @@ ONTAP는 OpenNebula 구축 환경을 향상시키는 포괄적인 엔터프라�
 
 
 
+[[san-protocol-features]]
 === SAN 프로토콜 기능
 
 * SnapMirror 활성 동기화를 사용하여 장애 도메인 간에 클러스터를 확장합니다(항상 확인하십시오). https://mysupport.netapp.com/matrix/#welcome["상호 운용성 매트릭스 도구"] 지원되는 구성의 경우)

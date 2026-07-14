@@ -15,6 +15,7 @@ ONTAP tools for VMware vSphere 배포하고 FC(Fibre Channel) 데이터 저장�
 
 
 
+[[step-1-deploy-ontap-tools-for-vmware-vsphere]]
 == 1단계: ONTAP tools for VMware vSphere 배포
 
 이 단계에서는 ONTAP 도구 10이 비 HA 구성으로 배포됩니다.  HA 및 비 HA 구성에 대한 추가 배포 세부 정보는 ONTAP tools for VMware vSphere 를 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["ONTAP tools for VMware vSphere 배포"] .
@@ -72,6 +73,7 @@ image::vmware-vcf-import-nfs-003.png[템플릿 사용자 정의]
 
 
 
+[[step-2-configure-ontap-tools]]
 == 2단계: ONTAP 도구 구성
 
 ONTAP 도구 VM을 설치하고 전원을 켠 후 관리할 vCenter 서버와 ONTAP 스토리지 시스템을 추가합니다. 를 참조하세요  https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/index.html["ONTAP tools for VMware vSphere"] 자세한 내용은.
@@ -102,6 +104,7 @@ NOTE: 스토리지 백엔드는 클러스터 IP 주소를 사용하여 vSphere �
 
 
 
+[[step-3-provision-the-fc-datastore-with-ontap-tools]]
 == 3단계: ONTAP 도구를 사용하여 FC 데이터 저장소 프로비저닝
 
 ONTAP 도구는 vSphere 클라이언트 UI 전체의 기능을 통합합니다. 이 단계에서는 호스트 인벤토리 페이지에서 FC 데이터 저장소가 프로비저닝됩니다.
@@ -156,6 +159,7 @@ image::vmware-vcf-convert-fc-005.png[요약 페이지]
 
 
 
+[[whats-next]]
 == 다음은 무엇인가요?
 
 ONTAP 도구를 배포하고 FC 데이터 저장소를 프로비저닝한 후link:vmw-vcf-mgmt-fc-conversion.html["vSphere 클러스터를 VCF 관리 도메인으로 변환"] .

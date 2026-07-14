@@ -18,6 +18,7 @@ ONTAP 도구를 사용하여 VI 워크로드 도메인에서 iSCSI vVols 스토�
 
 
 
+[[step-1-deploy-ontap-tools-for-vmware-vsphere]]
 == 1단계: ONTAP tools for VMware vSphere 배포
 
 VI 워크로드 도메인의 경우 ONTAP 도구는 VCF 관리 클러스터에 설치되지만 VI 워크로드 도메인과 연결된 vCenter에 등록됩니다.
@@ -87,6 +88,7 @@ image:vmware-vcf-asa-035.png["OTV 템플릿 사용자 정의 2"]
 
 
 
+[[step-2-add-a-storage-system]]
 == 2단계: 스토리지 시스템 추가
 
 ONTAP 도구를 사용하여 스토리지 시스템을 추가하려면 다음 단계를 수행하세요.
@@ -131,6 +133,7 @@ image:vmware-vcf-asa-017.png["클러스터 인증서 승인"]
 
 
 
+[[step-3-create-a-storage-capability-profile-in-ontap-tools]]
 == 3단계: ONTAP 도구에서 스토리지 기능 프로필 만들기
 
 저장 기능 프로필은 저장 어레이 또는 저장 시스템이 제공하는 기능을 설명합니다.  여기에는 서비스 품질 정의가 포함되며 프로필에 정의된 매개변수를 충족하는 스토리지 시스템을 선택하는 데 사용됩니다.  제공된 프로필 중 하나를 사용하거나 새로운 프로필을 만들 수 있습니다.
@@ -197,6 +200,7 @@ image:vmware-vcf-asa-040.png["SCP 요약"]
 
 
 
+[[step-4-create-a-vvols-datastore-in-ontap-tools]]
 == 4단계: ONTAP 도구에서 vVols 데이터 저장소 만들기
 
 ONTAP 도구에서 vVols 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
@@ -250,6 +254,7 @@ image:vmware-vcf-asa-045.png["요약 페이지"]
 
 
 
+[[additional-information]]
 == 추가 정보
 
 * ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"^] .

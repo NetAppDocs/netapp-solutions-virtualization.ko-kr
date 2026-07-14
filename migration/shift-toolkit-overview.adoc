@@ -18,6 +18,7 @@ NetApp Shift Toolkit은 VMware ESXi, Microsoft Hyper-V, Oracle Linux Virtualizat
 
 
 
+[[use-case]]
 == 사용 사례
 
 이제 모든 조직이 멀티 하이퍼바이저 환경의 이점을 확인하고 있습니다.  최근 시장 변화에 따라 모든 조직은 기술적 및 상업적 위험을 고려하여 최적의 방안을 결정하고 있습니다. 여기에는 워크로드 VM을 다른 하이퍼바이저로 마이그레이션하고, 비즈니스 목표 달성에 집중하며, 특정 벤더에 종속되지 않도록 하는 것이 포함됩니다. 이를 통해 라이선스 비용을 최적화하고, 특정 하이퍼바이저의 미사용 코어에 투자하는 대신 IT 예산을 적절한 분야에 투자할 수 있습니다.  그러나 문제는 항상 마이그레이션 시간과 그에 따른 다운타임에 있었습니다.
@@ -26,6 +27,7 @@ NetApp Shift 툴킷을 사용하면 가상 머신(VM)을 마이그레이션하�
 
 
 
+[[toolkit-overview]]
 == 툴킷 개요
 
 NetApp Shift 툴킷은 서로 다른 하이퍼바이저 간에 가상 머신(VM)을 마이그레이션하고 가상 디스크 형식을 변환할 수 있는 사용하기 쉬운 그래픽 사용자 인터페이스(GUI) 솔루션입니다. NetApp FlexClone® 기술을 활용하여 VM 하드 디스크를 빠르게 변환합니다. 또한, 툴킷은 대상 VM의 생성과 구성을 관리합니다.
@@ -54,6 +56,7 @@ Shift 툴킷을 다운로드할 수 있습니다link:https://mysupport.netapp.co
 
 
 
+[[benefits-of-vm-portability]]
 == VM 이식성의 이점
 
 ONTAP 모든 하이퍼바이저와 하이퍼스칼라에 적합합니다.  FlexClone 기술을 사용합니다.  더 긴 다운타임을 기다리거나 패스스루 옵션으로 정착하는 것보다 몇 분 안에 VM을 이식하는 것이 현실입니다.
@@ -68,6 +71,7 @@ ONTAP 모든 하이퍼바이저와 하이퍼스칼라에 적합합니다.  FlexC
 
 
 
+[[how-shift-toolkit-works]]
 == Shift 툴킷 작동 방식
 
 변환 시점에 Shift 툴킷은 VMware ESXi 및 Microsoft Hyper-V 호스트와 공유 NetApp 스토리지에 연결됩니다.  Shift 툴킷은 세 가지 주요 NetApp 기술을 사용하여 VM 하드 드라이브를 한 하이퍼바이저에서 다른 하이퍼바이저로 변환하기 위해 FlexClone 활용합니다.
@@ -81,6 +85,7 @@ image::shift-toolkit-002.png[NetApp Shift Toolkit 작동 방식 다이어그램]
 
 
 
+[[protocols-and-communication-methods]]
 === 프로토콜 및 통신 방법
 
 Shift 툴킷은 변환 또는 마이그레이션 작업 중에 다음 프로토콜을 사용합니다.

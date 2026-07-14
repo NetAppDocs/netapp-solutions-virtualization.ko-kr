@@ -1,0 +1,80 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-disaster-recovery-simulate-dr.html 
+keywords: OpenShift, OCP, Trident, Trident Protect, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, Red Hat OpenShift Virtualization 
+summary: Red Hat OpenShift 가상화 
+---
+= OpenShift 가상화 재해 복구에서 VM의 페일오버
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+이 섹션에서는 NetApp Trident Protect 및 AppMirror를 사용하여 소스 클러스터에서 재해 복구 타겟 클러스터로 VM을 페일오버하는 방법을 설명합니다. 이는 페일오버 프로세스를 테스트하고 소스 클러스터에서 계획된 유지 관리를 수행하는 데 유용합니다. 이러한 단계를 따르면 재해 복구 이벤트 후에도 모든 변경 사항이 그대로 유지된 상태로 재해 복구 타겟 클러스터에서 VM이 실행되도록 할 수 있습니다.
+
+
+
+[[failover-without-site-outage-for-openshift-virtualization]]
+== OpenShift Virtualization에서 사이트 중단 없이 장애 조치
+
+이 섹션에서는 사이트 중단 없이 소스 클러스터에서 VM의 페일오버를 수행하는 방법을 설명합니다. 이는 페일오버 프로세스를 테스트하고 소스 클러스터에서 계획된 유지 관리를 수행하는 데 유용합니다. +
+
+사이트 중단 없이 페일오버를 수행하려면 먼저 이전 섹션에서 설명한 대로 소스 및 타겟 클러스터가 재해 복구를 위해 설정되어 있는지 확인하십시오. 그런 다음 다음 단계를 수행하십시오.
+
+. 소스 클러스터와 타겟 클러스터 간에 AppMirror 관계를 설정합니다. AppMirror 관계가 설정되면 최신 스냅샷이 대상 네임스페이스로 전송됩니다. 대상 네임스페이스에 VM용 PVC가 생성되지만, VM Pod는 아직 생성되지 않습니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+[source, yaml]
+----
+# application-mirror-relationship.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: AppMirrorRelationship
+metadata:
+  name: amr1
+spec:
+  desiredState: Established
+  destinationAppVaultRef: ontap-s3-appvault
+  destinationApplicationRef: test-dest-app
+  namespaceMapping:
+  - destination: test-dr-ns-dest
+    source: test-dr-ns
+  recurrenceRule: |-
+    DTSTART:20240901T000200Z
+    RRULE:FREQ=MINUTELY;INTERVAL=5
+  sourceAppVaultRef: ontap-s3-appvault
+  sourceApplicationName: test-source-app
+  sourceApplicationUID: "<application-uid-of-the-source-app>"
+  storageClassName: "sc-nas"
+----
+image:osv-disaster-recovery-009.png["trident-protect 네임스페이스의 OCP-v AppMirror 관계"]
+
+image:osv-disaster-recovery-010.png["OCP-v AppMirror 관계가 trident-protect 네임스페이스에 설정되었습니다."]
+
+
+NOTE: AppMirror 관계는 타겟 클러스터의 CLI에서 생성해야 합니다. 생성 시 원하는 상태는 'Established'로 설정해야 합니다. 이렇게 하면 최신 스냅샷 데이터가 타겟 클러스터에 복제됩니다.
+
+====
+. AppMirror 관계를 승격합니다. 관계의 원하는 상태를 "승격됨"으로 변경하여 대상 네임스페이스에 VM을 생성합니다. VM은 소스 네임스페이스에서 계속 실행됩니다. 최신 스냅샷 데이터가 타겟 클러스터에 복제되고 VM이 타겟 클러스터에서 시작됩니다. 이 방법을 사용하면 전체 소스 클러스터를 중단하지 않고도 페일오버를 테스트하고 VM 가용성을 유지할 수 있습니다.
++
+.예를 보여주세요
+[%collapsible]
+====
+[source, cli]
+----
+oc patch amr amr1 -n test-dr-ns-dest --type=merge -p '{"spec":{"desiredState":"Promoted"}}'
+----
+image:osv-disaster-recovery-012.png["OCP-v AppMirror 관계 승격됨"]
+
+[source, cli]
+----
+oc get pod, pvc,vm -n test-dr-ns-dest
+oc get pod, pvc,vm -n test-dr-ns
+----
+====
+

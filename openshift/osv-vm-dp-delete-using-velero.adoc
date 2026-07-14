@@ -18,6 +18,7 @@ Velero를 사용하여 OpenShift Virtualization의 VM에 대한 백업을 삭제
 
 
 
+[[deleting-a-backup]]
 == 백업 삭제
 
 OC CLI 도구를 사용하면 개체 스토리지 데이터를 삭제하지 않고도 백업 CR을 삭제할 수 있습니다.
@@ -36,6 +37,7 @@ velero backup delete <backup_CR_name> -n <velero_namespace>
 ....
 
 
+[[deleting-a-restore]]
 == 복원 삭제
 
 Velero CLI를 사용하여 CR 복원을 삭제할 수 있습니다.

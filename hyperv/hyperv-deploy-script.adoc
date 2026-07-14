@@ -18,6 +18,7 @@ FlexClone 기술을 사용하여 PowerShell 스크립트를 사용하여 VMware 
 
 
 
+[[powershell-script]]
 == PowerShell 스크립트
 
 [source, powershell]

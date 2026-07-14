@@ -20,6 +20,7 @@ summary:
 
 
 
+[[scenario-overview]]
 == 시나리오 개요
 
 이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
@@ -35,6 +36,7 @@ summary:
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 이 시나리오에는 다음과 같은 구성 요소와 구성이 필요합니다.
@@ -55,12 +57,14 @@ image:vmware-vcf-asa-108.png["3-2-1 백업 전략"]
 
 
 
+[[deployment-steps]]
 == 배포 단계
 
 SnapCenter 플러그인을 배포하고 이를 사용하여 백업을 생성하고 VM과 데이터 저장소를 복원하려면 다음 단계를 완료하세요.
 
 
 
+[[deploy-and-use-scv-to-protect-data-in-a-vi-workload-domain]]
 === SCV를 배포하고 사용하여 VI 워크로드 도메인의 데이터를 보호합니다.
 
 VI 워크로드 도메인에서 데이터를 보호하기 위해 SCV를 배포, 구성 및 사용하려면 다음 단계를 완료하세요.
@@ -470,6 +474,7 @@ image:vmware-vcf-asa-092.png["게스트 파일 탐색 2"]
 ====
 
 
+[[additional-information]]
 == 추가 정보
 
 VCF 구성에 대한 정보는 다음을 참조하세요. https://techdocs.broadcom.com/us/en/vmware-cis/vcf.html["VMware Cloud Foundation 문서"] .

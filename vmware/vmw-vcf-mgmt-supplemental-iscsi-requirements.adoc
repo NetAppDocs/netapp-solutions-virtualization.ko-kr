@@ -18,6 +18,7 @@ VMware Cloud Foundation(VCF) 관리 도메인에 보조 스토리지로 iSCSI �
 
 
 
+[[infrastructure-requirements]]
 == 인프라 요구 사항
 
 다음 구성 요소와 구성이 제대로 되어 있는지 확인하세요.
@@ -28,6 +29,7 @@ VMware Cloud Foundation(VCF) 관리 도메인에 보조 스토리지로 iSCSI �
 
 
 
+[[recommended-iscsi-network-design]]
 == 권장되는 iSCSI 네트워크 설계
 
 iSCSI의 경우 완전히 중복된 네트워크 설계를 구성해야 합니다.  다음 다이어그램은 스토리지 시스템, 스위치, 네트워크 어댑터 및 호스트 시스템에 대한 장애 허용 기능을 제공하는 중복 구성의 예를 보여줍니다. NetApp 을 참조하세요link:https://docs.netapp.com/us-en/ontap/san-config/index.html["SAN 구성 참조"] 추가 정보를 원하시면.
@@ -41,6 +43,7 @@ TIP: 동일한 IP 네트워크에 여러 VMkernel 어댑터가 구성된 상황�
 
 
 
+[[whats-next]]
 == 다음은 무엇인가요?
 
 배포 요구 사항을 검토한 후,link:vmw-vcf-mgmt-supplemental-iscsi-svm-lifs.html["SVM과 LIF를 생성합니다"] .

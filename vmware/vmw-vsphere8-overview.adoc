@@ -27,6 +27,7 @@ NetApp 과 VMware 기술의 통합은 20년의 역사와 수천 시간의 엔지
 
 
 
+[[netapp-ontap-and-vmware-supported-releases]]
 == NetApp ONTAP 및 VMware 지원 릴리스
 
 

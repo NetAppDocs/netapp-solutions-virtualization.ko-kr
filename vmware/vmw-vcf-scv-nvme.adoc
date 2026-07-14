@@ -20,12 +20,14 @@ TCP를 통한 NVMe(Non-Volatile Memory Express)는 All Flash FAS (AFF) 및 All S
 
 
 
+[[introduction]]
 == 소개
 
 TCP를 통한 NVMe를 활용하면 까다로운 작업 부하에서도 낮은 지연 시간과 높은 처리량을 제공합니다.  VMware vSphere(SCV)용 NetApp SnapCenter Plug-in for VMware vSphere 과 NVMe over TCP를 통합하면 효율적인 데이터 관리를 위한 강력한 조합이 제공되어 VMware 환경 내에서 백업, 복원 및 복제 작업이 향상됩니다.
 
 
 
+[[benefits-of-nvme-over-tcp]]
 == TCP를 통한 NVMe의 이점
 
 * 고성능: 낮은 지연 시간과 높은 데이터 전송 속도로 뛰어난 성능을 제공합니다.  이는 까다로운 애플리케이션과 대규모 데이터 작업에 매우 중요합니다.
@@ -37,18 +39,21 @@ TCP를 통한 NVMe를 활용하면 까다로운 작업 부하에서도 낮은 �
 
 
 
+[[audience]]
 == 대상
 
 VMware VCF 워크로드 도메인에 대한 데이터 보호 및 재해 복구를 보장하는 솔루션 아키텍트 또는 스토리지 관리자입니다.
 
 
 
+[[architecture-overview]]
 == 아키텍처 개요
 
 SCV는 VMware 환경의 VM, 데이터 저장소, 파일 및 폴더에 대한 빠르고 공간 효율적이며 충돌 일관성이 뛰어나고 VM 일관성이 있는 백업 및 복원 작업을 용이하게 하도록 설계된 강력한 도구입니다.  SCV는 OVA 파일을 사용하여 Linux 가상 어플라이언스로 배포되며 원격 플러그인 아키텍처를 활용합니다.
 
 
 
+[[scv-deployment-architecture]]
 === SCV 배포 아키텍처
 
 * 가상 어플라이언스 배포: SCV는 OVA 파일을 사용하여 Linux 가상 어플라이언스로 배포됩니다.  이 배포 방법은 간소화되고 효율적인 설정 프로세스를 보장합니다.
@@ -64,6 +69,7 @@ image:vmware-vcf-aff-050.png["SCV를 사용한 VCF 다중 작업 도메인"]
 
 
 
+[[scv-for-vcf-on-nvme-deployment-steps]]
 == NVMe 배포 단계에서 VCF용 SCV
 
 그만큼link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["ONTAP tools for VMware vSphere"] (OTV)는 VMware 환경에서 NetApp 스토리지를 관리하기 위한 강력하고 효율적인 솔루션을 제공합니다.  OTV는 vCenter Server와 직접 통합하여 스토리지 관리를 간소화하고, 데이터 보호를 강화하고, 성능을 최적화합니다.  선택 사항이기는 하지만 OTV를 구축하면 VMware 환경의 관리 기능과 전반적인 효율성을 크게 개선할 수 있습니다.
@@ -114,6 +120,7 @@ image:vmware-vcf-aff-068.png["가상 디스크 연결"]
 ====
 
 
+[[monitor-and-report]]
 == 모니터링 및 보고
 
 SCV는 관리자가 백업 및 복원 작업을 효율적으로 관리하는 데 도움이 되는 강력한 모니터링 및 보고 기능을 제공합니다.  상태 정보를 보고, 작업을 모니터링하고, 작업 로그를 다운로드하고, 보고서에 액세스할 수 있으며 자세한 내용은 다음을 확인하세요.link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_view_status_information.html["VMware vSphere Monitor and Report용 SnapCenter 플러그인."]

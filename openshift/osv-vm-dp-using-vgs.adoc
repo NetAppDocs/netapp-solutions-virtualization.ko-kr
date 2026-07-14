@@ -34,6 +34,7 @@ NOTE: Trident 25.06 버전의 iSCSI 프로토콜에 대해서만 볼륨 그룹 �
 
 
 
+[[step-1-install-openshift-4-19-and-enable-featuregate-for-volume-group-snapshots]]
 == 1단계: OpenShift 4.19 설치 및 볼륨 그룹 스냅샷에 대한 FeatureGate 활성화
 
 Kubernetes 버전 1.32와 함께 OpenShift 4.19 클러스터를 설치합니다.  이 버전에서는 볼륨 그룹 스냅샷 기능이 베타 상태로 업그레이드되었습니다.  OpenShift의 이후 릴리스에는 이 기능을 지원하는 Kubernetes 버전 v1.32 이상이 포함될 수 있습니다.
@@ -58,6 +59,7 @@ image:redhat-openshift-ocpv-vgs-002.png["VolumeGroupSnapshot FeatureGate 활성�
 
 
 
+[[step-2-install-and-configure-trident-25-06-for-volume-group-snapshots]]
 == 2단계: 볼륨 그룹 스냅샷을 위해 Trident 25.06 설치 및 구성
 
 볼륨 그룹 스냅샷 기능은 Trident 25.06의 iSCSI 프로토콜에 대해서만 Trident 에서 지원됩니다.  참고: OpenShift Cluster 4.19에서 iSCSI 프로토콜을 활성화하려면 Trident 버전 25.06.1을 설치해야 합니다.
@@ -176,6 +178,7 @@ image:redhat-openshift-ocpv-vgs-006.png["볼륨 그룹 스냅샷 클래스"]
 
 
 
+[[step-3-install-openshift-virtualization-and-create-a-test-vm-with-multiple-disks]]
 == 3단계: OpenShift Virtualization을 설치하고 여러 디스크로 테스트 VM을 만듭니다.
 
 클러스터에서 VM 관리 기능을 활성화하려면 OpenShift Virtualization Operator를 설치하세요.  설치 후 여러 개의 영구 디스크가 있는 테스트 VM을 만들어 볼륨 그룹 스냅샷 기능을 시연합니다.
@@ -207,6 +210,7 @@ image:redhat-openshift-ocpv-vgs-009.png["VM 디스크"]
 
 
 
+[[step-4-label-vm-disks-for-group-snapshot-protection]]
 == 4단계: 그룹 스냅샷 보호를 위해 VM 디스크에 레이블 지정
 
 볼륨 그룹 스냅샷은 레이블 선택기를 사용하여 어떤 PVC가 함께 속하는지 식별하고, 모든 관련 VM 디스크가 동일한 시점에 동시에 캡처되도록 보장합니다.
@@ -274,6 +278,7 @@ image:redhat-openshift-ocpv-vgs-011.png["ONTAP 일관성 그룹"]
 
 
 
+[[step-5-restore-vm-disks-from-snapshots]]
 == 5단계: 스냅샷에서 VM 디스크 복원
 
 이 단계에서는 필요할 때 스냅샷이 VM 데이터를 성공적으로 복구할 수 있는지 확인합니다.  우리가 잃어버렸다고 가정하자 `sample.txt` 두 개의 데이터 디스크 각각에서 파일을 가져옵니다.

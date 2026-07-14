@@ -18,6 +18,7 @@ ONTAP 스토리지 시스템을 사용하여 Microsoft Hyper-V 클러스터를 �
 
 
 
+[[pre-requisites-for-deployment-procedure]]
 == 배포 절차를 위한 전제 조건
 
 * 모든 하드웨어는 실행 중인 Windows Server 버전에 대해 인증을 받아야 하며 전체 장애 조치 클러스터 솔루션은 구성 검증 마법사의 모든 테스트를 통과해야 합니다.
@@ -39,6 +40,7 @@ ONTAP 스토리지 시스템을 사용하여 Microsoft Hyper-V 클러스터를 �
 
 
 
+[[installing-windows-features]]
 === Windows 기능 설치
 
 다음 단계에서는 필수 Windows Server 2022 기능을 설치하는 방법을 설명합니다.
@@ -58,6 +60,7 @@ Add-WindowsFeature Hyper-V, Failover-Clustering, Multipath-IO `-IncludeManagemen
 
 
 
+[[configuring-networks]]
 === 네트워크 구성
 
 장애 허용형 배포를 달성하려면 적절한 네트워크 계획이 중요합니다.  각 유형의 트래픽에 대해 별도의 물리적 네트워크 어댑터를 설정하는 것은 장애 조치 클러스터에 대한 표준 제안이었습니다.  가상 네트워크 어댑터를 추가하고, SET(스위치 임베디드 팀)를 도입하고, Hyper-V QoS와 같은 기능을 도입하여 네트워크 트래픽을 더 적은 물리적 어댑터로 압축할 수 있습니다.  서비스 품질, 중복성, 트래픽 격리를 염두에 두고 네트워크 구성을 설계하세요.  트래픽 격리 기술과 함께 VLAN과 같은 네트워크 격리 기술을 구성하면 트래픽에 대한 중복성과 서비스 품질이 제공되어 스토리지 트래픽 성능이 향상되고 일관성이 추가됩니다.
@@ -79,6 +82,7 @@ Add-WindowsFeature Hyper-V, Failover-Clustering, Multipath-IO `-IncludeManagemen
 
 
 
+[[deciding-on-storage-design-for-hyper-v]]
 === Hyper-V를 위한 스토리지 디자인 결정
 
 Hyper-V는 가상 머신의 백업 스토리지로 NAS(SMB3.0) 및 블록 스토리지(iSCSI/FC)를 지원합니다.  NetApp iSCSI/FC 및 SMB3를 사용하는 VM의 기본 스토리지인 CSV(클러스터 공유 볼륨)로 사용할 수 있는 SMB3.0, iSCSI 및 FC 프로토콜을 지원합니다.  고객은 스토리지에 직접 액세스해야 하는 작업 부하에 대해 SMB3 및 iSCSI를 게스트 연결 스토리지 옵션으로 사용할 수도 있습니다.  ONTAP 다양한 프로토콜 액세스가 필요한 워크로드를 위한 통합 스토리지(All Flash Array)와 SAN 전용 구성을 위한 SAN 최적화 스토리지(All SAN Array)를 통해 유연한 옵션을 제공합니다.
@@ -100,6 +104,7 @@ SMB3 대 iSCSI/FC를 사용하기로 결정하는 것은 현재 시행 중인 �
 
 
 
+[[installing-netapp-windows-iscsi-host-utilities]]
 === NetApp Windows iSCSI 호스트 유틸리티 설치
 
 다음 섹션에서는 NetApp Windows iSCSI 호스트 유틸리티의 무인 설치를 수행하는 방법을 설명합니다.  설치에 대한 자세한 내용은 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_72.html["Windows Unified Host Utilities 7.2(또는 최신 지원 버전)를 설치하세요."]
@@ -125,6 +130,7 @@ Unblock-file ~\Downloads\netapp_windows_host_utilities_7.2_x64.msi
 
 
 
+[[configuring-windows-host-iscsi-initiator]]
 === Windows 호스트 iSCSI 초기자 구성
 
 다음 단계에서는 기본 제공 Microsoft iSCSI 초기자를 구성하는 방법을 설명합니다.
@@ -182,6 +188,7 @@ Get-IscsiTarget | Connect-IscsiTarget -IsPersistent $true -IsMultipathEnabled $t
 
 
 
+[[creating-a-cluster]]
 === 클러스터 생성
 
 *서버는 하나뿐입니다*

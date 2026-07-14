@@ -56,6 +56,7 @@ image:vmware-vcf-asa-107.png["데이터 저장소에 연결된 호스트"]
 
 
 
+[[additional-information]]
 == 추가 정보
 
 * 중복성을 위한 SAN 구성에 대한 자세한 내용은 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap/san-config/index.html["NetApp SAN 구성 참조"^] .

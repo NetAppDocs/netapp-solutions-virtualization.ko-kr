@@ -42,6 +42,7 @@ image::vmw-vcf-dr-nfs-001.png[NetApp Disaster Recovery 아키텍처 다이어그
 
 
 
+[[getting-started]]
 == 시작하기
 
 NetApp Disaster Recovery 시작하려면 NetApp Console 사용한 다음 서비스에 액세스하십시오.
@@ -75,6 +76,7 @@ image::vmw-vcf-dr-nfs-003.png[NetApp Disaster Recovery 상세 대시보드]
 
 
 
+[[netapp-disaster-recovery-configuration]]
 == NetApp Disaster Recovery 구성
 
 재해 복구를 준비하는 첫 번째 단계는 소스 vCenter 및 스토리지 리소스를 검색하고 NetApp Disaster Recovery 에 추가하는 것입니다.
@@ -93,6 +95,7 @@ vCenter가 추가되면 자동 검색이 실행됩니다.
 
 
 
+[[configuring-storage-replication-between-source-site-array-and-destination-site-array]]
 == 소스 사이트 어레이와 대상 사이트 어레이 간의 스토리지 복제 구성
 
 SnapMirror NetApp 환경에서 데이터 복제를 제공합니다. NetApp Snapshot® 기술을 기반으로 구축된 SnapMirror 복제는 이전 업데이트 이후 변경되거나 추가된 블록만 복제하므로 매우 효율적입니다. SnapMirror NetApp OnCommand® System Manager나 ONTAP CLI를 사용하여 쉽게 구성할 수 있습니다. NetApp Disaster Recovery 클러스터와 SVM 피어링이 사전에 구성된 경우 SnapMirror 관계도 생성합니다.
@@ -104,6 +107,7 @@ NOTE: 볼륨에 대해 CLI 또는 시스템 관리자를 통해 SnapMirror 관�
 
 
 
+[[how-to-setup-replication-relationships-for-netapp-disaster-recovery]]
 == NetApp Disaster Recovery 위한 복제 관계 설정 방법
 
 SnapMirror 복제를 생성하는 기본 프로세스는 모든 애플리케이션에 대해 동일합니다.  가장 쉬운 방법은 NetApp Disaster Recovery 기능을 활용하는 것입니다. 다음 두 가지 조건을 충족하면 NetApp 재해 복구 기능이 복제 워크플로를 자동화해 줍니다. 해당 프로세스는 수동 또는 자동일 수 있습니다. 가장 쉬운 방법은 다음 두 가지 기준이 충족되는 경우 복제 워크플로를 자동화하는 NetApp Disaster Recovery를 활용하는 것입니다.
@@ -116,6 +120,7 @@ NetApp Console 소스 ONTAP 시스템을 환경 내 대상 시스템으로 간�
 
 
 
+[[what-can-netapp-disaster-recovery-do-for-you]]
 == NetApp Disaster Recovery 어떤 도움을 줄 수 있을까요?
 
 소스 및 대상 사이트를 추가하면 NetApp Disaster Recovery 자동 심층 검색을 수행하여 VM과 관련 메타데이터를 표시합니다. NetApp Disaster Recovery VM에서 사용하는 네트워크 및 포트 그룹을 자동으로 감지하고 해당 정보를 입력합니다.
@@ -173,6 +178,7 @@ image::vmw-vcf-dr-nfs-012.png[NetApp Disaster Recovery 복제 계획 조치]
 
 
 
+[[test-failover]]
 == 테스트 장애 조치
 
 NetApp Disaster Recovery 의 테스트 페일오버는 VMware 관리자가 프로덕션 환경을 중단하지 않고 복구 계획을 완벽하게 검증할 수 있도록 하는 운영 절차입니다.
@@ -198,6 +204,7 @@ image::vmw-vcf-dr-nfs-015.png[NetApp Disaster Recovery 복제 계획 테스트 �
 
 
 
+[[cleanup-failover-test-operation]]
 == 클린업 페일오버 테스트 작업
 
 정리 장애 조치 테스트 작업은 복제 계획 테스트가 완료되고 VMware 관리자가 정리 프롬프트에 응답한 후에 발생합니다.
@@ -212,6 +219,7 @@ image::vmw-vcf-dr-nfs-016.png[NetApp Disaster Recovery 복제 계획 테스트 �
 
 
 
+[[planned-migration-and-fail-over]]
 == 계획된 마이그레이션 및 장애 조치
 
 NetApp Disaster Recovery 실제 장애 조치를 수행하는 두 가지 방법, 즉 계획된 마이그레이션과 장애 조치(fail over)를 제공합니다. 첫 번째 방법인 계획된 마이그레이션은 VM 종료 및 스토리지 복제 동기화를 프로세스에 통합하여 VM을 복구하거나 대상 사이트로 효과적으로 이동합니다. 계획된 마이그레이션을 위해서는 원본 사이트에 대한 접근 권한이 필요합니다. 두 번째 방법인 장애 조치(failover)는 계획된/계획되지 않은 장애 조치로, VM이 마지막 저장소 복제 간격에서 완료될 수 있었던 대상 사이트에서 복구됩니다. 솔루션에 설계된 RPO(복구 목표 시점)에 따라 재해 복구 시나리오에서 일정량의 데이터 손실이 발생할 수 있습니다.
@@ -234,6 +242,7 @@ image::vmw-vcf-dr-nfs-019.png[vSphere Client - 전원이 켜진 VM]
 
 
 
+[[failback]]
 == 장애 복구
 
 장애 복구는 복구 후 소스 및 대상 사이트의 원래 구성을 복원하는 선택적 절차입니다.
@@ -263,6 +272,7 @@ NetApp Disaster Recovery 액세스하고 구성하는 방법에 대한 자세한
 
 
 
+[[monitoring-and-dashboard]]
 == 모니터링 및 대시보드
 
 NetApp Disaster Recovery 또는 ONTAP CLI에서 해당 데이터스토어 볼륨의 복제 상태를 모니터링할 수 있으며, 작업 모니터링을 통해 장애 조치 또는 테스트 장애 조치의 상태를 추적할 수 있습니다.

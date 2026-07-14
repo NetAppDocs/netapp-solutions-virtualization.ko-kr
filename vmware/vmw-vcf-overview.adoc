@@ -24,12 +24,14 @@ VCF와 함께 NetApp 사용하면 중복 제거, 압축, 스냅샷과 같은 Net
 
 
 
+[[introduction-to-netapp-ontap]]
 == NetApp ONTAP 소개
 
 NetApp ONTAP 은 광범위한 제품군에 걸쳐 고급 스토리지 기능을 제공하는 포괄적인 데이터 관리 소프트웨어입니다.  ONTAP 소프트웨어 정의 스토리지, 주요 클라우드 공급업체를 통한 퍼스트 파티 서비스, NetApp ASA (All San Array), AFF (All-flash FAS), FAS (Fabric-Attached Storage) 플랫폼용 스토리지 OS로 제공됩니다.  ONTAP 사일로를 만들지 않고도 VMware 가상화를 포함한 다양한 사용 사례에 대해 높은 성능과 낮은 대기 시간을 제공합니다.
 
 
 
+[[introduction-to-vmware-cloud-foundation]]
 == VMware Cloud Foundation 소개
 
 VCF는 컴퓨팅, 네트워크 및 스토리지 제품을 VMware 제품 및 타사 통합과 통합하여 네이티브 Kubernetes 워크로드와 가상 머신 기반 워크로드 모두를 지원합니다. 이 소프트웨어 플랫폼에는 VMware vSphere, NSX, Aria Suite Enterprise, VMware vSphere Kubernetes Service, HCX Enterprise, SDDC Manager와 같은 주요 구성 요소와 vSAN을 통해 호스트 CPU 코어에 연결된 스토리지 용량이 포함됩니다. NetApp ONTAP 온프레미스와 퍼블릭 클라우드 모두에서 다양한 VCF 배포 모델과 원활하게 통합됩니다.
@@ -38,6 +40,7 @@ image:vmware-vcf-overview-components.png["VMware Cloud Foundation 구성 요소"
 
 
 
+[[vcf-domains]]
 == VCF 도메인
 
 도메인은 VCF 내의 기반이 되는 구성 요소로, 리소스를 별개의 독립적인 그룹으로 구성할 수 있도록 합니다.  도메인은 인프라를 보다 효과적으로 구성하여 리소스가 효율적으로 활용되도록 보장합니다.  각 도메인은 자체 컴퓨팅, 네트워크 및 스토리지 요소와 함께 배포됩니다.
@@ -52,6 +55,7 @@ VCF에는 두 가지 주요 도메인 유형이 있습니다.
 
 
 
+[[storage-with-vcf]]
 == VCF를 사용한 저장
 
 도메인의 기능에서 가장 중요한 것은 도메인이 사용하는 저장 공간입니다.  VCF는 하이퍼 컨버지드 사용 사례를 위한 CPU 코어 기반 vSAN 용량을 포함하는 동시에 광범위한 외부 스토리지 솔루션도 지원합니다.  이러한 유연성은 기존 스토리지 어레이에 상당한 투자를 했거나 vSAN에서 제공하는 것 이상의 프로토콜을 지원해야 하는 기업에 매우 중요합니다.  VMware는 VCF를 통해 다양한 스토리지 유형을 지원합니다.
@@ -80,6 +84,7 @@ VCF에는 두 가지 주요 저장 유형이 있습니다.
 
 
 
+[[why-ontap-for-vcf]]
 == VCF에 ONTAP 이유
 
 투자 보호 및 다중 프로토콜 지원과 관련된 사용 사례 외에도 VCF 워크로드 도메인 내에서 외부 공유 스토리지를 활용해야 하는 데에는 여러 가지 이유가 있습니다.  워크로드 도메인에 프로비저닝된 스토리지는 단순히 VM과 컨테이너를 호스팅하는 저장소일 뿐이라고 가정할 수 있습니다.  그러나 조직의 요구가 라이선스 용량을 초과하여 엔터프라이즈급 스토리지가 필요한 경우가 많습니다.  VCF 내의 도메인에 할당된 ONTAP 이 제공하는 스토리지는 배포가 쉽고 미래에도 사용할 수 있는 공유 스토리지 솔루션을 제공합니다.
@@ -98,6 +103,7 @@ image:why-ontap-for-vmware-002.png["VCF에 ONTAP 이유"]
 
 
 
+[[additional-information]]
 == 추가 정보:
 
 * link:vmw-getting-started-ntap-options.html["NetApp 스토리지 옵션"]
@@ -115,12 +121,14 @@ image:why-ontap-for-vmware-002.png["VCF에 ONTAP 이유"]
 
 
 
+[[summary]]
 == 요약
 
 ONTAP 모든 작업 부하 요구 사항을 처리하는 플랫폼을 제공하며, 맞춤형 블록 스토리지 솔루션과 통합 제품을 제공하여 안정적이고 보안된 방식으로 VM과 애플리케이션에서 더 빠른 결과를 얻을 수 있도록 지원합니다.  ONTAP 고급 데이터 감소 및 이동 기술을 통합하여 데이터 센터의 설치 공간을 최소화하는 동시에 중요한 워크로드를 온라인 상태로 유지하기 위해 엔터프라이즈 수준의 가용성을 보장합니다.  또한 AWS, Azure 및 Google은 VMware-in-the-Cloud 제품의 일부로 VMware 클라우드 기반 클러스터의 vSAN 스토리지를 향상시키기 위해 NetApp 기반 외부 스토리지를 지원합니다.  전반적으로 NetApp의 뛰어난 기능으로 인해 VMware Cloud Foundation 배포에 더 효과적인 선택이 됩니다.
 
 
 
+[[documentation-resources]]
 == 문서 리소스
 
 VMware Cloud Foundation에 대한 NetApp 제품에 대한 자세한 내용은 다음을 참조하세요.

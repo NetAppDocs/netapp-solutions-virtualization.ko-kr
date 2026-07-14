@@ -20,6 +20,7 @@ VMware Cloud Foundation(VCF) 워크로드 도메인을 사용하면 조직에서
 
 
 
+[[introduction]]
 == 소개
 
 도메인은 독립적으로 확장 가능하고, 특정 규정을 충족하며 다중 테넌시를 제공할 수 있습니다.  VMware Cloud Foundation(VCF)의 데이터 보호는 관리 도메인과 워크로드 도메인 전반에서 데이터의 가용성, 무결성 및 복구 가능성을 보장하는 데 중요한 측면입니다.  VMware vSphere(SCV)용 NetApp SnapCenter Plug-in for VMware vSphere NetApp의 데이터 보호 기능을 VMware 환경에 통합하는 강력한 도구입니다.  NetApp 스토리지에 호스팅된 VMware vSphere 가상 머신(VM)의 백업, 복원 및 복제를 간소화합니다.
@@ -28,12 +29,14 @@ VMware Cloud Foundation(VCF) 워크로드 도메인을 사용하면 조직에서
 
 
 
+[[audience]]
 == 대상
 
 VMware VCF 워크로드 도메인에 대한 데이터 보호 및 재해 복구를 보장하는 솔루션 아키텍트 또는 스토리지 관리자입니다.
 
 
 
+[[architecture-overview]]
 == 아키텍처 개요
 
 SCV는 OVA 파일을 사용하는 Linux 가상 어플라이언스로 배포되어 VM, 데이터 저장소, 파일 및 폴더에 대한 빠르고 공간 효율적이며 충돌 일관성이 뛰어나고 VM 일관성이 있는 백업 및 복원 작업을 제공합니다.  SCV는 원격 플러그인 아키텍처를 사용합니다.  여러 SCV가 배포되어 VCF 관리 도메인 vCenter에 호스팅되었습니다.  SCV와 VCF 도메인은 일대일 관계이므로 VCF 관리 도메인과 각 워크로드 도메인에는 하나의 SCV가 필요합니다.
@@ -46,6 +49,7 @@ image:vmware-vcf-aff-050.png["SCV를 사용한 VCF 다중 작업 도메인"]
 
 
 
+[[deploy-a-vcf-with-management-domain-and-multiple-workload-domains]]
 == 관리 도메인 및 여러 워크로드 도메인을 사용하여 VCF 배포
 
 VCF 워크로드 도메인은 SDDC Manager에서 프로비저닝되고 애플리케이션 준비가 된 하나 이상의 vSphere 클러스터가 있는 ESXi 호스트 그룹입니다.  아래의 VCF 예에서는 하나의 관리 도메인과 두 개의 워크로드 도메인이 배포되었습니다.  NetApp 스토리지를 사용하여 VCF를 배포하는 방법에 대한 자세한 내용은 다음을 확인하세요.link:vmw-vcf-overview.html["NetApp VCF 배포 문서."]
@@ -54,6 +58,7 @@ image:vmware-vcf-aff-051.png["VCF는 하나의 관리 도메인과 두 개의 �
 
 
 
+[[scv-deployment-configuration-and-restoration-steps]]
 == SCV 배치, 구성 및 복원 단계
 
 작업 도메인의 수와 관리 도메인을 기반으로 여러 SCV를 배포해야 합니다.  아래 예에서는 두 개의 워크로드 도메인과 하나의 관리 도메인이 있고, 세 개의 SCV가 VCF 관리 도메인 vCenter에 배포되어 있는 것을 보여줍니다.image:vmware-vcf-aff-063.png["VCF 도메인과 SCV 간 일대일"]
@@ -136,6 +141,7 @@ VCP 다중 도메인용 NetApp SnapCenter 데이터 보호를 중앙 집중화�
 
 
 
+[[video-demo-for-protect-vcf-multiple-domains-with-scv]]
 == SCV를 사용하여 VCF 다중 도메인을 보호하는 비디오 데모
 
 .NetApp SCV를 사용하여 VMware VCF 다중 도메인 보호

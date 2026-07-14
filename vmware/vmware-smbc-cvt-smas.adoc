@@ -18,6 +18,7 @@ summary:
 
 
 
+[[overview]]
 == 개요
 
 link:https://docs.netapp.com/us-en/ontap/snapmirror-active-sync/["NetApp Snapmirror 액티브 싱크(SM 액티브 싱크)"]가상화된 환경에서 0 복구 시간 목표(RTO)와 0 복구 지점 목표(RPO)를 달성하기 위한 강력한 솔루션입니다.
@@ -32,6 +33,7 @@ vMSC를 SM 액티브 동기화와 결합하면 두 사이트 간의 데이터 �
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 * NetApp 스토리지 시스템: Snapmirror 라이선스가 있는 두 개의 NetApp 스토리지 클러스터(소스 및 대상)가 있는지 확인하세요.
@@ -47,6 +49,7 @@ vMSC를 SM 액티브 동기화와 결합하면 두 사이트 간의 데이터 �
 
 
 
+[[steps-to-convert-from-asymmetric-to-symmetric-sm-active-sync]]
 == 비대칭 SM 액티브 싱크에서 대칭 SM 액티브 싱크로 변환하는 단계
 
 아래 예에서 selectrz1은 기본 사이트이고 selectrz2는 보조 사이트입니다.

@@ -18,6 +18,7 @@ summary: Shift Toolkit 및 가상화용 마이그레이션 툴킷을 사용하�
 
 
 
+[[before-you-begin]]
 == 시작하기 전에
 
 마이그레이션을 시작하기 전에 다음 전제 조건이 충족되는지 확인하세요.
@@ -54,6 +55,7 @@ NOTE: VMDK 파일이 qtree 내에 배치되면 Shift Toolkit은 ONTAP-NAS-econom
 
 
 
+[[step-1-create-migration-plans-using-migration-toolkit-for-virtualization]]
 == 1단계: 가상화용 마이그레이션 툴킷을 사용하여 마이그레이션 계획을 생성합니다.
 
 . VM의 초고속 변환을 활용하려면 먼저 MTV를 사용하여 VM 마이그레이션 계획을 수립해야 합니다.link:https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.3/html/installing_and_using_the_migration_toolkit_for_virtualization/migrating-vms-web-console["웹 콘솔"] 또는link:https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.0/html/installing_and_using_the_migration_toolkit_for_virtualization/migrating-virtual-machines-to-virt_mtv#migrating-virtual-machines-cli_mtv["명령줄"] .

@@ -18,6 +18,7 @@ Trident Protect를 사용하여 OpenShift Virtualization의 VM에 대한 재해 
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 * Trident 설치해야 합니다.  OpenShift Virtualization 연산자를 사용하여 OpenShift Virtualization을 클러스터에 설치하기 전에 백엔드 및 스토리지 클래스를 만들어야 합니다.
@@ -32,6 +33,7 @@ image:redhat-openshift-ocpv-tp-003.png["source-ns 네임스페이스에 OCP-v VM
 
 
 
+[[create-appvault-using-ontap-s3]]
 == ONTAP S3를 사용하여 AppVault 생성
 
 이 섹션에서는 ONTAP S3 객체 스토리지를 사용하여 Trident Protect에서 AppVault 객체를 설정하는 방법을 보여줍니다.
@@ -97,6 +99,7 @@ image:redhat-openshift-ocpv-tp-002.png["trident-protect 네임스페이스의 OC
 
 
 
+[[create-a-trident-protect-app-for-the-vm]]
 == VM용 Trident Protect 앱을 생성합니다.
 
 VM이 있는 네임스페이스에 앱 사용자 지정 리소스를 만듭니다.
@@ -111,6 +114,7 @@ image:redhat-openshift-ocpv-tp-004.png["source-ns 네임스페이스의 OCP-v �
 
 
 
+[[create-a-trident-protect-app-for-the-disaster-recovery-vm-in-a-new-namespace]]
 == 새로운 네임스페이스에 재해 복구 VM용 Trident Protect 앱을 생성합니다.
 
 [source, CLI]
@@ -122,6 +126,7 @@ image:redhat-openshift-ocpv-tp-005.png["source-ns 네임스페이스의 OCP-v �
 
 
 
+[[create-an-appmirror-schedule-in-the-source-namespace]]
 == 소스 네임스페이스에 AppMirror 일정을 만듭니다.
 
 표시된 대로 yaml을 사용하여 AppMirror에 대한 일정을 만듭니다.  이렇게 하면 일정(5분마다)을 사용하여 스냅샷이 생성되고 2개의 스냅샷이 유지됩니다.
@@ -153,6 +158,7 @@ image:redhat-openshift-ocpv-tp-007.png["스냅샷이 생성되었습니다"]
 
 
 
+[[create-an-appmirror-relationship-in-the-dr-namespace]]
 == DR 네임스페이스에 appMirror 관계를 만듭니다.
 
 재해 복구 네임스페이스에서 Appmirror 관계를 만듭니다.  원하는 상태를 Established로 설정합니다.
@@ -195,6 +201,7 @@ image:redhat-openshift-ocpv-tp-012.png["PVC는 대상 네임스페이스에 생�
 
 
 
+[[promote-the-relationship-to-failover]]
 == Failover와의 관계 증진
 
 DR 네임스페이스에 VM을 생성하려면 관계의 원하는 상태를 "승격"으로 변경합니다.  VM은 여전히 소스 네임스페이스에서 실행 중입니다.
@@ -213,6 +220,7 @@ image:redhat-openshift-ocpv-tp-016.png["소스 ns의 VM이 아직 실행 중입�
 
 
 
+[[establish-the-relationship-again-to-failback]]
 == Failback과의 관계를 다시 설정합니다.
 
 관계의 원하는 상태를 "설립됨"으로 변경합니다.  DR 네임스페이스에서 VM이 삭제되었습니다.  pvc는 여전히 DR 네임스페이스에 있습니다.  VM은 여전히 소스 네임스페이스에서 실행 중입니다.  소스 네임스페이스에서 DR ns로의 원래 관계가 설정됩니다. .
@@ -231,6 +239,7 @@ image:redhat-openshift-ocpv-tp-020.png["소스 ns의 POD와 PVC는 여전히 남
 
 
 
+[[video-demonstration]]
 == 비디오 데모
 
 다음 비디오는 Trident Protect를 사용하여 OpenShift VM에 대한 재해 복구 시나리오를 구현하는 방법을 보여줍니다.

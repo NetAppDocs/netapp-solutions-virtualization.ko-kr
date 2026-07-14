@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: openshift/osv-workflow-vm-live-migration.html 
+permalink: openshift/osv-vm-live-migration.html 
 keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
 summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화 
 ---
@@ -18,6 +18,7 @@ summary: NetApp ONTAP 통한 Red Hat OpenShift 가상화
 
 
 
+[[vm-live-migration]]
 == VM 라이브 마이그레이션
 
 라이브 마이그레이션은 OpenShift 클러스터에서 가동 중지 시간 없이 VM 인스턴스를 한 노드에서 다른 노드로 마이그레이션하는 프로세스입니다.  OpenShift 클러스터에서 라이브 마이그레이션이 작동하려면 VM이 공유 ReadWriteMany 액세스 모드를 사용하여 PVC에 바인딩되어야 합니다.  ontap-nas 드라이버를 사용하여 구성된 Trident 백엔드는 파일 시스템 프로토콜 nfs 및 smb에 대한 RWX 액세스 모드를 지원합니다.  문서를 참조하세요link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html["여기"] .  ontap-san 드라이버를 사용하여 구성된 Trident 백엔드는 iSCSI 및 NVMe/TCP 프로토콜의 블록 볼륨 모드에 대한 RWX 액세스 모드를 지원합니다.  문서를 참조하세요link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san.html["여기"] .

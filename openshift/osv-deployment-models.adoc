@@ -1,0 +1,66 @@
+---
+sidebar: sidebar 
+permalink: openshift/osv-deployment-models.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: Red Hat OpenShift 가상화 
+---
+= OpenShift/OpenShift 가상화 배포 모델
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+OpenShift Container Platform 배포 모델은 주로 실행되는 인프라(클라우드 vs. 온프레미스)와 관리 방식(Red Hat 또는 고객 관리)에 따라 분류됩니다. OpenShift Virtualization은 OpenShift Container Platform에 설치할 수 있습니다.
+
+
+
+[[key-deployment-models-include]]
+== 주요 배포 모델은 다음과 같습니다.
+
+. **관리 서비스(Red Hat 관리형)**: 이 모델에서 Red Hat은 OpenShift 컨테이너 플랫폼의 인프라 및 운영을 관리합니다. 고객은 플랫폼 위에서 자체 애플리케이션 및 워크로드를 관리할 책임이 있습니다. 예시는 다음과 같습니다.
++
+.. **Red Hat OpenShift Service on AWS (ROSA)**: AWS 서비스와의 손쉬운 통합을 지원하는 관리 서비스입니다. OpenShift Virtualization은 AWS의 EC2 베어 메탈 인스턴스에 설치됩니다.
+.. **Azure Red Hat OpenShift (ARO)**: 이는 Azure 클라우드에서 제공되는 관리 서비스입니다. OpenShift 가상화는 Azure 가상 머신 위에서 작동합니다.
+.. **Red Hat OpenShift Dedicated (OSD)**: Red Hat에서 관리하는 Google Cloud에 배포되는 완전 관리형 서비스입니다. OpenShift Virtualization은 Google Cloud 베어메탈 인스턴스에 배포됩니다.
+
+
+. **자체 관리형 서비스(고객 관리형)**: 이 경우 OpenShift 컨테이너 플랫폼은 고객이 직접 자체 인프라에 배포하고 관리합니다. 해당 인프라는 퍼블릭 클라우드 또는 온프레미스 환경일 수 있습니다.
++
+.. **퍼블릭 클라우드:** 설치 프로그램 프로비저닝 인프라(IPI) 또는 사용자 프로비저닝 인프라(UPI)를 사용하여 AWS, Azure 또는 GCP에 배포됩니다.
+.. **베어메탈:** 물리적 하드웨어에 직접 배포됩니다.
+.. **가상화:** VMware vSphere와 같은 플랫폼에 배포됩니다.
+
+
+
+
+
+
+[[infrastructure-deployment-options]]
+=== 인프라 구축 옵션
+
+. **설치 프로그램 기반 인프라(IPI):** 설치 프로그램은 네트워킹 및 장비와 같은 인프라 구성 요소의 프로비저닝을 자동화합니다.
+. **사용자 프로비저닝 인프라(UPI):** 사용자가 인프라를 수동으로 생성하고 관리하여 환경에 대한 제어권을 강화할 수 있습니다.
+
+
+
+
+[[specialized-deployment-models]]
+== 특수화된 배포 모델
+
+. **단일 노드 OpenShift(SNO):** 단일 물리적 또는 가상 머신에 설치된 전체 OpenShift 클러스터로, 주로 엣지 컴퓨팅에 사용됩니다.
+. **연결 해제(에어갭) 배포:** 외부 인터넷 액세스가 없는 제한된 네트워크 환경에 배포합니다.
+. **Red Hat OpenShift Virtualization Engine:** 베어메탈 전용 가상화 인프라로, 기업에 안정적인 엔터프라이즈급 VM 배포, 관리 및 확장 솔루션을 제공하기 위해 특별히 설계되었습니다. OpenShift 기능의 일부를 제공하는 이 에디션은 가상 머신 전용 워크로드에 최적화된 OpenShift 버전입니다.
+
+
+
+
+[[additional-resources]]
+== 추가 자료
+
+OpenShift 컨테이너 플랫폼에 대한 자세한 내용은 Red Hat link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/overview/ocp-overview["관련 문서는 여기에 있습니다."]
+
+OpenShift 가상화에 대한 자세한 내용은 Red Hat link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/virtualization/index["관련 문서는 여기에 있습니다."]

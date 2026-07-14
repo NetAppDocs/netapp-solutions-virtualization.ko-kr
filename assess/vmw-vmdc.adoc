@@ -21,6 +21,7 @@ NOTE: *이것은 VMDC의 미리보기 릴리스입니다.*
 
 
 
+[[overview]]
 == 개요
 
 VMDC의 주요 기능은 클러스터 구성, 네트워킹, 스토리지 및 성능 데이터를 포함하여 vSphere 환경에 있는 vCenter, ESXi 서버 및 가상 머신(VM)의 구성을 보고하는 것입니다. 포괄적인 환경 데이터가 수집되면 인프라에 대한 통찰력 있는 정보를 얻는 데 활용할 수 있습니다. 보고서 출력 화면은 여러 섹션으로 구성된 스프레드시트 스타일의 GUI입니다. 읽기 쉬운 보고서를 제공하고 리소스 사용을 최적화하고 용량을 계획하는 데 도움이 됩니다.
@@ -31,6 +32,7 @@ VMDC를 다운로드할 수 있습니다link:https://mysupport.netapp.com/site/t
 
 
 
+[[installing-and-setting-up-vmdc]]
 == VMDC 설치 및 설정
 
 VMDC는 Windows 2019, 2022 버전에서 실행할 수 있습니다.  전제 조건은 VMDC 인스턴스에서 지정된 vCenter 서버로의 네트워크 연결이 있어야 한다는 것입니다.  확인 후 VMDC 패키지를 다운로드하세요.link:https://mysupport.netapp.com/site/tools/tool-eula/vm-data-collector["NetApp 툴체스트"] 그런 다음 패키지의 압축을 풀고 배치 파일을 실행하여 서비스를 설치하고 시작합니다.
@@ -72,10 +74,12 @@ image:vmdc-007.png["입력/출력 대화 상자 또는 서면 내용을 나타�
 
 
 
+[[using-the-gui]]
 == GUI 사용
 
 
 
+[[run-vmdc]]
 === VMDC 실행
 
 * 브라우저를 사용하여 VMDC UI에 액세스합니다.
@@ -110,6 +114,7 @@ NOTE: vCenter가 추가되면 즉시 데이터 수집이 시작됩니다.  vCent
 
 
 
+[[view-vm-topology]]
 === VM 토폴로지 보기
 
 VMDC는 각 VM에 대해 "토폴로지 표시" 옵션을 제공하며, 이는 리소스와 VM 디스크, VM, ESXi 호스트, 데이터스토어 및 네트워크 간의 관계를 볼 수 있는 대화형 인터페이스를 제공합니다.  수집된 성과 데이터를 통해 통찰력을 얻고 관리하고 모니터링하는 데 도움이 됩니다.  토폴로지는 현재 데이터를 사용하여 기본적인 진단을 수행하고 문제를 해결하는 데 도움이 됩니다.  자세한 문제 해결 및 빠른 MTTR을 위해 다음을 사용하세요.link:https://docs.netapp.com/us-en/data-infrastructure-insights/["NetApp Data Infrastructure Insights"] 종단 간 종속성 매핑을 통해 세부적인 토폴로지 뷰를 제공합니다.
@@ -129,6 +134,7 @@ image:vmdc-011.png["입력/출력 대화 상자 또는 서면 내용을 나타�
 
 
 
+[[export-to-excel]]
 === Excel로 내보내기
 
 수집된 내용을 사용 가능한 형식으로 저장하려면 "보고서 다운로드" 옵션을 사용하여 XLSX 파일을 다운로드하세요.
@@ -154,6 +160,7 @@ image:vmdc-014.png["입력/출력 대화 상자 또는 서면 내용을 나타�
 
 
 
+[[vmdc-data-counters]]
 === VMDC 데이터 카운터
 
 다운로드가 완료되면 VMDC에 표시되는 첫 번째 시트는 "VM 정보"입니다. 이 시트에는 vSphere 환경에 있는 VM에 대한 정보가 포함되어 있습니다.  여기에는 가상 머신에 대한 일반 정보가 표시됩니다. VM 이름, 전원 상태, CPU, 프로비저닝된 메모리(MB), 사용 메모리(MB), 프로비저닝된 용량(GB), 사용 용량(GB), VMware 도구 버전, OS 버전, 환경 유형, 데이터 센터, 클러스터, 호스트, 폴더, 기본 데이터 저장소, 디스크, NIC, VM ID 및 VM UUID.
@@ -164,12 +171,14 @@ image:vmdc-014.png["입력/출력 대화 상자 또는 서면 내용을 나타�
 
 
 
+[[next-steps]]
 === 다음 단계
 
 다운로드한 XLSX 파일을 최적화 및 리팩토링 연습에 활용하세요.
 
 
 
+[[vmdc-attributes-description]]
 == VMDC 속성 설명
 
 이 문서의 섹션에서는 Excel 시트에서 사용되는 각 카운터의 정의에 대해 설명합니다.
@@ -188,6 +197,7 @@ image:vmdc-017.png["입력/출력 대화 상자 또는 서면 내용을 나타�
 
 
 
+[[conclusion]]
 == 결론
 
 임박한 라이선스 변경에 따라 기업들은 총소유비용(TCO)의 잠재적 증가에 적극적으로 대처하고 있습니다.  그들은 적극적인 리소스 관리와 적정 규모 조정을 통해 VMware 인프라를 전략적으로 최적화하여 리소스 활용도를 높이고 용량 계획을 간소화하고 있습니다.  전문화된 도구를 효과적으로 활용함으로써 조직은 낭비되는 리소스를 효율적으로 식별하고 회수하여 핵심 리소스 수와 전반적인 라이선스 비용을 줄일 수 있습니다.  VMDC는 기존 환경을 보고하고 최적화하기 위해 슬라이스할 수 있는 VM 데이터를 신속하게 수집하는 기능을 제공합니다.
@@ -200,6 +210,7 @@ image:vmdc-018.png["입력/출력 대화 상자 또는 서면 내용을 나타�
 
 
 
+[[next-steps]]
 == 다음 단계
 
 VMDC 패키지를 다운로드하고 데이터를 수집하여 사용하세요link:https://tco.solutions.netapp.com/vmwntaptco/["vSAN TCO 추정기"] 쉽게 투사하고 사용할 수 있도록link:https://docs.netapp.com/us-en/data-infrastructure-insights/task_cloud_insights_onboarding_1.html["디이"] IT가 새로운 요구 사항에 맞게 적응할 수 있도록 현재와 미래의 IT에 영향을 미치는 인텔리전스를 지속적으로 제공합니다.

@@ -18,6 +18,7 @@ SnapCenter Plug-in for VMware vSphere 사용하면 VM, 데이터 저장소 및 V
 
 
 
+[[documentation-resources]]
 == 문서 리소스
 
 자세한 내용은 다음 설명서 리소스를 참조하세요.
@@ -27,6 +28,7 @@ SnapCenter Plug-in for VMware vSphere 사용하면 VM, 데이터 저장소 및 V
 
 
 
+[[solution-resources]]
 == 솔루션 리소스
 
 다음은 SnapCenter Plug-in for VMware vSphere 과 VM용 NetApp 백업 및 복구를 포함하는 3-2-1 백업 솔루션입니다.
@@ -37,6 +39,7 @@ Tech ONTAP 블로그:link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/3-2-1
 
 
 
+[[video-resources]]
 == 비디오 자료
 
 .SnapCenter Plug-in for VMware vSphere - 솔루션 전제 조건

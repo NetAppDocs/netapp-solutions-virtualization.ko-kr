@@ -15,18 +15,21 @@ Proxmox Virtual Environment(VE)는 NetApp ONTAP 사용하여 NAS용 NFS 및 SMB,
 
 
 
+[[nas-protocol-support]]
 == NAS 프로토콜 지원
 
 NAS 프로토콜(NFS 및 SMB)은 모든 Proxmox VE 콘텐츠 유형을 지원하며 일반적으로 데이터센터 수준에서 한 번만 구성됩니다. 게스트 VM은 NAS 스토리지에서 raw, qcow2 또는 VMDK 디스크 형식을 사용할 수 있습니다. ONTAP 스냅샷은 클라이언트가 특정 시점의 데이터 복사본에 액세스할 수 있도록 표시할 수 있습니다.
 
 
 
+[[san-protocol-support]]
 == SAN 프로토콜 지원
 
 SAN 프로토콜(FC, iSCSI 및 NVMe-oF)은 일반적으로 호스트별로 구성되며 Proxmox VE에서 VM 디스크 및 컨테이너 이미지 콘텐츠 유형을 지원합니다. 게스트 VM은 블록 스토리지에서 raw, VMDK 또는 qcow2 디스크 형식을 사용할 수 있습니다.
 
 
 
+[[storage-type-compatibility-matrix]]
 == 저장 장치 유형 호환성 매트릭스
 
 [cols="25% 15% 15% 15% 15% 15%"]

@@ -20,6 +20,7 @@ Shift Toolkit을 사용하면 추가 디스크 사본을 생성하지 않고도 
 
 
 
+[[before-you-begin]]
 == 시작하기 전에
 
 마이그레이션을 시작하기 전에 다음 전제 조건이 충족되는지 확인하세요.
@@ -51,6 +52,7 @@ Shift Toolkit을 사용하면 추가 디스크 사본을 생성하지 않고도 
 
 
 
+[[step-1-add-the-source-site-hyper-v]]
 == 1단계: 소스 사이트 추가(Hyper-V)
 
 Shift Toolkit에 소스 Hyper-V 환경을 추가합니다.
@@ -126,6 +128,7 @@ NOTE: VM 인벤토리는 24시간마다 자동으로 새로 고쳐집니다.  �
 
 
 
+[[step-2-add-the-destination-site-vmware-esxi]]
 == 2단계: 대상 사이트 추가(VMware ESXi)
 
 Shift Toolkit에 대상 VMware 환경을 추가합니다.
@@ -187,6 +190,7 @@ NOTE: 디스크 포맷 변환은 동일한 볼륨 내의 볼륨 수준에서 발
 
 
 
+[[step-3-create-resource-groups]]
 == 3단계: 리소스 그룹 만들기
 
 부팅 순서와 부팅 지연 구성을 보존하기 위해 VM을 리소스 그룹으로 구성합니다.
@@ -270,6 +274,7 @@ image::shift-toolkit-365.png[부팅 순서 구성]
 
 
 
+[[step-4-create-a-migration-blueprint]]
 == 4단계: 마이그레이션 청사진 만들기
 
 플랫폼 매핑, 네트워크 구성, VM 설정을 포함하여 마이그레이션 계획을 정의하는 청사진을 만듭니다.
@@ -423,6 +428,7 @@ image::shift-toolkit-376.png[청사진 활성 상태]
 ====
 
 
+[[step-5-execute-the-migration]]
 == 5단계: 마이그레이션 실행
 
 Hyper-V에서 VMware ESXi로 VM을 변환하기 위한 마이그레이션 워크플로를 트리거합니다.
@@ -493,6 +499,7 @@ image::shift-toolkit-381.png[마이그레이션 완료]
 ====
 
 
+[[step-6-validate-the-migration]]
 == 6단계: 마이그레이션 검증
 
 VMware ESXi 호스트에서 VM이 성공적으로 실행되는지 확인합니다.

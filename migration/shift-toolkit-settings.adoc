@@ -22,6 +22,7 @@ image::shift-toolkit-250.png[Shift Toolkit 도구 모음의 설정 아이콘]
 
 
 
+[[credential-security-service-provider-credssp]]
 == 자격 증명 보안 서비스 제공업체(CredSSP)
 
 Shift Toolkit은 CredSSP(Credential Security Service Provider)를 사용하여 변환 프로세스 중에 자격 증명 전송을 관리합니다.  Shift 서버는 변환되는 VM의 게스트 운영 체제에서 스크립트를 실행하여 Hyper-V 서버를 거쳐 Shift 서버에서 게스트 OS로 "더블홉"을 통해 자격 증명을 전달합니다.
@@ -30,6 +31,7 @@ image::shift-toolkit-251.png[CredSSP 구성 설정]
 
 
 
+[[configure-the-shift-server-as-a-credssp-client]]
 === Shift 서버를 CredSSP 클라이언트로 구성
 
 고급 설정 마법사는 Shift 서버를 CredSSP 클라이언트로 자동 구성하여 Hyper-V 서버에 자격 증명을 위임할 수 있도록 합니다.
@@ -56,6 +58,7 @@ Shift Toolkit은 다음 명령과 정책 구성을 실행하여 자신을 클라
 
 
 
+[[configure-the-hyper-v-server-as-a-credssp-server]]
 === Hyper-V 서버를 CredSSP 서버로 구성
 
 사용하다 `Enable-WSManCredSSP` Hyper-V 서버에서 cmdlet을 사용하여 CredSSP 서버로 구성하면 Shift 서버에서 자격 증명을 받을 수 있습니다.
@@ -73,6 +76,7 @@ Enable-WSManCredSSP -Role server
 
 
 
+[[logging-and-debugging]]
 == 로깅 및 디버깅
 
 Shift Toolkit에는 30일 보관 기간이 있는 기본 로깅이 포함되어 있습니다.  문제 해결을 위해 지원팀에 요청하면 로깅을 디버그 모드로 전환할 수 있습니다.
@@ -81,6 +85,7 @@ image::shift-toolkit-252.png[로깅 구성 설정]
 
 
 
+[[swagger]]
 == 멋진
 
 고급 설정의 Swagger 페이지를 사용하면 Shift Toolkit REST API와 상호 작용할 수 있습니다.
@@ -93,6 +98,7 @@ image::shift-toolkit-254.png[API 리소스 범주]
 
 
 
+[[authentication-and-setup-apis]]
 === 인증 및 설정 API
 
 이러한 API를 사용하여 Shift Toolkit 서버에 대한 연결을 설정하고, 사용자를 관리하고, 인증을 구성합니다.
@@ -145,6 +151,7 @@ API 요청에 대한 사용자 인증을 관리하고 승인 토큰을 얻습니
 
 
 
+[[infrastructure-management-apis]]
 === 인프라 관리 API
 
 이러한 API를 사용하여 소스 및 대상 환경을 구성하고 검색하세요.
@@ -182,6 +189,7 @@ API 요청에 대한 사용자 인증을 관리하고 승인 토큰을 얻습니
 
 
 
+[[vm-and-resource-management-apis]]
 === VM 및 리소스 관리 API
 
 이러한 API를 사용하여 마이그레이션을 위한 VM 및 리소스의 인벤토리를 작성, 구성 및 관리합니다.
@@ -220,6 +228,7 @@ API 요청에 대한 사용자 인증을 관리하고 승인 토큰을 얻습니
 
 
 
+[[migration-and-recovery-apis]]
 === 마이그레이션 및 복구 API
 
 이러한 API를 사용하여 마이그레이션을 실행하고, 규정 준수를 모니터링하고, 복구 작업을 관리하세요.
@@ -270,6 +279,7 @@ API 요청에 대한 사용자 인증을 관리하고 승인 토큰을 얻습니
 
 
 
+[[automation-apis]]
 === 자동화 API
 
 이러한 API를 사용하여 Shift Toolkit 기능을 확장하고 자동화하세요.
@@ -286,6 +296,7 @@ API 요청에 대한 사용자 인증을 관리하고 승인 토큰을 얻습니
 
 
 
+[[script-block-and-automation]]
 == 스크립트 블록 및 자동화
 
 Shift Toolkit 내의 스크립트 블록은 내부 및 외부 API를 사용하여 기능을 자동화, 통합 및 개발하는 데 도움이 되는 샘플 코드를 제공합니다.  Shift Toolkit 자동화 팀과 커뮤니티 멤버가 작성한 코드 샘플 섹션에서 샘플을 탐색하고 다운로드하세요.  이러한 샘플을 사용하여 자동화, 관리 또는 통합 작업을 시작하세요.
@@ -304,6 +315,7 @@ image::shift-toolkit-257.png[작업 삭제를 위한 PowerShell 스크립트 예
 
 
 
+[[email-notifications-and-alerts]]
 == 이메일 알림 및 경고
 
 검색, 변환 또는 마이그레이션 작업에 대한 알림을 지정된 수신자에게 보내도록 이메일 알림을 구성합니다.  UI 알림(인터페이스 내 알림)도 사용 가능하며 7일 동안 저장됩니다.
@@ -337,6 +349,7 @@ NOTE: 이 릴리스에서는 이메일 알림에 기본 SMTP 인증과 SendGrid�
 
 
 
+[[abort-and-revert-capabilities]]
 == 중단 및 되돌리기 기능
 
 Shift Toolkit은 워크플로 내의 모든 단계에서 실행 중인 작업을 취소하는 옵션을 제공합니다.  작업이 취소되면 다음을 포함하여 모든 버려진 구성 요소가 자동으로 정리됩니다.
@@ -350,6 +363,7 @@ Shift Toolkit은 소스 VM을 어떤 식으로도 수정하지 않으므로 롤�
 
 
 
+[[verify-migration]]
 == 마이그레이션 확인
 
 Shift 툴킷은 이제 마이그레이션 상태가 "Success" 또는 "Partial Failure"로 표시된 후 활성화되는 블루프린트 레벨에 대한 검증 옵션을 제공합니다. 성공하면 검증 옵션이 새 작업을 시작하고 블루프린트 매핑에 지정된 대로 VM 설정을 확인합니다. 검증 마이그레이션 작업의 상태는 작업 모니터링에 나열되며 작업을 클릭하고 "view logs"를 선택하면 세부 정보를 볼 수 있습니다.
@@ -366,6 +380,7 @@ image::shift-toolkit-472.png[마이그레이션 작업 목록 확인]
 
 
 
+[[split-workflow]]
 == 워크플로 분할
 
 분할 워크플로(ONTAP NAS 드라이버를 사용하는 OpenShift 마이그레이션 블루프린트에만 적용 가능)는 VM과 연결된 볼륨 및 해당 FlexClone 볼륨을 자동으로 검색합니다.
@@ -389,6 +404,7 @@ image::shift-toolkit-474.png[분할 워크플로우 작업 진행 상황]
 
 
 
+[[advanced-hypervisor-settings]]
 == 고급 하이퍼바이저 설정
 
 Shift Toolkit에는 대상 하이퍼바이저에 대한 마이그레이션 작업용 고급 하이퍼바이저 설정이 포함되어 있습니다. 이러한 설정을 통해 마이그레이션 관리자는 필요에 따라 각 VM 마이그레이션 단계에 대한 기능을 활성화할 수 있습니다. Shift Toolkit은 런타임에 설정을 읽어오므로 각 작업은 시작 시 선택된 옵션을 적용합니다.

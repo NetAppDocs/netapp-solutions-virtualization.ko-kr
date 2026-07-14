@@ -18,6 +18,7 @@ Velero와 OpenShift API for Data Protection(OADP)을 사용하여 OpenShift Virt
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 백업에서 복원하려면 가상 머신이 있던 네임스페이스가 실수로 삭제되었다고 가정해 보겠습니다.

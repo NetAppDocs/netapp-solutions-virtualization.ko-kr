@@ -20,6 +20,7 @@ Shift Toolkit은 대상 환경에서 디스크 포맷 변환과 네트워크 재
 
 
 
+[[before-you-begin]]
 == 시작하기 전에
 
 마이그레이션을 시작하기 전에 다음 전제 조건이 충족되는지 확인하세요.
@@ -220,6 +221,7 @@ NOTE: 준비 스크립트는 .msi 패키지를 사용하여 드라이버와 qemu
 
 
 
+[[step-1-add-the-destination-site-openshift]]
 == 1단계: 대상 사이트 추가(OpenShift)
 
 Shift Toolkit에 대상 OpenShift Virtualization 환경을 추가합니다.
@@ -282,6 +284,7 @@ NOTE: 디스크 포맷 변환은 동일한 볼륨 내의 볼륨 수준에서 발
 
 
 
+[[step-2-create-resource-groups]]
 == 2단계: 리소스 그룹 만들기
 
 부팅 순서와 부팅 지연 구성을 보존하기 위해 VM을 리소스 그룹으로 구성합니다.
@@ -358,6 +361,7 @@ image::shift-toolkit-107.png[마이그레이션 세부 정보 구성]
 
 
 
+[[step-3-create-a-migration-blueprint]]
 == 3단계: 마이그레이션 청사진 만들기
 
 플랫폼 매핑, 네트워크 구성, VM 설정을 포함하여 마이그레이션 계획을 정의하는 청사진을 만듭니다.
@@ -484,6 +488,7 @@ image::shift-toolkit-113.png[마이그레이션을 위한 청사진 준비 완�
 ====
 
 
+[[step-4-execute-the-migration]]
 == 4단계: 마이그레이션 실행
 
 VMware ESXi에서 OpenShift Virtualization으로 VM을 변환하기 위한 마이그레이션 워크플로를 트리거합니다.
@@ -556,6 +561,7 @@ NOTE: 작업이 완료되면 설계도에 대해 검증 옵션을 실행할 수 
 
 
 
+[[use-migration-toolkit-for-virtualization-with-shift-toolkit-scripted-approach]]
 == Shift Toolkit과 함께 Migration Toolkit for Virtualization 사용(스크립트 방식)
 
 이 섹션에서는 NetApp Shift Toolkit과 함께 MTV(Migration Toolkit for Virtualization)를 사용하여 Red Hat OpenShift Virtualization으로 원활하게 마이그레이션하는 방법을 설명합니다.
@@ -708,6 +714,7 @@ python3 main.py --mode params --ontap-server 10.192.102.56 --ontap-username admi
 
 
 
+[[video-demonstration]]
 == 비디오 데모
 
 다음 영상에서는 이 솔루션에 설명된 프로세스를 보여줍니다.

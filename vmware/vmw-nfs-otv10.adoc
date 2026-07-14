@@ -22,6 +22,7 @@ ONTAP tools for VMware vSphere VASA 공급자(iSCSI 및 NFS vVols 지원)에 대
 
 
 
+[[solution-overview]]
 == 솔루션 개요
 
 이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
@@ -35,6 +36,7 @@ ONTAP tools for VMware vSphere VASA 공급자(iSCSI 및 NFS vVols 지원)에 대
 
 
 
+[[architecture]]
 == 아키텍처
 
 다음 다이어그램은 ONTAP tools for VMware vSphere 의 아키텍처 구성 요소를 보여줍니다.
@@ -43,6 +45,7 @@ image:vmware-nfs-otv10-029.png["otv10 아키텍처"]
 
 
 
+[[prerequisites]]
 == 필수 조건
 
 이 솔루션에는 다음과 같은 구성 요소와 구성이 필요합니다.
@@ -62,12 +65,14 @@ VMware vSphere와 함께 ONTAP 사용하는 것에 대한 네트워크 지침은
 
 
 
+[[deployment-steps]]
 == 배포 단계
 
 ONTAP 도구 10을 배포하고 이를 사용하여 VCF 관리 도메인에 NFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
 
 
 
+[[create-svm-and-lifs-on-ontap-storage-system]]
 === ONTAP 스토리지 시스템에 SVM 및 LIF 생성
 
 다음 단계는 ONTAP 시스템 관리자에서 수행됩니다.
@@ -108,6 +113,7 @@ image:vmware-vcf-asa-004.png["SVM 계정 활성화 및 완료"]
 ====
 
 
+[[set-up-networking-for-nfs-on-esxi-hosts]]
 === ESXi 호스트에서 NFS에 대한 네트워킹 설정
 
 다음 단계는 vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터에서 수행됩니다.  이 경우 vCenter Single Sign-On이 사용되므로 vSphere 클라이언트는 관리 및 워크로드 도메인에서 공통적입니다.
@@ -194,6 +200,7 @@ image:vmware-nfs-otv10-006.png["VMkernel 선택 검토"]
 ====
 
 
+[[deploy-and-use-ontap-tools-10-to-configure-storage]]
 === ONTAP 도구 10을 배포하고 사용하여 스토리지를 구성합니다.
 
 다음 단계는 vSphere 클라이언트를 사용하여 vSphere 8 클러스터에서 수행되며 여기에는 OTV 배포, ONTAP 도구 관리자 구성, vVols NFS 데이터스토어 생성이 포함됩니다.
@@ -439,6 +446,7 @@ image:vmware-nfs-otv10-032.png["최근 작업 창"]
 ====
 
 
+[[additional-information]]
 == 추가 정보
 
 ONTAP tools for VMware vSphere 의 전체 목록은 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/index.html["ONTAP tools for VMware vSphere 문서 리소스"] .

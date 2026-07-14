@@ -18,6 +18,7 @@ Velero 및 NetApp ONTAP S3 또는 StorageGRID 사용하여 OpenShift Virtualizat
 
 
 
+[[steps-to-create-a-backup-of-a-vm]]
 == VM 백업을 생성하는 단계
 
 전체 VM(VM 메타데이터 및 VM 디스크)의 주문형 백업을 만들려면 **백업** 탭을 클릭하세요.  이렇게 하면 백업 사용자 정의 리소스(CR)가 생성됩니다. 백업 CR을 생성하기 위한 샘플 yaml이 제공됩니다.  이 yaml을 사용하면 지정된 네임스페이스에 있는 VM과 디스크가 백업됩니다. 추가 매개변수는 표시된 대로 설정할 수 있습니다.link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.html["선적 서류 비치"] .
@@ -51,6 +52,7 @@ image:redhat-openshift-oadp-backup-002.png["S3의 백업 객체"]
 
 
 
+[[creating-scheduled-backups-for-vms-in-openshift-virtualization]]
 == OpenShift Virtualization에서 VM에 대한 예약된 백업 생성
 
 일정에 따라 백업을 만들려면 일정 CR을 만들어야 합니다. 일정은 백업을 만들고 싶은 시간을 지정할 수 있게 해주는 Cron 표현식입니다. 일정 CR을 만드는 샘플 YAML입니다.

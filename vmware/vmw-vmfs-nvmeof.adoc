@@ -18,6 +18,7 @@ summary: 이 페이지에서는 VMware vSphere 환경에서 VMFS 데이터 저�
 
 
 
+[[what-you-need]]
 == 당신에게 필요한 것
 
 * vSphere 환경과 ONTAP 관리하는 데 필요한 기본 기술입니다.
@@ -41,6 +42,7 @@ summary: 이 페이지에서는 VMware vSphere 환경에서 VMFS 데이터 저�
 
 
 
+[[provision-vmfs-datastore]]
 == VMFS 데이터 저장소 프로비저닝
 
 . 호환성을 확인하세요 https://mysupport.netapp.com/matrix["상호 운용성 매트릭스 도구(IMT)"] .
@@ -49,6 +51,7 @@ summary: 이 페이지에서는 VMware vSphere 환경에서 VMFS 데이터 저�
 
 
 
+[[ontap-tasks]]
 == ONTAP 작업
 
 . link:https://docs.netapp.com/us-en/ontap-cli-98/system-license-show.html["FCP에 대한 ONTAP 라이센스를 확인하세요."]사용하세요 `system license show` 명령을 실행하고 NVMe_oF가 나열되어 있는지 확인하세요.  사용 `license add -license-code <license code>` 라이센스를 추가하려면.
@@ -69,6 +72,7 @@ summary: 이 페이지에서는 VMware vSphere 환경에서 VMFS 데이터 저�
 
 
 
+[[vmware-vsphere-tasks]]
 == VMware vSphere 작업
 
 . HBA 드라이버가 설치되었는지 확인하세요.  VMware가 지원하는 HBA에는 드라이버가 기본적으로 배포되어 있으며 다음 위치에서 볼 수 있어야 합니다.link:++https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-ED20B7BE-0D1C-4BF7-85C9-631D45D96FEC.html++["스토리지 어댑터 정보"]

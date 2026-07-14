@@ -18,6 +18,7 @@ VMDC(Virtual Machine Data Collector)는 VMware 환경을 위해 설계된 GUI를
 
 
 
+[[introduction]]
 == 소개
 
 VMDC(Virtual Machine Data Collector)는 VMware 환경을 위한 무료의 가볍고 간단한 GUI 기반 툴킷으로, 사용자가 가상 머신(VM), 호스트, 스토리지 및 네트워크에 대한 자세한 인벤토리 정보를 수집할 수 있습니다.
@@ -26,6 +27,7 @@ Virtual Machine Data Collector에 대한 자세한 내용은 다음을 참조하
 
 
 
+[[vmdc-capabilities]]
 == VMDC 기능
 
 VMDC는 vCPU 및 RAM과 함께 VMWare 코어 라이선싱에 대한 최적화 가능성을 예측하기 위한 빠르고 즉각적인 통계를 수집하기 위한 디딤돌일 뿐입니다.  AU와 데이터 수집기를 설치해야 하는 NetApp Data Infrastructure Insights 자세한 VM 토폴로지를 이해하고 주석을 사용하여 VM을 그룹화하여 작업 부하를 적정 크기로 조정하고 인프라를 미래에 대비시키기 위한 당연한 다음 단계입니다.

@@ -18,6 +18,7 @@ VI 워크로드 도메인에서 NFS vVols 스토리지를 구성합니다.  ONTA
 
 
 
+[[step-1-deploy-ontap-tools-for-vmware-vsphere]]
 == 1단계: ONTAP tools for VMware vSphere 배포
 
 VI 워크로드 도메인의 경우 ONTAP 도구는 VCF 관리 클러스터에 설치되지만 VI 워크로드 도메인과 연결된 vCenter에 등록됩니다.
@@ -87,6 +88,7 @@ image:vmware-vcf-asa-035.png["OTV 템플릿 사용자 정의 2"]
 
 
 
+[[step-2-add-a-storage-system]]
 == 2단계: 스토리지 시스템 추가
 
 ONTAP 도구를 사용하여 스토리지 시스템을 추가하려면 다음 단계를 수행하세요.
@@ -131,6 +133,7 @@ image:vmware-vcf-asa-017.png["클러스터 인증서 승인"]
 
 
 
+[[step-3-create-an-nfs-datastore-in-ontap-tools]]
 == 3단계: ONTAP 도구에서 NFS 데이터 저장소 만들기
 
 NFS에서 실행되는 ONTAP 데이터 저장소를 배포하려면 다음 단계를 완료하세요.  ONTAP 도구를 사용하세요.
@@ -187,6 +190,7 @@ image:vmware-vcf-aff-045.png["리뷰 요약 및 마무리"]
 
 
 
+[[step-4-create-a-vvols-datastore-in-ontap-tools]]
 == 4단계: ONTAP 도구에서 vVols 데이터 저장소 만들기
 
 ONTAP 도구에서 vVols 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
@@ -247,6 +251,7 @@ image:vmware-vcf-aff-049.png["요약 페이지"]
 
 
 
+[[additional-information]]
 == 추가 정보
 
 * ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하십시오.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"^] .

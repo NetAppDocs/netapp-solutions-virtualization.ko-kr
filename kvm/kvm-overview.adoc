@@ -18,6 +18,7 @@ KVM 가상화에 대해 알아보고 QEMU와 Libvirt와 함께 작동하여 포�
 
 
 
+[[overview-of-components]]
 == 구성 요소 개요
 
 . KVM(커널 기반 가상 머신):
@@ -69,6 +70,7 @@ https://galaxy.ansible.com/ui/repo/published/community/libvirt/["Ansible 모듈�
 
 
 
+[[cluster-management]]
 == 클러스터 관리
 
 일반적으로 가상화 관리자 또는 virsh CLI 도구는 한 번에 하나의 호스트를 관리합니다.  클러스터에서 여러 호스트를 관리하기 위해 oVirt, CloudStack 또는 OpenStack과 같은 상위 레벨 애플리케이션이 종종 사용됩니다.  이러한 도구는 VM 배치와 부하 분산에 도움이 됩니다.  소규모 클러스터 환경에서 특정 VM의 고가용성을 원하는 경우 Corosync와 함께 Pacemaker를 사용하거나 관리 스택 옵션을 확인하세요.
@@ -77,6 +79,7 @@ image:kvm-overview-001.png["관리 구성 요소가 포함된 Libvirt 스택"]
 
 
 
+[[compute]]
 == 컴퓨팅
 
 Libvirt는 가상 머신 리소스와 기능을 관리하기 위한 포괄적인 프레임워크를 제공합니다.  여기에는 다음과 관련된 작업이 포함됩니다.
@@ -128,6 +131,7 @@ VM 메타데이터는 /etc/libvirt/qemu에 XML로 저장됩니다.  VM은 virt-i
 
 
 
+[[storage]]
 == 스토리지
 
 VM 디스크는 스토리지 풀에 동적으로 프로비저닝될 수도 있고, 스토리지 관리자가 VM에 대해 미리 프로비저닝할 수도 있습니다.  libvirt는 다양한 풀 유형을 지원합니다.  지원되는 저장 프로토콜과 함께 적용 가능한 풀 유형 목록은 다음과 같습니다.  가장 많이 사용되는 옵션은 dir입니다. 그 다음으로 netfs와 logical입니다. iscsi와 iscsi-direct는 단일 대상을 사용하며 내결함성을 제공하지 않습니다. mpath는 다중 경로를 제공하지만 동적으로 할당되지는 않습니다.  이는 vSphere의 원시 장치 매핑과 비슷하게 사용됩니다.  파일 프로토콜(NFS/SMB/CIFS)의 경우 마운트 옵션을 지정할 수 있습니다. https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/managing_file_systems/mounting-file-systems-on-demand#the-autofs-service["자동 마운터"] 또는 fstab과 dir 풀 유형이 사용됩니다.  블록 프로토콜(iSCSI, FC, NVMe-oF)의 경우 ocfs2나 gfs2와 같은 공유 파일 시스템이 사용됩니다.
@@ -180,6 +184,7 @@ vSphere 환경에서 VM 데이터를 가져오려면 다음을 살펴보세요.l
 
 
 
+[[network]]
 == 회로망
 
 Libvirt는 가상 머신과 컨테이너를 관리하기 위한 강력한 가상 네트워킹 기능을 제공합니다.  이는 가상 네트워크 스위치 또는 브리지라는 개념을 통해 달성됩니다.
@@ -219,6 +224,7 @@ libvirt는 이러한 기능을 활용하여 Linux 환경에서 가상 머신 네
 
 
 
+[[monitoring]]
 == 모니터링
 
 NetApp Data Infrastructure Insights (이전 명칭 Cloud Insights)는 가상 머신을 포함한 IT 인프라에 대한 포괄적인 가시성을 제공하는 클라우드 기반 인프라 모니터링 및 분석 플랫폼입니다.
@@ -253,6 +259,7 @@ NetApp Data Infrastructure Insights 사용하여 Libvirt 기반 가상 머신을
 
 
 
+[[data-protection]]
 == 데이터 보호
 
 NetApp ONTAP 사용하여 Libvirt 기반 가상 머신의 데이터를 보호하는 작업은 여러 가지 방법으로 수행할 수 있으며, 종종 ONTAP의 내장된 데이터 보호 기능을 활용합니다.  일반적인 전략에 대한 세부 사항은 다음과 같습니다.

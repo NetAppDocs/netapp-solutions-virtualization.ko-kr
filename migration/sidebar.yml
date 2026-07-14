@@ -22,7 +22,7 @@ entries:
     url: "/migration/shift-toolkit-ui.html"
   - title: Shift Toolkit을 사용하여 VM 마이그레이션
     entries:
-    - title: 개요
+    - title: 마이그레이션 프로세스 개요
       url: "/migration/shift-toolkit-migration.html"
     - title: VMware ESXi에서 Microsoft Hyper-V로 VM 마이그레이션
       url: "/migration/shift-toolkit-migrate-esxi2hyperv.html"

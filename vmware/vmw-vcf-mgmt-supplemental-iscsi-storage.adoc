@@ -17,6 +17,7 @@ vSphere 클라이언트를 사용하여 VCF 관리 도메인 클러스터에서 
 
 
 
+[[step-1-deploy-ontap-tools-for-vmware-vsphere]]
 == 1단계: ONTAP tools for VMware vSphere 배포
 
 ONTAP tools for VMware vSphere VM 어플라이언스로 배포되며 ONTAP 스토리지를 관리하기 위한 통합 vCenter UI를 제공합니다.
@@ -84,6 +85,7 @@ image:vmware-vcf-asa-035.png["OTV 템플릿 사용자 정의 2"]
 
 
 
+[[step-2-add-a-storage-system]]
 == 2단계: 스토리지 시스템 추가
 
 ONTAP 도구를 사용하여 스토리지 시스템을 추가하려면 다음 단계를 수행하세요.
@@ -125,6 +127,7 @@ image:vmware-vcf-asa-017.png["클러스터 인증서 승인"]
 
 
 
+[[optional-migrate-management-vms-to-the-iscsi-datastore]]
 == 선택 사항: 관리 VM을 iSCSI 데이터 저장소로 마이그레이션
 
 VCF 관리 VM을 보호하기 위해 ONTAP 스토리지를 사용하려는 경우 vMotion을 사용하여 VM을 새로 만든 iSCSI 데이터스토어로 마이그레이션합니다.
@@ -168,6 +171,7 @@ image:vmware-vcf-asa-021.png["vSphere 클라이언트 최근 작업 창"]
 
 
 
+[[additional-information]]
 == 추가 정보
 
 * ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"^] .

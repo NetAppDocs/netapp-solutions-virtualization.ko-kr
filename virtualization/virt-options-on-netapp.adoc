@@ -18,6 +18,7 @@ NetApp ONTAP 특히 최근 VMware 라이선스 변경에 대응하여 가상화�
 
 
 
+[[introduction]]
 == 소개
 
 VMware의 최근 라이선스 변경 사항을 고려하면, 조직에서는 가상화 전략을 적응시켜 비용 효율성과 확장성을 극대화하고 비즈니스 위험을 최소화해야 합니다.  기존 VMware 환경을 최적화하고, 기존 엔터프라이즈 스토리지를 사용하여 독립형 vSphere에서 VMware Cloud Foundation(VCF)으로 마이그레이션을 고려하고, 멀티 하이퍼바이저 또는 하이브리드 클라우드 접근 방식을 도입하는 것이 핵심 단계입니다.  특히, VCF 5.2.1은 vSAN 대신 외부 스토리지 솔루션을 사용할 수 있도록 허용하여 유연성을 강화했으며, 조직이 엔터프라이즈 스토리지 기능을 사용하고 연속성을 유지하면서 새로운 라이선싱 모델을 도입하는 능력을 간소화했습니다.
@@ -28,6 +29,7 @@ ONTAP 은 온프레미스 또는 클라우드의 모든 하이퍼바이저에 �
 
 
 
+[[what-changed]]
 == 무엇이 바뀌었는가
 
 Broadcom이 VMware를 인수하면서 VMware의 라이선스 모델이 크게 바뀌었습니다.  새로운 접근 방식은 구독 기반 번들 가격 구조로 전환되고 있지만, 업계 추세에 따르면 고객에게 상당히 높은 비용을 부과할 것으로 예상됩니다.  명심해야 할 세 가지 주요 사항은 다음과 같습니다.
@@ -42,6 +44,7 @@ Broadcom이 VMware를 인수하면서 VMware의 라이선스 모델이 크게 �
 
 
 
+[[why-ontap]]
 == ONTAP 해야 하는 이유
 
 NetApp 스토리지 솔루션은 고객이 가상화된 인프라의 모든 이점을 최대한 활용할 수 있도록 지원합니다.  NetApp 솔루션을 사용하면 고객은 포괄적인 데이터 관리 소프트웨어를 신속하게 구축하여 자동화, 효율성, 데이터 보호 및 선도적인 보안 기능을 제공하는 동시에 까다로운 성능 요구 사항도 충족할 수 있습니다.  ONTAP 소프트웨어를 VMware vSphere와 결합하면 호스트 하드웨어와 VMware 라이선스 비용을 절감하고, 더 낮은 비용으로 데이터를 보호하며, 일관되게 높은 성능을 제공할 수 있습니다.
@@ -66,6 +69,7 @@ ONTAP 스토리지 솔루션은 다음과 같은 이점을 제공합니다.
 
 
 
+[[key-takeaways]]
 === 주요 내용
 
 * ONTAP 사용하면 스토리지 효율성, 암호화, 스냅샷 등 CPU 집약적인 작업을 오프로드하여 ESXi 호스트의 CPU 영향과 오버헤드를 없앨 수 있습니다.  이러한 최적화를 통해 각 호스트에 필요한 코어 수가 줄어들어 총 소유 비용(TCO)이 줄어듭니다.
@@ -78,6 +82,7 @@ ONTAP 스토리지 솔루션은 다음과 같은 이점을 제공합니다.
 
 
 
+[[right-size-and-optimize]]
 == 적정 크기 및 최적화
 
 이러한 라이선싱 변경 사항이 적용됨에 따라 모든 IT 조직은 총 소유 비용(TCO)이 10배 이상 증가할 가능성에 대한 스트레스를 받고 있습니다.  최적화된 VMware 환경은 라이선스 비용을 제어하는 동시에 성능을 극대화합니다.  이를 통해 효과적인 자원 관리와 용량 계획이 보장됩니다.  적절한 도구 세트를 사용하면 낭비되거나 유휴 리소스를 빠르게 식별하여 코어를 회수하고, 이를 통해 코어 수를 줄일 수 있으며, 이는 전체 라이선스 비용을 절감하는 데 도움이 됩니다.
@@ -86,6 +91,7 @@ NetApp 이러한 과제를 극복할 수 있는 강력한 도구 모음을 제�
 
 
 
+[[how-netapp-helps]]
 === NetApp 어떻게 도움이 되나요?
 
 
@@ -204,12 +210,14 @@ ONTAP One을 사용하면 추가 계층 역할을 하는 모든 보안 기능 �
 
 
 
+[[vmware-alternatives-to-consider]]
 == 고려해야 할 VMware 대안
 
 모든 조직에서는 멀티 벤더 하이퍼바이저 전략을 지원하는 멀티 하이퍼바이저 접근 방식을 평가하고 있으며, 이를 통해 운영 유연성을 강화하고, 벤더 종속성을 완화하며, 워크로드 배치를 최적화합니다.  여러 하이퍼바이저를 결합하면 조직은 비용을 관리하는 동시에 다양한 작업 부하 수요를 충족하도록 인프라를 맞춤화할 수 있습니다.  조직에서는 상호 운용성, 비용 효율적인 라이선싱, 자동화를 활용하여 다중 하이퍼바이저 관리를 간소화합니다.  ONTAP 은 모든 하이퍼바이저 플랫폼에 이상적인 플랫폼입니다.  이러한 접근 방식에서 가장 중요한 요구 사항은 SLA와 워크로드 배치 전략에 따른 동적 가상 머신 이동성입니다.
 
 
 
+[[key-considerations-for-multi-hypervisor-adoption]]
 === 다중 하이퍼바이저 도입을 위한 주요 고려 사항
 
 * *전략적 비용 최적화:* 단일 공급업체에 대한 의존도를 낮추면 운영 및 라이선스 비용이 최적화됩니다.
@@ -226,6 +234,7 @@ image:virt-options-002.png["NetApp 에서 지원하는 가상화 옵션 다이�
 
 
 
+[[hyper-v-windows-server]]
 === Hyper-V(Windows Server)
 
 살펴보겠습니다.
@@ -250,6 +259,7 @@ image:virt-options-002.png["NetApp 에서 지원하는 가상화 옵션 다이�
 
 
 
+[[openshift-virtualization-redhat-kubevirt-implementation]]
 === OpenShift 가상화(RedHat KubeVirt 구현)
 
 살펴보겠습니다.
@@ -279,6 +289,7 @@ OpenShift Virtualization은 다음과 같은 경우에 적합할 수 있습니�
 
 
 
+[[proxmox-virtual-environment-proxmox-ve]]
 === Proxmox 가상 환경(Proxmox VE)
 
 살펴보겠습니다.
@@ -311,6 +322,7 @@ OpenShift Virtualization은 다음과 같은 경우에 적합할 수 있습니�
 
 
 
+[[vmware-cloud-offerings-azure-vmware-solution-google-cloud-vmware-engine-vmware-cloud-on-aws-elastic-vmware-service]]
 === VMware Cloud 제품(Azure VMWare Solution, Google Cloud VMware Engine, VMware Cloud on AWS, Elastic VMware Service)
 
 살펴보겠습니다.
@@ -356,6 +368,7 @@ VMware Cloud 제품으로 마이그레이션해야 하는 이유:
 
 
 
+[[cloud-native-virtual-machines]]
 === 클라우드 네이티브 가상 머신
 
 
@@ -380,6 +393,7 @@ NOTE: NetApp 3대 주요 하이퍼스케일러 전반에 걸쳐 클라우드에�
 
 
 
+[[azure-local-or-aws-outpost-or-any-other-hci-model]]
 === Azure Local 또는 AWS Outpost 또는 기타 HCI 모델
 
 살펴보겠습니다.
@@ -411,6 +425,7 @@ Azure Local 또는 AWS Outpost로 마이그레이션해야 하는 이유:
 
 
 
+[[other-hypervisor-options-that-are-being-considered-in-customer-environments]]
 === 고객 환경에서 고려 중인 기타 하이퍼바이저 옵션
 
 * *KVM*은 일반적으로 상위 Linux 배포판에 따라 ONTAP 에서 지원됩니다. 참조 Linux에 대한 내용은 IMT 참조하세요.
@@ -430,10 +445,12 @@ image:virt-options-003.png["가상화를 위한 NetApp의 Any to Any 접근 방�
 
 
 
+[[wicked-fast-100x-faster-migrations]]
 == Wicked Fast(100배 더 빠름) 마이그레이션
 
 
 
+[[shift-toolkit]]
 === 시프트 툴킷
 
 위에서 설명한 대로 VMware, Microsoft Hyper-V, Proxmox, OpenShift Virtualization과 같은 솔루션은 가상화 요구 사항에 대한 강력하고 안정적인 선택이 되었습니다.  비즈니스 요구 사항이 역동적이기 때문에 가상화 플랫폼을 선택하는 것도 적응성이 있어야 하며, 즉각적인 가상 머신 이동성이 중요해집니다.
@@ -451,6 +468,7 @@ NOTE: Shift 툴킷을 사용하기 위한 전제 조건은 ONTAP 스토리지에
 
 
 
+[[cirrus-data-migrateops]]
 === 시러스 데이터 마이그레이트옵스
 
 Shift 툴킷의 대안은 블록 수준 복제를 기반으로 하는 파트너 기반 솔루션입니다.  Cirrus Data는 기존 하이퍼바이저에서 최신 플랫폼으로 워크로드를 원활하게 마이그레이션하여 보다 유연한 하이브리드 워크로드, 가속화된 현대화 작업, 향상된 리소스 활용도를 제공합니다. link:https://action.cirrusdata.com/virtualization-optimization#:~:text=Migrate%20from%20leading%20hypervisors%20with%20just%20a%20click.,from%20Amazon%20Web%20Services%20%28AWS%29%20and%20Microsoft%20Azure.["Cirrus Migrate Cloud"] MigrateOps와 함께 사용하면 조직이 안전하고 사용하기 쉬우며 안정적인 솔루션을 통해 한 하이퍼바이저에서 다른 하이퍼바이저로의 변경을 자동화할 수 있습니다.
@@ -459,6 +477,7 @@ Shift 툴킷의 대안은 블록 수준 복제를 기반으로 하는 파트너 
 
 
 
+[[common-projected-deployment-model-in-a-multi-hypervisor-environment]]
 == 공통 프로젝트 배포 모델(멀티 하이퍼바이저 환경)
 
 한 고객은 10,000개의 VM(Windows와 Linux 워크로드 혼합)을 갖춘 대규모 가상화 환경을 보유하고 있었습니다.  라이선스 비용을 최적화하고 가상화 인프라의 미래를 단순화하기 위해서는 멀티 하이퍼바이저와 가상 머신 배치 전략이 중요했습니다.  그들은 작업 부하의 중요도, 운영 체제 유형, 성능 요구 사항, 하이퍼바이저 기능 및 라이선스 비용을 기반으로 VM 배치 전략을 선택했습니다.
@@ -474,6 +493,7 @@ Shift 툴킷의 대안은 블록 수준 복제를 기반으로 하는 파트너 
 
 
 
+[[conclusion]]
 == 결론
 
 Broadcom 인수 이후 VMware 고객은 통합, 성능 최적화, 비용 관리의 복잡한 환경을 헤쳐나가고 있습니다.  NetApp 이러한 과제를 극복할 수 있는 강력한 도구와 기능 모음을 제공하여 가시성을 높이고, 원활한 통합, 비용 효율성, 견고한 보안을 제공합니다.  이러한 기능을 사용하면 VMware를 계속 사용하고, 여러 공급업체의 접근 방식을 활용하고, 향후 발생할 수 있는 중단에 대비할 수 있습니다.

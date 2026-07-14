@@ -25,6 +25,7 @@ NOTE: 비밀번호는 평문 파일에 저장되며 루트 사용자만 접근�
 video::5b4ae54a-08d2-4f7d-95ec-b22d015f6035[panopto,width=360]
 
 
+[[storage-administrator-tasks]]
 == 스토리지 관리자 작업
 
 ONTAP 처음 사용하는 경우 시스템 관리자 인터페이스를 사용하여 이러한 작업을 완료하십시오.
@@ -67,6 +68,7 @@ image:proxmox-ontap-smb-004.png["SMB 공유 정보"]
 
 
 
+[[virtualization-administrator-tasks]]
 == 가상화 관리자 작업
 
 Proxmox VE에 SMB 공유를 스토리지로 추가하고 성능 향상 및 내결함성을 위해 멀티채널을 활성화하려면 다음 작업을 완료하십시오.

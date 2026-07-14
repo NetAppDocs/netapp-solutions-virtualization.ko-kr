@@ -18,12 +18,14 @@ NetApp 비용 효율적인 스토리지를 위한 FAS , 고성능 워크로드�
 
 
 
+[[introduction]]
 == 소개
 
 이러한 제품은 VMware 관리자의 성능, 확장성 및 데이터 관리를 향상시킵니다.  또한 ONTAP 은 이러한 플랫폼 전반에 활용되어 다양한 스토리지 프로토콜을 지원하고, 데이터 보호를 강화하고, 다양한 작업 부하에 대한 성능을 최적화하는 통합적이고 확장 가능하며 효율적인 데이터 관리 솔루션을 제공합니다.
 
 
 
+[[common-benefits-across-netapp-platforms]]
 == NetApp 플랫폼 전반의 공통적인 이점
 
 * *VMware 통합:* 모든 NetApp 플랫폼은 VMware와의 긴밀한 통합을 제공하여 스토리지 환경의 효율성을 향상시킵니다.  온프레미스 솔루션은 플러그인, API, VAAI, VASA를 활용하여 인프라의 다양성을 높이는 동시에 전반적인 데이터 관리를 개선할 수 있습니다.
@@ -42,6 +44,7 @@ NetApp 비용 효율적인 스토리지를 위한 FAS , 고성능 워크로드�
 
 
 
+[[netapp-asa-all-san-array-benefits]]
 == NetApp ASA (All SAN Array)의 이점
 
 * *SAN에 최적화됨:* SAN 워크로드에 맞게 특별히 설계되어 블록 스토리지에 의존하는 VMware 환경에서 높은 성능과 낮은 지연 시간을 제공합니다.
@@ -60,6 +63,7 @@ image:vmware-asa-002.png["너비=800"]
 
 
 
+[[storage-protocol-support]]
 === 저장 프로토콜 지원
 
 ASA iSCSI, 파이버 채널(FC), 파이버 채널 over Ethernet(FCoE), NVME over fabrics를 포함한 모든 표준 SAN 프로토콜을 지원합니다.
@@ -78,6 +82,7 @@ NVMe에 대한 설계 지침은 다음을 참조하세요. https://docs.netapp.c
 
 
 
+[[active-active-technology]]
 === 액티브-액티브 기술
 
 NetApp All-Flash SAN 어레이는 두 컨트롤러를 통한 액티브-액티브 경로를 허용하므로 호스트 운영 체제가 액티브 경로에 장애가 발생할 때까지 기다렸다가 대체 경로를 활성화할 필요가 없습니다.  즉, 호스트는 모든 컨트롤러에서 사용 가능한 모든 경로를 활용할 수 있으므로 시스템이 안정 상태에 있든 컨트롤러 장애 조치 작업이 진행 중이든 활성 경로가 항상 존재합니다.
@@ -92,6 +97,7 @@ NetApp All-Flash SAN 어레이는 두 컨트롤러를 통한 액티브-액티브
 
 
 
+[[netapp-aff-all-flash-fas-benefits]]
 == NetApp AFF (All Flash FAS)의 이점
 
 * *극한의 성능:* 올플래시 스토리지를 활용하여 밀리초 미만의 지연 시간과 높은 IOPS를 제공하므로 성능에 민감한 VMware 워크로드에 적합합니다.
@@ -106,6 +112,7 @@ NetApp C-Series 스토리지 어레이에 대한 자세한 내용은 다음을 �
 
 
 
+[[netapp-fas-fabric-attached-storage-benefits]]
 == NetApp FAS (Fabric-Attached Storage)의 이점
 
 * *통합 스토리지 아키텍처:* SAN(블록 수준) 및 NAS(파일 수준) 프로토콜을 모두 지원하므로 다양한 VMware 워크로드에 적합합니다.
@@ -114,6 +121,7 @@ NetApp C-Series 스토리지 어레이에 대한 자세한 내용은 다음을 �
 
 
 
+[[cloud-solutions-benefits]]
 == 클라우드 솔루션의 이점
 
 * *클라우드 기반 데이터 관리:* 클라우드 기반 솔루션을 활용하여 VMware 워크로드에 대한 데이터 이동성, 백업 및 재해 복구를 향상시킵니다.  VMware 클라우드 워크로드에 대한 기본 NFS 데이터 저장소 지원은 다음과 같습니다.
@@ -128,6 +136,7 @@ NetApp C-Series 스토리지 어레이에 대한 자세한 내용은 다음을 �
 
 
 
+[[summary]]
 == 요약
 
 요약하자면 ONTAP 과 NetApp 플랫폼은 VMware 워크로드에 포괄적인 이점을 제공하여 성능, 확장성, 데이터 관리를 향상시킵니다.  공통적인 기능이 견고한 기반을 제공하는 반면, 각 플랫폼은 FAS 통한 비용 효율적인 스토리지, AFF 통한 고성능, ASA 를 통한 최적화된 SAN 성능, NetApp 클라우드 솔루션을 통한 하이브리드 클라우드의 유연성 등 특정 요구 사항에 맞춰 차별화된 이점을 제공합니다.

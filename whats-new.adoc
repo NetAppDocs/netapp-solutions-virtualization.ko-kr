@@ -15,6 +15,7 @@ summary: NetApp 가상화 솔루션 자료의 최근 변경 사항 로그입니�
 
 
 
+[[10-may-2026]]
 == 2026년 5월 10일
 
 * NetApp ONTAP용 EUC(End User Computing) 솔루션이 추가되었습니다.
@@ -22,6 +23,7 @@ summary: NetApp 가상화 솔루션 자료의 최근 변경 사항 로그입니�
 
 
 
+[[15-january-2026]]
 == 2026년 1월 15일
 
 * Proxmox VE 9 릴리스를 반영하여 Proxmox VE 솔루션 콘텐츠를 업데이트했습니다.
@@ -45,6 +47,7 @@ summary: NetApp 가상화 솔루션 자료의 최근 변경 사항 로그입니�
 
 
 
+[[12-november-2025]]
 == 2025년 11월 12일
 
 * NetApp Shift Toolkit에 대한 올바른 다운로드 링크 제공
@@ -60,6 +63,7 @@ summary: NetApp 가상화 솔루션 자료의 최근 변경 사항 로그입니�
 
 
 
+[[18-august-2025]]
 == 2025년 8월 18일
 
 NetApp Solutions 사이트는 이제link:https://docs.netapp.com/us-en/netapp-solutions-family/index.html["NetApp 솔루션 제품군"^] 다음 사이트를 포함합니다.

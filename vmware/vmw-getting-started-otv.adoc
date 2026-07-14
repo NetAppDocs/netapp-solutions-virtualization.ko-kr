@@ -18,12 +18,14 @@ ONTAP tools for VMware vSphere NetApp 스토리지를 사용하여 VM의 수명 
 
 
 
+[[introduction]]
 == 소개
 
 이를 통해 관리자는 vCenter Server 내의 스토리지를 직접 관리하고 VMware 환경의 스토리지 및 데이터 관리를 간소화할 수 있습니다.  VMware vSphere Client 플러그인 도구는 vCenter Server 내부에서 실행할 필요 없이 플러그인 기능을 vSphere Client에 통합하도록 설계되었습니다.  이를 통해 플러그인을 분리하고 대규모 vSphere 환경에서 작동하는 플러그인의 확장이 가능해집니다.
 
 
 
+[[ontap-tools-components]]
 == ONTAP 도구 구성 요소
 
 * *가상 스토리지 콘솔(VSC)* VSC에는 vSphere 클라이언트와 통합된 인터페이스가 포함되어 있어 스토리지 컨트롤러를 추가하고, 데이터스토어를 프로비저닝하고, 데이터스토어의 성능을 모니터링하고, ESXi 호스트 설정을 보고 업데이트할 수 있습니다.

@@ -18,6 +18,7 @@ Amazon FSx for NetApp ONTAP 사용하여 VM을 Amazon EC2로 마이그레이션�
 
 
 
+[[high-level-architecture]]
 == 고수준 아키텍처
 
 아래 다이어그램은 CMC MigrateOps를 사용하여 VMware에서 AWS로 가상 머신 디스크(VMDK) 데이터를 마이그레이션하는 상위 수준 아키텍처를 보여줍니다.
@@ -26,10 +27,12 @@ image:migrate-ec2-fsxn-001.png["FSx ONTAP 아키텍처 다이어그램을 사용
 
 
 
+[[how-to-migrate-your-vmware-vms-to-aws-using-amazon-ec2-and-fsx-ontap-iscsi]]
 == Amazon EC2 및 FSx ONTAP iSCSI를 사용하여 VMware VM을 AWS로 마이그레이션하는 방법
 
 
 
+[[prerequisites]]
 === 필수 조건
 
 연습 단계를 시작하기 전에 다음 전제 조건이 충족되었는지 확인하세요.

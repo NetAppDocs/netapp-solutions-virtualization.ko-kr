@@ -20,6 +20,7 @@ Shift Toolkit은 대상 환경에서 디스크 포맷 변환과 네트워크 재
 
 
 
+[[before-you-begin]]
 == 시작하기 전에
 
 마이그레이션을 시작하기 전에 다음 전제 조건이 충족되는지 확인하세요.
@@ -65,6 +66,7 @@ NOTE: VMware Tools 제거는 VM이 전원이 켜진 후 대상 하이퍼바이�
 
 
 
+[[step-1-add-the-destination-site-proxmox-ve]]
 == 1단계: 대상 사이트(Proxmox VE) 추가
 
 대상 Proxmox VE 환경을 Shift Toolkit에 추가합니다.
@@ -118,6 +120,7 @@ NOTE: 디스크 포맷 변환은 볼륨 수준에서 동일한 볼륨 내에서 
 
 
 
+[[step-2-create-resource-groups]]
 == 2단계: 리소스 그룹 만들기
 
 부팅 순서와 부팅 지연 구성을 보존하기 위해 VM을 리소스 그룹으로 구성합니다.
@@ -203,6 +206,7 @@ image::shift-toolkit-457.png[리소스 그룹 만들기]
 
 
 
+[[step-3-create-a-migration-blueprint]]
 == 3단계: 마이그레이션 청사진 만들기
 
 플랫폼 매핑, 네트워크 구성, VM 설정을 포함하여 마이그레이션 계획을 정의하는 청사진을 만듭니다.
@@ -345,6 +349,7 @@ prepareVM이 성공적으로 완료되면 블루프린트 상태가 "활성"으�
 
 
 
+[[step-4-execute-the-migration]]
 == 4단계: 마이그레이션 실행
 
 VMware ESXi에서 Proxmox VE로 VM을 변환하는 마이그레이션 워크플로를 트리거합니다.
@@ -391,6 +396,7 @@ image::shift-toolkit-468.png[Proxmox VE의 VM]
 ====
 
 
+[[shift-toolkit-workflow]]
 == Shift 툴킷 워크플로우
 
 아래 섹션에서는 VMDK를 변환하고 Proxmox VE 측에서 VM을 생성하기 위해 Shift 툴킷에 의해 트리거되는 단계를 다룹니다.
@@ -419,6 +425,7 @@ image::shift-toolkit-470.png[Proxmox VE VM 세부 정보]
 
 
 
+[[minimum-permissions-for-migrating-and-creating-vms-in-proxmox-ve]]
 == Proxmox VE에서 VM을 마이그레이션하고 생성하기 위한 최소 권한
 
 이 섹션에서는 VM 마이그레이션을 수행하는 데 필요한 최소 권한을 가진 전용 사용자 계정을 생성하는 데 필요한 단계를 설명합니다.

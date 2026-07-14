@@ -18,12 +18,14 @@ Shift Toolkit을 사용하여 VM을 변환하거나 마이그레이션한 후 �
 
 
 
+[[conclusion]]
 == 결론
 
 NetApp Shift 툴킷은 관리자가 VMware에서 Hyper-V로 VM을 빠르고 원활하게 변환할 수 있도록 지원합니다. 또한, 서로 다른 하이퍼바이저 간에 가상 디스크만 변환할 수도 있습니다.  따라서 Shift 툴킷을 사용하면 하이퍼바이저 간에 작업 부하를 옮길 때마다 몇 시간의 노력을 절약할 수 있습니다.  이제 조직에서는 워크로드가 단일 하이퍼바이저에 묶여 있는지 걱정할 필요 없이 여러 하이퍼바이저 환경을 호스팅할 수 있습니다.  이 기능을 통해 유연성이 높아지고 라이선스 비용, 종속성, 단일 공급업체에 대한 약정이 줄어듭니다.
 
 
 
+[[next-steps]]
 == 다음 단계
 
 Shift 툴킷 패키지를 다운로드하여 Data ONTAP 의 잠재력을 활용하고 가상 머신이나 디스크 파일을 마이그레이션하거나 변환하여 마이그레이션을 간소화하고 효율화하세요.
@@ -34,6 +36,7 @@ Shift 툴킷 패키지를 다운로드하여 Data ONTAP 의 잠재력을 활용�
 video::6bf11896-3219-4ba7-9a00-b2d800d47144[panopto,width=360]
 
 
+[[troubleshooting-and-known-issues]]
 == 문제 해결 및 알려진 문제
 
 . IP 주소 설정 및 제거를 위한 트리거 스크립트가 Windows VM에 대해 다음 오류와 함께 실패합니다. 자격 증명이 잘못되었습니다.
@@ -116,10 +119,12 @@ a. Decrypt the VMDK inside VMware and retry the operation.
 
 
 
+[[appendix]]
 == 부록
 
 
 
+[[custom-ontap-role-for-shift-toolkit]]
 === Shift 툴킷을 위한 사용자 정의 ONTAP 역할
 
 Shift 툴킷에서 작업을 수행하기 위해 ONTAP 관리자 역할을 사용할 필요가 없도록 최소한의 권한이 있는 ONTAP 역할을 만듭니다.  이러한 최소 역할은 ONTAP 스토리지 측의 SVM 수준에서 요구됩니다.
@@ -154,6 +159,7 @@ ONTAP 시스템 관리자에서 다음 단계를 수행합니다.
 
 
 
+[[minimum-permissions-role-required-on-vmware]]
 === VMware에 필요한 최소 권한 역할
 
 Shift 툴킷을 사용하여 VMware vSphere에서 가상 머신을 마이그레이션하려면 관리 > 액세스 제어 > 역할을 사용하여 아래 언급된 권한이 있는 RBAC 사용자를 만듭니다.
