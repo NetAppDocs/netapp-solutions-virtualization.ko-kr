@@ -29,7 +29,7 @@ summary: Red Hat OpenShift 가상화
 . OpenShift 클러스터에 대한 클러스터 관리자 액세스 권한과 필요한 구성을 수행하기 위한 ONTAP 스토리지 시스템에 대한 관리자 액세스 권한이 필요합니다.
 .  `tridentctl` 및  `oc` 도구가 설치되어 $PATH 환경 변수에 추가된 관리자 워크스테이션으로 OpenShift 클러스터 및 Trident와 상호 작용합니다.
 . 프로비저닝될 VM과 OpenShift Virtualization 운영자를 지원하기 위해 OpenShift 클러스터에 충분한 하드웨어 리소스가 필요합니다. 리소스 요구 사항에 대한 자세한 내용은 link:https://docs.openshift.com/container-platform/4.7/virt/install/preparing-cluster-for-virt.html#virt-cluster-resource-requirements_preparing-cluster-for-virt["여기에 문서가 있습니다."]을 참조하십시오.
-. 선택적으로 OpenShift Virtualization의 노드 배치 규칙을 구성하여 OpenShift Virtualization 운영자, 컨트롤러 및 VM을 호스팅할 클러스터 노드 하위 집합을 지정할 수 있습니다. 노드 배치 규칙 구성 방법에 대한 지침은 link:https://docs.openshift.com/container-platform/4.7/virt/install/virt-specifying-nodes-for-virtualization-components.html["여기에 문서가 있습니다."]을 참조하십시오.
+. 선택적으로 OpenShift Virtualization의 노드 배치 규칙을 구성하여 OpenShift Virtualization 운영자, 컨트롤러 및 VM을 호스팅할 클러스터 노드 하위 집합을 지정할 수 있습니다. 노드 배치 규칙 구성 방법에 대한 지침은 link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/virtualization/installing["여기에 문서가 있습니다."]을 참조하십시오.
 . OpenShift 가상화를 지원하는 스토리지의 경우, 특정 Trident 백엔드에서 스토리지를 요청하는 전용 StorageClass를 사용하는 것이 좋습니다. 이 백엔드는 전용 SVM에 의해 지원됩니다. 이를 통해 OpenShift 클러스터에서 VM 기반 워크로드에 제공되는 데이터에 대한 멀티테넌시를 유지할 수 있습니다.
 . OpenShift Virtualization에서 VM을 사용할 수 있어야 합니다.  새 VM을 배포하거나 기존 VM을 OpenShift Virtualization으로 마이그레이션하는 방법에 대한 자세한 내용은 설명서의 해당 섹션을 참조하세요.
 

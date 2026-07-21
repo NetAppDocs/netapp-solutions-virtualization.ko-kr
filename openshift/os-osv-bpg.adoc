@@ -174,9 +174,9 @@ NOTE: 저장소 구성 및 Trident 사용에 대한 모범 사례에 대한 추�
 [[openshift-virtualization-tuning-scaling-guide]]
 == **OpenShift 가상화 - 튜닝 및 확장 가이드**
 
-Red Hat은 문서화했습니다link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/recommended-performance-scale-practices/recommended-control-plane-practices.html["OpenShift 클러스터 확장 권장 사항 및 제한 사항"] .
+Red Hat은 이를 문서화했습니다link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/scalability_and_performance/recommended-performance-and-scalability-practices-2["OpenShift 클러스터 확장 권장 사항 및 제한 사항"].
 
-또한, 그들은 또한 다음을 문서화했습니다.link:https://access.redhat.com/articles/6994974]["OpenShift 가상화 튜닝 가이드"] 그리고link:https://access.redhat.com/articles/6571671["OpenShift Virtualization 4.x에 지원되는 한도"] .
+또한 그들은 link:https://access.redhat.com/articles/6994974["OpenShift 가상화 튜닝 가이드"] 및 link:https://access.redhat.com/articles/6571671["OpenShift Virtualization 4.x에 지원되는 한도"]도 문서화했습니다.
 
 
 NOTE: 위 콘텐츠를 이용하려면 활성화된 Red Hat 구독이 필요합니다.
@@ -185,7 +185,7 @@ NOTE: 위 콘텐츠를 이용하려면 활성화된 Red Hat 구독이 필요합�
 
 * 한 번에 또는 대량으로 여러 VM을 생성하기 위한 매개변수 조정
 * VM의 라이브 마이그레이션
-* link:https://docs.openshift.com/container-platform/latest/virt/vm_networking/virt-dedicated-network-live-migration.html["라이브 마이그레이션을 위한 전용 네트워크 구성"]
+* link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/virtualization/live-migration#virt-configuring-secondary-network-vm-live-migration_virt-configuring-cross-cluster-live-migration-network["라이브 마이그레이션을 위한 전용 네트워크 구성"]
 * 작업 유형을 포함하여 VM 템플릿 사용자 지정
 
 

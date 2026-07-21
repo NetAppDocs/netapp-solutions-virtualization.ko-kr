@@ -29,6 +29,8 @@ entries:
 - title: 데이터 보호
   pdf-filename: Red Hat OpenShift 가상화 데이터 보호
   entries:
+  - title: NetApp Console을 사용한 백업 및 복원
+    url: "/openshift/osv-data-protection-console-br.html"
   - title: Trident Protect를 사용한 백업 및 복원
     url: "/openshift/osv-vm-dp-using-tp.html"
   - title: 볼륨 그룹 스냅샷을 사용하여 VM 보호

@@ -40,7 +40,7 @@ NOTE: Trident 25.06 버전의 iSCSI 프로토콜에 대해서만 볼륨 그룹 �
 Kubernetes 버전 1.32와 함께 OpenShift 4.19 클러스터를 설치합니다.  이 버전에서는 볼륨 그룹 스냅샷 기능이 베타 상태로 업그레이드되었습니다.  OpenShift의 이후 릴리스에는 이 기능을 지원하는 Kubernetes 버전 v1.32 이상이 포함될 수 있습니다.
 
 .단계
-. Red Hat 설명서의 지침에 따라 OpenShift Cluster 버전 4.19를 설치하세요. https://docs.openshift.com/container-platform/4.19/installing/index.html["OpenShift 컨테이너 플랫폼 설치"] .
+. Red Hat 문서의 지침에 따라 OpenShift Cluster 버전 4.19를 설치하십시오: https://docs.redhat.com/en/documentation/openshift_container_platform/4.19#Install["OpenShift 컨테이너 플랫폼 설치"].
 . OpenShift 클러스터에서 Kubernetes 버전을 확인합니다.
 +
 다음 이미지는 Kubernetes v1.32와 함께 설치된 OpenShift Cluster v4.19를 보여줍니다.
