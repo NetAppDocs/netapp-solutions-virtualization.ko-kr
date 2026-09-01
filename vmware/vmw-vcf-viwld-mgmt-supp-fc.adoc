@@ -4,14 +4,14 @@ permalink: vmware/vmw-vcf-viwld-mgmt-supp-fc.html
 keywords: netapp, vmware, cloud, foundation, vcf, asa, all-flash, array, ontap tools, otv, sddc, fc 
 summary:  
 ---
-= ONTAP Tools for VMware를 사용하여 VI 작업 및 관리 도메인을 위한 보조 스토리지로 FC의 VMFS 사용
-:hardbreaks:
+= ONTAP Tools for VMware를 사용하여 VCF 워크로드 및 관리 도메인을 위한 보조 스토리지로 FC의 VMFS 사용
 :allow-uri-read: 
-:nofooter: 
-:icons: font
-:linkattrs: 
-:imagesdir: ../media/
 
+
+
+
+[[vmfs-on-fc-as-supplemental-storage-for-vcf-workload-and-management-domains-using-ontap-tools-for-vmware]]
+== ONTAP Tools for VMware를 사용하여 VCF 워크로드 및 관리 도메인을 위한 보조 스토리지로 FC의 VMFS 사용
 
 [role="lead"]
 이 시나리오에서는 ONTAP 도구를 활용하여 관리 및 워크로드 도메인을 위한 파이버 채널(FC) 백엔드가 있는 VMFS 데이터 저장소를 배포하는 방법을 보여드리겠습니다.
@@ -19,7 +19,7 @@ summary:
 
 
 [[benefits-of-fibre-channel]]
-== 파이버 채널의 이점
+=== 파이버 채널의 이점
 
 *고성능:* FC는 고속 데이터 전송률을 제공하므로 대량의 데이터에 빠르고 안정적으로 액세스해야 하는 애플리케이션에 이상적입니다.
 
@@ -34,12 +34,12 @@ NetApp 스토리지 시스템에서 파이버 채널을 사용하는 방법에 �
 
 
 [[scenario-overview]]
-== 시나리오 개요
+=== 시나리오 개요
 
-VCF 보충 데이터 저장소는 vCenter를 사용한 2일차 작업의 일부로 제공됩니다.  이 시나리오에서는 다음과 같은 상위 수준 단계를 다룹니다.
+VCF 보조 데이터 저장소는 vCenter를 사용하여 day-2 운영의 일부로 프로비저닝됩니다. 이 시나리오는 다음과 같은 주요 단계를 포함합니다.
 
 * 관리 도메인에 ONTAP 도구 배포
-* ONTAP 도구에 VI 워크로드 vCenter 서버 등록
+* 워크로드 vCenter 서버를 ONTAP tools에 등록합니다
 * VMware vSphere용 ONTAP 도구 플러그인에서 스토리지 백엔드 정의
 * FC 전송에 VMFS 프로비저닝
 
@@ -47,7 +47,7 @@ VCF 보충 데이터 저장소는 vCenter를 사용한 2일차 작업의 일부�
 
 
 [[prerequisites]]
-== 필수 조건
+=== 필수 조건
 
 이 시나리오에는 다음과 같은 구성 요소와 구성이 필요합니다.
 
@@ -70,7 +70,7 @@ ONTAP 스토리지 시스템과 함께 VMFS를 사용하는 방법에 대한 자
 
 
 [[deployment-steps-for-management-domain]]
-== 관리 도메인에 대한 배포 단계
+=== 관리 도메인에 대한 배포 단계
 
 ONTAP 도구를 배포하고 이를 사용하여 VCF 관리 도메인에 VMFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
 
@@ -81,12 +81,12 @@ ONTAP 도구를 배포하고 이를 사용하여 VCF 관리 도메인에 VMFS �
 
 
 
-[[deployment-steps-for-vi-workload-domain]]
-== VI 워크로드 도메인에 대한 배포 단계
+[[deployment-steps-for-workload-domain]]
+=== 워크로드 도메인 배포 단계
 
-ONTAP 도구를 배포하고 이를 사용하여 VCF VI 워크로드 도메인에 VMFS 데이터 저장소를 생성하려면 다음 단계를 완료하세요.
+ONTAP Tools를 배포하고 이를 사용하여 VCF 워크로드 도메인에 VMFS 데이터스토어를 생성하려면 다음 단계를 완료하십시오.
 
-* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["vCenter 플러그인을 활성화하려면 VI 워크로드 vCenter를 등록하세요."]
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["워크로드 vCenter를 등록하여 vCenter 플러그인을 활성화하십시오"]
 * link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html["vSphere 클라이언트 인터페이스를 사용하여 스토리지 백엔드 정의"]
 * link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-datastore.html["FC에 VMFS 프로비저닝"]
 
@@ -94,7 +94,7 @@ ONTAP 도구를 배포하고 이를 사용하여 VCF VI 워크로드 도메인�
 
 
 [[additional-information]]
-== 추가 정보
+=== 추가 정보
 
 ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] 센터.
 
@@ -105,5 +105,5 @@ VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.b
 [[video-demo-for-this-solution]]
 == 이 솔루션에 대한 비디오 데모
 
-.VCF 관리 도메인을 위한 보조 저장소로서의 VMFS(FC) 데이터 저장소
-video::3135c36f-3a13-4c95-aac9-b2a0001816dc[panopto,width=360]
+.FC를 사용한 추가 데이터 저장소
+video::96311abf-aa45-4ce9-984b-b4b001005bab[panopto,width=360]

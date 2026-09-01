@@ -94,6 +94,18 @@ video::255640f5-4dff-438c-8d50-b01200f017d1[panopto,width=360]
 video::9b66ac8d-d2b1-4ac4-a33c-b16900f67df6[panopto]
 .VCF 관리 도메인을 위한 보조 저장소로서의 iSCSI 데이터 저장소
 video::1d0e1af1-40ae-483a-be6f-b156015507cc[panopto]
+.NVMe/FC를 사용한 보조 데이터 저장소
+video::b2b16a35-05cd-49c9-a91a-b4ac0127813d[panopto,width=360]
+.FC를 사용한 추가 데이터 저장소
+video::96311abf-aa45-4ce9-984b-b4b001005bab[panopto,width=360]
+.ONTAP tools를 사용하는 SnapMirror active sync iSCSI 기반 VCF용 스트레치 클러스터
+video::4c21ee83-dc11-43bf-a9af-b4ac014aaa0e[panopto,width=360]
+.SnapMirror active sync NVMe/TCP를 사용한 VCF용 스트레치 클러스터
+video::f85530ec-ff24-4c7d-abb4-b49b0176402c[panopto,width=360]
+.SnapMirror active sync NAS를 사용하는 VCF용 Stretch cluster
+video::76549cac-a1e3-4471-acf5-b49c00eebcf7[panopto,width=360]
+.AFF 및 ASA r2를 사용한 iSCSI 멀티패스
+video::62c2a66c-1a07-4284-bc7b-b4ac00e9aeea[panopto,width=360]
 
 
 [[netapp-cloud-insights]]
@@ -101,3 +113,12 @@ video::1d0e1af1-40ae-483a-be6f-b156015507cc[panopto]
 
 .NetApp Cloud Insights - 최신 데이터 센터를 위한 관찰성
 video::1e4da521-3104-4d51-8cde-b0e001502d3d[panopto,width=360]
+
+
+[[vks-with-ontap]]
+== ONTAP 기반 VKS
+
+.가상 분산 스위치에서 Supervisor를 사용하는 VKS
+video::4ef64b3c-7a68-41d5-bacf-b4a8012b49f8[panopto,width=360]
+.VCF Automation이 포함된 VKS
+video::571ced1a-58e8-4bf4-9c24-b4b10118bc22[panopto,width=360]

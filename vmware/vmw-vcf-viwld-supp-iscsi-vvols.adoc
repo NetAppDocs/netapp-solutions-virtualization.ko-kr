@@ -2,20 +2,20 @@
 sidebar: sidebar 
 permalink: vmware/vmw-vcf-viwld-supp-iscsi-vvols.html 
 keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc, iscsi 
-summary: 'VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인의 보조 스토리지를 위한 iSCSI를 사용하여 vVols 데이터스토어를 구성하는 방법을 알아보세요.  SVM과 LIF를 생성하고, iSCSI 네트워킹을 설정하고, ONTAP tools for VMware vSphere 배포하고, vVols 데이터 저장소를 프로비저닝합니다.' 
+summary: 'vVols 데이터스토어를 VMware Cloud Foundation(VCF) 워크로드 도메인에서 보조 스토리지로 iSCSI를 사용하여 구성하는 방법을 시작합니다. SVM 및 LIF를 생성하고, iSCSI 네트워킹을 설정하고, ONTAP tools for VMware vSphere를 배포하고, vVols 데이터스토어를 프로비저닝합니다.' 
 ---
-= VI 워크로드 도메인에서 iSCSI vVols 데이터 저장소를 보조 스토리지로 추가하기 위한 배포 워크플로
+= 워크로드 도메인에 iSCSI vVols 데이터스토어를 보조 스토리지로 추가하기 위한 배포 워크플로
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에서 보조 스토리지로 iSCI vVols 데이터스토어를 구성하는 방법을 알아보세요.  SVM과 LIF를 생성하고, iSCSI 네트워킹을 설정하고, ONTAP tools for VMware vSphere 배포하고, 스토리지를 구성합니다.
+VMware Cloud Foundation(VCF) 워크로드 도메인에서 iSCSI vVols 데이터스토어를 보조 스토리지로 구성하는 시작 방법을 알아봅니다. SVM 및 LIF를 생성하고, iSCSI 네트워킹을 설정하고, ONTAP tools for VMware vSphere를 배포하고, 스토리지를 구성합니다.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["하나"]link:vmw-vcf-viwld-supp-iscsi-vvols-requirements.html["배포 요구 사항 검토"]
 [role="quick-margin-para"]
-VMware Cloud Foundation VI 워크로드 도메인에 iSCSI vVols 배포하기 위한 요구 사항을 검토합니다.
+VMware Cloud Foundation 워크로드 도메인에 iSCSI vVols을 배포하기 위한 요구 사항을 검토하십시오.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["둘"]link:vmw-vcf-viwld-supp-iscsi-vvols-svm-lifs.html["SVM 및 LIF 생성"]
 [role="quick-margin-para"]
@@ -23,7 +23,7 @@ iSCSI 트래픽을 위해 여러 개의 LIF가 있는 SVM을 생성합니다.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["삼"]link:vmw-vcf-viwld-supp-iscsi-vvols-network.html["네트워킹 구성"]
 [role="quick-margin-para"]
-ESXi 호스트에서 iSCSI에 대한 네트워킹을 설정합니다.
+vSphere 호스트에서 iSCSI 네트워킹을 설정합니다.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["네"]link:vmw-vcf-viwld-supp-iscsi-vvols-storage.html["저장소 구성"]
 [role="quick-margin-para"]

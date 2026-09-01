@@ -20,7 +20,7 @@ indexpage:
       url: "/videos/index.html"
   - title: 가상화를 위한 NetApp 솔루션
     links:
-    - title: 온프레미스 및 클라우드 VMware
+    - title: VMware를 이용한 프라이빗 클라우드
       url: "/vmware/index.html"
     - title: 마이크로소프트 하이퍼-V
       url: hyperv/index.html

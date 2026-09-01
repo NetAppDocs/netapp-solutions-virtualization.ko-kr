@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: vmware/vmw-vcf-mgmt-nfs.html 
 keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, array, ontap tools, otv, sddc, sddc manager, ontap tools, ontap tools 10 
-summary: NetApp ONTAP NFS 데이터 저장소가 있는 기존 vSphere 8 클러스터를 VMware Cloud Foundation 관리 도메인으로 변환합니다.  구성 요구 사항을 검토하고, ONTAP 도구를 배포하고, NFS 데이터 저장소를 프로비저닝하고, VCF 가져오기 도구를 사용하여 클러스터를 검증하고 변환합니다. 
+summary: 기존 vSphere 클러스터를 NetApp ONTAP NFS 데이터스토어와 함께 VMware Cloud Foundation 관리 도메인으로 통합합니다. 구성 요구 사항을 검토하고, ONTAP 툴을 배포하여 NFS 데이터스토어를 프로비저닝하고, VCF 설치 툴을 사용하여 기존 구성 요소를 검증 및 활용하고, 필요한 새 구성 요소를 배포하고, 플랫폼을 구성합니다. 
 ---
-= NFS 데이터 저장소를 사용하여 vCenter 서버 인스턴스를 VCF 관리 도메인으로 변환하기 위한 배포 워크플로
+= vCenter 서버 인스턴스를 NFS 데이터스토어를 사용하는 VCF 관리 도메인으로 통합하기 위한 배포 워크플로
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,18 +14,30 @@ summary: NetApp ONTAP NFS 데이터 저장소가 있는 기존 vSphere 8 클러�
 
 
 [role="lead"]
-NetApp ONTAP NFS 데이터 저장소가 있는 기존 vSphere 8 클러스터를 VMware Cloud Foundation 관리 도메인으로 변환합니다.  구성 요구 사항을 검토하고, ONTAP 도구를 배포하고, NFS 데이터 저장소를 프로비저닝하고, VCF 가져오기 도구를 사용하여 클러스터를 검증하고 변환합니다.
+기존 vSphere 클러스터와 NetApp ONTAP NFS 데이터스토어를 VMware Cloud Foundation 관리 도메인으로 통합합니다. 구성 요구 사항을 검토하고, ONTAP 툴을 배포하고 NFS 데이터스토어를 프로비저닝하고, VCF Installer Tool을 사용하여 기존 구성 요소를 검증 및 사용하고, 필요한 새 구성 요소를 배포하고, 플랫폼을 구성합니다.
 
-변환 프로세스에 대한 개요는 VMware 설명서를 참조하세요. https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/map-for-administering-vcf-5-2/importing-existing-vsphere-environments-admin/convert-or-import-a-vsphere-environment-into-vmware-cloud-foundation-admin.html["VMware Cloud Foundation에서 vSphere 환경을 관리 도메인으로 변환하거나 vSphere 환경을 VI 워크로드 도메인으로 가져오기"] .
+이 워크플로는 ONTAP NFS 4.1 데이터스토어를 VCF 관리 도메인의 주 스토리지로 사용하는 경우에도 적용할 수 있습니다.
+
+통합 프로세스에 대한 개요는 VMware 설명서를 참조하십시오: https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/converging-your-existing-vsphere-infrastructure-to-a-vcf-or-vvf-platform-.html["기존 가상 인프라를 VCF로 통합하기"].
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["하나"]link:vmw-vcf-mgmt-nfs-requirements.html["구성 요구 사항을 검토하세요"]
 [role="quick-margin-para"]
-NFS 데이터 저장소를 사용하여 vCenter 서버 인스턴스를 VCF 관리 도메인으로 변환하는 데 필요한 주요 요구 사항을 검토합니다.
+NFS 데이터스토어를 사용하여 vCenter 서버 인스턴스를 VCF 관리 도메인으로 통합하기 위한 주요 요구 사항을 검토하십시오.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["둘"]link:vmw-vcf-mgmt-nfs-deploy.html["ONTAP 도구 배포 및 NFS 데이터 저장소 프로비저닝"]
 [role="quick-margin-para"]
 ONTAP tools for VMware vSphere 배포하고 NFS 데이터 저장소를 프로비저닝합니다.
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["삼"]link:vmw-vcf-mgmt-nfs-conversion.html["vSphere 클러스터를 VCF 관리 도메인으로 변환"]
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["삼"]link:vmw-vcf-mgmt-nfs-converge.html["vSphere 클러스터를 VCF 관리 도메인으로 통합"]
 [role="quick-margin-para"]
-VCF 가져오기 도구를 사용하여 vSphere 8을 검증하고 VCF 관리 도메인으로 변환합니다.
+VCF Installer Tool을 사용하여 VCF 관리 도메인을 구성하는 기존 구성 요소를 검증하고 재사용하며 새 구성 요소를 배포할 수 있습니다.
+
+
+
+[[reference-video-demo-for-this-solution]]
+== 이 솔루션에 대한 참조 비디오 데모
+
+다음 비디오는 nConnect 기능을 활용하는 ONTAP tools를 사용하여 NFS 데이터 저장소를 생성하는 방법을 보여줍니다.
+
+.SnapMirror active sync NAS를 사용하는 VCF용 Stretch cluster
+video::76549cac-a1e3-4471-acf5-b49c00eebcf7[panopto,width=360]

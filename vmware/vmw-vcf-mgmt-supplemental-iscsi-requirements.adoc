@@ -24,7 +24,7 @@ VMware Cloud Foundation(VCF) 관리 도메인에 보조 스토리지로 iSCSI �
 다음 구성 요소와 구성이 제대로 되어 있는지 확인하세요.
 
 * 이더넷 스위치에 스토리지 트래픽 전용 물리적 데이터 포트가 있는 ONTAP AFF 또는 ASA 스토리지 시스템입니다.
-* VCF 관리 도메인 배포가 완료되었으며 vSphere 클라이언트에 액세스할 수 있습니다.
+* VCF 관리 도메인 배포가 완료되었으며 vSphere 웹 클라이언트에 액세스할 수 있습니다.
 
 
 
@@ -36,10 +36,10 @@ iSCSI의 경우 완전히 중복된 네트워크 설계를 구성해야 합니�
 
 image:vmware-vcf-asa-074.png["iSCSI 네트워크 설계"]{nbsp}
 
-여러 경로에 걸친 다중 경로 및 장애 조치의 경우 iSCSI 구성의 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 두 개의 LIF를 만듭니다.
+다중 경로에 걸친 멀티패싱 및 페일오버를 위해 iSCSI 구성에서 모든 SVM에 대해 별도의 이더넷 네트워크에 스토리지 노드당 최소 2개의 LIF를 생성하십시오. ONTAP 9.19.1 이상 버전에서는 AFF의 SVM에서 대칭형 액티브-액티브 멀티패싱 옵션을 활성화할 수 있습니다. ASA에서는 대칭형 액티브-액티브 멀티패싱이 기본적으로 활성화되어 있습니다.
 
 
-TIP: 동일한 IP 네트워크에 여러 VMkernel 어댑터가 구성된 상황에서는 ESXi 호스트에서 소프트웨어 iSCSI 포트 바인딩을 사용하여 어댑터 전체에 걸친 부하 분산이 이루어지도록 하는 것이 좋습니다. KB 문서를 참조하세요link:https://knowledge.broadcom.com/external/article?legacyId=2038869["ESX/ESXi에서 소프트웨어 iSCSI 포트 바인딩을 사용하기 위한 고려 사항"^] .
+TIP: 동일한 IP 네트워크에 여러 VMkernel 어댑터가 구성된 경우, 어댑터 간 로드 밸런싱이 이루어지도록 ESXi 호스트에서 소프트웨어 iSCSI 포트 바인딩을 사용하는 것이 좋습니다. KB 문서 link:https://knowledge.broadcom.com/external/article?legacyId=2038869["vSphere에서 소프트웨어 iSCSI 포트 바인딩 사용 시 고려 사항"^]를 참조하십시오.
 
 
 

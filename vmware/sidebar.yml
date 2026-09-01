@@ -49,25 +49,25 @@ entries:
     url: "/vmware/vmw-vcf-deployment.html"
   - title: NetApp Disaster Recovery 을 갖춘 VCF 9 DR
     url: "/vmware/vmw-vcf-disaster-recovery-nfs.html"
-  - title: 기존 vSphere 클러스터를 VCF로 변환
+  - title: 기존 vSphere 클러스터를 VCF로 통합
     entries:
-    - title: 기존 vSphere 클러스터를 VCF로 변환하는 방법에 대한 정보
+    - title: 기존 vSphere 클러스터를 VCF로 통합하는 것에 대한 정보
       url: "/vmware/vmw-vcf-migrate.html"
-    - title: NFS 데이터스토어를 사용하는 기존 vSphere 클러스터를 변환합니다.
+    - title: 기존 vSphere 클러스터를 NFS 데이터스토어와 통합
       url: "/vmware/vmw-vcf-mgmt-nfs.html"
-    - title: FC 데이터스토어를 사용하는 기존 vSphere 클러스터를 변환합니다.
-      url: "/vmware/vmw-vcf-mgmt-fc.html"
+    - title: 기존 vSphere 클러스터를 VMFS 데이터스토어와 통합합니다
+      url: "/vmware/vmw-vcf-mgmt-vmfs.html"
   - title: 주요 저장소를 사용하여 VCF 제공
     entries:
     - title: 주 저장소 프로비저닝에 관하여
       url: "/vmware/vmw-vcf-provision.html"
-    - title: FC를 사용한 관리 도메인 제공
+    - title: FC를 사용한 프로비저닝 관리 도메인
       url: "/vmware/vmw-vcf-mgmt-principal-fc.html"
-    - title: NFS를 사용한 관리 도메인 제공
+    - title: NFS를 사용하는 프로비저닝 관리 도메인
       url: "/vmware/vmw-vcf-mgmt-principal-nfs.html"
-    - title: FC를 사용하여 VI 워크로드 도메인 프로비저닝
+    - title: FC를 사용하여 워크로드 도메인 프로비저닝
       url: "/vmware/vmw-vcf-viwld-principal-fc.html"
-    - title: NFS를 사용하여 VI 워크로드 도메인 프로비저닝
+    - title: NFS를 사용하여 워크로드 도메인 프로비저닝
       url: "/vmware/vmw-vcf-viwld-principal-nfs.html"
   - title: 보충 스토리지로 VCF 확장
     entries:
@@ -85,9 +85,9 @@ entries:
         url: "/vmware/vmw-vcf-mgmt-supplemental-iscsi-network.html"
       - title: 저장소 구성
         url: "/vmware/vmw-vcf-mgmt-supplemental-iscsi-storage.html"
-    - title: FC로 관리 도메인 확장
+    - title: FC를 통해 관리 영역 확장
       url: "/vmware/vmw-vcf-mgmt-supplemental-fc.html"
-    - title: vVols iSCSI를 사용하여 VI 워크로드 도메인 확장
+    - title: vVols iSCSI를 사용하여 VCF 워크로드 도메인 확장
       entries:
       - title: 배포 워크플로
         url: "/vmware/vmw-vcf-viwld-supp-iscsi-vvols.html"
@@ -99,7 +99,7 @@ entries:
         url: "/vmware/vmw-vcf-viwld-supp-iscsi-vvols-network.html"
       - title: 저장소 구성
         url: "/vmware/vmw-vcf-viwld-supp-iscsi-vvols-storage.html"
-    - title: vVols NFS를 사용하여 VI 워크로드 도메인 확장
+    - title: vVols NFS를 사용하여 VCF 워크로드 도메인 확장
       entries:
       - title: 배포 워크플로
         url: "/vmware/vmw-vcf-viwld-supp-nfs-vvols.html"
@@ -111,7 +111,7 @@ entries:
         url: "/vmware/vmw-vcf-viwld-supp-nfs-vvols-network.html"
       - title: 저장소 구성
         url: "/vmware/vmw-vcf-viwld-supp-nfs-vvols-storage.html"
-    - title: NVMe/TCP로 VI 워크로드 도메인 확장
+    - title: NVMe/TCP를 사용하여 VCF 워크로드 도메인 확장
       entries:
       - title: 배포 워크플로
         url: "/vmware/vmw-vcf-viwld-supp-nvme.html"
@@ -123,7 +123,7 @@ entries:
         url: "/vmware/vmw-vcf-viwld-supp-nvme-network.html"
       - title: 저장소 구성
         url: "/vmware/vmw-vcf-viwld-supp-nvme-storage.html"
-    - title: FC를 사용하여 VI 워크로드 도메인 확장
+    - title: FC를 사용하여 VCF 워크로드 도메인 확장
       url: "/vmware/vmw-vcf-viwld-supp-fc.html"
   - title: SnapCenter 로 VCF 보호
     entries:
@@ -141,11 +141,11 @@ entries:
       url: "/vmware/vmw-vcf-protect-vmsc.html"
     - title: MetroCluster 사용하여 관리 도메인 구성
       url: "/vmware/vmw-vcf-vmsc-mgmt-mcc.html"
-    - title: MetroCluster 사용하여 VI 워크로드 도메인 구성
+    - title: MetroCluster를 사용하여 워크로드 도메인 구성
       url: "/vmware/vmw-vcf-vmsc-viwld-mcc.html"
-    - title: SnapMirror Active Sync를 사용하여 관리 도메인 구성
+    - title: SnapMirror Active Sync(SAN 및 NAS)를 사용하여 관리 도메인 구성
       url: "/vmware/vmw-vcf-vmsc-mgmt-smas.html"
-    - title: SnapMirror Active Sync를 사용하여 VI 워크로드 도메인 구성
+    - title: SnapMirror Active Sync(SAN 및 NAS)를 사용하여 워크로드 도메인 구성
       url: "/vmware/vmw-vcf-vmsc-viwld-smas.html"
   - title: vSphere에서 VM 마이그레이션
     url: "/vmware/migrate-vms-to-ontap-datastore.html"

@@ -14,14 +14,14 @@ summary:
 
 
 [role="lead"]
-NetApp ONTAP 고가용성을 VMware vSphere Metro Storage Cluster(vMSC)와 통합하는 데 사용할 수 있는 NetApp 솔루션에 대해 알아보세요.  이는 VMware Cloud Foundation(VCF) 관리 및 VI 워크로드 도메인을 위한 강력한 솔루션을 제공합니다.
+NetApp ONTAP 고가용성을 VMware vSphere Metro Storage Cluster(vMSC)와 통합하는 데 사용할 수 있는 NetApp 솔루션에 대해 알아보십시오. 이는 VMware Cloud Foundation(VCF) 관리 및 워크로드 도메인을 위한 강력한 솔루션을 제공합니다.
 
-이러한 조합은 지리적으로 분산된 사이트에서 지속적인 데이터 가용성, 원활한 장애 조치 및 재해 복구를 보장하여 중요한 작업 부하에 대한 복원력과 운영 연속성을 향상시킵니다.  SnapMirror 액티브 동기화는 사이트 전체에 장애가 발생하더라도 비즈니스 서비스가 계속 운영될 수 있도록 하며, 보조 복사본을 사용하여 애플리케이션이 투명하게 장애 조치되도록 지원합니다. SnapMirror 액티브 싱크를 사용하면 페일오버를 트리거하는 데 수동 작업이나 사용자 지정 스크립팅이 필요하지 않습니다.
+이러한 조합은 지리적으로 분산된 사이트 전반에 걸쳐 지속적인 데이터 가용성, 원활한 페일오버 및 재해 복구를 보장하여 중요 워크로드의 복원력과 운영 연속성을 향상시킵니다. SnapMirror 액티브 싱크(SAN 및 NAS)는 사이트 전체 장애 발생 시에도 비즈니스 서비스가 계속 운영될 수 있도록 지원하며, 보조 복사본을 사용하여 애플리케이션이 투명하게 페일오버되도록 합니다. SnapMirror 액티브 싱크(SAN 및 NAS)를 사용하면 페일오버를 트리거하기 위해 수동 개입이나 사용자 지정 스크립팅이 필요하지 않습니다. ONTAP 미디에이터는 기본 사이트의 상태를 모니터링하고 재해 발생 시 보조 사이트로 자동 페일오버하는 데 사용됩니다. ONTAP 미디에이터는 어느 사이트에도 속하지 않는 별도의 서버 또는 가상 머신에 배포되어 스플릿 브레인 시나리오를 방지하기 위한 쿼럼을 확보합니다.
 
 자세한 내용은 다음 솔루션을 참조하세요.
 
-* link:vmw-vcf-vmsc-mgmt-smas.html["SnapMirror Active Sync를 사용하여 관리 도메인에 대한 스트레치 클러스터"]
+* link:vmw-vcf-vmsc-mgmt-smas.html["SnapMirror 액티브 싱크(SAN 및 NAS)를 사용하는 관리 도메인용 확장 클러스터"]
 * link:vmw-vcf-vmsc-mgmt-mcc.html["MetroCluster 사용하여 관리 도메인에 대한 스트레치 클러스터"]
-* link:vmw-vcf-vmsc-viwld-smas.html["SnapMirror Active Sync를 사용하여 VI 워크로드 도메인에 대한 스트레치 클러스터"]
-* link:vmw-vcf-vmsc-viwld-mcc.html["MetroCluster 사용하여 VI 워크로드 도메인에 대한 스트레치 클러스터"]
+* link:vmw-vcf-vmsc-viwld-smas.html["SnapMirror active sync(SAN 및 NAS)를 사용하는 워크로드 도메인용 스트레치 클러스터"]
+* link:vmw-vcf-vmsc-viwld-mcc.html["MetroCluster를 사용한 워크로드 도메인의 스트레치 클러스터"]
 

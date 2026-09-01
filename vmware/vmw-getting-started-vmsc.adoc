@@ -32,10 +32,10 @@ NetApp MetroCluster NetApp의 고가용성(HA) 기능을 사용하여 컨트롤�
 
 
 
-[[netapp-snapmirror-active-sync]]
-== NetApp SnapMirror 액티브 싱크
+[[netapp-snapmirror-active-sync-san-and-nas-protocols]]
+== NetApp SnapMirror 액티브 싱크(SAN 및 NAS 프로토콜)
 
-NetApp SnapMirror Active Sync는 FCP 및 iSCSI SAN 프로토콜을 통해 데이터 저장소별 보호 기능을 제공하고, 우선 순위가 높은 워크로드 토폴로지를 선택적으로 보호합니다.  이 솔루션은 액티브-스탠비 MetroCluster 와 달리 로컬 및 원격 사이트 모두에 액티브-액티브 액세스를 제공합니다.  ONTAP 9.15.1부터 SnapMirror 액티브 동기화는 대칭적인 액티브/액티브 기능을 지원하여 양방향 동기 복제를 통해 보호된 LUN의 두 복사본 모두에서 읽기 및 쓰기 I/O 작업을 허용합니다.
+NetApp SnapMirror 액티브 싱크는 SAN 프로토콜을 사용하여 데이터스토어 단위(일관성 그룹)의 보호 기능을 제공하며, 우선순위가 높은 워크로드 토폴로지를 선택적으로 보호합니다. 액티브-스탠바이 방식의 MetroCluster와 달리, 로컬 및 원격 사이트 모두에 대한 액티브-액티브 액세스를 제공합니다. ONTAP 9.15.1부터 SnapMirror 액티브 싱크는 대칭형 액티브/액티브 기능을 지원하여 양방향 동기 복제를 통해 보호된 LUN/네임스페이스의 두 복사본 모두에서 읽기 및 쓰기 I/O 작업을 허용합니다. ONTAP 9.19.1부터 SnapMirror 액티브 싱크는 NAS 프로토콜을 지원하여 SVM 수준에서 보호 기능을 제공합니다. SVM은 한 사이트에서는 활성 상태이고 다른 사이트에서는 대기 상태이며, 양방향 동기 복제가 수행됩니다.
 
 
 

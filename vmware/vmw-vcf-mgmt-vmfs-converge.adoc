@@ -1,0 +1,20 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-mgmt-vmfs-converge.html 
+keywords: netapp, vmware, cloud, foundation, vcf, asa, aff, all-flash, fc, array, ontap tools, otv, sddc, sddc manager, ontap tools, ontap tools 10 
+summary: VCF 설치 툴을 사용하여 기존 vSphere 클러스터를 VCF 관리 도메인으로 통합합니다. vCenter 어플라이언스를 검증하고, VCF 설치 프로그램을 배포하고, 기존 구성 요소를 재사용하고, 새 구성 요소를 설치하여 VCF 관리 도메인을 완성합니다. 
+---
+= VCF 설치 툴을 사용하여 vSphere 클러스터를 VCF 관리 도메인으로 통합
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+VCF 설치 툴을 사용하여 기존 vSphere 클러스터를 VCF 관리 도메인으로 통합합니다. vCenter 어플라이언스를 검증하고, VCF 설치 프로그램을 배포하고, 기존 구성 요소를 재사용하고, 새 구성 요소를 설치하여 VCF 관리 도메인을 완성합니다.
+
+환경에 이미 배포된 구성 요소를 기반으로 VCF Installer Tool은 재사용 가능한 구성 요소와 새로 설치해야 하는 구성 요소를 판단합니다. VCF Installer Tool은 또한 기존 vCenter 어플라이언스를 검증하고 컨버전스 요구 사항을 충족하는지 확인합니다.
+
+ https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/converging-your-existing-vsphere-infrastructure-to-a-vcf-or-vvf-platform-.html["기존 vSphere 인프라를 VCF 관리 도메인으로 통합하기"]에 설명된 단계를 따라 통합 프로세스를 완료하십시오.
+
+https://vmware.github.io/vcf-upgrade-planner/["VCF Upgrade Planning 툴"]사용자가 제공하는 입력값을 기반으로 수렴 프로세스를 완료하기 위한 주요 단계를 제공합니다.

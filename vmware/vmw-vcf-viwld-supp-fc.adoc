@@ -4,7 +4,7 @@ permalink: vmware/vmw-vcf-viwld-supp-fc.html
 keywords: netapp, vmware, cloud, foundation, vcf, asa, all-flash, array, ontap tools, otv, sddc, fc 
 summary:  
 ---
-= VI 워크로드 도메인에 보조 스토리지로 FC 기반 VMFS 데이터 저장소 추가
+= FC 기반 VMFS 데이터스토어를 워크로드 도메인의 보조 스토리지로 추가
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-이 사용 사례에서는 VMware Cloud Foundation(VCF) Virtual Infrastructure(VI) 워크로드 도메인에 대한 보조 스토리지로 파이버 채널(FC)을 사용하여 VMFS 데이터 저장소를 구성하는 절차를 설명합니다.  이 절차에서는 VMware vSphere용 ONTAP 도구 배포, VI 워크로드 vCenter 서버 등록, 스토리지 백엔드 정의, FC 데이터스토어 프로비저닝을 요약합니다.
+이 사용 사례에서는 VMware Cloud Foundation(VCF) 워크로드 도메인의 보조 스토리지로 Fiber Channel(FC)을 사용하는 VMFS 데이터스토어를 구성하는 절차를 설명합니다. 이 절차는 VMware vSphere용 ONTAP 툴 배포, 워크로드 vCenter 서버 등록, 스토리지 백엔드 정의 및 FC 데이터스토어 프로비저닝을 요약합니다.
 
 .시작하기 전에
 다음 구성 요소와 구성이 제대로 되어 있는지 확인하세요.
@@ -33,9 +33,9 @@ summary:
 
 ====
 .단계
-. ONTAP tools for VMware vSphere 에 있는 지침에 따라 VI 워크로드 vCenter를 등록하세요.link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["VI 워크로드 vCenter 등록"] .
+. ONTAP tools for VMware vSphere 문서의 지침에 따라 워크로드 도메인 vCenter를 등록합니다: link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["워크로드 vCenter 등록"].
 +
-VI 워크로드 vCenter를 등록하면 vCenter 플러그인이 활성화됩니다.
+워크로드 도메인 vCenter 서버를 등록하면 vCenter 플러그인이 활성화됩니다.
 
 . ONTAP tools for VMware vSphere 에 있는 지침에 따라 vSphere 클라이언트 인터페이스를 사용하여 스토리지 백엔드를 추가합니다.link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html["vSphere 클라이언트 인터페이스를 사용하여 스토리지 백엔드 정의"] .
 +
@@ -46,11 +46,18 @@ VI 워크로드 vCenter를 등록하면 vCenter 플러그인이 활성화됩니�
 
 
 
+[[reference-video]]
+== 참고 영상
+
+.FC를 사용한 추가 데이터 저장소
+video::96311abf-aa45-4ce9-984b-b4b001005bab[panopto,width=360]
+
+
 [[additional-information]]
 == 추가 정보
 
 * ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하십시오.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"^] .
-* VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2.html["VMware Cloud Foundation 문서"^] .
+* VCF 구성에 대한 자세한 내용은 link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1.html["VMware Cloud Foundation 문서"^]을 참조하십시오.
 * ONTAP 스토리지 시스템에서 파이버 채널을 구성하는 방법에 대한 정보는 다음을 참조하십시오. https://docs.netapp.com/us-en/ontap/san-management/index.html["SAN 스토리지 관리"^] ONTAP 9 문서에서.
 * ONTAP 스토리지 시스템과 함께 VMFS를 사용하는 방법에 대한 정보는 다음을 참조하십시오.link:vmw-vmfs-deploy.html["VMFS 배포 가이드"] .
 * 이 솔루션의 비디오 데모는 다음을 참조하세요.link:../videos/vmware-videos.html#vmware-datastore-provisioning-with-ontap["VMware 데이터스토어 프로비저닝"] .

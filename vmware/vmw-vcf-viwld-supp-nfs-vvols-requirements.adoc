@@ -2,14 +2,14 @@
 sidebar: sidebar 
 permalink: vmware/vmw-vcf-viwld-supp-nfs-vvols-requirements.html 
 keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
-summary: VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.  안정적이고 고성능의 스토리지 통합을 보장하기 위해 권장되는 네트워크 설계 및 인프라 요구 사항을 검토하세요. 
+summary: VMware Cloud Foundation 워크로드 도메인에 NFS vVols을 배포하려면 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완료된 VCF 관리 도메인, 그리고 기존 VI 워크로드 도메인이 필요합니다. 안정적이고 고성능의 스토리지 통합을 보장하기 위해 권장되는 네트워크 설계 및 인프라 요구 사항을 검토하십시오. 
 ---
-= VI 워크로드 도메인에 NFS vVols 추가하기 위한 배포 요구 사항
+= 워크로드 도메인에 NFS vVols을 추가하기 위한 배포 요구 사항
 :allow-uri-read: 
 
 
 [role="lead"]
-VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하는 데 권장되는 네트워크 설계 및 인프라 요구 사항을 검토합니다.  완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완성된 VCF 관리 도메인 및 기존 VI 워크로드 도메인이 필요합니다.
+VMware Cloud Foundation 워크로드 도메인에 NFS vVols을 배포하기 위한 권장 네트워크 설계 및 인프라 요구 사항을 검토하십시오. 완전히 구성된 ONTAP AFF 또는 ASA 스토리지 시스템, 완료된 VCF 관리 도메인 및 기존 워크로드 도메인이 필요합니다.
 
 
 
@@ -20,7 +20,7 @@ VMware Cloud Foundation VI 워크로드 도메인에 NFS vVols 배포하는 데 
 
 * 이더넷 스위치에 스토리지 트래픽 전용 물리적 데이터 포트가 있는 ONTAP AFF 또는 FAS 스토리지 시스템입니다.
 * VCF 관리 도메인 배포가 완료되었으며 vSphere 클라이언트에 액세스할 수 있습니다.
-* VI 워크로드 도메인이 이전에 배포되었습니다.
+* 워크로드 도메인이 이미 배포되었습니다.
 
 
 

@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-91-whatsnew.html 
+keywords: netapp, vmware, cloud, foundation, vcf, flexpod 
+summary: VCF 9.1에는 새로운 기능과 개선 사항이 추가되었습니다. 
+---
+= VMware Cloud Foundation 9.1의 새로운 기능
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VCF 9.1은 프라이빗 클라우드 환경의 전반적인 기능과 성능을 향상시키는 여러 가지 새로운 기능과 개선 사항을 도입했습니다. 최신 업데이트 내용과 NetApp 제품이 어떻게 지속적으로 가치를 더하는지 알아보십시오.
+
+다음은 VCF 9.1의 주요 신기능 및 개선 사항 중 일부입니다.
+
+* vSphere 클러스터용 Zero Touch Provisioning(ZTP)을 통해 vSphere 클러스터의 자동 배포 및 구성이 가능합니다.
++
+** ONTAP NFS 데이터스토어에서 VAAI를 사용하려면 이미지에 NFS VAAI 플러그인을 포함해야 합니다.  https://mysupport.netapp.com/site/products/all/details/nfsplugin-vmware-vaai/about-tab["NFS VAAI 플러그인"] NetApp 지원 사이트에서 다운로드하여 vSphere 클러스터 배포에 사용되는 이미지에 추가할 수 있습니다.
+
+
+* NFS 4.1 데이터 저장소에 대한 UNMAP 지원으로 스토리지 효율성과 공간 재확보가 향상됩니다.
+* NVMe over RDMA 지원으로 스토리지 성능이 향상되고 지연 시간이 단축됩니다.
++
+** 패킷 분석 및 RoCEv2 연결 문제 해결을 위한 툴(pktcap-uw, rdmaperf-uw, rdmaperf)이 이제 하이퍼바이저와 함께 제공됩니다.
+
+
+* 인터넷 스토리지 이름 서비스(iSNS) 프로토콜을 사용하여 iSCSI 연결을 자동으로 검색, 구성 및 관리합니다. 자세한 내용은  https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-1/vsphere-storage/configuring-iscsi-and-iser-adapters-and-storage-with-esxi/using-isns-with-esx.html["ESXi에서 iSNS 사용"]을 참조하십시오.
+* 메모리 계층화 지원에는 모든 VM 유형에 대한 지원과 간소화된 배포 기능이 포함됩니다.
+* Ubuntu 26.04 LTS, Debian 13 및 SUSE Linux Enterprise Server 16을 포함한 확장된 게스트 OS 지원.
+* vSphere 호스트 웹 클라이언트가 vCenter 서버 웹 클라이언트와 유사한 사용자 경험을 제공하도록 업데이트되었으며, 이전 버전과 모든 기능이 동일합니다.
+* VMware Kubernetes Service(VKS)에서 컨테이너 스토리지 볼륨의 빠른 프로비저닝을 위한 FCD(First Class Disk)의 링크드 클론.
+* 분산형 트랜짓 게이트웨이는 가상 네트워크 어플라이언스(VNA)를 사용하여 VKS 슈퍼바이저 및 VCF 자동화를 지원합니다. 또한 VNA에서 레이어 4 로드 밸런서도 지원합니다.
+* 이제 vSphere 클라이언트에서 VPC Transit Gateway, Traceflow 및 실시간 트래픽 분석을 사용할 수 있습니다.
+* VPC 서브넷용 VLAN 확장을 통해 분산된 vSwitch 포트 그룹에서 VPC 서브넷으로 워크로드를 온보딩할 수 있습니다.
+* Transit Gateway 및 VPC의 네트워크 범위를 특정 클러스터로 제한하거나 네트워킹 도메인의 모든 vCenter 인스턴스에 걸쳐 확장하도록 정의할 수 있는 기능.
+* 대량 마이그레이션을 위한 vMotion 속도가 향상되었습니다.
+* VPC 간 네트워크 트래픽에 대한 보안 및 제어를 강화하기 위한 VPC 연결 정책입니다.
+* 격리된 관리 및 워크로드 네트워크 트래픽을 위한 VKS 다중 인터페이스 네트워킹 지원.
+* vCloud Director에서 VCF Automation으로의 인플레이스 마이그레이션을 위한 마이그레이션 툴이 포함되어 있습니다.
+
+
+이러한 기능 및 개선 사항에 대한 자세한 내용은 link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/release-notes/vmware-cloud-foundation-9-1-0-0-release-notes/what-s-new.html["Broadcom VCF 9.1의 새로운 기능에 대한 기술 문서"]을 참조하십시오.
+
+별도의 언급이 없는 한, 본 문서의 대부분은 VCF 9.1에도 적용됩니다. 실제 운영 환경에서 사용하기 전에 특정 릴리스 관련 세부 정보는  https://imt.netapp.com/matrix/#search["상호 운용성 매트릭스 도구"] 및  https://www.vmware.com/resources/compatibility/search.php?deviceCategory=san["VMware 호환성 가이드"]을 반드시 확인하시기 바랍니다.

@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: vmware/vmw-vcf-viwld-supp-nfs-vvols-storage.html 
 keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
-summary: VI 워크로드 도메인에서 NFS vVols 스토리지를 구성합니다.  ONTAP tools for VMware vSphere 배포한 후 vSphere 클라이언트 인터페이스를 사용하여 스토리지 시스템을 추가하고, 스토리지 기능 프로필을 생성하고, vVols 데이터 저장소를 프로비저닝합니다. 
+summary: 워크로드 도메인에서 NFS vVols 스토리지를 구성합니다. ONTAP tools for VMware vSphere를 배포한 후 vSphere 클라이언트 인터페이스를 사용하여 스토리지 시스템을 추가하고, 스토리지 기능 프로파일을 생성하고, vVols 데이터스토어를 프로비저닝합니다. 
 ---
-= ONTAP 도구를 사용하여 VCF VI 워크로드 도메인에서 NFS vVols 스토리지 구성
+= ONTAP 툴을 사용하여 VCF 워크로드 도메인에서 NFS vVols 스토리지 구성
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,14 +14,14 @@ summary: VI 워크로드 도메인에서 NFS vVols 스토리지를 구성합니�
 
 
 [role="lead"]
-VI 워크로드 도메인에서 NFS vVols 스토리지를 구성합니다.  ONTAP tools for VMware vSphere 배포한 후 vSphere 클라이언트 인터페이스를 사용하여 스토리지 시스템을 추가하고, 스토리지 기능 프로필을 생성하고, vVols 데이터 저장소를 프로비저닝합니다.
+워크로드 도메인에서 NFS vVols 스토리지를 구성합니다. ONTAP tools for VMware vSphere를 배포한 후 vSphere 클라이언트 인터페이스를 사용하여 스토리지 시스템을 추가하고, 스토리지 기능 프로파일을 생성하고, vVols 데이터스토어를 프로비저닝합니다.
 
 
 
 [[step-1-deploy-ontap-tools-for-vmware-vsphere]]
 == 1단계: ONTAP tools for VMware vSphere 배포
 
-VI 워크로드 도메인의 경우 ONTAP 도구는 VCF 관리 클러스터에 설치되지만 VI 워크로드 도메인과 연결된 vCenter에 등록됩니다.
+워크로드 도메인의 경우 ONTAP tools는 VCF 관리 클러스터에 설치되지만 워크로드 도메인과 연결된 vCenter에 등록됩니다.
 
 ONTAP tools for VMware vSphere VM 어플라이언스로 배포되며 ONTAP 스토리지를 관리하기 위한 통합 vCenter UI를 제공합니다.
 

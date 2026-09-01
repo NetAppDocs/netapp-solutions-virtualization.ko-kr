@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: vmware/vmw-vcf-viwld-supp-nfs-vvols.html 
 keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
-summary: 'ONTAP tools for VMware vSphere 사용하여 VI 워크로드 도메인에 보조 스토리지로 NFS 및 vVols 추가하는 작업을 시작하세요.  ONTAP tools for VMware vSphere 배포하고, NFS 논리 인터페이스로 SVM(스토리지 가상 머신)을 구성하고, NFS 및 vVols 데이터 저장소를 모두 프로비저닝합니다.' 
+summary: 'ONTAP tools for VMware vSphere를 사용하여 NFS 및 vVols를 VCF 워크로드 도메인에 보조 스토리지로 추가하는 방법을 시작해 보십시오. ONTAP tools for VMware vSphere를 배포하고, NFS 논리 인터페이스를 사용하여 Storage Virtual Machine(SVM)을 구성하고, NFS 및 vVols 데이터 저장소를 모두 프로비저닝합니다.' 
 ---
-= VI 워크로드 도메인에서 NFS vVols 데이터 저장소를 보조 스토리지로 추가하기 위한 배포 워크플로
+= VCF 워크로드 도메인에 NFS vVols 데이터스토어를 보조 스토리지로 추가하기 위한 배포 워크플로
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: 'ONTAP tools for VMware vSphere 사용하여 VI 워크로드 도메인�
 
 
 [role="lead"]
-ONTAP tools for VMware vSphere 사용하여 VI 워크로드 도메인에 보조 스토리지로 NFS vVols 데이터 저장소를 추가하는 작업을 시작하세요.  배포 요구 사항을 검토하고, ONTAP tools for VMware vSphere 배포하고, 논리적 인터페이스로 SVM을 구성하고, 스토리지를 구성합니다.
+ONTAP tools for VMware vSphere를 사용하여 VCF 워크로드 도메인에 NFS vVols 데이터스토어를 보조 스토리지로 추가하는 방법을 시작해 보십시오. 배포 요구사항을 검토하고, ONTAP tools for VMware vSphere를 배포하고, SVM을 논리 인터페이스로 구성하고, 스토리지를 구성하게 됩니다.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["하나"]link:vmw-vcf-viwld-supp-nfs-vvols-requirements.html["배포 요구 사항 검토"]
 [role="quick-margin-para"]
@@ -26,7 +26,7 @@ NFS 트래픽을 위해 여러 개의 LIF가 있는 SVM을 생성합니다.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["삼"]link:vmw-vcf-viwld-supp-nfs-vvols-network.html["네트워킹 구성"]
 [role="quick-margin-para"]
-ESXi 호스트에서 NFS에 대한 네트워킹을 설정합니다.
+vSphere 호스트에서 NFS용 네트워킹을 설정합니다.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["네"]link:vmw-vcf-viwld-supp-nfs-vvols-storage.html["저장소 구성"]
 [role="quick-margin-para"]

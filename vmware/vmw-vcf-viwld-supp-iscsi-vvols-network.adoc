@@ -2,26 +2,26 @@
 sidebar: sidebar 
 permalink: vmware/vmw-vcf-viwld-supp-iscsi-vvols-network.html 
 keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc, iscsi 
-summary: VI 워크로드 도메인의 ESXi 호스트에서 iSCSI 스토리지에 대한 네트워킹을 구성합니다.  vSphere 클라이언트를 사용하여 iSCSI 트래픽에 대한 분산 포트 그룹을 생성하고 VMkernel 어댑터를 설정하여 안정적인 연결과 다중 경로를 활성화합니다. 
+summary: 워크로드 도메인의 vSphere 호스트에서 iSCSI 스토리지에 대한 네트워킹을 구성합니다. vSphere 클라이언트를 사용하여 iSCSI 트래픽용 분산 포트 그룹을 생성하고 VMkernel 어댑터를 설정하여 안정적인 연결과 멀티패싱을 활성화합니다. 
 ---
-= VCF VI 워크로드 도메인의 ESXi 호스트에서 iSCSI에 대한 네트워킹 구성
-:hardbreaks:
+= VCF 워크로드 도메인의 vSphere 호스트에서 iSCSI 네트워킹 구성
 :allow-uri-read: 
-:nofooter: 
-:icons: font
-:linkattrs: 
-:imagesdir: ../media/
 
+
+
+
+[[configure-networking-for-iscsi-on-vsphere-hosts-in-a-vcf-workload-domain]]
+== VCF 워크로드 도메인의 vSphere 호스트에서 iSCSI 네트워킹 구성
 
 [role="lead"]
-VI 워크로드 도메인의 ESXi 호스트에서 iSCSI 스토리지에 대한 네트워킹을 구성합니다.  vSphere 클라이언트를 사용하여 iSCSI 트래픽에 대한 분산 포트 그룹을 생성하고 VMkernel 어댑터를 설정하여 안정적인 연결과 다중 경로를 활성화합니다.
+워크로드 도메인의 vSphere 호스트에서 iSCSI 스토리지에 대한 네트워킹을 구성합니다. vSphere 클라이언트를 사용하여 iSCSI 트래픽용 분산 포트 그룹을 생성하고 VMkernel 어댑터를 설정하여 안정적인 연결과 멀티패싱을 활성화합니다.
 
-vCenter Single Sign-On과 함께 vSphere 클라이언트를 사용하여 VI 워크로드 도메인 클러스터에서 이러한 단계를 수행합니다.  동일한 vSphere 클라이언트가 관리 도메인과 워크로드 도메인을 모두 관리합니다.
+vCenter Single Sign-On이 포함된 vSphere 클라이언트를 사용하여 워크로드 도메인 클러스터에서 이 단계를 수행하십시오. 동일한 vSphere 클라이언트가 관리 및 워크로드 도메인을 모두 관리합니다.
 
 
 
 [[step-1-create-distributed-port-groups-for-iscsi-traffic]]
-== 1단계: iSCSI 트래픽을 위한 분산 포트 그룹 생성
+=== 1단계: iSCSI 트래픽을 위한 분산 포트 그룹 생성
 
 각 iSCSI 네트워크에 대한 새로운 분산 포트 그룹을 생성하려면 다음 단계를 완료하세요.
 
@@ -73,10 +73,10 @@ image:vmware-vcf-asa-026.png["uplink1을 사용하지 않는 곳으로 이동"]
 
 
 
-[[step-2-create-vmkernel-adapters-on-each-esxi-host]]
-== 2단계: 각 ESXi 호스트에 VMkernel 어댑터 만들기
+[[step-2-create-vmkernel-adapters-on-each-vsphere-host]]
+=== 2단계: 각 vSphere 호스트에 VMkernel 어댑터를 생성합니다.
 
-vSphere 클라이언트를 사용하여 워크로드 도메인의 각 ESXi 호스트에서 다음 단계를 수행합니다.
+vSphere 클라이언트를 사용하여 워크로드 도메인의 각 vSphere 호스트에서 다음 단계를 수행하십시오.
 
 .단계
 . vSphere 클라이언트에서 워크로드 도메인 인벤토리의 ESXi 호스트 중 하나로 이동합니다. *구성* 탭에서 *VMkernel 어댑터*를 선택하고 *네트워킹 추가...*를 클릭하여 시작합니다.
@@ -133,6 +133,6 @@ image:vmware-vcf-asa-034.png["VMkernel 선택 검토"]
 
 
 [[whats-next]]
-== 다음은 무엇인가요?
+=== 다음은 무엇인가요?
 
-워크로드 도메인의 모든 ESXi 호스트에서 iSCSI에 대한 네트워킹을 구성한 후link:vmw-vcf-viwld-supp-iscsi-vvols-storage.html["iSCSI vVols 에 대한 스토리지 구성"] .
+워크로드 도메인의 모든 vSphere 호스트에서 iSCSI 네트워킹을 구성한 후에는 link:vmw-vcf-viwld-supp-iscsi-vvols-storage.html["iSCSI vVols 에 대한 스토리지 구성"].

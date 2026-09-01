@@ -14,19 +14,19 @@ summary: ONTAP 사용하여 VMware Cloud Foundation 9 환경을 배포, 통합 �
 
 
 [role="lead"]
-ONTAP 사용하여 VMware Cloud Foundation 9 환경을 배포, 융합 또는 업그레이드합니다.  새로운 VCF 9.0 환경을 설정하고, 기존 vCenter 인스턴스와 ONTAP 데이터 저장소를 통합하고, 이전 VCF 배포를 업그레이드하는 방법을 알아보세요.
+ONTAP를 사용하여 VMware Cloud Foundation 9 환경을 배포, 통합 또는 가져오기, 업그레이드합니다. 새로운 VCF 9.1 환경을 설정하고, 기존 vCenter 인스턴스를 관리 도메인으로 통합하거나 기존 vCenter 인스턴스를 워크로드 도메인으로 가져오고, 이전 VCF 배포를 업그레이드하는 방법을 알아보십시오.
+
+자세한 내용은 link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/overview-of-deploy--converge--and-upgrade.html["VCF 9.1 배포 경로용 Broadcom 링크"]을(를) 참조하십시오.
 
 
 
 [[deploy-a-new-vcf-9-instance]]
 == 새로운 VCF 9 인스턴스 배포
 
-이 워크플로를 사용하여 깨끗한 VMware Cloud Foundation(VCF) 9.0 환경을 배포합니다.  배포 후에는 워크로드를 마이그레이션하거나 애플리케이션 프로비저닝을 시작하고 인프라 서비스를 제공할 수 있습니다.
-
-상위 레벨 단계는 다음을 참조하세요.link:https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/assets/vmware-cis/vcf/vcf-9.0-vcf-deploy-journey.pdf["빌드 여정 – 새로운 VMware Cloud Foundation 배포 설치"] .
+이 워크플로를 사용하여 새로운 VMware Cloud Foundation(VCF) 9.1 환경을 배포합니다. 배포 후 워크로드를 마이그레이션하거나 애플리케이션 프로비저닝 및 인프라 서비스 제공을 시작할 수 있습니다.
 
 .단계
-. 를 따르세요link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/deployment/deploying-a-new-vmware-cloud-foundation-or-vmware-vsphere-foundation-private-cloud-/preparing-your-environment.html["Broadcom VCF 9 배포 단계"] .
+. link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/deploying-a-new-vmware-cloud-foundation-or-vmware-vsphere-foundation-private-cloud-/preparing-your-environment.html["Broadcom VCF 9 배포 단계"]을 따르십시오.
 . 배포 준비 단계에서는 주요 스토리지 옵션에 대한 작업을 완료합니다.
 
 
@@ -51,7 +51,7 @@ NOTE: 물리적 어댑터 WWPN이 아닌 SVM 논리 인터페이스(LIF)의 WWPN
 . 확인하십시오link:https://docs.netapp.com/us-en/ontap/task_nas_enable_linux_nfs.html["SVM에는 NFS가 활성화되어 있습니다."] 그리고link:https://docs.netapp.com/us-en/ontap/nfs-admin/enable-disable-vmware-vstorage-over-nfs-task.html["NFS를 통한 vStorage가 활성화되었습니다."] .
 . 볼륨을 생성하고 ESXi 호스트를 허용하는 정책과 함께 내보냅니다.
 . 필요에 따라 권한을 조정하세요.
-. ONTAP NFS VAAI VIB를 배포하고 vLCM 이미지에 포함합니다.  예를 들어: `esxcli software vib install -d /NetAppNasPlugin2.0.1.zip` .  ( NetApp 지원 사이트에서 ZIP을 다운로드하세요.)
+. ONTAP NFS VAAI VIB를 배포하고 해당 서버를 클러스터 이미지에 사용합니다. 예를 들면 다음과 같습니다. `esxcli software vib install -d /NetAppNasPlugin2.0.1.zip` (NetApp Support Site에서 ZIP 파일을 다운로드하십시오.)
 . VMkernel 인터페이스를 생성한 호스트에 NFS 볼륨을 마운트합니다.  예를 들어: `esxcli storage nfs add -c 4 -H 192.168.122.210 -s /use1_m01_nfs01 -v use1-m01-cl01-nfs01` .
 +
 
@@ -61,7 +61,7 @@ NOTE: 그만큼 `nConnect` 세션 수는 호스트당입니다.  필요에 따�
 
 --
 ====
-. *VCF 함대 배포* 단계의 *배포 요약 확인 및 다음 단계 검토*가 끝나면 다음을 완료하세요.
+. 해당 link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/deploying-a-new-vmware-cloud-foundation-or-vmware-vsphere-foundation-private-cloud-/deploy-a-new-vcf-fleet-or-a-new-vcf-instance.html["VCF Fleet"] 단계의 배포가 성공적으로 완료되면 다음 사항을 완료하십시오.
 +
 .. ONTAP 도구 배포
 +
@@ -91,13 +91,13 @@ NOTE: 그만큼 `nConnect` 세션 수는 호스트당입니다.  필요에 따�
 
 .. NetApp Backup and Recovery 사용
 +
-*** link:https://docs.netapp.com/us-en/data-services-backup-recovery/prev-vmware-protect-overview.html["VM 워크로드 보호"].
+*** link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-vmware-protect-overview.html["VM 워크로드 보호"].
 *** link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-kubernetes-protect-overview.html["VKS 워크로드 보호"].
 
 
 
 
-. VCF 인스턴스에서 vCenter를 워크로드 도메인으로 가져온 후 다음을 완료하세요.
+. VCF 인스턴스에 link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/building-your-private-cloud-infrastructure/working-with-workload-domains/import-an-existing-vcenter-to-create-a-workload-domain.html["vCenter를 워크로드 도메인으로 가져오기"] 후 다음 단계를 완료하십시오.
 +
 .. ONTAP 도구 등록
 +
@@ -116,7 +116,7 @@ NOTE: 그만큼 `nConnect` 세션 수는 호스트당입니다.  필요에 따�
 
 .. NetApp Backup and Recovery 사용
 +
-*** link:https://docs.netapp.com/us-en/data-services-backup-recovery/prev-vmware-protect-overview.html["VM 워크로드 보호"].
+*** link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-vmware-protect-overview.html["VM 워크로드 보호"].
 *** link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-kubernetes-protect-overview.html["VKS 워크로드 보호"].
 
 
@@ -140,7 +140,7 @@ NOTE: 그만큼 `nConnect` 세션 수는 호스트당입니다.  필요에 따�
 
 
 .단계
-. 검토하다link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/deployment/converging-your-existing-vsphere-infrastructure-to-a-vcf-or-vvf-platform-/supported-scenarios-to-converge-to-vcf.html["VCF로 수렴하기 위한 지원 시나리오"] .
+. link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/converging-your-existing-vsphere-infrastructure-to-a-vcf-or-vvf-platform-/supported-scenarios-to-converge-to-vcf.html["VCF로 수렴하기 위한 지원 시나리오"]을(를) 검토하십시오.
 . ONTAP 에서 프로비저닝한 데이터 저장소를 주 저장소로 사용하여 vCenter 인스턴스를 수렴합니다.
 . 다음을 사용하여 지원되는 버전을 확인하세요.link:https://imt.netapp.com/imt/#welcome["상호 운용성 매트릭스"] .
 . 치받이link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/upgrade/upgrade-ontap-tools.html["ONTAP 도구"] 필요한 경우.
@@ -152,14 +152,14 @@ NOTE: 그만큼 `nConnect` 세션 수는 호스트당입니다.  필요에 따�
 [[upgrade-an-existing-vcf-environment-to-vcf-9]]
 == 기존 VCF 환경을 VCF 9로 업그레이드
 
-표준 업그레이드 프로세스를 사용하여 이전 VCF 배포를 버전 9.0으로 업그레이드합니다.  그 결과, 업그레이드된 관리 및 워크로드 도메인을 갖춘 버전 9.0을 실행하는 VCF 환경이 탄생했습니다.
+표준 업그레이드 프로세스를 사용하여 이전 VCF 배포 환경을 버전 9.1로 업그레이드합니다. 결과적으로 관리 및 워크로드 도메인이 업그레이드된 버전 9.1 VCF 환경이 생성됩니다.
 
 .필수 조건
 * 관리 도메인과 워크로드 도메인을 백업합니다.
-* ONTAP 도구와 SnapCenter 플러그인이 VCF 9.0과 호환되는지 확인하세요.  를 따르세요link:https://imt.netapp.com/imt/#welcome["상호 운용성 매트릭스"] 에게link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/upgrade/upgrade-ontap-tools.html["ONTAP 도구 업그레이드"] 그리고link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_upgrade.html["VMware vSphere용 SnapCenter 플러그인"] VCF 9에서 지원되는
+* ONTAP tools 및 SnapCenter Plug-in이 VCF 9.1과 호환되는지 확인하십시오. link:https://imt.netapp.com/imt/#welcome["상호 운용성 매트릭스"]을 따라 VCF 9.1에서 지원되는 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/upgrade/upgrade-ontap-tools.html["ONTAP 도구 업그레이드"] 및 link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_upgrade.html["VMware vSphere용 SnapCenter 플러그인"]을 확인하십시오.
 
 
 .단계
-. VCF 관리 도메인을 업그레이드합니다.  보다link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/deployment/upgrading-cloud-foundation.html["VCF 관리 도메인을 VCF 9로 업그레이드"] 지침을 보려면.
-. 모든 VCF 5.x 워크로드 도메인을 업그레이드합니다.  보다link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/lifecycle-management/lifecycle-management-of-vcf-core-components/upgrade-workload-domains-to-vcf-5-2.html["VCF 5.x 워크로드 도메인을 VCF 9로 업그레이드"] 지침을 보려면.
+. VCF 관리 도메인을 업그레이드하십시오. 지침은 link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/upgrading-cloud-foundation.html["VCF 관리 도메인을 VCF 9.1로 업그레이드"]을 참조하십시오.
+. VCF 5.x 워크로드 도메인을 업그레이드하십시오. 자세한 지침은 link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/lifecycle-management/upgrade-workload-domains-to-vcf-5-2.html["VCF 5.x 워크로드 도메인을 VCF 9.1로 업그레이드"]을 참조하십시오.
 

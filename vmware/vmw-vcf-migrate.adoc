@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: vmware/vmw-vcf-migrate.html 
 keywords: vmware, vcf, migrate, import 
-summary: ONTAP 에서 기존 파이버 채널이나 NFS 데이터 저장소를 사용하는 vSphere 환경을 변환하려면 현재 인프라를 최신 프라이빗 클라우드 아키텍처로 통합해야 합니다. 
+summary: 기존 Fibre Channel 또는 NFS 데이터스토어가 있는 vSphere 환경을 ONTAP와 통합하려면 현재 인프라를 최신 프라이빗 클라우드 아키텍처에 통합해야 합니다. 
 ---
-= 기존 데이터 저장소가 있는 vSphere 환경을 VCF 관리 도메인으로 변환하는 방법에 대해 알아보세요.
+= 기존 데이터스토어를 사용하는 vSphere 환경을 VCF 관리 도메인으로 통합하는 방법에 대해 알아보십시오.
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,16 +14,16 @@ summary: ONTAP 에서 기존 파이버 채널이나 NFS 데이터 저장소를 �
 
 
 [role="lead"]
-ONTAP 에서 기존 파이버 채널이나 NFS 데이터 저장소를 사용하는 vSphere 환경을 변환하려면 현재 인프라를 최신 프라이빗 클라우드 아키텍처로 통합해야 합니다.
+지원되는 모든 vSphere 환경은 VCF 프라이빗 클라우드 환경의 일부로 구성할 수 있습니다. 이러한 환경은 VCF 관리 도메인으로 통합하거나 워크로드 도메인으로 가져올 수 있습니다. 이 솔루션은 클러스터를 VCF 관리 도메인으로 변환할 때 vSphere의 기존 VMFS 또는 NFS 데이터스토어가 기본 스토리지가 되는 방법을 보여줍니다.
 
 
 
 [[solution-overview]]
 == 솔루션 개요
 
-이 솔루션은 클러스터가 VCF 관리 도메인으로 변환될 때 vSphere의 기존 FC 또는 NFS 데이터 저장소가 주 스토리지가 되는 방식을 보여줍니다.
+이 솔루션은 클러스터가 VCF 관리 도메인으로 통합될 때 vSphere의 기존 VMFS 또는 NFS 데이터스토어가 기본 스토리지가 되는 방식을 보여줍니다.
 
-이 프로세스는 ONTAP 스토리지의 견고성과 유연성을 활용하여 원활한 데이터 액세스와 관리를 보장합니다.  변환 프로세스를 통해 VCF 관리 도메인이 설정되면 관리자는 FC 및 NFS 데이터 저장소를 모두 사용하는 환경을 포함하여 추가 vSphere 환경을 VCF 생태계로 효율적으로 가져올 수 있습니다.
+이 프로세스는 ONTAP 스토리지의 견고성과 유연성을 활용하여 원활한 데이터 액세스 및 관리를 보장합니다. 통합 프로세스를 통해 VCF 관리 도메인이 구축되면 관리자는 VMFS 및 NFS 데이터스토어를 모두 사용하는 환경을 포함하여 추가 vSphere 환경을 VCF 에코시스템으로 효율적으로 가져올 수 있습니다.
 
 이러한 통합은 리소스 사용을 향상시킬 뿐만 아니라 프라이빗 클라우드 인프라 관리를 간소화하여 기존 작업 부하를 최소화하면서 원활한 전환을 보장합니다.
 
@@ -40,13 +40,13 @@ image::vmware-vcf-import-nfs-010.png[ONTAP 도구 아키텍처]
 
 
 
-[[supported-solutions-for-converting-a-vsphere-environment]]
-== vSphere 환경 변환을 위한 지원 솔루션
+[[supported-solutions-for-converging-a-vsphere-environment]]
+== vSphere 환경 통합을 위한 지원 솔루션
 
 vCenter 인스턴스를 변환하기 위한 기술적 세부 정보는 다음 솔루션을 참조하세요.
 
-* link:vmw-vcf-mgmt-nfs.html["vCenter 인스턴스를 VCF 관리 도메인(NFS 데이터 저장소)으로 변환"]
-* link:vmw-vcf-mgmt-fc.html["vCenter 인스턴스를 VCF 관리 도메인(FC 데이터 저장소)으로 변환"]
+* link:vmw-vcf-mgmt-nfs.html["vCenter 인스턴스를 VCF 관리 도메인(NFS 데이터 저장소)에 통합합니다."]
+* link:vmw-vcf-mgmt-vmfs.html["vCenter 인스턴스를 VCF 관리 도메인(VMFS 데이터스토어)에 통합합니다."]
 
 
 
@@ -55,8 +55,8 @@ vCenter 인스턴스를 변환하기 위한 기술적 세부 정보는 다음 �
 == 추가 정보
 
 * 이러한 솔루션의 비디오 데모는 다음을 참조하세요.link:../videos/vmware-videos.html#vmware-datastore-provisioning-with-ontap["ONTAP 사용한 VMware 데이터스토어 프로비저닝"] .
-* 변환 프로세스 개요는 다음을 참조하세요. https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/map-for-administering-vcf-5-2/importing-existing-vsphere-environments-admin/convert-or-import-a-vsphere-environment-into-vmware-cloud-foundation-admin.html["VMware Cloud Foundation에서 vSphere 환경을 관리 도메인으로 변환하거나 vSphere 환경을 VI 워크로드 도메인으로 가져오기"] .
+* 수렴 과정에 대한 개요는  https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/converging-your-existing-vsphere-infrastructure-to-a-vcf-or-vvf-platform-.html["기존 가상 인프라를 VCF로 통합하기"]을 참조하십시오.
 * ONTAP 스토리지 시스템 구성에 대한 정보는 다음을 참조하세요.link:https://docs.netapp.com/us-en/ontap["ONTAP 9 문서"] .
 * VCF 구성에 대한 정보는 다음을 참조하세요.link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf.html["VMware Cloud Foundation 문서"] .
-* vSphere를 VCF 5.2로 변환하거나 가져오기 위해 지원되는 저장소 및 기타 고려 사항은 다음을 참조하세요. https://techdocs.broadcom.com/fr/fr/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/considerations-before-converting-or-importing-existing-vsphere-environments-into-vcf.html["기존 vSphere 환경을 VMware Cloud Foundation으로 변환하거나 가져오기 전 고려 사항"] .
+* 지원되는 스토리지 및 기타 고려 사항을 수렴하려면  https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/converging-your-existing-vsphere-infrastructure-to-a-vcf-or-vvf-platform-/supported-and-not-supported-configurations.html["VCF로 수렴하기 위한 지원 및 미지원 구성"]을 참조하십시오.
 

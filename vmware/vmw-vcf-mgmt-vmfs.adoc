@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-mgmt-vmfs.html 
+keywords: netapp, vmware, cloud, foundation, vcf, asa, aff, all-flash, fc, array, ontap tools, otv, sddc, sddc manager, ontap tools, ontap tools 10 
+summary: 지원되는 NetApp ONTAP VMFS 데이터스토어가 있는 기존 vSphere 클러스터를 VMware Cloud Foundation 관리 도메인으로 컨버지합니다. 구성 요구사항을 검토하고, ONTAP tools를 배포하고 VMFS 데이터스토어를 프로비저닝한 다음, VCF Installer Tool을 사용하여 클러스터를 검증하고 컨버지합니다. 
+---
+= VMFS 데이터스토어를 사용하는 VCF 관리 도메인으로 vCenter 서버 인스턴스를 통합하기 위한 배포 워크플로
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+기존 vSphere 클러스터와 NetApp ONTAP VMFS 데이터스토어를 VMware Cloud Foundation 관리 도메인으로 통합합니다. 구성 요구 사항을 검토하고, ONTAP 툴을 배포하고 VMFS 데이터스토어를 프로비저닝하며, VCF 설치 관리자 툴을 사용하여 기존 구성 요소를 검증하고 사용하고, 필요한 새 구성 요소를 배포하고, 플랫폼을 구성합니다.
+
+이 워크플로는 지원되는 모든 VMFS 데이터스토어를 VCF 관리 도메인의 Principal Storage로 활용하는 데에도 사용됩니다.
+
+변환 프로세스에 대한 개요는 VMware 설명서를 참조하십시오. https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/deployment/converging-your-existing-vsphere-infrastructure-to-a-vcf-or-vvf-platform-.html["기존 가상 인프라를 VCF로 통합하기"]
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["하나"]link:vmw-vcf-mgmt-vmfs-requirements.html["구성 요구 사항을 검토하세요"]
+[role="quick-margin-para"]
+VMFS 데이터스토어를 사용하여 vCenter 서버 인스턴스를 VCF 관리 도메인으로 통합하기 위한 주요 요구 사항을 검토하십시오.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["둘"]link:vmw-vcf-mgmt-vmfs-deploy.html["ONTAP tools를 배포하고 지원되는 VMFS 데이터스토어를 프로비저닝합니다."]
+[role="quick-margin-para"]
+ONTAP tools for VMware vSphere를 배포하고 지원되는 VMFS 데이터스토어를 프로비저닝합니다.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["삼"]link:vmw-vcf-mgmt-vmfs-converge.html["vSphere 클러스터를 VCF 관리 도메인으로 통합"]
+[role="quick-margin-para"]
+VCF Installer Tool을 사용하여 VCF 관리 도메인을 구성하는 기존 구성 요소를 검증하고 재사용하며 새 구성 요소를 배포할 수 있습니다.
+
+
+
+[[reference-video]]
+== 참고 영상:
+
+.AFF 및 ASA r2를 사용한 iSCSI 멀티패스
+video::62c2a66c-1a07-4284-bc7b-b4ac00e9aeea[panopto,width=360]
+.NVMe/TCP를 사용한 보조 데이터 저장소
+video::f85530ec-ff24-4c7d-abb4-b49b0176402c[panopto,width=360]
+.NVMe/FC를 사용한 보조 데이터 저장소
+video::b2b16a35-05cd-49c9-a91a-b4ac0127813d[panopto,width=360]
+.FC를 사용한 추가 데이터 저장소
+video::96311abf-aa45-4ce9-984b-b4b001005bab[panopto,width=360]
