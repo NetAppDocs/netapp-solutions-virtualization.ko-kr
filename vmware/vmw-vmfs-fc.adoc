@@ -102,3 +102,5 @@ VMFS 데이터 저장소를 프로비저닝하려면 다음 단계를 완료하�
 
 .FC를 사용한 추가 데이터 저장소
 video::96311abf-aa45-4ce9-984b-b4b001005bab[panopto,width=360]
+.FC를 사용하는 주요 데이터 저장소
+video::9c51101c-292b-41ef-8dd5-b4cf0131dd62[panopto,width=360]

@@ -90,6 +90,8 @@ video::255640f5-4dff-438c-8d50-b01200f017d1[panopto,width=360]
 [[vmware-cloud-foundation-with-netapp-ontap]]
 == NetApp ONTAP 활용한 VMware Cloud Foundation
 
+.FC에서 VMFS를 사용한 VCF 배포
+video::9c51101c-292b-41ef-8dd5-b4cf0131dd62[panopto,width=360]
 .VCF 워크로드 도메인의 주요 저장소로서의 NFS 데이터 저장소
 video::9b66ac8d-d2b1-4ac4-a33c-b16900f67df6[panopto]
 .VCF 관리 도메인을 위한 보조 저장소로서의 iSCSI 데이터 저장소

@@ -37,6 +37,8 @@ VCF Installer Tool을 사용하여 VCF 관리 도메인을 구성하는 기존 �
 [[reference-video]]
 == 참고 영상:
 
+.FC를 사용하는 주요 데이터 저장소
+video::9c51101c-292b-41ef-8dd5-b4cf0131dd62[panopto,width=360]
 .AFF 및 ASA r2를 사용한 iSCSI 멀티패스
 video::62c2a66c-1a07-4284-bc7b-b4ac00e9aeea[panopto,width=360]
 .NVMe/TCP를 사용한 보조 데이터 저장소
