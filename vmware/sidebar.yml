@@ -149,6 +149,22 @@ entries:
       url: "/vmware/vmw-vcf-vmsc-viwld-smas.html"
   - title: vSphere에서 VM 마이그레이션
     url: "/vmware/migrate-vms-to-ontap-datastore.html"
+  - title: vVols에서 NFS로 VM 마이그레이션
+    entries:
+    - title: vVols에서 NFS로 마이그레이션하는 방법에 대해 알아보십시오.
+      url: "/vmware/vmw-vvol-nfs-migration.html"
+    - title: 배포 모범 사례
+      url: "/vmware/vmw-vvol-nfs-migration-best-practices.html"
+    - title: 저장 옵션
+      url: "/vmware/vmw-vvol-nfs-migration-storage-options.html"
+    - title: 사이징 가이드라인
+      url: "/vmware/vmw-vvol-nfs-migration-sizing.html"
+    - title: ONTAP 통합 툴
+      url: "/vmware/vmw-vvol-nfs-migration-integ-tools.html"
+    - title: 마이그레이션 옵션
+      url: "/vmware/vmw-vvol-nfs-migration-options.html"
+    - title: 추가 자료
+      url: "/vmware/vmw-vvol-nfs-migration-add-info.html"
   - title: 랜섬웨어로부터 데이터를 보호하고 복구하세요
     url: "/vmware/vmw-nfs-arp.html"
   - title: DII를 사용하여 온프레미스 스토리지 모니터링

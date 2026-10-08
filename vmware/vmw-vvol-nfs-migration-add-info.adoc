@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vvol-nfs-migration-add-info.html 
+keywords: netapp, vmware, vvol, vvols, ONTAP tools, nfs, flexgroup, resources 
+summary: ONTAP를 사용하는 VMware vSphere 환경에서 vVols 데이터스토어를 NFS 데이터스토어로 마이그레이션하는 방법에 대한 추가 리소스를 찾아보십시오. 
+---
+= vVols에서 NFS 데이터스토어로 마이그레이션하기 위한 추가 리소스
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP를 사용하는 VMware vSphere 환경에서 vVols 데이터스토어를 NFS 데이터스토어로 마이그레이션하는 방법에 대한 추가 리소스를 찾아보십시오.
+
+
+
+[[netapp-documentation]]
+== NetApp 문서
+
+* link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html["VMware vSphere with ONTAP 모범 사례 가이드"^]
+* link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-datastores-nfs.html["NFS 데이터 저장소"^]
+* link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vvols-overview.html["ONTAP을 사용하는 vVols"^]
+* link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-settings.html["권장되는 ESXi 호스트 및 기타 ONTAP 설정"^]
+* link:vmw-nfs-otv10.html["ONTAP tools for VMware vSphere 사용하여 vSphere 8에 대한 NFS 데이터 저장소 구성"]
+* link:vmw-vsphere8-nfs-nconnect.html["NFS v3 데이터 저장소에서 nConnect를 사용하여 데이터 저장소 성능 개선"]
+* link:migrate-vms-to-ontap-datastore.html["VMware vSphere에서 ONTAP 데이터 저장소로 VM 마이그레이션"]
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/index.html["ONTAP tools for VMware vSphere"^]
+* link:https://docs.netapp.com/us-en/nfs-plugin-vmware-vaai/index.html["NetApp VMware VAAI용 NFS 플러그인 설명서"^]
+* link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/index.html["SnapCenter Plug-in for VMware vSphere 설명서"^]
+* link:https://docs.netapp.com/us-en/ontap/flexgroup/index.html["ONTAP FlexGroup 볼륨 문서"^]
+* link:https://docs.netapp.com/us-en/ontap/nfs-admin/index.html["ONTAP NFS 문서"^]
+
+
+
+
+[[vmware-documentation]]
+== VMware 문서
+
+* link:https://knowledge.broadcom.com/external/article?articleId=401070["VCF 9.0 및 VVF 9.0에서 VMware vSphere 가상 볼륨(vVols) 사용 중단"^]
+* link:https://knowledge.broadcom.com/external/article/313464/support-for-nconnect-feature-added-in-es.html["NFS 클라이언트 - ESXi에서의 nConnect 기능 지원"^]
+* link:https://configmax.broadcom.com["VMware 구성 최대값"^]
+

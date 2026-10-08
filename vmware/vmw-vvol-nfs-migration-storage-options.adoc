@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vvol-nfs-migration-storage-options.html 
+keywords: netapp, vmware, nfs, ontap, flexvol, flexgroup, storage, options, scalability 
+summary: VMware 환경에서 NFS 데이터스토어에 사용할 수 있는 ONTAP 스토리지 옵션에 대해 알아보고, FlexVol 및 FlexGroup 볼륨을 비교하여 워크로드에 가장 적합한 옵션을 선택하십시오. 
+---
+= ONTAP을 사용하는 VMware vSphere 환경의 NFS 데이터스토어용 스토리지 옵션
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware 환경에서 NFS 데이터스토어에 대한 ONTAP 스토리지 옵션에 대해 알아보십시오. FlexVol 및 FlexGroup 볼륨을 비교하여 워크로드 요구 사항 및 확장성에 가장 적합한 솔루션을 선택하십시오.
+
+VMware 환경에서 NFS 데이터스토어에 FlexVol과 FlexGroup 볼륨 중 하나를 선택할 때는 다음 사항을 고려하십시오:
+
+image:vmw-vvol-nfs-migration-005.png["FlexVol 및 FlexGroup 비교"]
+
+.FlexVol
+FlexVol 볼륨은 예측 가능한 성능과 세부적인 관리가 필요한 소규모에서 중규모 환경에 적합합니다.
+
+스냅샷 복사본, 클론 생성 및 복제를 지원합니다. FlexVol 볼륨은 워크로드를 격리하거나 개별 데이터스토어에 특정 정책을 적용해야 할 때 이상적입니다.
+
+.FlexGroup
+FlexGroup 볼륨은 대규모 배포를 위해 설계되었으며 뛰어난 확장성(최대 20PB 및 4천억 개의 파일)과 병렬 처리를 제공합니다.
+
+이들은 여러 구성 볼륨에 데이터를 자동으로 분산하여 수천 대의 VM이 있는 환경에서 고성능과 간소화된 관리를 제공합니다. 많은 VM을 위한 확장 가능한 단일 데이터스토어가 필요할 때 FlexGroup 볼륨을 사용하십시오.
+
+.권장 사항
+* 규모가 작고 격리된 워크로드 또는 세부적인 제어가 필요한 경우 *FlexVol 볼륨을 사용하십시오.*
+* 관리 간소화 및 확장성이 필요한 대규모 고성능 환경에는 *FlexGroup 볼륨을 사용하십시오*.
+
+
+
+
+[[additional-information]]
+== 추가 정보
+
+* link:https://docs.netapp.com/us-en/ontap/flexgroup/index.html["FlexGroup 볼륨 문서"^]
+* link:https://docs.netapp.com/us-en/ontap/flexgroup/supported-unsupported-config-concept.html["FlexGroup 볼륨에 대해 지원되는 구성 및 지원되지 않는 구성"^]
+* link:https://docs.netapp.com/us-en/ontap/volumes/index.html["논리적 스토리지 관리 문서"^]
+

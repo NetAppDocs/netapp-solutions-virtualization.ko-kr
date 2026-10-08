@@ -160,7 +160,7 @@ image:vmfs-deploy-015.png["입력/출력 대화 상자 또는 서면 내용을 �
 
 
 
-vVol, FC, NVMe/TCP 데이터 저장소 프로비저닝에 대한 자세한 내용은 다음 링크를 참조하세요.
+FC 또는 NVMe/TCP를 사용하여 vVols 데이터스토어 또는 VMFS 데이터스토어를 프로비저닝하려면 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-datastore.html["ONTAP tools에서 데이터 저장소를 생성합니다"^]를 참조하십시오. 해당 페이지에는 NVMe/TCP에 필요한 ESXi 호스트 구성도 나와 있습니다.
 
 
 

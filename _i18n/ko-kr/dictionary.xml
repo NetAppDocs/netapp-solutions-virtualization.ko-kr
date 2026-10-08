@@ -3027,14 +3027,10 @@
   <block id="24a1e84f171f7624a56edc931ebd942f" category="paragraph">{nbsp}</block>
   <block id="d8a96954bccc700a607871c9542b9037" category="paragraph">요약하자면 ONTAP 과 NetApp 플랫폼은 VMware 워크로드에 포괄적인 이점을 제공하여 성능, 확장성, 데이터 관리를 향상시킵니다.  공통적인 기능이 견고한 기반을 제공하는 반면, 각 플랫폼은 FAS 통한 비용 효율적인 스토리지, AFF 통한 고성능, ASA 를 통한 최적화된 SAN 성능, NetApp 클라우드 솔루션을 통한 하이브리드 클라우드의 유연성 등 특정 요구 사항에 맞춰 차별화된 이점을 제공합니다.</block>
   <block id="de305ca3a2f074c655aead3d63987ae7" category="doc">ONTAP tools for VMware vSphere 사용하여 가상 머신을 관리하는 방법에 대해 알아보세요.</block>
-  <block id="34f86cf3833621fff795ca830d48b870" category="paragraph">ONTAP tools for VMware vSphere NetApp 스토리지를 사용하여 VM의 수명 주기 관리를 간소화합니다.  관리자는 vCenter Server에서 직접 스토리지를 관리하여 운영을 간소화하고 확장성을 향상시킬 수 있습니다.  VSC(Virtual Storage Console), VASA Provider, SRA(Storage Replication Adapter)와 같은 주요 구성 요소는 프로비저닝, 성능 모니터링, 재해 복구를 최적화합니다.</block>
   <block id="4ea586fae1575af3ecf73e2d65182b4a" category="paragraph">이를 통해 관리자는 vCenter Server 내의 스토리지를 직접 관리하고 VMware 환경의 스토리지 및 데이터 관리를 간소화할 수 있습니다.  VMware vSphere Client 플러그인 도구는 vCenter Server 내부에서 실행할 필요 없이 플러그인 기능을 vSphere Client에 통합하도록 설계되었습니다.  이를 통해 플러그인을 분리하고 대규모 vSphere 환경에서 작동하는 플러그인의 확장이 가능해집니다.</block>
   <block id="44c7dfa7e274f41322d9436ad8713067" category="section-title">ONTAP 도구 구성 요소</block>
-  <block id="544854cfc99d46b2c0db05d3e008beee" category="list-text">*가상 스토리지 콘솔(VSC)* VSC에는 vSphere 클라이언트와 통합된 인터페이스가 포함되어 있어 스토리지 컨트롤러를 추가하고, 데이터스토어를 프로비저닝하고, 데이터스토어의 성능을 모니터링하고, ESXi 호스트 설정을 보고 업데이트할 수 있습니다.</block>
   <block id="e89fa7b942a673efd0bf6aeb134af6d3" category="list-text">*VASA 공급자* ONTAP 용 VMware vSphere APIs for Storage Awareness(VASA) 공급자는 VMware vSphere에서 사용하는 스토리지에 대한 정보를 vCenter Server로 전송하여 VMware Virtual Volumes(vVols) 데이터 저장소 프로비저닝, 스토리지 기능 프로필 생성 및 사용, 규정 준수 검증, 성능 모니터링을 지원합니다.</block>
   <block id="9f4dd025ba55d2e03e368b3a2ae89ab9" category="list-text">*스토리지 복제 어댑터(SRA)* SRA를 활성화하고 VMware Site Recovery Manager(SRM)와 함께 사용하면 장애 발생 시 vCenter Server 데이터스토어와 가상 머신의 복구를 용이하게 하여 재해 복구를 위한 보호 사이트와 복구 사이트를 구성할 수 있습니다.</block>
-  <block id="46c4d9bfa1c229940459326940489ab0" category="inline-link">ONTAP tools for VMware vSphere 설명서</block>
-  <block id="29c47efbd8bbf63e61c46ec3cdc0b75a" category="paragraph">VMware용 NetApp ONTAP 도구에 대한 자세한 내용은 다음을 참조하세요.<block ref="20b60c31d47f743ee9878127e24d7f6c" category="inline-link-rx"></block> .</block>
   <block id="e6714c03113e6f7397c69075f48c2e45" category="doc">VMware vSphere용 ONTAP 에 대해 알아보세요</block>
   <block id="4546a7029c48c92e8f6a8b1e08508598" category="paragraph">NetApp ONTAP 은 VMware vSphere를 위한 선도적인 스토리지 솔루션으로, 데이터 저장소와 게스트 연결 스토리지 사용 사례에서 약 20년 동안 안정적인 성능을 제공해 왔습니다.  ONTAP SAN 및 NAS 프로토콜을 지원하고, 스토리지 및 컴퓨팅 리소스의 독립적인 확장을 허용하며, 호스트의 스토리지 작업 부담을 덜어줍니다.  이점으로는 강력한 데이터 보호, 높은 가용성, SnapMirror 및 MetroCluster 와 같은 고급 비즈니스 연속성 기능이 있습니다.</block>
   <block id="76b704a843058147579aa37e5f6da52a" category="paragraph">NetApp 클라우드에 적합한 통합된 VMware 기반 가상 인프라에 대한 확신을 높이고 비용을 절감하는 동시에 스토리지 관리를 간소화하기 위한 혁신적인 기능을 지속적으로 추가하고 있습니다.  이 솔루션 컬렉션은 VMware vSphere Foundation 및 VMware Cloud Foundation에 대한 ONTAP 제품을 소개하며, 배포를 간소화하고, 위험을 줄이고, 관리를 단순화하기 위한 최신 제품 정보와 모범 사례를 포함합니다.</block>
@@ -4288,7 +4284,6 @@
   <block id="21e65f2c709a631e9cc3798b4bc7c39f" category="paragraph"><block ref="21e65f2c709a631e9cc3798b4bc7c39f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="3f3cd6c71b4c86cd18deb1f280284ebf" category="list-text">요약 창에서 데이터 저장소 세부 정보를 검토하고 마침을 클릭합니다.  VMFS 데이터 저장소가 생성되어 모든 호스트에 마운트됩니다.</block>
   <block id="0638359262d90d198eefccd3db6eac18" category="paragraph"><block ref="0638359262d90d198eefccd3db6eac18" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="062f81940e9e834c4aa167b4cc1c815a" category="paragraph">vVol, FC, NVMe/TCP 데이터 저장소 프로비저닝에 대한 자세한 내용은 다음 링크를 참조하세요.</block>
   <block id="3873ae11f446d3141576af8a36d10cd8" category="section-title">VAAI 오프로딩</block>
   <block id="99f7a318619b00dc5c546d5924194fc7" category="paragraph">VAAI 기본 요소는 VM 생성, 복제, 마이그레이션, 시작, 중지와 같은 일상적인 vSphere 작업에 사용됩니다.  이러한 작업은 간소화를 위해 vSphere 클라이언트를 통해 실행할 수도 있고, 스크립팅이나 더 정확한 타이밍을 얻기 위해 명령줄에서 실행할 수도 있습니다.  SAN용 VAAI는 ESX에서 기본적으로 지원됩니다.  VAAI는 지원되는 NetApp 스토리지 시스템에서 항상 활성화되어 있으며 SAN 스토리지에서 다음 VAAI 작업에 대한 기본 지원을 제공합니다.</block>
   <block id="55e0e7799b68cd76cf68be0ee82fef7b" category="list-text">복사 오프로드</block>
@@ -9655,4 +9650,240 @@
   <block id="32cd4e96e16ea22218701d95fbb8641b" category="list-text"><block ref="32cd4e96e16ea22218701d95fbb8641b" category="inline-link-rx"></block></block>
   <block id="4ac9ef937d6829e78f453d8c03de16a1" category="list-text">클러스터 내 vSphere 호스트 중 하나에 VMFS 데이터스토어(FC LUN 포함)를 생성합니다.</block>
   <block id="1cda12e319bfea043837b8254a9a7c84" category="video-title">FC를 사용하는 주요 데이터 저장소</block>
+  <block id="c9fc175ae71120c6e7775650b30e8945" category="paragraph">ONTAP tools for VMware vSphere는 NetApp 스토리지를 사용하는 VM의 수명 주기 관리를 간소화합니다. 관리자는 vCenter Server에서 직접 스토리지를 관리할 수 있으므로 운영이 간소화되고 확장성이 향상됩니다. vSphere Client 플러그인, VASA Provider, Storage Replication Adapter(SRA)와 같은 주요 구성 요소는 프로비저닝, 성능 모니터링 및 재해 복구를 최적화합니다.</block>
+  <block id="fb3600e8a3a76392e672132761f31b79" category="list-text">*vSphere Client 플러그인* 이 플러그인에는 스토리지 컨트롤러 추가, 데이터스토어 프로비저닝, 데이터스토어 성능 모니터링, ESXi 호스트 설정 보기 및 업데이트를 수행할 수 있는 vSphere 클라이언트와 통합된 인터페이스가 포함되어 있습니다. ONTAP 툴 9.x에서는 이 구성 요소를 가상 스토리지 콘솔(VSC)이라고 합니다.</block>
+  <block id="d91d3d08a6ceb3319a2a2defa9eeda5e" category="paragraph">자세한 내용은 해당 버전의 ONTAP tools for VMware vSphere 설명서를 참조하십시오:</block>
+  <block id="087fb4aab52badcbbf98da3fb602aef3" category="inline-link-macro">ONTAP tools for VMware vSphere 10.x 설명서</block>
+  <block id="647b8fdd8bee5ac0dc777ac9aeafea5e" category="list-text"><block ref="611501c9f51b3b11436b7a3345297fdd" category="inline-link-macro-rx"></block> (최신 릴리스)</block>
+  <block id="085512c3cdf90f02f292234e4c517366" category="inline-link-macro">ONTAP tools for VMware vSphere 9.x 설명서</block>
+  <block id="c9adc68a153ae13d9600eb7a1a66854c" category="list-text"><block ref="c9adc68a153ae13d9600eb7a1a66854c" category="inline-link-macro-rx"></block></block>
+  <block id="95d5cac81150e067965210d361bbfb2f" category="inline-link-macro">ONTAP tools에서 데이터 저장소를 생성합니다</block>
+  <block id="a1e46fe78585b04d2aa2d82bda26e391" category="paragraph">FC 또는 NVMe/TCP를 사용하여 vVols 데이터스토어 또는 VMFS 데이터스토어를 프로비저닝하려면 <block ref="d56b16d585d28b72cb539633a3efd1f9" category="inline-link-macro-rx"></block>를 참조하십시오. 해당 페이지에는 NVMe/TCP에 필요한 ESXi 호스트 구성도 나와 있습니다.</block>
+  <block id="0531ba28779c48290224e48d1b88644d" category="summary">ONTAP를 사용하는 VMware vSphere 환경에서 vVols 데이터스토어를 NFS 데이터스토어로 마이그레이션하는 방법에 대한 추가 리소스를 찾아보십시오.</block>
+  <block id="d31889cff52db23e7f06d9836d050eb7" category="doc">vVols에서 NFS 데이터스토어로 마이그레이션하기 위한 추가 리소스</block>
+  <block id="58826bba5b6c0010e4915ab23035b67d" category="inline-link-macro">VMware vSphere with ONTAP 모범 사례 가이드</block>
+  <block id="8b0506d704f22748f91140bd48ebfda0" category="list-text"><block ref="8b0506d704f22748f91140bd48ebfda0" category="inline-link-macro-rx"></block></block>
+  <block id="1f25f9cc2f9e277c0318faa6969f3552" category="inline-link-macro">NFS 데이터 저장소</block>
+  <block id="724cd8e2558b4cecc94bdd54e799582e" category="list-text"><block ref="724cd8e2558b4cecc94bdd54e799582e" category="inline-link-macro-rx"></block></block>
+  <block id="d19737fb7ccbbd3ca395e946bf73bd7f" category="inline-link-macro">ONTAP을 사용하는 vVols</block>
+  <block id="1f68b1645a3ff001ba0f49331d327ca5" category="list-text"><block ref="1f68b1645a3ff001ba0f49331d327ca5" category="inline-link-macro-rx"></block></block>
+  <block id="45853bfe7a0670548e6acf2361e9eb27" category="list-text"><block ref="45853bfe7a0670548e6acf2361e9eb27" category="inline-link-macro-rx"></block></block>
+  <block id="0d680c93e70eb587d0d3742752e0ff2f" category="list-text"><block ref="0d680c93e70eb587d0d3742752e0ff2f" category="inline-link-macro-rx"></block></block>
+  <block id="52ebf8255237b0af6efe8f00d0c08dce" category="list-text"><block ref="52ebf8255237b0af6efe8f00d0c08dce" category="inline-link-macro-rx"></block></block>
+  <block id="af4b36f905d0ae3146568db400f35931" category="list-text"><block ref="af4b36f905d0ae3146568db400f35931" category="inline-link-macro-rx"></block></block>
+  <block id="8845c0ae6eebdc1c35dd1cf33d8cf039" category="list-text"><block ref="8845c0ae6eebdc1c35dd1cf33d8cf039" category="inline-link-macro-rx"></block></block>
+  <block id="84e618c2d718dbe12d71b9c8a26ad64f" category="inline-link-macro">NetApp VMware VAAI용 NFS 플러그인 설명서</block>
+  <block id="0222c26ef02136645541e5fb2739f09c" category="list-text"><block ref="0222c26ef02136645541e5fb2739f09c" category="inline-link-macro-rx"></block></block>
+  <block id="2fe5c9e4df51cf1981d3b349cd931f83" category="list-text"><block ref="2fe5c9e4df51cf1981d3b349cd931f83" category="inline-link-macro-rx"></block></block>
+  <block id="1932521b118b7fe83bb18bc2d61b3755" category="inline-link-macro">ONTAP FlexGroup 볼륨 문서</block>
+  <block id="c7248dcca5a36308681ea070a28a2a4f" category="list-text"><block ref="c7248dcca5a36308681ea070a28a2a4f" category="inline-link-macro-rx"></block></block>
+  <block id="36e97ea1c4a19b8422ff0e725eebe4d7" category="inline-link-macro">ONTAP NFS 문서</block>
+  <block id="50fb74599eeb3fc588ab7256092410f8" category="list-text"><block ref="50fb74599eeb3fc588ab7256092410f8" category="inline-link-macro-rx"></block></block>
+  <block id="70cd8bfb8fd7a4082087201414ab2fe4" category="section-title">VMware 문서</block>
+  <block id="2d1279dea106141cc00dd273793fdf89" category="inline-link-macro">VCF 9.0 및 VVF 9.0에서 VMware vSphere 가상 볼륨(vVols) 사용 중단</block>
+  <block id="ada6abfb66864dc84a028f034f7fd4d7" category="list-text"><block ref="ada6abfb66864dc84a028f034f7fd4d7" category="inline-link-macro-rx"></block></block>
+  <block id="d970d5886df0091ef44e253109b29416" category="inline-link-macro">NFS 클라이언트 - ESXi에서의 nConnect 기능 지원</block>
+  <block id="2942a0ef55e774b8a042dfc1d01ccfea" category="list-text"><block ref="2942a0ef55e774b8a042dfc1d01ccfea" category="inline-link-macro-rx"></block></block>
+  <block id="0f2f72ef3f176b98134caf100a06cf5f" category="inline-link-macro">VMware 구성 최대값</block>
+  <block id="5542022294d7cc20a093e6b51bc7ee5b" category="list-text"><block ref="5542022294d7cc20a093e6b51bc7ee5b" category="inline-link-macro-rx"></block></block>
+  <block id="2f65c92cd3fb1b8b0c58ae1a9be1a011" category="summary">연결, 프로비저닝, nConnect 및 보안 등 ONTAP을 사용하는 VMware 환경에서 NFS 데이터스토어를 사용하기 위한 모범 사례에 대해 알아보십시오.</block>
+  <block id="fbd58db6f640ec5ac7ad34f9ddc1fb2b" category="doc">ONTAP을 사용하는 VMware 환경에서 NFS 데이터스토어 사용을 위한 모범 사례</block>
+  <block id="1d3c8e730d7f63693640f0793a40f70e" category="paragraph">vVols에서 마이그레이션한 후 최적의 성능과 안정성을 보장하기 위해 연결성, 프로비저닝, nConnect 및 보안 등 ONTAP를 사용하는 VMware 환경에서 NFS 데이터스토어 사용에 대한 모범 사례를 알아보십시오.</block>
+  <block id="7520e12a140ccf3de279fe2fd48889e4" category="section-title">배포 모범 사례</block>
+  <block id="7a17b230d59526ff879f569398cba03c" category="paragraph">ONTAP을 사용하여 VMware 환경에 NFS 데이터스토어를 구축할 때 다음과 같은 모범 사례를 고려하십시오:</block>
+  <block id="2a18162f6491c4a53d8f77e3703115b7" category="list-text">환경 요구 사항에 따라 NFSv3 또는 NFSv4.1을 사용하십시오. NFSv3은 널리 지원됩니다. NFSv4.1은 Kerberos 인증 및 멀티패싱을 위한 세션 트렁킹을 추가합니다. 세션 트렁킹에는 ONTAP 9.14.1 이상이 필요합니다.</block>
+  <block id="11eb3adaa0d93cbb6073caf96701d59b" category="list-text">스토리지 트래픽을 격리하고 성능을 향상시키려면 NFS 트래픽용 전용 네트워크 인터페이스를 구성하십시오.</block>
+  <block id="368a622c9bf97ad4afaecac81662a7ff" category="list-text">SVM에서 vStorage 옵션을 활성화하십시오. VMware VAAI용 NetApp NFS 플러그인에 이 옵션이 필요합니다.</block>
+  <block id="bdd57dcd64f7ef286bc13c84eadb76c4" category="list-text">ESXi 호스트, 네트워크 스위치 및 ONTAP에서 엔드 투 엔드로 점보 프레임(MTU 9000)을 활성화합니다.</block>
+  <block id="b02779e4c403184c617367532bc4d814" category="list-text">로드 밸런싱 및 고가용성을 위해 ONTAP에서 다중 LIF를 사용하십시오.</block>
+  <block id="2635dce4732bd4b3d7ca99e8f5e87726" category="list-text">ESXi 호스트와 ONTAP 시스템 간의 일관된 DNS 및 시간 동기화를 보장하십시오.</block>
+  <block id="84ebb9630472d071cfe699f876705cba" category="list-text">NetApp 권장 ESXi 호스트 설정을 적용하십시오. ONTAP tools for VMware vSphere가 이 설정을 적용해 줄 수 있습니다.</block>
+  <block id="ad94a2faf9970d1510d79d58fe5ab26f" category="list-text">효율적인 백업 및 복구를 위해 ONTAP 스냅샷 복사본을 사용하십시오.</block>
+  <block id="61250d1b8db73ba4f4654efba18b8ad3" category="list-text">RBAC 및 내보내기 정책을 사용하여 NFS 볼륨에 대한 액세스를 제한하십시오.</block>
+  <block id="46299189d453588aa2560ea562d80523" category="list-text">장애 조치 시나리오를 테스트하여 고가용성 및 재해 복구 구성을 검증합니다.</block>
+  <block id="42b43315534f0981d01a4f7edddd81d1" category="inline-link-macro">VMware vSphere with ONTAP 모범 사례 가이드의 NFS 데이터스토어</block>
+  <block id="a0bf5c2e42555f6525628afa815ff2fc" category="paragraph">자세한 내용은 <block ref="54d001beb5fb4896ee1695183334c885" category="inline-link-macro-rx"></block> 및 <block ref="45853bfe7a0670548e6acf2361e9eb27" category="inline-link-macro-rx"></block>을 참조하십시오.</block>
+  <block id="cb695777aa6ea5106a0dc2b48f91b65a" category="section-title">NFS 연결 모범 사례</block>
+  <block id="d098a04a9e09abc8750d82cea6426e02" category="paragraph">ESXi 호스트와 ONTAP 스토리지 간의 NFS 연결을 구성할 때는 다음 모범 사례를 따르십시오:</block>
+  <block id="5b99422152d8398a1bcacad72d938799" category="list-text">ESXi 호스트와 ONTAP NFS LIF를 동일한 네트워크 세그먼트에 배치하거나 적절한 라우팅이 이루어지도록 하십시오.</block>
+  <block id="4b0675f45fd17289da602ba2bb29f305" category="list-text">전용 VLAN을 사용하여 NFS 트래픽을 격리하고 보호하십시오.</block>
+  <block id="a86fcaacd29775f1c5590b54c426ed5d" category="list-text">로드 밸런싱 및 장애 조치를 제공하기 위해 NFS용 ONTAP LIF를 여러 개 구성하십시오.</block>
+  <block id="cf91e4b9034c14d3463ba62ce7756e5e" category="list-text">ONTAP 내보내기 정책이 데이터스토어를 마운트하는 모든 ESXi 호스트에서 액세스를 허용하는지 확인하십시오.</block>
+  <block id="fb031b162a8e3dd4ac7490a884f4600e" category="list-text">모든 호스트에 NFS 데이터스토어를 마운트할 때 일관된 DNS 이름 또는 IP 주소를 사용하십시오.</block>
+  <block id="4e0d4ab1639cadcd55599547a71ad14e" category="list-text"><block ref="bb8dcb7aca9e5a9c6d0064e07e54900b" prefix=" " category="inline-code"></block>을(를) 사용하여 각 ESXi 호스트에서 ONTAP LIF로의 연결을 테스트하십시오.</block>
+  <block id="5dd57c2a315d3af44c2eb40eefc47111" category="inline-link-macro">네트워크 구성</block>
+  <block id="0eb3159608d1a5286cfc82ef9537b683" category="paragraph">네트워크 설계 지침은 <block ref="15ebdaa05e6dbbfbb375207e1c07cb8a" category="inline-link-macro-rx"></block>을(를) 참조하십시오.</block>
+  <block id="2d153922610c53bc9e89c0f6c7645004" category="section-title">NFS 프로비저닝 모범 사례</block>
+  <block id="14bc5af699ac24bee0d18c75e90c71e3" category="paragraph">VMware 환경용 ONTAP에 NFS 데이터스토어를 프로비저닝할 때는 다음 모범 사례를 따르십시오:</block>
+  <block id="7f0f7b559f5d2ef4877d8d3a05df4b28" category="list-text">*ONTAP tools for VMware vSphere 사용*: vSphere와의 올바른 구성 및 통합을 보장하려면 ONTAP 툴을 사용하여 NFS 데이터스토어를 프로비저닝하십시오. <block ref="0d680c93e70eb587d0d3742752e0ff2f" category="inline-link-macro-rx"></block>을(를) 참조하십시오.</block>
+  <block id="5d0a899316e4939e66d195475ad74ce4" category="list-text">*적절한 볼륨 유형을 선택하십시오*: 소규모 워크로드에는 FlexVol 볼륨을, 높은 확장성이 필요한 대규모 환경에는 FlexGroup 볼륨을 선택하십시오. <block ref="343ae1a3300260234decaad70c2456f1" category="inline-link-macro-rx"></block>을(를) 참조하십시오.</block>
+  <block id="76e1b54ab88131753d202f4895e12db2" category="list-text">*내보내기 정책 구성*: 승인된 ESXi 호스트 또는 IP 범위로 액세스를 제한합니다.</block>
+  <block id="a13c7b26a1f5c46478f4b132520c8029" category="list-text">*씬 프로비저닝 활성화*: 공간 활용을 최적화하고 용량을 모니터링하여 오버커밋을 방지합니다.</block>
+  <block id="818e914ee2c21a89692e649cb5fd3f59" category="list-text">*스냅샷 예약 설정*: 보존 요구 사항에 따라 스냅샷 예약 크기를 조정하십시오.</block>
+  <block id="652bd5cd0bb8657169f78372ecdf15a1" category="list-text">*여러 개의 LIF 사용*: 로드 밸런싱 및 고가용성을 위해 데이터스토어를 여러 LIF에 분산합니다.</block>
+  <block id="3aa8d0ddf193a6ba229dbf03927fcf72" category="list-text">*용량 및 성능 모니터링*: 병목 현상을 방지하기 위해 데이터 저장소 사용량 및 성능 지표를 정기적으로 확인하십시오.</block>
+  <block id="699cfee4343b1154e706fb530881e63c" category="section-title">nConnect 권장 사항</block>
+  <block id="963367cd633ff2add84645a58e0ee373" category="paragraph">nConnect는 NFS 데이터 저장소당 여러 개의 TCP 연결을 허용하여 고속 네트워크 인터페이스 카드를 더 효율적으로 활용함으로써 처리량을 향상시킵니다.</block>
+  <block id="7984bd975ac30c9e97b6856d9a6d78b9" category="list-text">ESXi 8.0 업데이트 1에서는 NFSv3 데이터스토어용 nConnect가 도입되었으며, ESXi 8.0 업데이트 2에서 정식 출시되었습니다. ESXi 8.0 업데이트 3에서는 NFSv4.1용 nConnect가 추가되었습니다.</block>
+  <block id="01d29bb5fbb61a57094e29cdc9642a6a" category="list-text">기본 설정은 데이터 저장소당 하나의 연결입니다. 기본적으로 데이터 저장소당 최대 4개의 연결을 설정할 수 있으며, <block ref="bb30760726e34e333701019a393e520a" prefix=" " category="inline-code"></block>고급 설정을 통해 최대 8개까지 늘릴 수 있습니다. 일반적으로 기본 최대값을 늘릴 필요는 없습니다.</block>
+  <block id="8e25316dce76a0de39496d5db4340351" category="list-text">ESXi는 마운트된 모든 데이터스토어에 걸쳐 호스트당 최대 256개의 NFS 연결을 지원하며, 각 nConnect 연결은 해당 총 연결 수에 포함됩니다.</block>
+  <block id="e660ddc514edfa33cd4f7b560bc66ba4" category="list-text">vMotion의 성능 문제를 방지하려면, vSphere 클러스터의 모든 호스트에서 NFS 데이터스토어에 대해 동일한 수의 연결을 사용하십시오.</block>
+  <block id="24c422e4e15cfb808a801ab393bffd77" category="list-text">프로덕션 환경에서 대규모 변경을 수행하기 전에 사용자 환경에서 nConnect의 성능 영향을 테스트하십시오.</block>
+  <block id="9ace5ee8d9f27aa628402f71e71022be" category="paragraph">자세한 내용은 <block ref="52ebf8255237b0af6efe8f00d0c08dce" category="inline-link-macro-rx"></block> 및 Broadcom KB 문서 <block ref="2942a0ef55e774b8a042dfc1d01ccfea" category="inline-link-macro-rx"></block>를 참조하십시오.</block>
+  <block id="c81d278ed6d59212379f4589585fc795" category="section-title">보안 기능</block>
+  <block id="8bcab5f13fc70a17af03e6e87bf0e713" category="paragraph">ONTAP은 VMware 환경의 NFS 데이터스토어에 대해 다음과 같은 보안 기능을 제공합니다:</block>
+  <block id="5a92a01e71b038c438754cc1dacb4e87" category="list-text">*내보내기 정책*: 허용된 호스트, IP 주소 또는 서브넷을 지정하여 NFS 볼륨에 대한 액세스를 제어합니다.</block>
+  <block id="b1901d97b69d8bfdeb5bd040182aa087" category="list-text">*Kerberos 인증*: Kerberos(krb5, krb5i, krb5p)를 사용하는 NFSv4.1은 안전한 인증, 무결성 및 기밀성을 제공합니다.</block>
+  <block id="2b99da005f53f8e62c6ee88c7f834bc6" category="list-text">*역할 기반 액세스 제어(RBAC)*: 스토리지 리소스 관리를 위한 세부적인 권한을 부여합니다.</block>
+  <block id="adfd33fbce17f21dd8572d1c07677009" category="inline-link-macro">저장된 데이터를 암호화합니다</block>
+  <block id="d230ba3519261d09a65aa68297611369" category="list-text">*저장 데이터 암호화*: <block ref="c971e7d3a8a3d9b24129b2e05462746c" category="inline-link-macro-rx"></block> 볼륨 또는 애그리게이트 수준에서 적용됩니다.</block>
+  <block id="79d4850b86c8b6fe1029dbd03fff21f0" category="list-text">*안전한 멀티 테넌시(multi-tenancy)*: SVM을 사용하여 워크로드를 격리합니다.</block>
+  <block id="26614a7649b9605c8e9b89f419dcbbc9" category="inline-link-macro">ONTAP 자율 랜섬웨어 보호</block>
+  <block id="71905cb6be380977de9edcbed49ae264" category="list-text">*랜섬웨어 보호*: <block ref="1448b230297de6aae5be5a84ffad1b2b" category="inline-link-macro-rx"></block> 의심스러운 활동을 감지하고 복구 지점을 생성합니다.</block>
+  <block id="b19a59c9839ff4eaf8aa424295bee213" category="paragraph">자세한 내용은 <block ref="50fb74599eeb3fc588ab7256092410f8" category="inline-link-macro-rx"></block>을 참조하십시오.</block>
+  <block id="ad5a0477b7fb7ed227370fd97d9502da" category="summary">ONTAP tools for VMware vSphere, NFS VAAI 플러그인 및 SnapCenter Plug-in for VMware vSphere 등 VMware 환경에서 NFS 데이터스토어를 관리하고 보호하기 위한 ONTAP 통합 툴에 대해 알아보십시오.</block>
+  <block id="35a9b8e0fa26b3ab14bb0e6320ec12a3" category="doc">VMware 환경의 NFS 데이터스토어용 ONTAP 통합 툴</block>
+  <block id="61c05613775f1281336d6f9afb433e2a" category="paragraph">ONTAP tools for VMware vSphere, NFS VAAI 플러그인, SnapCenter Plug-in for VMware vSphere 등 VMware 환경에서 NFS 데이터스토어를 관리, 모니터링 및 보호하기 위한 ONTAP 통합 툴에 대해 알아보십시오.</block>
+  <block id="fa025904f617c6309991353eb03c4d1c" category="paragraph">NetApp은 VMware 환경에서 NFS 데이터스토어를 관리하고 보호하기 위해 다음과 같은 툴을 제공합니다:</block>
+  <block id="ba6a871b97ada13b5fbd922f7de6d0c5" category="list-text">*<block ref="a09d09958ab34bd489d1c54a305db5c1" category="inline-link-macro-rx"></block>*: ONTAP 관리를 vSphere Client에 통합하여 NFS 데이터스토어의 프로비저닝, 모니터링 및 관리를 수행하고 권장 ESXi 호스트 설정을 적용합니다.</block>
+  <block id="72584b796960a93bbbfd7df2f9adf818" category="list-text">*<block ref="5962d717db10688205693927408d889d" category="inline-link-macro-rx"></block>*: 클론 생성 등 스토리지 작업을 ONTAP으로 오프로드하여 성능을 향상시키고 ESXi 호스트의 부하를 줄입니다.</block>
+  <block id="410414402089bdca884f44be14088a59" category="inline-link-macro">스토리지 복제 어댑터(SRA)</block>
+  <block id="520ca8449546c8fd42b18e3e76603aae" category="list-text">*<block ref="c91a88b72027ff0cdbd072be49a6e027" category="inline-link-macro-rx"></block>*: ONTAP SnapMirror 복제를 사용하여 재해 복구를 오케스트레이션하기 위해 VMware Live Site Recovery(이전의 VMware Site Recovery Manager)와 통합됩니다.</block>
+  <block id="a4fcdb8bf32dba0ee7847afad48f7df7" category="list-text">*<block ref="18a4b71a7568a7e230d66172dcac7b76" category="inline-link-macro-rx"></block>*: NetApp Console에서 NFS 데이터스토어에 있는 VM의 재해 복구를 오케스트레이션합니다.</block>
+  <block id="a4f9b82fea3d72daa499dbf66bd4e63b" category="list-text">*<block ref="8987e864af9dd51059fdecc8bb2ddfb1" category="inline-link-macro-rx"></block>*: NFS 데이터스토어의 VM에 대해 크래시 일관성 및 VM 일관성 백업 및 복원을 제공합니다.</block>
+  <block id="91df8af1a410ff0536582b5ad9c23ba0" category="list-text">*<block ref="d49f201a4e7b665f861dd10222e32e49" category="inline-link-macro-rx"></block>*: ONTAP 스토리지 및 VMware 인프라의 성능과 상태에 대한 가시성을 제공합니다.</block>
+  <block id="08e9f9240a938919b78302274dba7e03" category="paragraph">이러한 툴은 VMware 환경에서 NFS 데이터스토어의 운영을 간소화하고 성능을 향상시키며 데이터 보호 기능을 제공합니다.</block>
+  <block id="3eceddc0cce15a503760133f19c7d5a7" category="summary">Storage vMotion, 콜드 마이그레이션, 스크립트 기반 마이그레이션 등 ONTAP를 사용하는 VMware 환경에서 vVols 데이터스토어에서 NFS 데이터스토어로 VM을 마이그레이션하는 옵션에 대해 알아보십시오.</block>
+  <block id="614aa3cc2930861d42413591f9e23ff0" category="doc">vVols 데이터스토어에서 NFS 데이터스토어로의 마이그레이션 옵션</block>
+  <block id="36fa939810fb43818bbf7194fff7ec84" category="paragraph">ONTAP이 구축된 VMware 환경에서 vVols 데이터스토어에서 NFS 데이터스토어로 VM을 마이그레이션하는 옵션에 대해 알아보십시오. 여기에는 다운타임을 최소화하고 운영을 유지하기 위한 Storage vMotion, 콜드 마이그레이션, 스크립트 마이그레이션 등이 포함됩니다.</block>
+  <block id="90ec90c4cbcaf3ca3bee732a57af50c1" category="paragraph">ONTAP이 있는 VMware 환경에서 vVols 데이터스토어에서 NFS 데이터스토어로 마이그레이션할 때 다음 옵션을 고려하십시오.</block>
+  <block id="c089cd8d8c0d67154a9163132008629a" category="list-text">*스토리지 vMotion*: 가상 머신이 실행되는 동안 vVols 데이터스토어에서 NFS 데이터스토어로 가상 머신 파일을 마이그레이션합니다. 두 데이터스토어 모두 가상 머신을 실행하는 ESXi 호스트에서 액세스할 수 있어야 합니다.</block>
+  <block id="3189418f4a4c1bc7e0b6d033ef7f569c" category="list-text">*vMotion 및 스토리지 vMotion*: 소스 호스트와 대상 호스트가 스토리지를 공유하지 않는 경우 단일 작업으로 컴퓨팅 리소스와 데이터스토어를 모두 변경합니다.</block>
+  <block id="e05905b6ebab1ac81e3c10374cd55ad3" category="list-text">*콜드 마이그레이션*: 가상 머신의 전원을 끄고 vSphere Client에서 *마이그레이션* 옵션을 사용하여 NFS 데이터스토어로 이동합니다. 이 방법은 간단하지만 다운타임이 필요합니다.</block>
+  <block id="b1aa99ad83b5ef6b18cfd290532d4bf3" category="list-text">*백업 및 복원*: VM을 다른 데이터스토어로 복원할 수 있는 백업 애플리케이션을 사용하십시오. 이 방법은 소스 및 대상 데이터스토어에 동일한 호스트에서 액세스할 수 없는 경우에 유용합니다.</block>
+  <block id="89c370e94fc4f356cca57191c0f656ec" category="list-text">*스크립트를 이용한 마이그레이션*: 대량 마이그레이션에는 PowerCLI 또는 기타 자동화 툴을 사용하십시오.</block>
+  <block id="0d87ea5bfd5444ea6d8e981e270016e7" category="paragraph">마이그레이션을 시작하기 전에 NFS 데이터스토어의 크기 지정, 구성 및 테스트가 올바르게 완료되었는지 확인하고 중요한 데이터를 백업하십시오.</block>
+  <block id="c5d4d2a23310508ae9a63bf46ae80aa1" category="paragraph">PowerCLI 예제를 포함한 단계별 지침은 <block ref="af4b36f905d0ae3146568db400f35931" category="inline-link-macro-rx"></block>을(를) 참조하십시오.</block>
+  <block id="719993b5c740fabe192bcb72fe1cc7e6" category="section-title">마이그레이션에 스토리지 vMotion을 사용하는 이유</block>
+  <block id="3e6a8aa8e2ba928856117463b86fd362" category="paragraph">Storage vMotion은 다운타임 없이 VM 파일을 이동하므로 vVols 데이터스토어에서 NFS 데이터스토어로 VM을 마이그레이션하는 데 권장되는 방법입니다.</block>
+  <block id="86f516a81f2897eea85a4acfc742f660" category="paragraph">이 방법은 워크로드에 대한 중단을 최소화하고 애플리케이션을 계속 사용할 수 있는 상태에서 관리자가 VM을 이동할 수 있게 해줍니다. Storage vMotion은 VM 구성 및 메타데이터를 보존하며, 마이그레이션 중에 가상 디스크 형식을 유지하거나 변경할 수 있습니다.</block>
+  <block id="42812ebd23233e6654fccf3c34e0769e" category="section-title">동시성 제한</block>
+  <block id="6a5c8b0c9bd8159384a6107fe385379d" category="paragraph">vCenter는 동시 마이그레이션 수를 제한합니다. 기본적으로 호스트는 최대 두 개의 Storage vMotion 작업을 동시에 실행할 수 있으며, 데이터스토어는 최대 8개의 작업에 참여할 수 있습니다. 추가 작업은 리소스가 확보될 때까지 대기열에 추가됩니다.</block>
+  <block id="9c5d862d1808849d4dac29f4b09e57eb" category="paragraph">이러한 제한 사항을 고려하여 마이그레이션 배치 계획을 세우고 마이그레이션 중에 호스트, 네트워크 및 스토리지 사용률을 모니터링하십시오. 현재 제한 사항은 <block ref="5542022294d7cc20a093e6b51bc7ee5b" category="inline-link-macro-rx"></block>을(를) 참조하십시오.</block>
+  <block id="f9d7ff727a34dcf6958b76b2514cfc08" category="summary">용량 계획, 데이터스토어 크기 조정, VM 밀도 및 성능 등 ONTAP을 사용하는 VMware vSphere 환경의 NFS 데이터스토어에 대한 크기 조정 가이드라인을 알아보십시오.</block>
+  <block id="617d8f314aaa70a599f7ec17f46de3ab" category="doc">ONTAP을 사용하는 VMware vSphere 환경의 NFS 데이터스토어에 대한 사이징 가이드라인</block>
+  <block id="27b26bc414eacd1b5df877e88d05e539" category="paragraph">용량 계획, 데이터스토어 크기 조정, VM 밀도 및 성능 등 ONTAP을 사용하는 VMware vSphere 환경의 NFS 데이터스토어 크기 조정 지침에 대해 알아보십시오. 이를 통해 vVols에서 VM을 마이그레이션하기 전에 대상 NFS 데이터스토어를 준비할 수 있습니다.</block>
+  <block id="613b8920c86a143bd93003270b170cd1" category="paragraph">ONTAP을 사용하는 VMware vSphere 환경을 위한 NFS 데이터스토어의 크기를 조정할 때 다음 지침을 고려하십시오.</block>
+  <block id="1ea9c7c8cd3f832c4c42290760fa6828" category="list-text">*용량 계획*: VM 수, VM 디스크 크기, 증가율 및 스냅샷 보존 기간을 기준으로 필요한 총 스토리지 용량을 추정합니다. VM 스왑 파일 및 로그에 대한 오버헤드를 포함합니다. 현재 vVols 데이터스토어에서 사용 중인 용량을 시작점으로 활용하십시오.</block>
+  <block id="e5e09031843479ef9ef8cbbd4c2f404c" category="inline-link-macro">NetApp Hardware Universe</block>
+  <block id="5a14b48f20fcbb4b2beb7bce8dbec6b4" category="list-text">*데이터 저장소 크기*: 각 데이터 저장소의 크기는 플랫폼의 ONTAP 볼륨 제한 범위 내에서 설정하십시오. FlexGroup 볼륨은 단일 FlexVol 볼륨의 제한을 넘어 확장됩니다. 플랫폼 제한에 대해서는 <block ref="43b42c26c42f7c6fe4ef77f9f2ed17ff" category="inline-link-macro-rx"></block>을(를) 참조하십시오.</block>
+  <block id="f0326cc25270f49b97711086a16d52a6" category="list-text">*VM 밀도*: 워크로드 성능 요구 사항, 백업 및 복구 세분성, 운영 선호도에 따라 데이터스토어당 VM 수를 계획하십시오. FlexGroup 볼륨은 단일 데이터스토어에 수천 개의 VM을 호스팅할 수 있습니다.</block>
+  <block id="4404eaff3428d5c32a1b14782317d0d9" category="list-text">*성능*: IOPS, 처리량 및 지연 시간 요구 사항을 고려하십시오. 부하를 분산하기 위해 여러 ONTAP LIF를 사용하고 볼륨을 노드 및 애그리게이트에 분산하십시오.</block>
+  <block id="136617bda11590ffd5f622fc1027103e" category="list-text">*스냅샷 예약*: 백업 및 복구 보존 요구 사항을 충족할 수 있도록 ONTAP 스냅샷 사본을 위한 충분한 공간을 할당하십시오.</block>
+  <block id="2199fbf020b0b59d10072d52f1b31d0e" category="list-text">*씬 프로비저닝*: 씬 프로비저닝을 활성화하여 공간 활용을 최적화하고, 사용량을 모니터링하여 오버커밋을 방지하십시오.</block>
+  <block id="9773492253b2f1917a3dd82f4433413c" category="list-text">*성장 및 확장*: 향후 성장을 고려하여 데이터스토어를 설계하십시오. 다운타임 없이 FlexVol 및 FlexGroup 볼륨을 확장할 수 있습니다.</block>
+  <block id="c52489e730f9943096d6661e9f74f8aa" category="list-text">*백업 및 재해 복구*: 백업 복사본 및 복제본을 위한 공간을 확보하십시오.</block>
+  <block id="43b42c26c42f7c6fe4ef77f9f2ed17ff" category="list-text"><block ref="43b42c26c42f7c6fe4ef77f9f2ed17ff" category="inline-link-macro-rx"></block></block>
+  <block id="54d001beb5fb4896ee1695183334c885" category="list-text"><block ref="54d001beb5fb4896ee1695183334c885" category="inline-link-macro-rx"></block></block>
+  <block id="1413a0cddd12ca9c70a3b996f1b4f660" category="summary">VMware 환경에서 NFS 데이터스토어에 사용할 수 있는 ONTAP 스토리지 옵션에 대해 알아보고, FlexVol 및 FlexGroup 볼륨을 비교하여 워크로드에 가장 적합한 옵션을 선택하십시오.</block>
+  <block id="994fd3b0fbb43396212dff654ea62c98" category="doc">ONTAP을 사용하는 VMware vSphere 환경의 NFS 데이터스토어용 스토리지 옵션</block>
+  <block id="69461b68760b5fda8b873e784cbba94b" category="paragraph">VMware 환경에서 NFS 데이터스토어에 대한 ONTAP 스토리지 옵션에 대해 알아보십시오. FlexVol 및 FlexGroup 볼륨을 비교하여 워크로드 요구 사항 및 확장성에 가장 적합한 솔루션을 선택하십시오.</block>
+  <block id="411f1a3092218cb0df47a0e4bcc925dc" category="paragraph">VMware 환경에서 NFS 데이터스토어에 FlexVol과 FlexGroup 볼륨 중 하나를 선택할 때는 다음 사항을 고려하십시오:</block>
+  <block id="bb1fde595405c6477cc3a638427e0e91" category="inline-image-macro">FlexVol 및 FlexGroup 비교</block>
+  <block id="3033bf4ef53f9dfa3f2d2241a2327732" category="paragraph"><block ref="3033bf4ef53f9dfa3f2d2241a2327732" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="84b9523e45d813a33b6812a09967996f" category="paragraph-title">FlexVol</block>
+  <block id="82cbc780ff1a9c3d0becbfa1df348b91" category="paragraph">FlexVol 볼륨은 예측 가능한 성능과 세부적인 관리가 필요한 소규모에서 중규모 환경에 적합합니다.</block>
+  <block id="7171795bde417ce404cd35362e6b9016" category="paragraph">스냅샷 복사본, 클론 생성 및 복제를 지원합니다. FlexVol 볼륨은 워크로드를 격리하거나 개별 데이터스토어에 특정 정책을 적용해야 할 때 이상적입니다.</block>
+  <block id="54452390cac5f65f3bcec580ba079531" category="paragraph-title">FlexGroup</block>
+  <block id="1fd987469c4793c65db340f23c8b7204" category="paragraph">FlexGroup 볼륨은 대규모 배포를 위해 설계되었으며 뛰어난 확장성(최대 20PB 및 4천억 개의 파일)과 병렬 처리를 제공합니다.</block>
+  <block id="9b73f2d34e64f3367671111cc48b743d" category="paragraph">이들은 여러 구성 볼륨에 데이터를 자동으로 분산하여 수천 대의 VM이 있는 환경에서 고성능과 간소화된 관리를 제공합니다. 많은 VM을 위한 확장 가능한 단일 데이터스토어가 필요할 때 FlexGroup 볼륨을 사용하십시오.</block>
+  <block id="c76e3867213cff8946148c6510af0736" category="list-title">권장 사항</block>
+  <block id="2bce45d95f8f80d0852715e5ded95174" category="list-text">규모가 작고 격리된 워크로드 또는 세부적인 제어가 필요한 경우 *FlexVol 볼륨을 사용하십시오.*</block>
+  <block id="6ab743d169a8b094adc05ef8eccb1a38" category="list-text">관리 간소화 및 확장성이 필요한 대규모 고성능 환경에는 *FlexGroup 볼륨을 사용하십시오*.</block>
+  <block id="727d90dd71142dec001908132ebe8da8" category="inline-link-macro">FlexGroup 볼륨 문서</block>
+  <block id="31cdfc741de26829e5812e3d99bed3c6" category="list-text"><block ref="31cdfc741de26829e5812e3d99bed3c6" category="inline-link-macro-rx"></block></block>
+  <block id="1a48a9f0b4ca8c7e10299183e1a9e74b" category="list-text"><block ref="1a48a9f0b4ca8c7e10299183e1a9e74b" category="inline-link-macro-rx"></block></block>
+  <block id="db1c47cb254f2a1b4c167e1251a1116d" category="inline-link-macro">논리적 스토리지 관리 문서</block>
+  <block id="b65b01edd67736c36316a28aeb44efa4" category="list-text"><block ref="b65b01edd67736c36316a28aeb44efa4" category="inline-link-macro-rx"></block></block>
+  <block id="26ea3b8975ae19efe92e4b797228147b" category="summary">VMware vSphere Virtual Volumes(vVols)에 대해 알아보고, 기업들이 이를 도입한 이유와 ONTAP NFS 데이터스토어가 vVols 데이터스토어를 대체하면서 관리를 간소화하고 확장성을 향상시키는 방법을 알아보십시오.</block>
+  <block id="3f97c9c4dc3cae9a5850cc5e50549ce8" category="doc">vVols 데이터스토어에서 ONTAP NFS 데이터스토어로 마이그레이션하는 방법에 대해 알아보십시오.</block>
+  <block id="1aa8ed6fc04b714832c488c18b99d2a3" category="paragraph">VMware vSphere 가상 볼륨(vVols), 도입 이유, 아키텍처 및 ONTAP NFS 데이터스토어가 어떻게 대체재로 사용될 수 있는지 알아보십시오. ONTAP NFS 데이터스토어는 가상화 환경에 필요한 성능과 유연성을 유지하면서 관리를 간소화하고 확장성을 향상시킵니다.</block>
+  <block id="071699dfa88bd5887a3bba5c1e6ed64c" category="paragraph">프라이빗 클라우드 환경에서는 확장성, 유연성 및 운영의 단순성이 요구됩니다. vVols는 vSphere 6.0에서 도입되어 개별 VM 디스크 수준에서 정책을 적용하고 SCSI 스토리지용 보조 LUN 기능을 사용하여 LUN 제한 문제를 해결합니다.</block>
+  <block id="5e83456a39b6d0eb7b230cd85c273816" category="paragraph">LUN 멀티패싱 및 NFS 마운트는 스토리지 어레이로의 데이터 경로 역할을 하는 프로토콜 엔드포인트(PE)에서 처리됩니다.</block>
+  <block id="242f4636163c00892d010129f3c4306f" category="paragraph">ONTAP vVols 구현에서는 SCSI LUN에 사용되는 모든 FlexVol 볼륨과 NFS 프로토콜을 위한 SVM의 모든 논리 인터페이스(LIF)에 대해 PE가 존재합니다.</block>
+  <block id="c3974f7a710b3a2583bff2237a50a3bc" category="cell">SCSI를 사용하는 vVols</block>
+  <block id="896bbc939db98da49ac9fcc87b8213e3" category="cell">NFS를 사용하는 vVols</block>
+  <block id="209193cfff18699c8455116ca9f9c262" category="paragraph"><block ref="209193cfff18699c8455116ca9f9c262" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="32da2c5e586e349851d0978bdab877ed" category="paragraph"><block ref="32da2c5e586e349851d0978bdab877ed" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fb1bdffcf7548cd36919a71196cf39e4" category="admonition">VMware는 VCF 및 VVF 9.0부터 vVols의 사용을 권장하지 않으며, 향후 릴리스에서 중단할 계획입니다. vVols는 VCF 및 VVF 9.1에서 여전히 사용할 수 있습니다. 자세한 내용은 <block ref="ada6abfb66864dc84a028f034f7fd4d7" category="inline-link-macro-rx"></block>를 참조하십시오.</block>
+  <block id="f4d384aefa47eef32c8bd47b5def3310" category="section-title">규모 고려 사항</block>
+  <block id="ad26dcda3d2e3832df0a451554c987f1" category="paragraph">vVols를 사용하면 모든 VM 디스크가 별도의 LUN이 되므로, 환경이 ESXi 호스트당 지원되는 최대 LUN 및 경로 수에 빠르게 근접할 수 있습니다. vVols는 보조 LUN 기능을 사용하여 LUN 확장 문제를 해결하는데, 이 기능은 스토리지 어레이와 패브릭 스위치 모두에서 지원해야 합니다.</block>
+  <block id="de4a8ced81ffe7e61870da629e1e7297" category="paragraph">NFS 데이터스토어는 호스트별 LUN 제한의 적용을 받지 않습니다. ESXi는 호스트당 최대 256개의 NFS 데이터스토어 마운트를 지원합니다. 현재 제한 사항은 <block ref="5542022294d7cc20a093e6b51bc7ee5b" category="inline-link-macro-rx"></block>를 참조하십시오.</block>
+  <block id="e53a1d429dade23ff6dfde1e50de4065" category="section-title">스토리지 소비 모델</block>
+  <block id="34b5e3d333e2a84e265f5e40421e5e26" category="paragraph">NFS에서는 마운트 포인트를 통해 데이터스토어를 사용하며, VM 구성 및 데이터 파일은 볼륨에 저장됩니다. 스토리지 볼륨을 추가하려면 추가 마운트 포인트가 필요합니다.</block>
+  <block id="1a82558d7f770deef585ae75af4b8e63" category="paragraph">vVols는 더 많은 FlexVol 볼륨을 추가하여 용량 제한을 해결하며, 프로토콜 엔드포인트는 모든 LIF의 SVM 루트를 가리킵니다. vVols 데이터스토어는 연결된 모든 FlexVol 볼륨의 총 용량을 갖는 스토리지 컨테이너입니다.</block>
+  <block id="f4a198615f4acb8e37639f65b9bc5637" category="paragraph">vVols에는 구성, 데이터, 스왑, 스냅샷 및 메모리와 같은 여러 오브젝트 유형이 포함됩니다. vVols는 기본적으로 씬 프로비저닝됩니다.</block>
+  <block id="26440eebcc3a1acfdd820c40129242d9" category="section-title">VASA 및 스토리지 정책 관리</block>
+  <block id="02900456fde6ce97a262464ea409891f" category="paragraph">스냅샷, VM 디스크 클로닝, 복제 및 기타 스토리지 작업은 vVols의 핵심 구성 요소인 VASA(vSphere APIs for Storage Awareness)를 사용하여 스토리지 어레이로 오프로드됩니다.</block>
+  <block id="be40cb46fae8cfd06e00a1d627f0109c" category="paragraph">일부 스토리지 공급업체는 어레이에 VASA를 구현합니다. NetApp은 ONTAP tools for VMware vSphere에서 어레이 외부에 VASA를 구현하므로 단일 인스턴스에서 여러 어레이를 관리할 수 있습니다.</block>
+  <block id="b0e136f28f885c093a58cd8db8634d2b" category="paragraph">스토리지 정책 기반 관리(SPBM)는 원하는 스토리지 정책에 따라 VM 디스크를 특정 스토리지에 배치합니다.</block>
+  <block id="188f0402eee91d3b529facee13365a94" category="section-title">조직에서 vVols를 사용하는 이유</block>
+  <block id="fdf21834f5832054d8d0943a546e0ce4" category="paragraph">조직에서 vVols를 도입한 데에는 여러 가지 이유가 있습니다:</block>
+  <block id="d2b44349a2d52dab6e326369a2878e8f" category="list-text">*세부적인 스토리지 관리*: 스토리지 정책은 개별 VM 디스크 수준에 적용되어 성능, 가용성 및 데이터 보호를 정밀하게 제어할 수 있습니다.</block>
+  <block id="bde7d59ad30100a227a4412b83f6dc05" category="list-text">*간소화된 운영*: SPBM을 통해 스토리지 프로비저닝 및 관리가 자동화되어 수동 작업과 오류가 줄어듭니다.</block>
+  <block id="a988bdff613eb4107e7232a446e73044" category="list-text">*스토리지 작업 오프로드*: 스냅샷, 클론 생성 및 복제는 VASA를 통해 스토리지 어레이로 오프로드됩니다.</block>
+  <block id="aa52ef5be2a81f453e9c473f93ea5cab" category="list-text">*향상된 확장성*: 프로토콜 엔드포인트와 보조 LUN을 통해 기존의 호스트별 LUN 제한을 극복합니다.</block>
+  <block id="60b6bb3a598c6894bbf1c054dcfdffe7" category="list-text">*VMware 에코시스템 통합*: vVols는 자동화된 정책 시행을 포함하여 VMware 툴 및 워크플로와 긴밀하게 통합됩니다.</block>
+  <block id="09d5164eb14c998113fa7b8db9484c0e" category="paragraph">vVols가 더 이상 사용되지 않게 됨에 따라, 조직은 VASA에 의존하지 않고도 이러한 운영상의 이점을 유지할 수 있는 대체 솔루션이 필요합니다.</block>
+  <block id="80c85d656515ee9fa1e6739e6c04d414" category="paragraph">NFS는 단순성, 확장성 및 유연성 때문에 vSphere 환경에서 널리 사용되는 선택지입니다. NFS 데이터스토어는 프로비저닝 및 확장이 간편하며, 최소한의 관리 오버헤드로 대규모 배포를 지원합니다. ONTAP을 사용하면 NFS에 멀티패싱, 성능을 위한 nConnect 및 VMware 툴과의 통합이 추가됩니다.</block>
+  <block id="b1e394eb96217a95abcf8581a81f2710" category="section-title">ONTAP NFS의 장점</block>
+  <block id="5c269aa5855b6afaab849a233e2f2611" category="paragraph">ONTAP 고객은 vCenter Server 인스턴스 간에 데이터를 이동할 수 있는 기능을 포함하여 <block ref="724cd8e2558b4cecc94bdd54e799582e" category="inline-link-macro-rx"></block>의 단순성을 높이 평가합니다. ONTAP을 사용하면 동일한 볼륨에 있는 다른 VM에 영향을 주지 않고 단일 VM 디스크를 복구할 수 있습니다.</block>
+  <block id="866e1ec76d8141fde664ea9656812f80" category="paragraph">하나의 ONTAP FlexGroup 볼륨은 최대 20PB 및 4천억 개의 파일까지 확장 가능하며 수천 개의 가상 머신(VM)을 호스팅할 수 있습니다. 단일 VM 디스크는 최대 62TB까지 지원합니다. ONTAP 스냅샷 복사본은 백업 및 복원 작업을 간소화합니다.</block>
+  <block id="b142f4ea70b501e3af58ab935b27f97c" category="section-title">성능 및 재해 복구 툴</block>
+  <block id="5df4cca80fbb9f57e3ea33da5b1bf641" category="paragraph">VMware VAAI(vSphere APIs for Array Integration)용 NetApp NFS 플러그인은 클론 복제 등의 작업을 스토리지 어레이로 오프로드하여 성능을 향상시킵니다.</block>
+  <block id="de92a2f12f2df39267a66420b9d5e309" category="paragraph">재해 복구를 위해 NetApp은 VMware Live Site Recovery(이전의 VMware Site Recovery Manager)용 스토리지 복제 어댑터(SRA)와 <block ref="18a4b71a7568a7e230d66172dcac7b76" category="inline-link-macro-rx"></block> 서비스를 제공합니다.</block>
+  <block id="9716e3adb79311b7a771056a7a5f5592" category="inline-image-macro">NFS VAAI</block>
+  <block id="b0963cba5b03bf6fb816b0ee3a94d3ad" category="paragraph"><block ref="b0963cba5b03bf6fb816b0ee3a94d3ad" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6d8a16e6462eb36f4aee57dfea0d8979" category="section-title">NFS 운영 간소화</block>
+  <block id="c8e3d7cc7c2b550ef5f21876ea554206" category="paragraph">다음 다이어그램은 물리적 서버(왼쪽), NFS 데이터스토어의 VM(중앙), vVols 데이터스토어의 VM(오른쪽)에서 호스팅되는 두 애플리케이션을 비교합니다. vVols 및 NFS 데이터스토어에 VM을 호스팅하는 것은 매우 유사합니다.</block>
+  <block id="5e7bb070e3f0ebe430aa48ed1a8ade10" category="inline-image-macro">vVols 및 NFS</block>
+  <block id="c89314c0a39b758d7e61995099a2d54c" category="paragraph"><block ref="c89314c0a39b758d7e61995099a2d54c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ca71be9e3a706edd526591c11b4f117b" category="paragraph">NFS 데이터스토어는 일상적인 운영에 있어 VASA 및 SPBM에 의존하지 않습니다. NFS 데이터스토어는 여러 vCenter Server 인스턴스에 마운트할 수 있으며 vMotion, DRS, HA, FT 및 기타 VMware 기능을 지원합니다. 관리자는 vSphere Client에서 스토리지를 관리하기 위해 ONTAP tools for VMware vSphere를 사용합니다.</block>
+  <block id="b9c88984f038a65683036517022a7bfb" category="section-title">ONTAP 클러스터 아키텍처</block>
+  <block id="83ee3e57d672e7cbfad9e9bf52b75c64" category="paragraph">ONTAP NAS 클러스터는 최대 24개 노드까지 확장할 수 있습니다. 각 노드는 여러 개의 애그리게이트를 가질 수 있으며, 각 애그리게이트는 여러 개의 FlexVol 또는 FlexGroup 볼륨을 포함할 수 있습니다. SVM은 노드에 걸쳐 구성될 수 있으며 NFS 프로토콜을 위한 여러 개의 LIF를 가질 수 있습니다. ESXi 호스트는 각 LIF를 통해 NFS 데이터스토어를 마운트할 수 있습니다.</block>
+  <block id="bf67a11172581ffa84d94aba730abf67" category="section-title">pNFS 지원</block>
+  <block id="52d1d4022151bf3e9e3cbf7cb4ea6d1c" category="paragraph">pNFS는 클라이언트가 여러 네트워크 경로를 통해 스토리지에 병렬로 액세스할 수 있도록 하여 성능과 확장성을 향상시킵니다. ONTAP은 NFSv4.1에서 pNFS를 지원하여 ESXi 호스트가 병렬 데이터 액세스를 위해 ONTAP SVM에서 여러 LIF를 사용할 수 있도록 합니다.</block>
+  <block id="c944408e9f293980b0bf3441deb811ec" category="paragraph">다음 이미지는 pNFS 테스트에 사용된 샘플 설정을 보여줍니다.</block>
+  <block id="c6a4ebc3ec8ca178e3bbec37a6e323d0" category="inline-image-macro">pNFS 설정</block>
+  <block id="3f1d67d33607ea8a1adeb499f4f8504a" category="paragraph"><block ref="3f1d67d33607ea8a1adeb499f4f8504a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d7dfba2666942f30ef63136f2f48cdbb" category="inline-link-macro">SVM에서 활성화할 pNFS 옵션</block>
+  <block id="5c66cd059de348695a1d5abd0586f05b" category="admonition">pNFS에는 <block ref="9a9750c632d4a77764b99bbade184f13" category="inline-link-macro-rx"></block>가 필요합니다. pNFS는 NFSv4.1에서만 지원됩니다.</block>
+  <block id="38e7c9eb7abd8b585d7ebd9f7add9fe5" category="section-title">ONTAP NFS로 마이그레이션할 때의 이점</block>
+  <block id="7af4daf3640494ae50aac3eb16bff57f" category="paragraph">vVols 데이터스토어에서 ONTAP NFS 데이터스토어로 마이그레이션하면 다음과 같은 여러 가지 이점이 있습니다:</block>
+  <block id="666fd63c1e93069f99b15e009184b0ed" category="list-text">*간소화된 관리*: ONTAP tools for VMware vSphere(vCenter와 통합됨)를 사용하여 NFS 데이터스토어를 프로비저닝, 확장 및 관리합니다.</block>
+  <block id="68cd59bf17ddf1c1fec3ed0b8feee0b0" category="list-text">*확장성*: FlexGroup 볼륨은 단일 데이터스토어에서 수천 개의 VM을 지원합니다.</block>
+  <block id="88c06798ec59fc645b5ba62a632635f0" category="list-text">*성능*: NFS 멀티패싱, nConnect 및 ONTAP 최적화를 통해 높은 처리량과 낮은 지연 시간을 제공합니다.</block>
+  <block id="2c82a054c19404035b0145dae589212f" category="list-text">*데이터 보호*: ONTAP Snapshot 복사본은 VM 성능에 영향을 주지 않고 빠르고 공간 효율적인 백업 및 복원을 제공합니다.</block>
+  <block id="5a25799586cf5d2ad42b000668463a0b" category="list-text">*운영 유연성*: NFS 데이터스토어는 여러 vCenter Server 인스턴스에 마운트할 수 있으며 vMotion, DRS, HA 및 FT를 지원합니다.</block>
+  <block id="d9a3b5cf1e6e50566efc8b9d334a4717" category="list-text">*통합*: ONTAP NFS는 NFS VAAI 플러그인, VMware Live Site Recovery 및 NetApp Disaster Recovery와 연동됩니다.</block>
+  <block id="ce8c6974f2329ae2a0874a1b2d8b64a5" category="list-text">*효율적인 공간 활용*: 씬 프로비저닝, 데이터 중복 제거 및 압축을 통해 스토리지 비용을 절감합니다.</block>
+  <block id="08c9d0b860a4b5148b3ba40dd53d3c16" category="list-text">*보안 및 규정 준수*: 엑스포트 정책, RBAC, Kerberos 및 암호화는 데이터를 보호하고 접근을 제어합니다.</block>
+  <block id="9ae054cac94d119d5bec7127768e5c9b" category="list-text">*미래 대비*: NFS는 vVols 지원 중단의 영향을 받지 않으므로 장기적인 호환성과 지원이 보장됩니다.</block>
+  <block id="4a0a5350bc5b1c1c3dc43edf89a9548c" category="inline-link-macro">NFS 데이터스토어 배포 모범 사례를 검토하십시오</block>
+  <block id="3fb93eebf74feecf210a3f4f30948055" category="list-text"><block ref="3fb93eebf74feecf210a3f4f30948055" category="inline-link-macro-rx"></block></block>
+  <block id="22cb5da9b38563407793a7425844cdcd" category="inline-link-macro">FlexVol 및 FlexGroup 볼륨 중에서 선택하십시오</block>
+  <block id="237e07e07eee513b00db7c5a2d28f4e6" category="list-text"><block ref="237e07e07eee513b00db7c5a2d28f4e6" category="inline-link-macro-rx"></block></block>
+  <block id="0e81289ee54290af5da9741eb4e8e13a" category="inline-link-macro">사이징 가이드라인을 검토하십시오</block>
+  <block id="81a02518a657220262caadde62ab4710" category="list-text"><block ref="81a02518a657220262caadde62ab4710" category="inline-link-macro-rx"></block></block>
+  <block id="a046cab681d95313d36b4719c1532f71" category="inline-link-macro">ONTAP 통합 툴 알아보기</block>
+  <block id="25cfc13a7040c181cd38215f2580f41e" category="list-text"><block ref="25cfc13a7040c181cd38215f2580f41e" category="inline-link-macro-rx"></block></block>
+  <block id="0d5abf1f506147cbe14652f2155c03a2" category="inline-link-macro">마이그레이션 옵션을 선택하십시오</block>
+  <block id="3fe87e57f7dc5e7a2bece9373565fc1d" category="list-text"><block ref="3fe87e57f7dc5e7a2bece9373565fc1d" category="inline-link-macro-rx"></block></block>
+  <block id="4d08883c12082c88339e22d371aa427f" category="inline-link-macro">추가 리소스 찾기</block>
+  <block id="1b969ee8779871636818fe8e9ceeb111" category="list-text"><block ref="1b969ee8779871636818fe8e9ceeb111" category="inline-link-macro-rx"></block></block>
+  <block id="509378a847344560e8b53252a99f3706" category="sidebar">vVols에서 NFS로 VM 마이그레이션</block>
+  <block id="c2f99c994ca34e9d82cf89c1b42f2133" category="sidebar">vVols에서 NFS로 마이그레이션하는 방법에 대해 알아보십시오.</block>
+  <block id="137e4d3e0bc5586af6fc7ca9441511e1" category="sidebar">사이징 가이드라인</block>
+  <block id="ec7f55f91b201191775a6197f011f7f7" category="sidebar">ONTAP 통합 툴</block>
+  <block id="7fb0755110f4a96ae5bd0935a2d5ccbb" category="sidebar">마이그레이션 옵션</block>
 </blocks>

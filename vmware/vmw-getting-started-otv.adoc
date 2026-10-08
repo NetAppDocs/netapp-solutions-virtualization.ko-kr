@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-ONTAP tools for VMware vSphere NetApp 스토리지를 사용하여 VM의 수명 주기 관리를 간소화합니다.  관리자는 vCenter Server에서 직접 스토리지를 관리하여 운영을 간소화하고 확장성을 향상시킬 수 있습니다.  VSC(Virtual Storage Console), VASA Provider, SRA(Storage Replication Adapter)와 같은 주요 구성 요소는 프로비저닝, 성능 모니터링, 재해 복구를 최적화합니다.
+ONTAP tools for VMware vSphere는 NetApp 스토리지를 사용하는 VM의 수명 주기 관리를 간소화합니다. 관리자는 vCenter Server에서 직접 스토리지를 관리할 수 있으므로 운영이 간소화되고 확장성이 향상됩니다. vSphere Client 플러그인, VASA Provider, Storage Replication Adapter(SRA)와 같은 주요 구성 요소는 프로비저닝, 성능 모니터링 및 재해 복구를 최적화합니다.
 
 
 
@@ -28,9 +28,13 @@ ONTAP tools for VMware vSphere NetApp 스토리지를 사용하여 VM의 수명 
 [[ontap-tools-components]]
 == ONTAP 도구 구성 요소
 
-* *가상 스토리지 콘솔(VSC)* VSC에는 vSphere 클라이언트와 통합된 인터페이스가 포함되어 있어 스토리지 컨트롤러를 추가하고, 데이터스토어를 프로비저닝하고, 데이터스토어의 성능을 모니터링하고, ESXi 호스트 설정을 보고 업데이트할 수 있습니다.
+* *vSphere Client 플러그인* 이 플러그인에는 스토리지 컨트롤러 추가, 데이터스토어 프로비저닝, 데이터스토어 성능 모니터링, ESXi 호스트 설정 보기 및 업데이트를 수행할 수 있는 vSphere 클라이언트와 통합된 인터페이스가 포함되어 있습니다. ONTAP 툴 9.x에서는 이 구성 요소를 가상 스토리지 콘솔(VSC)이라고 합니다.
 * *VASA 공급자* ONTAP 용 VMware vSphere APIs for Storage Awareness(VASA) 공급자는 VMware vSphere에서 사용하는 스토리지에 대한 정보를 vCenter Server로 전송하여 VMware Virtual Volumes(vVols) 데이터 저장소 프로비저닝, 스토리지 기능 프로필 생성 및 사용, 규정 준수 검증, 성능 모니터링을 지원합니다.
 * *스토리지 복제 어댑터(SRA)* SRA를 활성화하고 VMware Site Recovery Manager(SRM)와 함께 사용하면 장애 발생 시 vCenter Server 데이터스토어와 가상 머신의 복구를 용이하게 하여 재해 복구를 위한 보호 사이트와 복구 사이트를 구성할 수 있습니다.
 
 
-VMware용 NetApp ONTAP 도구에 대한 자세한 내용은 다음을 참조하세요. https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["ONTAP tools for VMware vSphere 설명서"] .
+자세한 내용은 해당 버전의 ONTAP tools for VMware vSphere 설명서를 참조하십시오:
+
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/index.html["ONTAP tools for VMware vSphere 10.x 설명서"^] (최신 릴리스)
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["ONTAP tools for VMware vSphere 9.x 설명서"^]
+

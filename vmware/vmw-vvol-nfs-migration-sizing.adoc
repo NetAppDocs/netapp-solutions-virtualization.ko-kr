@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vvol-nfs-migration-sizing.html 
+keywords: netapp, vmware, nfs, ontap, sizing, capacity, planning, datastore, performance 
+summary: 용량 계획, 데이터스토어 크기 조정, VM 밀도 및 성능 등 ONTAP을 사용하는 VMware vSphere 환경의 NFS 데이터스토어에 대한 크기 조정 가이드라인을 알아보십시오. 
+---
+= ONTAP을 사용하는 VMware vSphere 환경의 NFS 데이터스토어에 대한 사이징 가이드라인
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+용량 계획, 데이터스토어 크기 조정, VM 밀도 및 성능 등 ONTAP을 사용하는 VMware vSphere 환경의 NFS 데이터스토어 크기 조정 지침에 대해 알아보십시오. 이를 통해 vVols에서 VM을 마이그레이션하기 전에 대상 NFS 데이터스토어를 준비할 수 있습니다.
+
+ONTAP을 사용하는 VMware vSphere 환경을 위한 NFS 데이터스토어의 크기를 조정할 때 다음 지침을 고려하십시오.
+
+* *용량 계획*: VM 수, VM 디스크 크기, 증가율 및 스냅샷 보존 기간을 기준으로 필요한 총 스토리지 용량을 추정합니다. VM 스왑 파일 및 로그에 대한 오버헤드를 포함합니다. 현재 vVols 데이터스토어에서 사용 중인 용량을 시작점으로 활용하십시오.
+* *데이터 저장소 크기*: 각 데이터 저장소의 크기는 플랫폼의 ONTAP 볼륨 제한 범위 내에서 설정하십시오. FlexGroup 볼륨은 단일 FlexVol 볼륨의 제한을 넘어 확장됩니다. 플랫폼 제한에 대해서는 link:https://hwu.netapp.com["NetApp Hardware Universe"^]을(를) 참조하십시오.
+* *VM 밀도*: 워크로드 성능 요구 사항, 백업 및 복구 세분성, 운영 선호도에 따라 데이터스토어당 VM 수를 계획하십시오. FlexGroup 볼륨은 단일 데이터스토어에 수천 개의 VM을 호스팅할 수 있습니다.
+* *성능*: IOPS, 처리량 및 지연 시간 요구 사항을 고려하십시오. 부하를 분산하기 위해 여러 ONTAP LIF를 사용하고 볼륨을 노드 및 애그리게이트에 분산하십시오.
+* *스냅샷 예약*: 백업 및 복구 보존 요구 사항을 충족할 수 있도록 ONTAP 스냅샷 사본을 위한 충분한 공간을 할당하십시오.
+* *씬 프로비저닝*: 씬 프로비저닝을 활성화하여 공간 활용을 최적화하고, 사용량을 모니터링하여 오버커밋을 방지하십시오.
+* *성장 및 확장*: 향후 성장을 고려하여 데이터스토어를 설계하십시오. 다운타임 없이 FlexVol 및 FlexGroup 볼륨을 확장할 수 있습니다.
+* *백업 및 재해 복구*: 백업 복사본 및 복제본을 위한 공간을 확보하십시오.
+
+
+
+
+[[additional-information]]
+== 추가 정보
+
+* link:https://configmax.broadcom.com["VMware 구성 최대값"^]
+* link:https://hwu.netapp.com["NetApp Hardware Universe"^]
+* link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-datastores-nfs.html["VMware vSphere with ONTAP 모범 사례 가이드의 NFS 데이터스토어"^]
+
