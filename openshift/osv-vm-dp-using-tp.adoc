@@ -140,7 +140,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-007.png["vm, pods 및 pvc가 생성되었습�
 .앱 만들기
 [%collapsible]
 ====
-**VM에 대한 Trident Protect 앱 만들기**
+**VM용 Trident Protect 앱을 생성하세요**
 
 이 예에서 데모 네임스페이스에는 하나의 VM이 있으며, 앱을 생성할 때 네임스페이스의 모든 리소스가 포함됩니다.
 

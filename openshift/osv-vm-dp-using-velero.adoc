@@ -21,7 +21,7 @@ Velero 및 NetApp ONTAP S3 또는 StorageGRID 사용하여 OpenShift Virtualizat
 [[steps-to-create-a-backup-of-a-vm]]
 == VM 백업을 생성하는 단계
 
-전체 VM(VM 메타데이터 및 VM 디스크)의 주문형 백업을 만들려면 **백업** 탭을 클릭하세요.  이렇게 하면 백업 사용자 정의 리소스(CR)가 생성됩니다. 백업 CR을 생성하기 위한 샘플 yaml이 제공됩니다.  이 yaml을 사용하면 지정된 네임스페이스에 있는 VM과 디스크가 백업됩니다. 추가 매개변수는 표시된 대로 설정할 수 있습니다.link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.html["선적 서류 비치"] .
+전체 VM(VM 메타데이터 및 VM 디스크)의 온디맨드 백업을 생성하려면 **Backup** 탭을 클릭하십시오. 그러면 Backup Custom Resource(CR)가 생성됩니다. Backup CR을 생성하기 위한 샘플 yaml이 제공됩니다. 이 yaml을 사용하면 지정된 네임스페이스에 있는 VM과 해당 디스크가 백업됩니다. 자세한 내용은 link:https://docs.openshift.com/en/documentation/openshift_container_platform/4.14/html/backup_and_restore/backup-restore-overview#application-backup-restore-operations-overview["OpenShift 컨테이너 플랫폼 문서"]에서 확인할 수 있습니다.
 
 디스크를 백업하는 영구 볼륨의 스냅샷은 CSI에 의해 생성됩니다.  VM의 백업과 디스크의 스냅샷이 생성되어 yaml에 지정된 백업 위치에 저장됩니다. 백업은 TTL에 지정된 대로 30일 동안 시스템에 보관됩니다.
 

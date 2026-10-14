@@ -38,7 +38,7 @@ image:redhat-openshift-ocpv-tp-003.png["source-ns 네임스페이스에 OCP-v VM
 
 이 섹션에서는 ONTAP S3 객체 스토리지를 사용하여 Trident Protect에서 AppVault 객체를 설정하는 방법을 보여줍니다.
 
-아래에 표시된 oc 명령어와 yaml 파일을 사용하여 ONTAP S3용 시크릿과 AppVault 사용자 지정 리소스를 생성하십시오. 반드시 trident protect 네임스페이스에 생성해야 합니다.
+아래에 표시된 oc 명령어와 yaml 파일을 사용하여 ONTAP s3용 시크릿과 AppVault 사용자 지정 리소스를 생성하세요. 반드시 trident-protect 네임스페이스에 생성해야 합니다.
 
 [source, cli]
 ----
