@@ -6798,9 +6798,7 @@
   <block id="e64d3e5c79e6674080802b27f21a9fc4" category="list-text"><block ref="e64d3e5c79e6674080802b27f21a9fc4" category="inline-link-macro-rx"></block></block>
   <block id="85f5858cd9a1fa8d7d5f546a8a12b489" category="paragraph">어레이 구성에 대한 자세한 단계는 다음을 참조하십시오. <block ref="cda967d5dbafb03ba39e303667f2f1c2" category="inline-link-macro-rx"></block> 그리고 <block ref="227981b99c3933beea85434bdd33c2bd" category="inline-link-macro-rx"></block></block>
   <block id="bbf7a9763c8116fd17ae9786a7504aea" category="list-text">NetApp Console 과 Data Infrastructure Insights 통합.</block>
-  <block id="51cd5879ce0a19dd7464db1782205096" category="summary">Shift Toolkit 및 가상화용 마이그레이션 툴킷을 사용하여 VMware ESXi에서 Red Hat OpenShift Virtualization으로 VM을 마이그레이션합니다.</block>
   <block id="111a2605974d9776ae209866d95f92f1" category="doc">Shift 툴킷과 가상화 마이그레이션 툴킷을 사용하여 VMware ESXi에서 Red Hat OpenShift Virtualization으로 가상 머신을 마이그레이션합니다.</block>
-  <block id="92ed7cd7e1d94197d6c5c6cb76f5bd37" category="paragraph">이 섹션에서는 가상화용 마이그레이션 툴킷(MTV)과 NetApp Shift Toolkit이 Red Hat OpenShift Virtualization으로의 원활한 마이그레이션 환경을 제공하는 방법을 설명하고, 가상화용 마이그레이션 툴킷과 Shift Toolkit의 변환 기능을 사용하여 OpenShift Virtualization으로 전환하는 단계별 가이드를 제공합니다.</block>
   <block id="4ee3b5d40b4b5ea1ea6abbf248ab4700" category="list-text">OpenShift 클러스터는 네트워크에서 접근 가능합니다.</block>
   <block id="c08399e4ce862b999260b8032ee13f72" category="list-text">NetApp Trident 운영자</block>
   <block id="00d5fe821f19533e88ebcbe1ef9121a5" category="list-text">MTV 2.9.4 이상 버전(변환 모드 포함)</block>
@@ -6809,12 +6807,9 @@
   <block id="5be8426da76cced0a47158ad47750def" category="list-text">최소한의 권한만 있는 계정입니다. 이 부분을 참조하세요<block ref="c926533bfc6d97c26e033293cec05b98" category="inline-link-macro-rx"></block></block>
   <block id="290ab574b340fbe7c1c7b7c89a003fef" category="list-text">각 VM의 운영 체제는 변환을 위한 게스트 운영 체제로 인증 및 지원됩니다.</block>
   <block id="9fcda93f457ee4efde123f8b81663bce" category="list-text">IP 주소, VLAN 및 기타 네트워크 구성 설정은 마이그레이션 전이나 마이그레이션 도중에 변경해서는 안 됩니다. 가상 머신의 MAC 주소는 마이그레이션 과정에서 보존됩니다.</block>
-  <block id="409116cb62df6ecb2004715240d3147a" category="section-title">1단계: 가상화용 마이그레이션 툴킷을 사용하여 마이그레이션 계획을 생성합니다.</block>
   <block id="6e9910b1ca90b862667de7817be15cc1" category="inline-link-macro">웹 콘솔</block>
   <block id="4e36c3b3ad435683e9f029ac71865abc" category="inline-link-macro">명령줄</block>
-  <block id="d688b4ec9c9b009c06aa0f287f8fbe39" category="list-text">VM의 초고속 변환을 활용하려면 먼저 MTV를 사용하여 VM 마이그레이션 계획을 수립해야 합니다.<block ref="70c62987d0b9335730ffdb7ddd9e1317" category="inline-link-macro-rx"></block> 또는<block ref="3337becbde3813deecced40a779b0887" category="inline-link-macro-rx"></block> .</block>
   <block id="a3e188416b8a703de12305625c5da1a7" category="admonition">MTV에서 IP 보호 설정을 구성하도록 하려면 사전에 계획을 세워야 합니다.</block>
-  <block id="8c4271e6faf2cea4cfc8e5b7108d8ee9" category="list-title">절차</block>
   <block id="74e54e76819331b9fc34d6bd9837600e" category="list-text">MTV 웹 콘솔에 로그인하세요.</block>
   <block id="53bd053a8d6b054fc7ecb5374ba494e2" category="list-text">출발지 및 도착지 공급자를 추가하세요</block>
   <block id="57e3cd17c30a36fce8a69a072d44ec27" category="list-text">대상 네임스페이스에 마이그레이션 계획을 생성합니다.</block>
@@ -6837,9 +6832,7 @@
   <block id="03219f2365bb167fe7acc92f243e7871" category="list-text">검토 및 마무리</block>
   <block id="98c7c5f2fd8ddce1779f9ed643c1761a" category="list-text">모든 설정을 꼼꼼히 검토한 후, 마침을 클릭하여 마이그레이션 계획을 생성하세요.</block>
   <block id="084bc38feb66f33362bca3b9141a9b6f" category="image-alt">검토 및 생성</block>
-  <block id="bbadb4f2b718afab2d41bc0e71139cea" category="list-text">마이그레이션 계획이 생성되면 마이그레이션 계획의 이름을 복사하고 Shift 툴킷 UI로 이동합니다.</block>
   <block id="973a76527c9dc52fa471cf2f6f87e470" category="inline-link-macro">사이트를 만들기 위해</block>
-  <block id="09657c90a5a5fed6a3ef58b0118383f3" category="list-text">소스 및 대상 하이퍼바이저를 추가합니다. 이 링크를 따라가세요<block ref="6dc5de2ed7fd5090638f8a04725f7665" category="inline-link-macro-rx"></block></block>
   <block id="a11a34a1a2f11fd6afa6d5e8d061927c" category="admonition">Shift Toolkit에 구성된 엔드포인트는 MTV 콘솔을 통해 추가할 때 사용한 형식과 일치해야 합니다. 예를 들어, 소스 또는 대상 엔드포인트를 FQDN을 사용하여 추가한 경우 Shift Toolkit에서도 동일한 FQDN을 사용해야 합니다.</block>
   <block id="88d5f218c07e3dcc1200eb039539e934" category="image-alt">Shift 툴킷 사이트 표시</block>
   <block id="9cebc7a4e984aed09b0e55eb42739edb" category="list-text">설계도로 이동하여 새 설계도를 생성하세요.</block>
@@ -6852,7 +6845,6 @@
   <block id="13c29b26fb4e3313453403a8b47c6d24" category="list-text">PVC 수입 옵션을 선택하세요. 기본 설정은 볼륨을 복제하고 가져오는 것입니다.</block>
   <block id="5fafc78bbd344640d10aa3386b1d4ccf" category="admonition">볼륨은 복제본을 만들지 않고도 직접 가져올 수 있습니다.</block>
   <block id="4667dbd6fafc21b84cbaa1826d7c923a" category="image-alt">VM 세부 정보</block>
-  <block id="0505d284d5f77b26f9c2e901ac70c820" category="list-text">완료되면 설계도를 만드세요.</block>
   <block id="28de6972b99da54bfaafb58aae46bb41" category="list-text">블루프린트에서 마이그레이션을 클릭하여 마이그레이션을 시작하세요.</block>
   <block id="701e7b661e949d354a8b9cf334102bf2" category="admonition">마이그레이션을 시작하기 전에 VM의 전원을 꺼야 합니다. MTV는 VM 대상 전원 상태 속성을 기반으로 VM을 시작합니다.</block>
   <block id="71dc0880d10a073a87b57eb781852dcb" category="image-alt">트리거 마이그레이션</block>
@@ -6870,8 +6862,6 @@
   <block id="b6fe8a689b9cf15f4bdca2cf095c4c9e" category="image-alt">마이그레이션 후 Windows VM</block>
   <block id="94d5abe2db4aa3d6add9fc8023c683c5" category="image-alt">마이그레이션 후 Linux VM</block>
   <block id="f23e54af32c8f401757078bc6c8394e3" category="admonition">이 그림은 Shift 툴킷과 MTV를 함께 사용하여 마이그레이션을 매우 빠른 속도로 간소화하는 방법을 보여줍니다. 이 예시에서는 총 12TB 용량의 가상 머신 2개를 마이그레이션했습니다. 전체 과정은 약 8~10분 만에 완료되었습니다.</block>
-  <block id="115dd50a29d31d14f98082b0c11ce8a3" category="paragraph-title">무대 뒤에서 무슨 일이 벌어지고 있을까요?</block>
-  <block id="9d58c8f5f6248972cf82f0097d8795fe" category="paragraph">다음 섹션에서는 Shift Toolkit API 및 MTV를 사용하여 VMDK 파일을 변환하고 OpenShift 플랫폼에서 가상 머신을 생성하는 단계를 설명합니다. 이 워크플로는 Shift Toolkit UI를 통해 시작하든 Shift Toolkit 스크립트 블록에 제공된 스크립트를 통해 시작하든 일관성을 유지합니다.</block>
   <block id="5db5a1f0b6ce401b5f5a2fe9416b6e33" category="paragraph-title">VMDK 변환</block>
   <block id="c013f50e770213a410d5f6cda254bd49" category="paragraph">Shift 툴킷은 기본 부팅 디스크를 포함하여 각 VM과 연결된 VMDK 파일을 자동으로 찾습니다.</block>
   <block id="1897d431751b904960143382b1fac632" category="paragraph-title">볼륨 가져오기 및 마이그레이션 계획 구성</block>
@@ -6883,16 +6873,13 @@
   <block id="cb8e1e5c861527e4e6a4de37c73d7bbc" category="list-text">vmdk 디스크 경로</block>
   <block id="f081b318b7992066d3b226d49f1442a6" category="paragraph">또한 disk.img 파일의 권한이 업데이트됩니다. 권한은 가져온 PVC를 마운트하고 다음과 같이 권한을 설정하기 위해 즉시 배포되는 POD를 사용하여 수정됩니다.</block>
   <block id="0333eac5b2e405300234fd80009bffaa" category="list-text">"소유자": { "id": 107 },"그룹": { "id": 107 },"모드": "0655"</block>
-  <block id="31aac2174d785a4c2950b69ddbafaed0" category="paragraph">중요 참고 사항:</block>
   <block id="87e62689cf8d67ce066fde85596046d8" category="list-text">지게차는 PVC에서 vmID와 vmUUID를 확인합니다.</block>
   <block id="7e3bfce76524328f20f7a069ca46f8bd" category="list-text">Forklift는 forklift.konveyor.io/disk-source에 디스크 이름(VMDK 경로)을 사용합니다.</block>
   <block id="e312a3da41b2a6b5ef9bcf89370f2406" category="list-text">가져온 PVC의 수는 소스 VM과 연결된 디스크 수와 일치해야 합니다. 예를 들어 VM에 VMDK 파일이 3개 있지만 ID가 일치하는 PVC 파일이 4개 가져온 경우 MTV는 마이그레이션 계획 상태를 "시작 준비 완료"로 업데이트하지 않습니다.</block>
-  <block id="1dd4d2d0d89438fe47738904c32eb130" category="paragraph">이러한 단계가 완료되면 Shift Toolkit은 마이그레이션 계획 YAML을 패치하여 MTV가 PVC를 직접 사용해야 하며 일반적으로 시간이 많이 소요되는 데이터 채우기 pod 프로세스를 건너뛰어야 함을 이해하도록 합니다. 수정된 YAML 파일에는 다음 내용이 포함됩니다.</block>
   <block id="c890a1cad0b84a5de7465f3d9b7b9e36" category="list-text">대상 네임스페이스: 기본값</block>
   <block id="e11e8548d30616ebe3fa63de585ef747" category="list-text">유형: 변환</block>
   <block id="33c53d4cce79c533f2668e1e5a90ff34" category="list-text">저장: {}</block>
   <block id="dc086a6cd4bacd67009bdd981e39ddbc" category="paragraph-title">마이그레이션 프로세스 시작</block>
-  <block id="6f67c2b6ae09035a640f9251cf9ba8b2" category="paragraph">구성이 완료되면 MTV가 실행되어 마이그레이션이 시작됩니다. UI에는 마이그레이션 유형이 콜드(Cold)로 표시되지만, 변환을 위한 YAML 사양에 따라 MTV는 각 PVC를 연결된 vmID 및 vmUUID와 비교하여 유효성을 검사하고, 그에 따라 매핑한 다음 마이그레이션을 초기화합니다. 예시를 보여주세요</block>
   <block id="38f72a347e78e7ca31e2b366b9cefccc" category="image-alt">MTV 콘솔 완료 시간</block>
   <block id="27b433c028b1e00a68be41ccd19544a3" category="admonition">VM은 가상 머신의 경우 "기본" 프로젝트 아래에 생성되지만, MTV 마이그레이션 계획 YAML 파일 내에서 수정할 수 있습니다.</block>
   <block id="f41366f23fa781b002429962790550a6" category="paragraph">Shift Toolkit은 프로세스를 간소화하고 다운타임을 최소화하며 ESXi 호스트 액세스 또는 VDDK 기반 접근 방식의 필요성을 없애 마이그레이션 속도를 높입니다.</block>
@@ -9882,4 +9869,20 @@
   <block id="6e2a3b1094b66d679a2f74a8a08c9246" category="section-title">NAS 프로토콜의 경우</block>
   <block id="5090601a75323a1861526e5add664b7b" category="section-title">SAN 프로토콜의 경우</block>
   <block id="744a96e9ce909d310b032af09b7da629" category="paragraph">**VM용 Trident Protect 앱을 생성하세요**</block>
+  <block id="085ab91861e475d9e3e50501b0929c95" category="paragraph">마이그레이션 후 PVC 분할 작업을 더 빠르게 진행하려면 소스 NFS 데이터스토어를 5TB 이하로 유지하십시오. 더 큰 볼륨을 사용할 수도 있지만, VM 마이그레이션을 위해 200~300개의 클론을 생성할 때는 분할 작업을 더 신속하게 완료하는 데 더 작은 볼륨이 이상적입니다.</block>
+  <block id="2014d8bad25851c143223dea9b91b6b3" category="summary">Migration Toolkit for Virtualization(MTV)와 NetApp Shift 툴킷을 사용하여 VMware ESXi에서 Red Hat OpenShift Virtualization으로 VM을 마이그레이션합니다. 이 절차에는 MTV에서 마이그레이션 계획을 생성하고 Shift 툴킷을 사용하여 VM 디스크를 변환하는 작업이 포함되어 있으므로, VM이 OpenShift Virtualization으로 신속하게 이동합니다.</block>
+  <block id="da8b7db47ac0e97698c3cb02730ade0a" category="section-title">1단계: 마이그레이션 계획 수립</block>
+  <block id="1d4d9dc066d1fd014eb68598936db9fd" category="paragraph">VM의 초고속 변환을 활용하기 위한 첫 번째 단계는 <block ref="70c62987d0b9335730ffdb7ddd9e1317" category="inline-link-macro-rx"></block> 또는 <block ref="3337becbde3813deecced40a779b0887" category="inline-link-macro-rx"></block>를 통해 MTV를 사용하여 VM에 대한 마이그레이션 계획을 생성하는 것입니다.</block>
+  <block id="4d444f06ad3c08a2f7dc3c0cfe60907f" category="section-title">2단계: Shift 툴킷에서 설계도를 생성합니다</block>
+  <block id="e3dbab37b88c56eb648687249b96f92b" category="paragraph">MTV에서 마이그레이션 계획을 생성한 후 소스 및 대상 사이트를 추가하고 Shift 툴킷 UI에서 해당 계획을 기반으로 블루프린트를 생성하십시오.</block>
+  <block id="ca831ef4c7b31a9d7609e301ef99fd91" category="list-text">마이그레이션 계획의 이름을 복사하고 Shift 툴킷 UI로 이동합니다.</block>
+  <block id="4dc21b9744cdd8aca0b574855d9848e7" category="list-text">소스 및 대상 하이퍼바이저를 추가하십시오. 다음 링크를 참조하십시오<block ref="6dc5de2ed7fd5090638f8a04725f7665" category="inline-link-macro-rx"></block>.</block>
+  <block id="2c69816126df936233c2f0ebb52dd5e2" category="list-text">설계도 설정을 검토한 다음 **설계도 생성**을 선택하여 저장하십시오.</block>
+  <block id="bcdcf19256c58e85f8f38d49a918c003" category="section-title">3단계: 마이그레이션을 실행합니다</block>
+  <block id="c4cbabb2b0168d5ac9978c7b865310e8" category="paragraph">설계도를 생성한 후 Shift 툴킷에서 마이그레이션을 시작하고 MTV에서 계획이 완료되었다고 보고할 때까지 모니터링하십시오.</block>
+  <block id="8cb4dbf08eebd4aee7d4d917f1e6e23d" category="section-title">내부적으로 일어나는 일</block>
+  <block id="ce5585ad6c13f742c5754fc84640274a" category="paragraph">다음 섹션에서는 Shift Toolkit API 및 MTV가 트리거하여 VMDK 파일을 변환하고 OpenShift 플랫폼에 가상 머신을 생성하는 단계를 설명합니다. 이 워크플로는 Shift Toolkit UI를 통해 시작되든 Shift Toolkit Script Blocks 내에 제공된 스크립트를 사용하여 시작되든 일관되게 유지됩니다.</block>
+  <block id="7dcca1322bff7fc795a0f558658f3ba4" category="list-title">중요 사항</block>
+  <block id="ae490aa3c145227d57aa6ad8214f727f" category="paragraph">이러한 단계가 완료되면 Shift Toolkit은 마이그레이션 계획 YAML을 패치하여 MTV가 PVC를 직접 사용해야 하며 일반적으로 시간이 많이 소요되는 데이터 채우기 Pod 프로세스를 건너뛰어야 함을 이해하도록 합니다. 패치된 YAML에는 다음이 포함됩니다.</block>
+  <block id="a043ab0dad12b229a0a7942ab60824a2" category="paragraph">구성이 완료되면 MTV가 호출되어 마이그레이션을 시작합니다. UI에는 마이그레이션 유형이 Cold로 표시되지만, 변환을 위한 YAML 사양에 따라 MTV는 각 PVC를 연결된 vmID 및 vmUUID와 비교하여 유효성을 검사하고, 적절하게 매핑한 다음 마이그레이션을 초기화합니다. .예제 보기</block>
 </blocks>
