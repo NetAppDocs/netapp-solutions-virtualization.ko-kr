@@ -40,5 +40,14 @@ entries:
     url: "/proxmox/proxmox-pbs-requirements.html"
   - title: Proxmox Backup Server를 사용하여 데이터 보호를 구성하세요.
     url: "/proxmox/proxmox-wkld-dp-pbs.html"
-- title: Proxmox용 Storage Manager 구성 및 사용
-  url: "/proxmox/proxmox-smp.html"
+  - title: Proxmox용 Storage Manager 구성 및 사용
+    url: "/proxmox/proxmox-smp.html"
+- title: Proxmox VE 워크로드의 비즈니스 연속성
+  pdf-filename: Proxmox VE 워크로드의 비즈니스 연속성
+  entries:
+  - title: 솔루션 아키텍처
+    url: "/proxmox/proxmox-business-continuity.html"
+  - title: NAS 스토리지로 구성
+    url: "/proxmox/proxmox-active-sync-nas-config.html"
+  - title: Proxmox용 Storage Manager 구성 및 사용
+    url: "/proxmox/proxmox-smp.html"

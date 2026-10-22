@@ -30,6 +30,14 @@ indexpage:
       url: proxmox-wkld-dp-pbs.html
     - title: Proxmox용 Storage Manager 구성 및 사용
       url: proxmox-smp.html
+  - title: Proxmox VE 워크로드의 비즈니스 연속성
+    links:
+    - title: 솔루션 아키텍처
+      url: proxmox-business-continuity.html
+    - title: NAS 스토리지로 구성
+      url: proxmox-active-sync-nas-config.html
+    - title: Proxmox용 Storage Manager 구성 및 사용
+      url: proxmox-smp.html
   - title: 추가 자료
     links:
     - title: Proxmox 가상화 환경에서 획기적인 성능을 제공하는 NetApp 스토리지 및 NVMe-oF
